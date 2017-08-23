@@ -22,23 +22,14 @@
 	
     <div id="map"></div>
     <script>
-    	var lat, lng;
-	    navigator.geolocation.getCurrentPosition(function(e){
-			console.log(e);
-			lat = e.coords.latitude;
-			lng = e.coords.longitude;
-			window.alert(lat + "/" + lng);
-		});
-    
       var map;
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
-          "center": {"lat": lat, "lng": lng},
+          "center": {"lat": 37.498014, "lng": 127.027400},
           "zoom": 15
         });
       }
     </script>
-    
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDo-BtuBgQQiMJPsGdgh3frL9QYbYW-NT8&callback=initMap"
     async defer></script>
   </body>

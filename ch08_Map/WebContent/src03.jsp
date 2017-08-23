@@ -16,21 +16,21 @@
 <body>
     <div id="map"></div>
     <script>
-    	var lat, lng;
-	    navigator.geolocation.getCurrentPosition(function(e){
-			console.log(e);
-			lat = e.coords.latitude;
-			lng = e.coords.longitude;
-			window.alert(lat + "/" + lng);
-		});
-    
-      var map;
-      function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-          "center": {"lat": lat, "lng": lng},
-          "zoom": 15
-        });
-      }
+	    function initMap() {
+	    	var pos = {"lat": 37.498034, "lng": 129.044};
+	        var map = new google.maps.Map(document.getElementById('map'), {
+	          "center": pos,
+	          "zoom": 15
+	        });
+	        var marker = new google.maps.Marker({
+	            "map": map,
+	            "position": {
+	            	"lat": 37.498034,
+	            	"lng": 127.027430
+	            },
+	            "title" : "Hello world!"
+	          });
+	      }
     </script>
     
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDo-BtuBgQQiMJPsGdgh3frL9QYbYW-NT8&callback=initMap"
