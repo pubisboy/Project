@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <html>
 <meta name="viewport" content="initial-scale=1.0">
@@ -14,12 +14,6 @@
 </style>
 </head>
 <body>
-	<h2>Google Map API</h2>
-	일단 google map api 검색해서 사이트 접근 후에, 지도를 띄울 영역을 설정하고<br>
-	미리 활성화된 영역에 나중에 그려지는거라서 사이즈가 있어야 함.
-	<hr>
-	
-	
     <div id="map"></div>
     <script>
     	var lat, lng;
