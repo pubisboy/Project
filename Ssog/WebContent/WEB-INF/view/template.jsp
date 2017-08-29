@@ -26,9 +26,11 @@
 		<nav style="width: 100%;">
 			<tiles:insertAttribute name="nav" />
 		</nav>
+		<div class="container">
 		<section style="min-height: 80%; margin-top: 50px;" >
 			<tiles:insertAttribute name="section" />
 		</section>
+		</div>
 		<footer>
 			<tiles:insertAttribute name="footer" />
 		</footer>
