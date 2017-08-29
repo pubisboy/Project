@@ -11,4 +11,11 @@ public class MemberController {
 		ModelAndView mav = new ModelAndView("t_base");
 		return mav;
 	}
+	@RequestMapping("/member/join.j")
+	public ModelAndView join() {
+		ModelAndView mav = new ModelAndView("t_base");
+		mav.addObject("section","member/join");
+		return mav;
+	}
 }
+
