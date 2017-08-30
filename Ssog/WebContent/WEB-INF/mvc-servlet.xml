@@ -31,6 +31,7 @@
 		<property name="definitions">
 			<array>
 				<value>/WEB-INF/tiles/mainTiles-config.xml</value>
+				<value>/WEB-INF/tiles/adminTiles-config.xml</value>
 			</array>
 		</property>
 	</bean>
@@ -58,7 +59,7 @@
 				<value>/WEB-INF/mapper/selectTest-mapper.xml</value>
 				<value>/WEB-INF/mapper/member-mapper.xml</value>
 				<value>/WEB-INF/mapper/product_mapper.xml</value>
-				
+				<value>/WEB-INF/mapper/admin-mapper.xml</value>
 			</list>
 		</property>
 	</bean>

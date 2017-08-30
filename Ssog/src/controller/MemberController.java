@@ -31,7 +31,7 @@ public class MemberController {
 	@RequestMapping({ "/", "/index.j" })
 	public ModelAndView toIndex() {
 		ModelAndView mav = new ModelAndView("t_base");
-		mav.addObject("section","/main");
+		mav.addObject("section", "/main");
 		return mav;
 	}
 
