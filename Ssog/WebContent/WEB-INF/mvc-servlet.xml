@@ -46,9 +46,9 @@
 
 	<bean class="com.mchange.v2.c3p0.ComboPooledDataSource" id="ds">
 		<property name="driverClass" value="oracle.jdbc.driver.OracleDriver" />
-		<property name="jdbcUrl" value="jdbc:oracle:thin:@192.168.25.25:1521:xe" />
-		<property name="user" value="joon" />
-		<property name="password" value="oracle" />
+		<property name="jdbcUrl" value="jdbc:oracle:thin:@121.165.216.149:1521:xe" />
+		<property name="user" value="ukiki" />
+		<property name="password" value="aaabbb" />
 	</bean>
 
 	<bean class="org.mybatis.spring.SqlSessionFactoryBean">
@@ -56,6 +56,7 @@
 		<property name="mapperLocations">
 			<list>
 				<value>/WEB-INF/mapper/selectTest-mapper.xml</value>
+				<value>/WEB-INF/mapper/member-mapper.xml</value>
 			</list>
 		</property>
 	</bean>
@@ -78,8 +79,8 @@
 	<bean class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.gmail.com" />
 		<property name="port" value="587" />
-		<property name="username" value="itbanksaan" />
-		<property name="password" value="~1q2w3e4r" />
+		<property name="username" value="ukiki0506" />
+		<property name="password" value="rlatldnr11!" />
 		<property name="javaMailProperties">
 			<props>
 				<prop key="mail.smtp.auth">true</prop>

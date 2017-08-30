@@ -7,4 +7,13 @@
 		<put-attribute name="section" expression="/WEB-INF/view/main.jsp" />
 		<put-attribute name="footer" value="/WEB-INF/view/footer.jsp" />
 	</definition>
+	<definition name="t_el" extends="t_base">
+		<put-attribute name="section" expression="/WEB-INF/view/${section}.jsp" />
+	</definition>
+	<definition name="tw_*" extends="t_base">
+		<put-attribute name="section" value="/WEB-INF/view/{1}.jsp" />
+	</definition>
+	<definition name="tw_*/*" extends="t_base">
+		<put-attribute name="section" value="/WEB-INF/view/{1}/{2}.jsp" />
+	</definition>
 </tiles-definitions>
