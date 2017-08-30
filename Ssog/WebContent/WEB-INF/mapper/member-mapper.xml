@@ -5,7 +5,7 @@
  <mapper namespace="member">
  	<insert id="join" parameterType="java.util.HashMap">
  		INSERT INTO USER_MEMBER(id, pass, name, gender, birth, address, email, phone, joindate)
- 		VALUES(#{id}, #{pass}, #{name}, #{gender}, #{birth}, #{address}, #{email}, #{phone}, #{joindate})
+ 		VALUES(#{id}, #{pass}, #{name}, #{gender}, #{birth}, #{address}, #{email}, #{phone}, sysdate)
  	</insert>
   	<select id="login" parameterType="java.util.HashMap" resultType="java.util.HashMap">
   		SELECT * FROM USER_MEMBER WHERE id=#{id} AND pass=#{pass}

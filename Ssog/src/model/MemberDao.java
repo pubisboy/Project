@@ -20,6 +20,7 @@ public class MemberDao {
 	
 	public boolean join(Map map) {
 		SqlSession session = factory.openSession();
+		System.out.println(map);
 		try {
 			session.insert("member.join",map);
 			session.commit();

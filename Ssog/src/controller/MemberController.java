@@ -51,6 +51,27 @@ public class MemberController {
 			System.out.println(map);
 		}
 	}
+	@RequestMapping("/member/join_rst.j")
+	public ModelAndView join_rst(@RequestParam Map param, HttpSession session) {
+		ModelAndView mav = new ModelAndView("/member/join_rst");
+		String address = String.format("%s %s %s", param.get("postcode"),param.get("address1"),param.get("address2"));
+		System.out.println(address);
+		param.put("address", address);
+		System.out.println(param);
+		boolean r;
+		if (session.getAttribute("suckey").equals("TT")) {
+			r = mdao.join(param);
+			System.out.println("controller r:"+r);
+			if (r == true) {
+				session.setAttribute("auth", param.get("id"));
+			}
+		} else {
+			r = false;
+		}
+		mav.addObject("rst",r);
+		return mav;
+		
+	}
 	@RequestMapping("/member/emailaccredit.j")
 	@ResponseBody
 	public ModelAndView emailaccredit(HttpSession session, @RequestParam Map param) {
