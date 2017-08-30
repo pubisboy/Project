@@ -57,6 +57,8 @@
 			<list>
 				<value>/WEB-INF/mapper/selectTest-mapper.xml</value>
 				<value>/WEB-INF/mapper/member-mapper.xml</value>
+				<value>/WEB-INF/mapper/product_mapper.xml</value>
+				
 			</list>
 		</property>
 	</bean>
