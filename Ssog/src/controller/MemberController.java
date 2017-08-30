@@ -54,8 +54,9 @@ public class MemberController {
 	@RequestMapping("/member/emailaccredit.j")
 	@ResponseBody
 	public ModelAndView emailaccredit(HttpSession session, @RequestParam Map param) {
-		ModelAndView mav = new ModelAndView("member/emailaccredit");
-		MimeMessage msg = sender.createMimeMessage();String fu = UUID.randomUUID().toString();
+		ModelAndView mav = new ModelAndView("member/result");
+		MimeMessage msg = sender.createMimeMessage();
+		String fu = UUID.randomUUID().toString();
 		String sfu = fu.substring(0, 8);
 		System.out.println("만들어진uuid : " + sfu);
 		System.out.println("Email : " + param.get("email"));
