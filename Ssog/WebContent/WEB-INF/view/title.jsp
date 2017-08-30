@@ -48,7 +48,7 @@
 						<li><a href="/member/logout.j">로그아웃</a></li>
 					</c:otherwise>
 				</c:choose>
-				<li><a href="/">나의정보</a></li>
+				<li><a href="/member/myinfo/info.j">나의정보</a></li>
 				<li><a href="/">고객센터</a></li>
 				<li><a href="/">장바구니</a></li>
 			</ul>
