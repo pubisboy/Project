@@ -28,4 +28,64 @@ public class AdminOracleDao implements AdminDao{
 		}
 		return b;
 	}
+	
+	public int doc(){
+		SqlSession session = factory.openSession();
+		try{
+			return session.selectOne("admin.getCnt_dailyOrder");
+		}catch(Exception e){
+			System.out.println("error.doc : "+e.toString());
+			return -1;
+		}finally{
+			session.close();
+		}
+	}
+	
+	public int dpc(){
+		SqlSession session = factory.openSession();
+		try{
+			return session.selectOne("admin.getCnt_dailyPay");
+		}catch(Exception e){
+			System.out.println("error.dpc : "+e.toString());
+			return -1;
+		}finally{
+			session.close();
+		}
+	}
+	
+	public int duc(){
+		SqlSession session = factory.openSession();
+		try{
+			return session.selectOne("admin.getCnt_dailyUser");
+		}catch(Exception e){
+			System.out.println("error.duc : "+e.toString());
+			return -1;
+		}finally{
+			session.close();
+		}
+	}
+	
+	public int auc(){
+		SqlSession session = factory.openSession();
+		try{
+			return session.selectOne("admin.getCnt_allUser");
+		}catch(Exception e){
+			System.out.println("error.auc : "+e.toString());
+			return -1;
+		}finally{
+			session.close();
+		}
+	}
+	
+	public int luc(){
+		SqlSession session = factory.openSession();
+		try{
+			return session.selectOne("admin.getCnt_leaveUser");
+		}catch(Exception e){
+			System.out.println("error.luc : "+e.toString());
+			return -1;
+		}finally{
+			session.close();
+		}
+	}
 }
