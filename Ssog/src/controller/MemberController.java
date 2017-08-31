@@ -31,7 +31,7 @@ public class MemberController {
 	@RequestMapping({ "/", "/index.j" })
 	public ModelAndView toIndex() {
 		ModelAndView mav = new ModelAndView("t_base");
-		mav.addObject("section","/main");
+		mav.addObject("section", "/main");
 		return mav;
 	}
 
@@ -40,7 +40,7 @@ public class MemberController {
 		ModelAndView mav = new ModelAndView("tw_member/join");
 		return mav;
 	}
-	@RequestMapping("member/joinajax.j")
+	@RequestMapping("/member/joinajax.j")
 	public void joinajax(@RequestParam(name = "type") String type, @RequestParam(name = "val") String val, Map map) {
 		System.out.println("t"+type);
 		System.out.println("v"+val);
