@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="myinfo">
+	<select id="usergrade" parameterType="java.lang.String"
+		resultType="java.util.HashMap">
+		select rr.* from
+		(select r.*, rownum rnum from
+		(select b.*, f.grade from
+		(select * from USER_RECORD where id=#{id}) b
+		LEFT join USER_GRADE f on
+		b.buy_total>=f.STANDARD order by ROWNUM desc) r) rr
+		where rr.rnum = 1
+	</select>
+	<select id="orderlist" parameterType="java.lang.String"
+		resultType="java.util.HashMap">
+		select f.*, p.pro_name from
+		(select b.*, s.state s from
+		(SELECT * FROM ORDERTBL WHERE user_id=#{id}) b
+		left join STATE s on
+		b.state=s.state_NUM) f
+		left join PRODUCTTBL p on
+		f.pro_num=p.pro_num
+	</select>
+	<select id="qanda" parameterType="java.lang.String" resultType="java.util.HashMap">
+		select * from Q_AND_A where user_id=#{id} ORDER by num desc
+	</select>
+</mapper>
