@@ -4,6 +4,29 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="admin">
 	<select id="login" parameterType="java.util.HashMap" resultType="java.lang.Integer">
-		select count(*) from admin_member where id=#{id} and pass=#{pass}
+		select count(*) cnt from admin_member where id=#{id} and pass=#{pass}
 	</select>
+	
+	<select id="getCnt_dailyOrder" resultType="java.lang.Integer">
+		select count(*) cnt from ORDERTBL where ORDER_DATE &gt;= to_date(to_char(sysdate)) and ORDER_DATE &lt; to_date(to_char(sysdate))+1
+	</select>
+	
+	<select id="getCnt_dailyPay" resultType="java.lang.Integer">
+		select count(*) cnt from ORDERTBL where PAY_DATE &gt;= to_date(to_char(sysdate)) and PAY_DATE &lt; to_date(to_char(sysdate))+1
+	</select>
+	
+	<select id="getCnt_dailyUser" resultType="java.lang.Integer">
+		select count(*) cnt from USER_MEMBER where JOINDATE &gt;= to_date(to_char(sysdate)) and JOINDATE &lt; to_date(to_char(sysdate))+1
+	</select>
+	
+	<select id="getCnt_allUser" resultType="java.lang.Integer">
+		select count(*) cnt from USER_MEMBER
+	</select>
+	
+	<select id="getCnt_leaveUser" resultType="java.lang.Integer">
+		select count(*) cnt from USER_LEAVE where LEAVEDATE &gt;= to_date(to_char(sysdate)) and LEAVEDATE &lt; to_date(to_char(sysdate))+1
+	</select>
+	
+	
+	
 </mapper>
