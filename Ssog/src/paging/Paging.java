@@ -113,7 +113,7 @@ public class Paging {
 		this.sizeOfPage = sizeOfPage;
 	}
 
-	public Map<String, Object> calcPaging(int currentPageNo, int numberOfRecords) {
+	public Map<String, Object> calcPaging(int currentPage, int numberOfRecord) {
 		Map<String, Object> map = null;
 		if (numberOfRecords != 0) {
 			map = new HashMap<>();
@@ -121,8 +121,8 @@ public class Paging {
 			return map;
 		}
 
-		setCurrentPageNo(currentPageNo);
-		setNumberOfRecords(numberOfRecords);
+		setCurrentPageNo(currentPage);
+		setNumberOfRecords(numberOfRecord);
 
 		int finalPage = (numberOfRecords % recordsPerPage) == 0 ? (numberOfRecords / recordsPerPage)
 				: (numberOfRecords / recordsPerPage) + 1;
