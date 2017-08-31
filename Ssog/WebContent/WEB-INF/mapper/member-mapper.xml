@@ -16,4 +16,5 @@
   	<select id="email_check" parameterType="java.lang.String" resultType="java.util.HashMap">
   		SELECT * FROM USER_MEMBER WHERE email=#{email}
   	</select>
+  	
  </mapper>

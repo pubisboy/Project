@@ -121,9 +121,12 @@ public class Paging {
 			return map;
 		}
 
+<<<<<<< HEAD
 		// 매개변수명 수정
 		// currentPageNo > currentPage
 		// numberOfRecords > numberOfRecord
+=======
+>>>>>>> branch 'master' of https://github.com/pubisboy/Project.git
 		setCurrentPageNo(currentPage);
 		setNumberOfRecords(numberOfRecord);
 

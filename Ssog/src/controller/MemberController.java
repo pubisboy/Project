@@ -44,11 +44,16 @@ public class MemberController {
 	public void joinajax(@RequestParam(name = "type") String type, @RequestParam(name = "val") String val, Map map) {
 		System.out.println("t"+type);
 		System.out.println("v"+val);
+		Map rst = mdao.id_check_repetition(val);
+		boolean b = false;
+		if(rst != null) {
+			b = true;
+		}
 		if (type.equals("id")) {
-			map.put("cid", mdao.id_check_repetition(val));
+			map.put("cid", b);
 			System.out.println(map);
 		} else {
-			map.put("cid", mdao.email_check_repetition(val));
+			map.put("cid", b);
 			System.out.println(map);
 		}
 	}

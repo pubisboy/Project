@@ -1,13 +1,13 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    <style>
+ <style>
 div.gallery {
-    margin: 5px;
+    margin: 2.5%;
     border: 1px solid #ccc;
-    float: left;
-    width: 180px;
-    height:200px;
+    float: left;   
+    width: 20%;   
 }
 
 div.gallery:hover {
@@ -21,16 +21,37 @@ div.gallery img {
 
 div.desc {
     padding: 15px;
-    text-align: center;
+    text-align: center; 
+    
 }
 </style>
 <div class="container" align="center">
 <h2>판매 품목들</h2>
-<div class="col-sm-3"><div class="gallery">  호호호</div></div>
-<div class="col-sm-3"><div class="gallery">  하하하</div></div>
-<div class="col-sm-3"><div class="gallery">  캬캬캬</div></div>
-<div class="col-sm-3"><div class="gallery">  크크크</div></div>
-<div class="col-sm-3"><div class="gallery">  키키키</div></div>
-<div class="col-sm-3"><div class="gallery">  쿠쿠쿠</div></div>
+<c:forEach items="${list }" var="i">
+<div class="gallery">
+  <a target="_blank" href="fjords.jpg">
+    <img src="/image/다운로드.jpg" alt="Fjords" width="300" height="200">
+  </a>
+  <div class="desc">Add a description of the image here</div> 
+</div>
+</c:forEach>
 
 </div>
+
+<div  class="container" style="margin-top: 20px;" align="center"> 
+<ul class="pager">
+  
+<ul class="pagination pagination-lg">
+<c:if test="${paging.startPageNo ne 1 }">
+  <li><a href="/product/list.j?category=${param.category }&page=${paging.startPageNo-1}">&lt;</a></li>
+  </c:if>
+<c:forEach  begin="${paging.startPageNo }" end="${paging.endPageNo }" var="i">
+  <li><a href="/product/list.j?category=${param.category }&page=${i}">${i }</a></li> 
+</c:forEach>
+<c:if test="${paging.endPageNo ne paging.finalPageNo }">
+<li><a href="/product/list.j?category=${param.category }&page=${paging.endPageNo+1}">&gt;</a></li>
+</c:if>
+</ul>
+</ul>
+</div>
+ 
