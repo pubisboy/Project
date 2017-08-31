@@ -4,7 +4,17 @@
 	<definition name="ad_base" template="/WEB-INF/view/admin/template.jsp">
 		<put-attribute name="title" value="/WEB-INF/view/admin/title.jsp" />
 		<put-attribute name="nav" value="/WEB-INF/view/admin/nav.jsp" />
-		<put-attribute name="section" expression="/WEB-INF/view/admin/section.jsp" />
+		<put-attribute name="section" value="/WEB-INF/view/admin/main/template.jsp" />
 		<put-attribute name="footer" value="/WEB-INF/view/admin/footer.jsp" />
 	</definition>
+	
+	<definition name="ad_main" extends="ad_base">
+		<put-attribute name="section">
+			<definition template="/WEB-INF/view/admin/main/template.jsp">
+				<put-attribute name="nav" value="/WEB-INF/view/admin/nav/nav_main.jsp"/>
+				<put-attribute name="section" value="/WEB-INF/view/admin/section/main.jsp" />
+			</definition>
+		</put-attribute>
+	</definition>
+	
 </tiles-definitions>
