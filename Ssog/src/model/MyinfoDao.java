@@ -1,6 +1,8 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.sql.DataSource;
@@ -11,47 +13,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MemberDao {
+public class MyinfoDao{
 	@Autowired
 	DataSource ds;
-	
 	@Autowired
 	SqlSessionFactory factory;
 	
-	public boolean join(Map map) {
+	public Map usergrade(String id) {
 		SqlSession session = factory.openSession();
-		System.out.println(map);
-		try {
-			session.insert("member.join",map);
-			session.commit();
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-			session.rollback();
-			return false;
-		}finally {
-			session.close();
-		}
-	}
-	public boolean login(Map map) {
-		SqlSession session = factory.openSession();
-		try {
-			HashMap rst = session.selectOne("member.login", map);
-			return rst != null;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}finally {
-			session.close();
-		}
-	}
-	public Map id_check_repetition(String id) {
-		SqlSession session = factory.openSession();
-		System.out.println(id);
 		HashMap rst = null;
 		try {
-			rst = session.selectOne("member.id_check", id);
-			System.out.println("rst="+rst);
+			 rst = session.selectOne("myinfo.usergrade", id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {
@@ -59,15 +31,31 @@ public class MemberDao {
 		}
 		return rst;
 	}
-	public boolean email_check_repetition(String email) {
+	public List<Map> orderlist(String id){
+		List<Map>list = new ArrayList<>();
 		SqlSession session = factory.openSession();
 		try {
-			HashMap rst = session.selectOne("member.email_check", email);
-			return rst != null;
+			list = session.selectList("myinfo.orderlist", id);
+			return list;
 		} catch (Exception e) {
 			e.printStackTrace();
-			return false;
-		} finally {
+			return null;
+		}finally {
+			session.close();
+		}
+	}
+	public List<Map> qanda(String id){
+		System.out.println(id);
+		List<Map>list = new ArrayList<>();
+		SqlSession session = factory.openSession();
+		try {
+			list = session.selectList("myinfo.qanda", id);
+			System.out.println("dao list : "+list);
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}finally {
 			session.close();
 		}
 	}

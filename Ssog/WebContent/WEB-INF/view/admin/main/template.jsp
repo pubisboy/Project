@@ -8,12 +8,12 @@
 </style>
 <div class="container">
 	<div class="row">
-		<div class="col-md-1">
+		<div class="col-md-2">
 			<nav>
 				<tiles:insertAttribute name="nav" />
 			</nav>
 		</div>
-		<div class="col-md-11">
+		<div class="col-md-10">
 			<section>
 				<tiles:insertAttribute name="section"/>
 			</section>
