@@ -121,6 +121,10 @@ public class Paging {
 			return map;
 		}
 
+		// 매개변수명 수정
+		// currentPageNo > currentPage
+		// numberOfRecords > numberOfRecord
+
 		setCurrentPageNo(currentPage);
 		setNumberOfRecords(numberOfRecord);
 
