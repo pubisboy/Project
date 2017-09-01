@@ -1,5 +1,7 @@
 package model;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -29,7 +31,7 @@ public class AdminOracleDao implements AdminDao{
 		return b;
 	}
 	
-	public int doc(){
+	/*public int doc(){
 		SqlSession session = factory.openSession();
 		try{
 			return session.selectOne("admin.getCnt_dailyOrder");
@@ -87,5 +89,89 @@ public class AdminOracleDao implements AdminDao{
 		}finally{
 			session.close();
 		}
+	}*/
+	
+	public int getCnt(String mapper){
+		SqlSession session = factory.openSession();
+		try{
+			return session.selectOne(mapper);
+		}catch(Exception e){
+			System.out.println(String.format("error.%s", mapper)+e.toString());
+			return -1;
+		}finally{
+			session.close();
+		}
+	}
+	
+	public boolean putValues(String mapper, Map map){
+		boolean b = false;
+		SqlSession session = factory.openSession();
+		try{
+			int r = session.insert(mapper, map);
+			if(r > 0){
+				b = true;
+			}
+			session.commit();
+		}catch(Exception e){
+			System.out.println(String.format("error.%s", mapper)+e.toString());
+			session.rollback();
+		}finally{
+			session.close();
+		}
+		return b;
+	}
+	
+	public List<Map> getValues(String mapper){
+		SqlSession session = factory.openSession();
+		List<Map> rst = null;
+		try{
+			rst = session.selectList(mapper);
+		}catch(Exception e){
+			System.out.println(String.format("error.%s", mapper)+e.toString());
+		}finally{
+			session.close();
+		}
+		return rst;
+	}
+	
+	public Map getValues(String mapper, int val){
+		SqlSession session = factory.openSession();
+		Map rst = null;
+		try{
+			rst = session.selectOne(mapper, val);
+		}catch(Exception e){
+			System.out.println(String.format("error.%s", mapper)+e.toString());
+		}finally{
+			session.close();
+		}
+		return rst;
+	}
+	
+	public List<Map> getValues(String mapper, String table){
+		SqlSession session = factory.openSession();
+		List<Map> rst = null;
+		Map map = new HashMap<>();
+		map.put("table", table);
+		try{
+			rst = session.selectList(mapper, map);
+		}catch(Exception e){
+			System.out.println(String.format("error.%s", mapper)+e.toString());
+		}finally{
+			session.close();
+		}
+		return rst;
+	}
+	
+	public List<Map> getValues(String mapper, Map map){
+		SqlSession session = factory.openSession();
+		List<Map> rst = null;
+		try{
+			rst = session.selectList(mapper, map);
+		}catch(Exception e){
+			System.out.println(String.format("error.%s", mapper)+e.toString());
+		}finally{
+			session.close();
+		}
+		return rst;
 	}
 }

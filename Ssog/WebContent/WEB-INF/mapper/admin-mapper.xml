@@ -27,6 +27,20 @@
 		select count(*) cnt from USER_LEAVE where LEAVEDATE &gt;= to_date(to_char(sysdate)) and LEAVEDATE &lt; to_date(to_char(sysdate))+1
 	</select>
 	
+	<insert id="put_notice" parameterType="java.util.HashMap">
+		insert into notice values(notice_num_seq.nextval, #{title}, #{content}, sysdate, #{target})
+	</insert>
 	
+	<select id="getValues_All" parameterType="java.lang.String" resultType="java.util.HashMap">
+		select * from ${table}
+	</select>
+	
+	<select id="getList_notice" resultType="java.util.HashMap">
+		select n.NOTICE_NUM, n.TITLE, n.NOTICE_DATE, n.TARGET, t.TARGET targets from notice n left join target t on n.TARGET = t.NUM
+	</select>
+	
+	<select id="getDetail_notice" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+		select r.* from (select n.*, t.TARGET targets from notice n left join target t on n.TARGET = t.NUM) r where r.notice_num = #{num}
+	</select>
 	
 </mapper>
