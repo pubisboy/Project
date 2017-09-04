@@ -36,4 +36,7 @@
 	<insert id="join_service" parameterType="java.util.HashMap">
 		UPDATE SERVICE set sms=#{sms},email=#{emailck}, refresh=#{refresh} where id =#{id}
 	</insert>
+	<select id="service_ck" parameterType="java.lang.String" resultType="java.util.HashMap">
+		SELECT * FROM SERVICE WHERE ID=#{id}
+	</select>
 </mapper>

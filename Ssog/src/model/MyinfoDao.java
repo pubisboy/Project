@@ -143,4 +143,18 @@ public class MyinfoDao{
 		}
 		return rst ==1;
 	}
+	
+	public Map service_ck(String id) {
+		SqlSession session = factory.openSession();
+		HashMap rst = null;
+		try {
+			rst = session.selectOne("member.service_ck",id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		return rst;
+	}
+	
 }
