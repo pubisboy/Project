@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -109,12 +110,44 @@ public class MyinfoController {
 		mav.addObject("qlist", qlist);
 		return mav;
 	}
+	
+	@RequestMapping("myinfo/orderlist.j")
+	public ModelAndView orderlist(HttpSession session) {
+		Map init = init(session);
+		List<Map> llist = mdao.orderlist((String)init.get("id"));
+		ModelAndView mav = new ModelAndView("t_el2");
+		mav.addObject("section", "member/myinfo/orderlist");
+		mav.addObject("grade", init.get("grade"));
+		mav.addObject("memberinfo", init.get("info"));
+		mav.addObject("llist", llist);
+		return mav;
+
+	}
 
 	@RequestMapping("/myinfo/info_revise.j")
 	public ModelAndView inforevise(HttpSession session) {
 		Map init = init(session);
 		Map info = mmdao.id_check_repetition((String)init.get("id"));
-		ModelAndView mav = new ModelAndView("t_el2");
+		String phone1 = info.get("PHONE").toString().substring(0, 3);
+		String phone2 = info.get("PHONE").toString().substring(3, 7);
+		String phone3 = info.get("PHONE").toString().substring(7, 11);
+		info.put("phone1", phone1);
+		info.put("phone2", phone2);
+		info.put("phone3", phone3);
+		String mail = (String) info.get("EMAIL");
+		int idx = mail.indexOf("@");
+		String email1 = mail.substring(0, idx);
+		String email2 = mail.substring(idx+1);
+		info.put("email1", email1);
+		info.put("email2", email2);
+		String address = (String)info.get("ADDRESS");
+		int idx2 = address.indexOf(" ");
+		String postcode = address.substring(0, idx2);
+		int idx3 = address.indexOf(")");
+		String address1 = address.substring(idx2+1,idx3+1);
+		info.put("postcode", postcode);
+		info.put("address1", address1);
+		ModelAndView mav = new ModelAndView("t_el2"); 
 		mav.addObject("section", "member/myinfo/info_revise");
 		mav.addObject("grade", init.get("grade"));
 		mav.addObject("memberinfo", init.get("info"));
@@ -145,13 +178,28 @@ public class MyinfoController {
 		mav.addObject("memberinfo", info);
 		return mav;
 	}
+	@RequestMapping("/myinfo/userpass_rst.j")
+	@ResponseBody
+	public boolean userpassrevise(HttpSession session, @RequestParam Map param) {
+		Map init = init(session);
+		param.put("id", (String)init.get("id"));
+		System.out.println(param);
+		boolean bl = false;
+		boolean pass = mmdao.login(param);
+		System.out.println("cont pass : "+pass);
+		if(pass==true) {
+		mdao.userpassrevise(param);
+		bl = true;
+		}else {
+		}
+		return bl;
+	}
 
 	@RequestMapping("/myinfo/counsel_detail.j")
 	public ModelAndView counseldetail(HttpSession session) {
 		String id = (String) session.getAttribute("auth");
 		Map info = mmdao.id_check_repetition(id);
 		List<Map> cate = mdao.counselcate();
-		System.out.println(cate);
 		ModelAndView mav = new ModelAndView("t_el3");
 		mav.addObject("section", "member/myinfo/counsel_detail");
 		mav.addObject("memberinfo", info);
@@ -163,13 +211,11 @@ public class MyinfoController {
 	public String counsel_rst(@RequestParam Map param, @RequestParam(name = "f") MultipartFile f,
 			HttpSession session, Map map) throws IllegalStateException, IOException {
 		String fu = UUID.randomUUID().toString();
-		System.out.println(param);
 		map.put("id", (String) session.getAttribute("auth"));
 		map.put("cate", param.get("cate"));
 		map.put("title", param.get("title"));
 		map.put("content", param.get("content"));
 		map.put("fileuuid", fu);
-		System.out.println(map);
 		mdao.counselup(map);
 		String path = application.getRealPath("/resource/img_counsel");
 		File dir = new File(path);

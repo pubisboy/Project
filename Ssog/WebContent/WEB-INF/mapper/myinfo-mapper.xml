@@ -57,5 +57,8 @@
 	<select id="pass_confirm" parameterType="java.lang.String" resultType="java.util.HashMap">
 		select * from user_member where PASS=#{pass}
 	</select>
+	<update id="pass_revise" parameterType="java.util.HashMap">
+		UPDATE USER_MEMBER SET pass = #{newpass} where id=#{id}
+	</update>
 
 </mapper>

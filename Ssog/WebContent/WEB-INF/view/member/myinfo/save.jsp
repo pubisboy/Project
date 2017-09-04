@@ -5,7 +5,7 @@ table, th, td {
 	font-size: 13px;
 }
 </style>
-<div>
+<div style="padding-top: 20px;">
 	<h4 style="font-size: 17px; text-align: left;">
 		<span class="glyphicon glyphicon-info-sign"
 			style="padding-right: 10px;"></span><b style="padding-right: 10px;">적립금</b><small

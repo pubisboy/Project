@@ -108,14 +108,20 @@ public class MyinfoDao{
 			session.close();
 		}
 	}
-//	public int userpass(String pass) {
-//		SqlSession session = factory.openSession();
-//			try {
-//				session.selectOne("myinfo.pass_confirm", pass);
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}finally {
-//				
-//			}
-//	}
+	public boolean userpassrevise(Map map) {
+		SqlSession session = factory.openSession();
+			try {
+				List<Object> step1 = session.selectList("myinfo.pass_confirm", map);
+				if(step1 !=null ) 
+				session.update("myinfo.pass_revise", map);
+				session.commit();
+				return true;
+			} catch (Exception e) {
+				e.printStackTrace();
+				session.rollback();
+				return false;				
+			}finally {
+				
+			}
+	}
 }

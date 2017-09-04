@@ -6,7 +6,7 @@ table, th, td {
 	font-size: 13px;
 }
 </style>
-<div>
+<div style="padding-top: 20px;"> 
 	<h4 style="font-size: 17px; text-align: left;">
 		<span class="glyphicon glyphicon-info-sign"
 			style="padding-right: 10px;"></span><b style="padding-right: 10px;">상품
@@ -38,5 +38,8 @@ table, th, td {
 				</c:forEach>
 			</tbody>
 		</table>
+		<c:if test="${qlist.size() eq 0 }">
+			등록된 내용이 없습니다.
+		</c:if>
 	</div>
 </div>

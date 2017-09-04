@@ -42,7 +42,7 @@
 					</c:otherwise>
 				</c:choose>
 				<li><a href="/member/myinfo/info.j">나의정보</a></li>
-				<li><a href="/">고객센터</a></li>
+				<li><a href="/cccenter/faq.j">고객센터</a></li>
 				<li><a href="/">장바구니</a></li>
 			</ul>
 		</div>

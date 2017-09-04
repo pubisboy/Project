@@ -42,7 +42,7 @@
 					id="address1" placeholder="주소" style="width: 90%;"> <input
 					class="form-control" type="text" name="address2" id="address2"
 					placeholder="상세주소" style="width: 90%;"> <br /> <hr/><input
-					class="form-control" type="text" placeholder="휴대폰번호(-제외)"
+					class="form-control" type="text" placeholder="휴대폰번호(-제외, 11자리)"
 					name="phone" id="phone" required style="width: 90%;" /><br />
 			</div>
 			<div class="form-group">
