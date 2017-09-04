@@ -2,19 +2,27 @@
 <!DOCTYPE mapper
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
- <mapper namespace="member">
- 	<insert id="join" parameterType="java.util.HashMap">
- 		INSERT INTO USER_MEMBER(id, pass, name, gender, birth, address, email, phone, joindate)
- 		VALUES(#{id}, #{pass}, #{name}, #{gender}, #{birth}, #{address}, #{email}, #{phone}, sysdate)
- 	</insert>
-  	<select id="login" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-  		SELECT * FROM USER_MEMBER WHERE id=#{id} AND pass=#{pass}
-  	</select>
-  	<select id="id_check" parameterType="java.lang.String" resultType="java.util.HashMap">
-  		SELECT * FROM USER_MEMBER WHERE id=#{id}
-  	</select>
-  	<select id="email_check" parameterType="java.lang.String" resultType="java.util.HashMap">
-  		SELECT * FROM USER_MEMBER WHERE email=#{email}
-  	</select>
-  	
- </mapper>
+<mapper namespace="member">
+	<insert id="join" parameterType="java.util.HashMap">
+		INSERT INTO USER_MEMBER(id, pass, name, gender, birth, address, email,
+		phone, joindate)
+		VALUES(#{id}, #{pass}, #{name}, #{gender}, #{birth}, #{address}, #{email},
+		#{phone}, sysdate)
+	</insert>
+	<select id="login" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT * FROM USER_MEMBER WHERE id=#{id} AND pass=#{pass}
+	</select>
+	<select id="id_check" parameterType="java.lang.String"
+		resultType="java.util.HashMap">
+		SELECT * FROM USER_MEMBER WHERE id=#{id}
+	</select>
+	<select id="email_check" parameterType="java.lang.String"
+		resultType="java.util.HashMap">
+		SELECT * FROM USER_MEMBER WHERE email=#{email}
+	</select>
+	<select id="pass_check" parameterType="java.lang.String"
+		resultType="java.util.HashMap">
+		SELECT * FROM USER_MEMBER WHERE pass=#{pass}
+	</select>
+
+</mapper>
