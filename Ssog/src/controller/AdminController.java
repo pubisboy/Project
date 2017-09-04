@@ -1,9 +1,15 @@
 package controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +17,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import model.AdminDao;
 
@@ -42,11 +50,11 @@ public class AdminController {
 	@RequestMapping({"/","/index.ja"})
 	public String main(Map map) {
 		// doc = daily order count
-		map.put("doc", ad.getCnt("getCnt_dailyOrder"));
-		map.put("dpc", ad.getCnt("getCnt_dailyPay"));
-		map.put("duc", ad.getCnt("getCnt_dailyUser"));
-		map.put("auc", ad.getCnt("getCnt_allUser"));
-		map.put("luc", ad.getCnt("getCnt_leaveUser"));
+		map.put("doc", ad.doc());
+		map.put("dpc", ad.dpc());
+		map.put("duc", ad.duc());
+		map.put("auc", ad.auc());
+		map.put("luc", ad.luc());
 		System.out.println("main 입장");
 		return "ad_main";
 	}
@@ -84,8 +92,62 @@ public class AdminController {
 	
 	@RequestMapping("/notice/notice_writeExec.ja")
 	@ResponseBody
-	public boolean notice_writeExec(@RequestParam Map params){
+	public Map notice_writeExec(@RequestParam Map params){
+		Map map = new HashMap<>();
 		boolean b = ad.putValues("put_notice", params);
-		return b;
+		map.put("text", b);
+		if(b){
+			System.out.println(params.get("content"));
+			String con = (String)params.get("content");
+			if(con.contains("src")){
+				String[] cons = con.split("\"");
+				List list = new ArrayList<>(); 
+				for(String c : cons){
+					// System.out.println(c);
+					if(c.startsWith("/admin/resources")){
+						list.add(c);
+					}
+				}
+				boolean bb = ad.putImages(list);
+				map.put("img", bb);
+			}
+		}
+		return map;
 	}
+	
+	@Autowired
+	ServletContext application;
+	
+	@RequestMapping("/notice/upload.j")
+	public ModelAndView upload(@RequestParam(name="upload") MultipartFile f, @RequestParam Map param) throws IllegalStateException, IOException{
+		ModelAndView mav = new ModelAndView("/admin/notice/notice_img_result");
+		System.out.println(param);
+		System.out.println(f.getContentType());
+		System.out.println(f.getName());
+		System.out.println(f.getOriginalFilename());
+		System.out.println(f.isEmpty());
+		
+		String ofn = f.getOriginalFilename();
+		
+		// 저장경로 필요
+		if(!f.isEmpty() && f.getContentType().startsWith("image")){
+			File dir = new File(application.getRealPath("/admin/resources"));
+			System.out.println(dir.getPath());
+			if(!dir.exists()){
+				dir.mkdirs();
+			}
+			String uuid = UUID.randomUUID().toString();
+			String fileName = uuid+"."+(ofn.substring(ofn.lastIndexOf(".")+1));
+			
+			File file = new File(dir, fileName);
+			f.transferTo(file);
+			mav.addObject("result", true);
+			mav.addObject("imageUrl", "/admin/resources/"+fileName);
+			mav.addObject("funcNum", param.get("CKEditorFuncNum")); // 반드시 필요하다. 정해진 규칙이다.
+		}else{
+			mav.addObject("result", false);
+		}
+		return mav;
+	}
+	
 }

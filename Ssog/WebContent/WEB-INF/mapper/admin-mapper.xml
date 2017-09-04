@@ -43,4 +43,10 @@
 		select r.* from (select n.*, t.TARGET targets from notice n left join target t on n.TARGET = t.NUM) r where r.notice_num = #{num}
 	</select>
 	
+	<insert id="putImage_notice" parameterType="java.util.ArrayList">
+		<foreach collection="list" item="src" open="INSERT ALL" separator="" close="SELECT * FROM DUAL">
+			inotice_img(num, img_uuid) values (notice_num_seq.currval, #{src})
+		</foreach>
+	</insert>
+	
 </mapper>

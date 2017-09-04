@@ -31,7 +31,7 @@ public class AdminOracleDao implements AdminDao{
 		return b;
 	}
 	
-	/*public int doc(){
+	public int doc(){
 		SqlSession session = factory.openSession();
 		try{
 			return session.selectOne("admin.getCnt_dailyOrder");
@@ -89,7 +89,7 @@ public class AdminOracleDao implements AdminDao{
 		}finally{
 			session.close();
 		}
-	}*/
+	}
 	
 	public int getCnt(String mapper){
 		SqlSession session = factory.openSession();
@@ -173,5 +173,25 @@ public class AdminOracleDao implements AdminDao{
 			session.close();
 		}
 		return rst;
+	}
+	
+	public boolean putImages(List list){
+		SqlSession session = factory.openSession();
+		boolean b = false;
+		System.out.println("list? : "+list);
+		try{
+			int rst = session.insert("putImage_notice", list);
+			if(rst > 0){
+				b = true;
+				session.commit();
+			}
+		}catch(Exception e){
+			System.out.println("error.putImages"+e.toString());
+			b = false;
+			session.rollback();
+		}finally{
+			session.close();
+		}
+		return b;
 	}
 }
