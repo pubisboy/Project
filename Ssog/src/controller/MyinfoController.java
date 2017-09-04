@@ -128,29 +128,30 @@ public class MyinfoController {
 	public ModelAndView inforevise(HttpSession session) {
 		Map init = init(session);
 		Map info = mmdao.id_check_repetition((String)init.get("id"));
+		Map service = mdao.service_ck((String)init.get("id"));
 		String phone1 = info.get("PHONE").toString().substring(0, 3);
 		String phone2 = info.get("PHONE").toString().substring(3, 7);
 		String phone3 = info.get("PHONE").toString().substring(7, 11);
 		info.put("phone1", phone1);
 		info.put("phone2", phone2);
 		info.put("phone3", phone3);
+		info.put("ck_sms", (String)service.get("SMS"));
+		info.put("ck_email", (String)service.get("EMAIL"));
+		info.put("ck_refresh", (String)service.get("REFRESH"));
 		String mail = (String) info.get("EMAIL");
 		int idx = mail.indexOf("@");
 		String email1 = mail.substring(0, idx);
 		String email2 = mail.substring(idx+1);
 		info.put("email1", email1);
 		info.put("email2", email2);
-		
 		String address = (String)info.get("ADDRESS");
 		String[] spaddress = address.split("!");
-		System.out.println(spaddress.length);
 		System.out.println("test0"+spaddress[0]);
 		System.out.println("test1"+spaddress[1]);
 		System.out.println("test2"+spaddress[2]);
 		info.put("postcode", spaddress[0]);
 		info.put("address1", spaddress[1]);
 		info.put("address2", spaddress[2]);
-		
 		ModelAndView mav = new ModelAndView("t_el2"); 
 		mav.addObject("section", "member/myinfo/info_revise");
 		mav.addObject("grade", init.get("grade"));

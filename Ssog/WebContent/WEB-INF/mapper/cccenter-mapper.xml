@@ -5,8 +5,19 @@
 <mapper namespace="cccenter">
 	<select id="faq" resultType="java.util.HashMap">
 		select f.*, c.category from
-		(SELECT * FROM FAQ)f
+		(SELECT *
+		FROM FAQ)f
 		left join counsel_category c
 		on f.cate = c.num
+	</select>
+	<select id="notice" resultType="java.util.HashMap">
+		SELECT nn.* from
+		(SELECT n.*,ROWNUM rnum from
+		(SELECT * FROM NOTICE) n)nn where nn.rnum  <![CDATA[<=]]>4
+	</select>
+	<select id="noticeAll" resultType="java.util.HashMap">
+		SELECT nn.* from
+		(SELECT n.*,ROWNUM rnum from
+		(SELECT * FROM NOTICE) n)nn where nn.rnum
 	</select>
 </mapper>
