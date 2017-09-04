@@ -140,19 +140,34 @@ public class MyinfoController {
 		String email2 = mail.substring(idx+1);
 		info.put("email1", email1);
 		info.put("email2", email2);
+		
 		String address = (String)info.get("ADDRESS");
-		int idx2 = address.indexOf(" ");
-		String postcode = address.substring(0, idx2);
-		int idx3 = address.indexOf(")");
-		String address1 = address.substring(idx2+1,idx3+1);
-		info.put("postcode", postcode);
-		info.put("address1", address1);
+		String[] spaddress = address.split("!");
+		System.out.println(spaddress.length);
+		System.out.println("test0"+spaddress[0]);
+		System.out.println("test1"+spaddress[1]);
+		System.out.println("test2"+spaddress[2]);
+		info.put("postcode", spaddress[0]);
+		info.put("address1", spaddress[1]);
+		info.put("address2", spaddress[2]);
+		
 		ModelAndView mav = new ModelAndView("t_el2"); 
 		mav.addObject("section", "member/myinfo/info_revise");
 		mav.addObject("grade", init.get("grade"));
 		mav.addObject("memberinfo", init.get("info"));
 		mav.addObject("memberinfo", info);
 		return mav;
+	}
+	@RequestMapping("/myinfo/info_revise_rst.j")
+	@ResponseBody
+	public boolean info_revise(HttpSession session, @RequestParam Map param) {
+		Map init = init(session);
+		param.put("id", (String)init.get("id"));
+		System.out.println(param);
+		boolean inre = false;
+		inre = mdao.info_revise(param); 
+		System.out.println(inre);
+		return inre;
 	}
 
 	@RequestMapping("/myinfo/leave.j")

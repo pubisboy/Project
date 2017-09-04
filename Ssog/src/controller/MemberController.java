@@ -56,8 +56,9 @@ public class MemberController {
 	@RequestMapping("/member/join_rst.j")
 	public ModelAndView join_rst(@RequestParam Map param, HttpSession session) {
 		ModelAndView mav = new ModelAndView("/member/join_rst");
-		String address = String.format("%s %s %s", param.get("postcode"),param.get("address1"),param.get("address2"));
+		String address = String.format("%s#%s#%s", param.get("postcode"),param.get("address1"),param.get("address2"));
 		param.put("address", address);
+		System.out.println(param);
 		boolean r;
 		if (session.getAttribute("suckey").equals("TT")) {
 			r = mdao.join(param);
@@ -78,6 +79,7 @@ public class MemberController {
 		MimeMessage msg = sender.createMimeMessage();
 		String fu = UUID.randomUUID().toString();
 		String sfu = fu.substring(0, 8);
+		System.out.println(sfu);
 		session.setAttribute("uuid", sfu);
 		try {
 			InternetAddress from = new InternetAddress("admin");

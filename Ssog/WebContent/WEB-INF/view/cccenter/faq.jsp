@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div>
 	<h4 style="font-size: 17px; text-align: left;">
 		<span class="glyphicon glyphicon-info-sign"
@@ -41,20 +42,43 @@
 					물어보시는 질문만 모았습니다.</small>
 			</h4>
 		</div>
+		<table class="table table-hover">
+			<thead>
+				<tr align="center" style="border-top: 3px solid black;">
+					<th style="width: 60px;"><b style="font-size: 12px;">번호</b></th>
+					<th style="width: 90px;"><b style="font-size: 12px;">분류</b></th>
+					<th style="width: 600px;"><b style="font-size: 12px;">질문</b></th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="obj" items="${flist }">
+					<tr>
+						<td style="width: 60px; font-size: 13px;" align="center">${obj.NUM }</td>
+						<td style="width: 90px; font-size: 13px;" align="center">${obj.CATEGORY }</td>
+						<td style="width: 600px; font-size: 13px;" align="center" id="question">${obj.QUESTION }
+						<div style="width: 100%;">${obj.ANSWER }</div>
+						</td>
+						 
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+		<c:if test="${clist.size() eq 0 }">
+			등록된 내용이 없습니다.
+		</c:if>
 	</div>
 	<div class="col-sm-12">
 		<div class="row">
+			<div class="col-sm-4">공지사항</div>
+			<div class="col-sm-4">이벤트 당첨자 발표</div>
 			<div class="col-sm-4">
-			 공지사항
-			</div>
-			<div class="col-sm-4">
-			이벤트 당첨자 발표
-			</div>
-			<div class="col-sm-4">
-			편리한 쇼핑을 위한 쇼핑가이드<br/>
-			상품수령 절차<br/>
-			홈페이지 문제해결
+				편리한 쇼핑을 위한 쇼핑가이드<br /> 상품수령 절차<br /> 홈페이지 문제해결
 			</div>
 		</div>
 	</div>
 </div>
+<script>
+	$("#question").on("click",function(){
+		
+	});
+</script>

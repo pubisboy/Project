@@ -60,24 +60,20 @@ table, th, td {
 					<td class="active">휴대전화</td>
 					<td><select name="phone1" id="phone1"
 						style="width: 60px; height: 25px;">
-							<option value="">${memberinfo.phone1 }</option>
-							<option value="010">010</option>
-							<option value="011">011</option>
-							<option value="016">016</option>
-							<option value="017">017</option>
-							<option value="018">018</option>
-							<option value="019">019</option>
-							<option value="기타">기타</option>
-					</select> - <input type="text" style="width: 60px; height: 25px;" value="${memberinfo.phone2 }"/> - <input
-						type="text" style="width: 60px; height: 25px;" value="${memberinfo.phone3 }" /><br /> <input
-						type="checkbox"/> <small
+							<c:forTokens var="i" items="010,011,016,017,018,019" delims=",">
+							<option value="${i }" selected="${i eq  memberinfo.phone1 ? selected : ''}" >${i }</option>
+							</c:forTokens>
+					</select>
+					 - <input type="text" style="width: 60px; height: 25px;" value="${memberinfo.phone2 }" id="phone2"/> - <input
+						type="text" style="width: 60px; height: 25px;" value="${memberinfo.phone3 }"id="phone3" /><br /> <input
+						type="checkbox" id="sms"/> <small
 						style="font-size: 11px; padding-bottom: 5px;">수신동의하고 특별한
-							쇼핑정보, 엄청난 혜택 알림을 이메일로 받아보세요.</small></td>
+							쇼핑정보, 엄청난 혜택 알림을 문자로 받아보세요.</small></td>
 				</tr>
 				<tr>
 					<td class="active">이메일</td>
 					<td><input type="text" style="width: 160px; height: 25px;"
-						value="${memberinfo.email1 }" /> @ <input type="text"
+						value="${memberinfo.email1 }"id="email" /> @ <input type="text"
 						style="width: 160px; height: 25px;" value="${memberinfo.email2 }" id="site"/> <select
 						style="width: 160px; height: 25px;" id="mail" onChange="test(this.options[this.selectedIndex].value)">
 							<option value="">선택해 주세요</option>
@@ -86,31 +82,32 @@ table, th, td {
 							<option value="nate.com">nate.com</option>
 							<option value="hanmail.net">hanmail.net</option>
 							<option value="직접입력">직접입력</option>
-					</select><br /> <input type="checkbox" /> <small
+					</select><br /> <input type="checkbox" id="emailck"/> <small
 						style="font-size: 11px; padding-bottom: 5px;">수신동의하고 특별한
-							쇼핑정보, 엄청난 혜택 알림을 이메일로 받아보세요.</small></td>
+							쇼핑정보, 엄청난 혜택 알림을 이메일로 받아보세요.</small>
+							<br><input type="checkbox" id="refresh"/> <small
+						style="font-size: 11px; padding-bottom: 5px;">재입고 알림
+						신청서비스를 받습니다.</small></td> 
 				</tr>
 				<tr>
 					<td class="active">주소입력</td>
-					<td>${memberinfo.ADDRESS }
-						<div class="navbar-form">
+					<td style="padding-left: 0px;"> 
+						<div class="navbar-form" style="padding-left: 8px;">
 							<input type="text" name="postcode" id="postcode"
 								value="${memberinfo.postcode}" style="width: 140px;"> <input
 								type="button" onclick="sample6_execDaumPostcode()"
 								value="우편번호 찾기" style="width: 100px; font-size: 13px;"><br />
 						</div>
-						<div class="navbar-form">
-							<input type="text" name="address1" id="address1" value="${memberinfo.address1 }"
-								style="width: 240px;"> <input type="text"
-								name="address2" id="address2" placeholder="상세주소"
-								style="width: 240px;"> <br />
+						<div class="navbar-form" style="padding-left: 8px;">
+							<input type="text" name="address1" id="address1" value="${memberinfo.address1 }" style="width: 240px;">
+							<input type="text" name="address2" id="address2" value="${memberinfo.address2 }" style="width: 240px;"> <br />
 						</div>
 					</td>
 				</tr>
 			</tbody>
 		</table>
 		<div align="center">
-			<input type="submit" value="정보 수정하기" class="btn btn-custom" style="font-size: 12px;">
+			<button type="submit"  class="btn btn-custom" style="font-size: 12px;" id="user_revise">정보 수정하기</button>
 		</div>
 	</div>
 </div>
@@ -169,6 +166,28 @@ table, th, td {
 		 }
 		}
 	var phonerule = /(\d{3}).*(\d{4}).*(\d{4})/;
+	
+	$("#user_revise").on("click",function(){
+		var phonerule = /(\d{3}).*(\d{4}).*(\d{4})/;
+		$.ajax({
+			url:"/member/myinfo/info_revise_rst.j",
+			method : "post",
+			data:{
+				"phone":($("#phone1").val()+$("#phone2").val()+$("#phone3").val()),
+				"email":($("#email").val()+'@'+$("#site").val()),
+				"address":$("#postcode").val()+'!'+$("#address1").val()+'!'+$("#address2").val(),
+				"sms":($("#sms").prop("checked") ? 'on':'off'),
+				"refresh":($("#refresh").prop("checked") ? 'on':'off'),
+				"emailck":($("#emailck").prop("checked")? 'on':'off')
+			}
+		}).done(function (rere) {
+			if(rere==true){
+				window.alert("수정완료");
+				location.href = "/member/myinfo/info_revise.j";
+			}
+		})
+		
+	});
 </script>
 
 <!-- 
