@@ -17,9 +17,9 @@ public class ProductDao {
 	
 	public List<Map> pro_list(Map map){
 		List<Map> list = new ArrayList<>();
-		System.out.println("ㅇㅇㅇㅇㅇ"+map.get("category"));
 		SqlSession session=factory.openSession();
 		try {
+		System.out.println(map);
 		list=session.selectList("product.pro_list", map);
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -40,5 +40,29 @@ public class ProductDao {
 			session.close();
 		}		
 		return n;
+	}
+	public List<Map> Totalsearch(Map map) {
+		List<Map> list = new ArrayList<>();
+		SqlSession session=factory.openSession();
+		try {
+			list=session.selectList("product.totalsearch", map);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+			session.close();
+			}		
+			return list;
+	}
+	public int searchpaging(Map map) {
+		int r=0;
+		SqlSession session=factory.openSession();
+		try {
+			r=session.selectOne("totalsearch_count", map);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}		
+		return r;
 	}
 }
