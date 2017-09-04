@@ -1,6 +1,7 @@
 package model;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.sql.DataSource;
@@ -20,7 +21,6 @@ public class MemberDao {
 	
 	public boolean join(Map map) {
 		SqlSession session = factory.openSession();
-		System.out.println(map);
 		try {
 			session.insert("member.join",map);
 			session.commit();
@@ -35,8 +35,10 @@ public class MemberDao {
 	}
 	public boolean login(Map map) {
 		SqlSession session = factory.openSession();
+		System.out.println("dao map : "+map);
 		try {
 			HashMap rst = session.selectOne("member.login", map);
+			System.out.println("memberdao rst"+rst);
 			return rst != null;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -47,11 +49,9 @@ public class MemberDao {
 	}
 	public Map id_check_repetition(String id) {
 		SqlSession session = factory.openSession();
-		System.out.println(id);
 		HashMap rst = null;
 		try {
 			rst = session.selectOne("member.id_check", id);
-			System.out.println("rst="+rst);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {
@@ -68,6 +68,18 @@ public class MemberDao {
 			e.printStackTrace();
 			return false;
 		} finally {
+			session.close();
+		}
+	}
+	public boolean passrevise(String pass) {
+		SqlSession session = factory.openSession();
+		try {
+			List rst = session.selectList("member.pass_check", pass);
+			return rst != null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}finally {
 			session.close();
 		}
 	}

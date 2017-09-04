@@ -7,9 +7,11 @@
 		resultType="java.util.HashMap">
 		select rr.* from
 		(select r.*, rownum rnum from
-		(select b.*, f.grade from
+		(select b.*,
+		f.grade from
 		(select * from USER_RECORD where id=#{id}) b
-		LEFT join USER_GRADE f on
+		LEFT join
+		USER_GRADE f on
 		b.buy_total>=f.STANDARD order by ROWNUM desc) r) rr
 		where rr.rnum = 1
 	</select>
@@ -24,6 +26,39 @@
 		f.pro_num=p.pro_num
 	</select>
 	<select id="qanda" parameterType="java.lang.String" resultType="java.util.HashMap">
-		select * from Q_AND_A where user_id=#{id} ORDER by num desc
+		select rr.* from
+		(select r.*, rownum rnum from
+		(select * from q_and_a
+		where user_id=#{id} order by rownum desc)r)rr where
+		rr.rnum <![CDATA[<=]]>5
 	</select>
+	<select id="counsel" parameterType="java.lang.String"
+		resultType="java.util.HashMap">
+		select rr.* from
+		(select r.*, rownum rnum from
+		(select * from counsel
+		where user_id=#{id} order by rownum desc)r)rr where
+		rr.rnum <![CDATA[<=]]>5
+	</select>
+	<select id="counselAll" parameterType="java.lang.String" resultType="java.util.HashMap">
+		select * from counsel
+		where user_id=#{id} order by rownum desc
+	</select>
+	<select id="counselcate" resultType="java.util.HashMap">
+		SELECT * FROM
+		COUNSEL_CATEGORY
+	</select>
+	<insert id="counselup" parameterType="java.util.HashMap">
+		insert into counsel(num, cate, user_id, title, content, counsel_date, image_uuid)
+		values
+		(counsel_seq.nextval, #{cate}, #{id}, #{title},
+		#{content}, sysdate, #{fileuuid})
+	</insert>
+	<select id="pass_confirm" parameterType="java.lang.String" resultType="java.util.HashMap">
+		select * from user_member where PASS=#{pass}
+	</select>
+	<update id="pass_revise" parameterType="java.util.HashMap">
+		UPDATE USER_MEMBER SET pass = #{newpass} where id=#{id}
+	</update>
+
 </mapper>

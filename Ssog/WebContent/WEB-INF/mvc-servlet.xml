@@ -71,7 +71,7 @@
 		<property name="uploadTempDir" value="/temp" />
 		<property name="defaultEncoding" value="urf-8" />
 	</bean>
-
+	<!-- 
 	<websocket:handlers>
 		<websocket:mapping handler="ws" path="/ws/test.ws" />
 		<websocket:handshake-interceptors>
@@ -79,7 +79,7 @@
 				class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
 		</websocket:handshake-interceptors>
 	</websocket:handlers>
-
+ -->
 	<bean class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.gmail.com" />
 		<property name="port" value="587" />

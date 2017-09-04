@@ -29,6 +29,12 @@
    </div>
    <div class="col-xs-0 col-md-1"></div>
 </div>
+<script src="/ckeditor/ckeditor.js"></script>
+<script>
+	CKEDITOR.replace('content', {
+		"filebrowserUploadUrl" : "/admin/notice/upload.j"
+	});
+</script>
 <script>
 	$("#submit").on("click", function(){
 		$.ajax({
@@ -36,10 +42,13 @@
 			data : {
 				title : $("#title").val(),
 				target : $("#target").val(),
-				content : $("#content").val()
+				content : CKEDITOR.instances.content.getData()
 			}
 		}).done(function(rst){
-			if(rst){
+			if(rst.text){
+				if(!rst.img){
+					window.alert("이미지 등록 실패");
+				}
 				location.href="/admin/notice/notice_list.ja";
 			}else{
 				$("#alert").html("<h4 style='color: red'>등록 실패</h4>");

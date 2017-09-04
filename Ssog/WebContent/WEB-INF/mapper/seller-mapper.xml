@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="seller">
+ 	<!-- 기본정보 관리 -->
+ 	<insert id="join" parameterType="java.util.HashMap">
+ 		INSERT INTO SELLER_MEMBER(id, pass, name, phone, brand, joindate, account, bank)
+ 		VALUES(#{id}, #{pass}, #{name}, #{phone}, #{brand}, sysdate, #{account}, #{bank})
+ 	</insert>
+  	<select id="login" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+  		SELECT * FROM SELLER_MEMBER WHERE id=#{id} AND pass=#{pass}
+  	</select>
+  	<!-- 정보보기 할때도 사용 -->
+  	<select id="id_check" parameterType="java.lang.String" resultType="java.util.HashMap">
+  		SELECT * FROM SELLER_MEMBER WHERE id=#{id}
+  	</select>
+ 	<select id="account_check" parameterType="java.lang.String" resultType="java.util.HashMap">
+ 		SELECT * FROM SELLER_MEMBER WHERE account=#{account}
+  	</select>
+  	<delete id="member_delete" parameterType="java.lang.String">
+  		delete from seller_member where id=#{id}
+  	</delete>
+  	<update id="edit_info" parameterType="java.util.HashMap">
+  		update seller_member set pass=#{pass}, name=#{name}, phone=#{phone}, brand=#{brand}, account=#{account}
+  		where id=#{id}
+  	</update>
+  	
+  	
+  	<!-- 상품 관리  -->
+  	<select id="list">
+  		select * from productTbl 
+  		where id=#{id}
+  	</select>
+ </mapper>

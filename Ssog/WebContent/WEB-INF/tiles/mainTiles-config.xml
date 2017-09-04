@@ -24,4 +24,12 @@
 			</definition>
 		</put-attribute>
 	</definition>
+	
+	<definition name="t_el3" extends="t_base">
+		<put-attribute name="section">
+			<definition template="/WEB-INF/view/member/myinfo/template2.jsp">
+				<put-attribute name="section" expression="/WEB-INF/view/${section}.jsp"/>
+			</definition>
+		</put-attribute>
+	</definition>
 </tiles-definitions>

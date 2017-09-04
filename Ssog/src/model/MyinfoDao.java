@@ -45,12 +45,10 @@ public class MyinfoDao{
 		}
 	}
 	public List<Map> qanda(String id){
-		System.out.println(id);
 		List<Map>list = new ArrayList<>();
 		SqlSession session = factory.openSession();
 		try {
 			list = session.selectList("myinfo.qanda", id);
-			System.out.println("dao list : "+list);
 			return list;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -58,5 +56,72 @@ public class MyinfoDao{
 		}finally {
 			session.close();
 		}
+	}
+	public List<Map> counsel(String id){
+		List<Map>list = new ArrayList<>();
+		SqlSession session = factory.openSession();
+		try {
+			list = session.selectList("myinfo.counsel", id);
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			session.close();
+		}
+	}
+	public List<Map> counselAll(String id){
+		List<Map>list = new ArrayList<>();
+		SqlSession session = factory.openSession();
+		try {
+			list = session.selectList("myinfo.counselAll", id);
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			session.close();
+		}
+	}
+	public List<Map> counselcate(){
+		List<Map>list = new ArrayList<>();
+		SqlSession session = factory.openSession();
+		try {
+			list = session.selectList("myinfo.counselcate");
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			session.close();
+		}
+	}
+	public int counselup(Map map) {
+		SqlSession session = factory.openSession();
+		try {
+			return session.insert("myinfo.counselup",map);
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.rollback();
+			return -1;
+		}finally {
+			session.close();
+		}
+	}
+	public boolean userpassrevise(Map map) {
+		SqlSession session = factory.openSession();
+			try {
+				List<Object> step1 = session.selectList("myinfo.pass_confirm", map);
+				if(step1 !=null ) 
+				session.update("myinfo.pass_revise", map);
+				session.commit();
+				return true;
+			} catch (Exception e) {
+				e.printStackTrace();
+				session.rollback();
+				return false;				
+			}finally {
+				
+			}
 	}
 }
