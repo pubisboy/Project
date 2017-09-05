@@ -6,11 +6,12 @@ table, th, td {
 	font-size: 13px;
 }
 </style>
-<div style="padding-top: 20px;"> 
+<div style="padding-top: 20px;">
 	<h4 style="font-size: 17px; text-align: left;">
 		<span class="glyphicon glyphicon-info-sign"
 			style="padding-right: 10px;"></span><b style="padding-right: 10px;">상품
-			Q&A</b><small style="font-size: 12px;">고객센터를 통하여 고객님께서 문의 하여 주신 문의내역입니다.</small>
+			Q&A</b><small style="font-size: 12px;">고객센터를 통하여 고객님께서 문의 하여 주신
+			문의내역입니다.</small>
 	</h4>
 </div>
 <b style="font-size: 12px; padding-right: 353px;">고객님께서 신청한 문의 : <b
@@ -28,7 +29,7 @@ table, th, td {
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="obj" items="${qlist }">
+				<c:forEach var="obj" items="${page }">
 					<tr>
 						<td>${obj.TITLE }</td>
 						<td>${obj.CATE }</td>
@@ -38,8 +39,17 @@ table, th, td {
 				</c:forEach>
 			</tbody>
 		</table>
-		<c:if test="${qlist.size() eq 0 }">
+		<c:if test="${page.size() eq 0 }">
 			등록된 내용이 없습니다.
 		</c:if>
 	</div>
+<div align="center" style="font-size: 15px;">
+	<c:if test="${pg.startPageNo ne pg.firstPageNo}">&le;</c:if>
+	<c:forEach var="i" begin="${pg.startPageNo }" end="${pg.endPageNo }">
+		<a href="/member/myinfo/qna.j?p=${i }">${i }</a>
+	</c:forEach>
+	<c:if test="${pg.endPageNo ne pg.finalPageNo}">
+		<a href="/member/myinfo/qna.j?p=${pg.endPageNo +1}">&gt;</a>
+	</c:if>
+</div>
 </div>

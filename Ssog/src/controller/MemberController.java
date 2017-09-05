@@ -41,7 +41,7 @@ public class MemberController {
 		ModelAndView mav = new ModelAndView("cart/form");
 		return mav;
 	}
-	
+	//===================================================
 	
 	@RequestMapping("/member/join.j")
 	public ModelAndView join() {

@@ -111,21 +111,23 @@
 			</thead>
 			<tbody>
 				<c:forEach var="obj" items="${flist }">
-					<tr style="border-bottom: 1px solid gray;">
-						<td style="width: 60px; font-size: 13px;" align="left" class="bar">${obj.NUM }</td>
-						<td style="width: 90px; font-size: 13px;" align="left" class="bar">${obj.CATEGORY }</td>
+					<tr style="border-bottom: 1px solid gray;" class="test" id="${obj.NUM }">
+						<td style="width: 60px; font-size: 13px;" align="left">${obj.NUM }</td>
+						<td style="width: 90px; font-size: 13px;" align="left">${obj.CATEGORY }</td>
+						
 						<td style="width: 600px; font-size: 13px;" align="left"
-							id="question" class="bar"><span
-							class="glyphicon glyphicon-question-sign"
+							id="question" class="bar">
+							<span class="glyphicon glyphicon-question-sign"
 							style="font-size: 15px; padding-right: 10px;"></span> |&nbsp;${obj.QUESTION }
-							<div style="width: 100%;" id="answer">
-								<span class="glyphicon glyphicon-font"
-									style="font-size: 18px; color: red;"></span>${obj.ANSWER }</div></td>
+							<div style="width: 100%; display: none;" id="tg_${obj.NUM }" >
+								<span class="glyphicon glyphicon-font"style="font-size: 18px; color: red;"></span>${obj.ANSWER }
+							</div>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
-		<c:if test="${clist.size() eq 0 }">
+		<c:if test="${flist.size() eq 0 }">
 			등록된 내용이 없습니다.
 		</c:if>
 	</div>
@@ -169,7 +171,8 @@
 	</div>
 </div>
 <script>
-	$("#question").on("click", function() {
-		$("#answer").toggle();
+	$(".test").on("click", function() {
+		var id = "#tg_"+$(this).attr('id');
+		$(id).toggle();
 	});
 </script>

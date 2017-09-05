@@ -48,7 +48,7 @@ table, th, td {
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="obj" items="${clist }">
+				<c:forEach var="obj" items="${page }">
 					<tr>
 						<td>${obj.CATE }</td>
 						<td>${obj.TITLE }</td>
@@ -58,9 +58,17 @@ table, th, td {
 				</c:forEach>
 			</tbody>
 		</table>
-		<c:if test="${clist.size() eq 0 }">
+		<c:if test="${page.size() eq 0 }">
 			등록된 내용이 없습니다.
 		</c:if>
 	</div>
+<div align="center" style="font-size: 15px;">
+	<c:if test="${pg.startPageNo ne pg.firstPageNo}">&le;</c:if>
+<c:forEach var="i" begin="${pg.startPageNo }" end="${pg.endPageNo }">
+	<a href="/member/myinfo/counsel.j?p=${i }">${i }</a>
+</c:forEach>
+	<c:if test="${pg.endPageNo ne pg.finalPageNo}">
+	<a href="/member/myinfo/counsel.j?p=${pg.endPageNo +1}">&gt;</a>
+	</c:if> 
 </div>
-
+</div>
