@@ -18,8 +18,10 @@
 	border-radius: 0px;
 }
 </style>
-<div style="min-height: 8%; display: block;">배너뜨는창
-<a href="javascript:closeToplineBanner()" class="btn_clse">레이어닫기</a>
+<div style="min-height: 8%;"id="banner">
+<img class="img-responsive" src="/image/banner1.jpg"
+			alt="메인이미지1"/> 
+<button id="close" style="position: absolute; top: 20px; right: 240px;">X</button> 
 </div>
 <div>
 	<div class="navbar navbar-inverse navbar-fixed"
@@ -42,9 +44,9 @@
 						<li><a href="/member/logout.j">로그아웃</a></li>
 					</c:otherwise>
 				</c:choose>
-				<li><a href="/member/myinfo/info.j">나의정보</a></li>
+				<li><a href="/member/myinfo/info.j">마이페이지</a></li>
+				<li><a href="/cart/form.j">장바구니</a></li>
 				<li><a href="/cccenter/faq.j">고객센터</a></li>
-				<li><a href="/">장바구니</a></li>
 			</ul>
 		</div>
 	</div>
@@ -114,5 +116,8 @@
 		$("#myBtn").click(function() {
 			$("#myModal").modal();
 		});
+	});
+	$("#close").on("click",function(){
+		$("#banner").hide();
 	});
 </script>

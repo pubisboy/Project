@@ -9,19 +9,24 @@
 					href="/member/myinfo/info.j">고객센터</a>
 			</div>
 			<ul class="nav nav-stacked nav-pills" style="margin-top: 20px;">
-				<li class="${ac eq 'note' ? 'ac' : '' }"><a href="#collapse1">공지사항</a></li>
+			<li class="${ac eq 'note' ? 'ac' : '' }"><a
+					data-toggle="collapse" data-parent="#accordion" href="#collapse1"
+					style="text-decoration: none; color: #404040;">공지사항</a></li>
+				<hr style="margin: 0px;" />
 				<div id="collapse1" class="panel-collapse collapse">
 					<div class="panel-body">
-						<a href="/">공지사항</a><br /> <a
-							href="/">이벤트 당첨자발표</a><br />
+						<a href="/cccenter/notice.j"
+							style="text-decoration: none; color: #999999;">공지사항</a><br /> <a
+							href="/"
+							style="text-decoration: none; color: #999999;">이벤트 당첨자발표</a><br />
 					</div>
 				</div>
 				<hr style="margin: 0px;" />
-				<li class="${ac eq 'faq' ? 'ac' : '' }"><a href="/">자주 묻는
+				<li class="${ac eq 'faq' ? 'ac' : '' }"><a href="/cccenter/faq.j"style="text-decoration: none; color: #404040;">자주 묻는
 						질문(FAQ)</a></li>
 				<hr style="margin: 0px;" />
 				<li class="${ac eq 'coupon' ? 'ac' : '' }"><a
-					data-toggle="collapse" data-parent="#accordion" href="/member/myinfo/counsel_detail.j">1:1 문의</a></li>
+					href="/member/myinfo/counsel_detail.j"style="text-decoration: none; color: #404040;">1:1 문의</a></li>
 				<hr style="margin: 0px;" />
 
 				<li class="${ac eq 'membership' ? 'ac' : '' }"><a
@@ -60,7 +65,7 @@
 					style="border-bottom: 2px solid #f2f2f2; border-top: 2px solid #ff1a66; padding-bottom: 22px; padding-top: 25px;">
 					<div class="col-xs-2" style="border-right: 1px dotted grey;"
 						align="center">
-						<a href=""> <span class="glyphicon glyphicon-book"
+						<a href="/cccenter/faq.j" style="text-decoration: none; color: #595959;"> <span class="glyphicon glyphicon-book"
 							style="font-size: 35px; padding-bottom: 10px;"></span><br /> <b
 							style="font-size: 12px;">자주 묻는 질문</b></a>
 					</div>
@@ -80,7 +85,7 @@
 					</div>
 					<div class="col-xs-2" style="border-right: 1px dotted grey;"
 						align="center">
-						<a href=""> <span class="glyphicon glyphicon-list-alt"
+						<a href="/member/myinfo/orderlist.j" style="text-decoration: none; color: #595959;"> <span class="glyphicon glyphicon-list-alt"
 							style="font-size: 35px; padding-bottom: 10px;"></span><br /> <b
 							style="font-size: 12px;">주문내역확인</b></a>
 					</div>

@@ -1,8 +1,54 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<style>
+.btn-custom {
+	background-color: hsl(0, 0%, 16%) !important;
+	background-repeat: repeat-x;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#5b5b5b",
+		endColorstr="#282828");
+	background-image: -khtml-gradient(linear, left top, left bottom, from(#5b5b5b),
+		to(#282828));
+	background-image: -moz-linear-gradient(top, #5b5b5b, #282828);
+	background-image: -ms-linear-gradient(top, #5b5b5b, #282828);
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #5b5b5b),
+		color-stop(100%, #282828));
+	background-image: -webkit-linear-gradient(top, #5b5b5b, #282828);
+	background-image: -o-linear-gradient(top, #5b5b5b, #282828);
+	background-image: linear-gradient(#5b5b5b, #282828);
+	border-color: #282828 #282828 hsl(0, 0%, 11%);
+	color: #fff !important;
+	border-radius: 0px;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.33);
+	-webkit-font-smoothing: antialiased;
+}
+
+.btn-custom2 {
+	background-color: hsl(0, 0%, 95%) !important;
+	background-repeat: repeat-x;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#10b10b10b",
+		endColorstr="#f2f2f2");
+	background-image: -khtml-gradient(linear, left top, left bottom, from(#10b10b10b),
+		to(#f2f2f2));
+	background-image: -moz-linear-gradient(top, #10b10b10b, #f2f2f2);
+	background-image: -ms-linear-gradient(top, #10b10b10b, #f2f2f2);
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,
+		#10b10b10b), color-stop(100%, #f2f2f2));
+	background-image: -webkit-linear-gradient(top, #10b10b10b, #f2f2f2);
+	background-image: -o-linear-gradient(top, #10b10b10b, #f2f2f2);
+	background-image: linear-gradient(#10b10b10b, #f2f2f2);
+	border-color: #f2f2f2 #f2f2f2 hsl(0, 0%, 92.5%);
+	color: #333 !important;
+	border-radius: 0px;
+	text-shadow: 0 1px 1px rgba(255, 255, 255, 0.16);
+	-webkit-font-smoothing: antialiased;
+}
+</style>
+
 <div>
-	<h4 style="font-size: 17px; text-align: left;">
-		<span class="glyphicon glyphicon-info-sign" style="padding-right: 10px;"></span><b style="padding-right: 10px;">회원탈퇴</b><small>SSOG인터넷쇼핑몰 회원탈퇴를 요청합니다</small>
+	<h4 style="font-size: 17px; text-align: left; padding-top: 20px;">
+		<span class="glyphicon glyphicon-info-sign"
+			style="padding-right: 10px;"></span><b style="padding-right: 10px;">회원탈퇴</b><small>SSOG인터넷쇼핑몰
+			회원탈퇴를 요청합니다</small>
 	</h4>
 </div>
 <hr style="margin-top: 0px;" />
@@ -24,7 +70,9 @@
 		탈퇴사유 체크박스로 표시
 	</div>
 	<div class="col-sm-12">
-		<button>회원탈퇴 요청</button><br/>
-		<button>취소</button>
+		<div align="center" style="padding-top: 15px;">
+			<button class="btn btn-custom">회원탈퇴 요청</button>
+			<button class="btn btn-custom2">취소</button>
+		</div>
 	</div>
 </div>
