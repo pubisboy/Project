@@ -34,7 +34,15 @@ public class MemberController {
 		mav.addObject("section", "/main");
 		return mav;
 	}
-
+	
+	// 임시컨트롤러
+	@RequestMapping("/cart/form.j")
+	public ModelAndView cart() {
+		ModelAndView mav = new ModelAndView("cart/form");
+		return mav;
+	}
+	//===================================================
+	
 	@RequestMapping("/member/join.j")
 	public ModelAndView join() {
 		ModelAndView mav = new ModelAndView("tw_member/join");

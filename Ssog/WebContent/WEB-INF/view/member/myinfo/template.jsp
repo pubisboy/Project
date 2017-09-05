@@ -16,7 +16,7 @@
 				</small></a>
 			</div>
 			<ul class="nav nav-stacked nav-pills" style="margin-top: 20px;">
-				<li class="${ac eq 'orderlist' ? 'ac' : '' }"><a href="/"
+				<li class="${ac eq 'orderlist' ? 'ac' : '' }"><a href="/member/myinfo/orderlist.j"
 					style="text-decoration: none; color: #404040;">주문내역</a></li>
 				<hr style="margin: 0px;" />
 				<li class="${ac eq 'shoppingbasket' ? 'ac' : '' }"><a href="/cart/form.j"

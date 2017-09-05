@@ -21,7 +21,17 @@ public class CccenterController {
 		ModelAndView mav = new ModelAndView("t_el3");
 		mav.addObject("section", "cccenter/faq");
 		List<Map> flist = mdao.faq();
+		List<Map> nlist = mdao.notice();
 		mav.addObject("flist", flist);
+		mav.addObject("nlist", nlist);
+		return mav;
+	}
+	@RequestMapping("/notice.j")
+	public ModelAndView notice() {
+		ModelAndView mav = new ModelAndView("t_el3");
+		mav.addObject("section", "cccenter/notice");
+		List<Map> nalist = mdao.noticeAll();
+		mav.addObject("nalist", nalist);
 		return mav;
 	}
 }
