@@ -55,12 +55,6 @@ $(document).ready(function(){
     e.preventDefault();
   });
 });
-$(document).ready(function(){
-	  $('.dropdown-submenu a.test').on("mouseleave", function(e){
-	    $(this).next('ul').show();
-	    e.stopPropagation();
-	    e.preventDefault();
-	  });
-	});
+
 
 </script>

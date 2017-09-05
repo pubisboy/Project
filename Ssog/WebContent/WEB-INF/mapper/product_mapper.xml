@@ -29,7 +29,7 @@
  		  <if test="search != null and search !=''">
  		where pro_name like #{search}
  		</if>	 
- 		 )tmp)tmp2 
+ 		 )tmp where sell_on=1)tmp2 
  	</select>
  	
  	<select id="pro_list_bestseller" parameterType="java.util.HashMap" resultType="java.util.HashMap">

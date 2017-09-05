@@ -45,6 +45,9 @@ public class ProductController {
 		Map m = pg.calcBetween(page);
 		param.put("start", m.get("start"));
 		param.put("end", m.get("end"));
+		System.out.println(m);
+		mav.addObject("total", r);
+	
 		pg.setNumberOfRecords(r);		
 		Map mm = pg.calcPaging(page, r);		
 		list=pdao.pro_list(param);
