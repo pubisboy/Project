@@ -194,4 +194,33 @@ public class AdminOracleDao implements AdminDao{
 		}
 		return b;
 	}
+	
+	public Map getInfo_company(){
+		SqlSession session = factory.openSession();
+		try{
+			return session.selectOne("admin.getInfo_company");
+		}catch(Exception e){
+			System.out.println("error.getInfo_company");
+			return null;
+		}finally{
+			session.close();
+		}
+	}
+	
+	public boolean updateValues(List list){
+		SqlSession session = factory.openSession();
+		boolean b = false;
+		try{
+			session.update("admin.update_info_company", list);
+			b = true;
+			session.commit();
+		}catch(Exception e){
+			System.out.println("error.getInfo_company");
+			b = false;
+			session.rollback();
+		}finally{
+			session.close();
+		}
+		return b;
+	}
 }

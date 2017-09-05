@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -150,4 +151,70 @@ public class AdminController {
 		return mav;
 	}
 	
+	public List makeList(){
+		String[] label = "회사이름,대표이사,주소,사업자 등록 번호,통신 판매업 신고 번호,개인정보 관리 책임자,대표 메일,대표 번호,FAX,기타,copyright".split(",");
+		String[] name = "NAME,CEO,ADDR,LICENSE,REPORT_NUM,PD,EMAIL,PHONE,FAX,ETC,COPYRIGHT".split(",");
+		Map m = ad.getInfo_company();
+		List list = null;
+		if(m != null){
+			List li = new ArrayList<>();
+			for(int i = 0; i < name.length; i++){
+				li.add((m.get(name[i]) == null ? "" : m.get(name[i])));
+				// System.out.println(m.get((name[i])));
+			}
+			list = new ArrayList<>();
+			for(int i = 0; i < label.length; i++){
+				Map rst = new HashMap();
+				rst.put("label", label[i]);
+				rst.put("val", li.get(i));
+				rst.put("name", name[i]);
+				list.add(rst);
+			}
+		}
+		return list;
+	}
+	
+	public List updateList(Map params){
+		String[] name = "NAME,CEO,ADDR,LICENSE,REPORT_NUM,PD,EMAIL,PHONE,FAX,ETC,COPYRIGHT".split(",");
+		List list = null;
+		list = new ArrayList<>();
+		for(int i = 0; i < name.length; i++){
+			Map rst = new HashMap();
+			rst.put("name", name[i]);
+			rst.put("val", params.get(name[i]));
+			// System.out.println(name[i] + " / "+params.get(name[i]));
+			list.add(rst);
+		}
+		return list;
+	}
+	
+	@RequestMapping("/information/company.ja")
+	public String infomation_company(Map map){
+		map.put("list", makeList());
+ 		map.put("section", "/management/information/company");
+		return "ad_management";
+	}
+	
+	@RequestMapping("/information/companyModify.ja")
+	public String information_companyModify(Map map){
+		String[] name = "회사이름,대표이사,주소,사업자 등록 번호,통신 판매업 신고 번호,개인정보 관리 책임자,대표 메일,대표 번호,기타,copyright".split(",");
+		map.put("list", makeList());
+		map.put("section", "/management/information/company_modify");
+		return "ad_management";
+	}
+	
+	@RequestMapping("/information/companyModifyExec.ja")
+	public String information_companyModifyExec(@RequestParam Map params, Map map){
+		System.out.println("params : "+params.toString());
+		List li = updateList(params);
+		boolean b = ad.updateValues(li);
+		return "redirect:/admin/information/company.ja";
+	}
+	
+	@RequestMapping("/getInfoCompany.ja")
+	@ResponseBody
+	public Map getInfoCompany(){
+		Map map = ad.getInfo_company();
+		return map;
+	}
 }
