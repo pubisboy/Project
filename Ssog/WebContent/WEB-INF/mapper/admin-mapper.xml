@@ -49,4 +49,15 @@
 		</foreach>
 	</insert>
 	
+	<select id="getInfo_company" resultType="java.util.HashMap">
+		select * from INFO_COMPANY
+	</select>
+	
+	<update id="update_info_company" parameterType="java.util.ArrayList">
+		update info_company set
+		<foreach collection="list" item="map" separator=",">
+			${map.name} = #{map.val}
+		</foreach>
+	</update>
+	
 </mapper>

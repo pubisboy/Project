@@ -5,5 +5,5 @@
 	<li><a href="#">팝업</a></li>
 	<li><a href="#">회원</a></li>
 	<li><a href="#">회원</a></li>
-	<li><a href="#">회원</a></li>
+	<li><a href="/admin/information/company.ja">회사 정보</a></li>
 </ul>

@@ -18,4 +18,6 @@ public interface AdminDao {
 	public List<Map> getValues(String mapper, String table);
 	public List<Map> getValues(String mapper, Map map);
 	public boolean putImages(List list);
+	public Map getInfo_company();
+	public boolean updateValues(List list);
 }
