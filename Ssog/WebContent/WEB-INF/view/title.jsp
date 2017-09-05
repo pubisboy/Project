@@ -1,7 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
 .modal-header, h4, .close {
 	background-color: #ffffff;
@@ -18,8 +24,10 @@
 	border-radius: 0px;
 }
 </style>
-<div style="min-height: 8%; display: block;">배너뜨는창
-<a href="javascript:closeToplineBanner()" class="btn_clse">레이어닫기</a>
+<div style="min-height: 8%;"id="banner">
+<img class="img-responsive" src="/image/banner1.jpg"
+			alt="메인이미지1"/> 
+<button id="close" style="position: absolute; top: 20px; right: 240px;">X</button> 
 </div>
 <div>
 	<div class="navbar navbar-inverse navbar-fixed"
@@ -42,9 +50,15 @@
 						<li><a href="/member/logout.j">로그아웃</a></li>
 					</c:otherwise>
 				</c:choose>
+
 				<li><a href="/member/myinfo/info.j">나의정보</a></li>
-				<li><a href="/cccenter/faq.j">고객센터</a></li>
+				<li><a href="/">나의정보</a></li>
+
+				<li><a href="/">고객센터</a></li>
 				<li><a href="/">장바구니</a></li>
+				<li><a href="/member/myinfo/info.j">마이페이지</a></li>
+				<li><a href="/cart/form.j">장바구니</a></li>
+				<li><a href="/cccenter/faq.j">고객센터</a></li>
 			</ul>
 		</div>
 	</div>
@@ -54,9 +68,9 @@
 	<h1><a href="/" style="text-decoration: none; color: black;">SSOG</a></h1>
 	</div>
 	<div class="col-sm-6" style="padding-top: 23px;">
-		<form>
+		<form action="/product/list.j"> 
       <div class="input-group">
-        <input type="text" class="form-control" placeholder="검색어를 입력하세요" style="width: 100%;"> 
+        <input type="text" class="form-control" name="search" placeholder="검색어를 입력하세요" style="width: 100%;" required="false"> 
         <div class="input-group-btn">
           <button class="btn btn-default" type="submit">
             <i class="glyphicon glyphicon-search" style="width: 20px;height: 20px;"></i>
@@ -115,4 +129,7 @@
 			$("#myModal").modal();
 		});
 	});
-</script>
+	$("#close").on("click",function(){
+		$("#banner").hide();
+	});
+</script> 

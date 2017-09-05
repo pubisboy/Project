@@ -31,4 +31,30 @@ public class CccenterDao {
 			session.close();
 		}
 	}
+	public List<Map> notice(){
+		List<Map>list = new ArrayList<>();
+		SqlSession session = factory.openSession();
+		try {
+			list = session.selectList("cccenter.notice");
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			session.close();
+		}
+	}
+	public List<Map> noticeAll(){
+		List<Map>list = new ArrayList<>();
+		SqlSession session = factory.openSession();
+		try {
+			list = session.selectList("cccenter.notice");
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			session.close();
+		}
+	}
 }

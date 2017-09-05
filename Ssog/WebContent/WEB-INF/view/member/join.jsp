@@ -16,9 +16,9 @@
 						class="glyphicon glyphicon-question-sign" data-toggle="tooltip"
 						title="생년월일 정보는 신원을 확인하거나 특정 Ssog서비스를 활성화하는데 사용됩니다."></span> <input
 						type="radio" name="gender" value="M"
-						style="width: 13px; height: 13px; padding-right: 20px;"><b
-						style="padding-right: 8%;">남</b><input type="radio" name="gender"
-						value="W" style="width: 13px; height: 13px; padding-right: 20px;"><b>여</b>
+						style="width: 13px; height: 13px; padding-right: 20px;" required="required"><b
+						style="padding-right: 8%;">남</b><input type="radio" name="gender" 
+						value="W" style="width: 13px; height: 13px; padding-right: 20px;" required="required"><b>여</b>
 					<br />
 					<hr />
 				</div>
@@ -33,19 +33,19 @@
 				<hr />
 				<div class="navbar-form navbar">
 					<input class="form-control" type="text" name="postcode"
-						id="postcode" placeholder="우편번호" style="width: 60%;"> <input
+						id="postcode" placeholder="우편번호" style="width: 60%;" required="required"> <input
 						class="form-control" type="button"
 						onclick="sample6_execDaumPostcode()" value="우편번호 찾기"
 						style="width: 32%;"><br />
 				</div>
 				<input class="form-control" type="text" name="address1"
-					id="address1" placeholder="주소" style="width: 90%;"> <input
+					id="address1" placeholder="주소" style="width: 90%;"required="required"> <input
 					class="form-control" type="text" name="address2" id="address2"
-					placeholder="상세주소" style="width: 90%;"> <br />
+					placeholder="상세주소" style="width: 90%;"required="required"> <br />
 				<hr />
 				<input class="form-control" type="text"
 					placeholder="휴대폰번호(-제외, 11자리)" name="phone" id="phone" required
-					style="width: 90%;" />
+					style="width: 90%;" required="required"/>
 				<div align="left" style="padding-left: 41px;">
 					<input type="checkbox" name="sms" /><small style="font-size: 11px;">수신동의하고
 						특별한 쇼핑정보, 엄청난 혜택 알림을 문자로 받아보세요.</small>
@@ -56,7 +56,7 @@
 				<div class="navbar-form navbar" style="padding-left: 10px;">
 					<input style="width: 60%;" class="form-control" type="email"
 						placeholder="이메일" name="email" id="email" required
-						style="width: 90%;" />
+						style="width: 90%;" required="required"/>
 					<button class="btn btn-info" type="button" name="emailaccredit"
 						id="emailaccredit" style="width: 32%;">인증하기</button>
 					<p id="email_chk"></p>

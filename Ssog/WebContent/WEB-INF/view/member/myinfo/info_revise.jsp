@@ -5,7 +5,6 @@
 table, th, td {
 	font-size: 13px;
 }
-
 .btn-custom {
 	background-color: hsl(0, 0%, 16%) !important;
 	background-repeat: repeat-x;
@@ -65,9 +64,9 @@ table, th, td {
 							</c:forTokens>
 					</select>
 					 - <input type="text" style="width: 60px; height: 25px;" value="${memberinfo.phone2 }" id="phone2"/> - <input
-						type="text" style="width: 60px; height: 25px;" value="${memberinfo.phone3 }"id="phone3" /><br /> <input
-						type="checkbox" id="sms"/> <small
-						style="font-size: 11px; padding-bottom: 5px;">수신동의하고 특별한
+						type="text" style="width: 60px; height: 25px;" value="${memberinfo.phone3 }"id="phone3" /><br />
+						<input type="checkbox" id="sms" checked="${memberinfo.ck_sms eq on ? selected : '' }"/>
+						 <small	style="font-size: 11px; padding-bottom: 5px;">수신동의하고 특별한
 							쇼핑정보, 엄청난 혜택 알림을 문자로 받아보세요.</small></td>
 				</tr>
 				<tr>
@@ -81,13 +80,12 @@ table, th, td {
 							<option value="gmail.com">gmail.com</option>
 							<option value="nate.com">nate.com</option>
 							<option value="hanmail.net">hanmail.net</option>
-							<option value="직접입력">직접입력</option>
-					</select><br /> <input type="checkbox" id="emailck"/> <small
-						style="font-size: 11px; padding-bottom: 5px;">수신동의하고 특별한
-							쇼핑정보, 엄청난 혜택 알림을 이메일로 받아보세요.</small>
-							<br><input type="checkbox" id="refresh"/> <small
-						style="font-size: 11px; padding-bottom: 5px;">재입고 알림
-						신청서비스를 받습니다.</small></td> 
+							<option value="직접입력">직접입력</option> 
+					</select><br />
+					<input type="checkbox" id="emailck" checked="${memberinfo.ck_email eq on ? selected : '' }"/>
+					<small style="font-size: 11px; padding-bottom: 5px;">수신동의하고 특별한 쇼핑정보, 엄청난 혜택 알림을 이메일로 받아보세요.</small>
+							<br><input type="checkbox" id="refresh" checked="${memberinfo.ck_refresh eq on ? selected : '' }"/> 
+							<small style="font-size: 11px; padding-bottom: 5px;">재입고 알림 신청서비스를 받습니다.</small></td> 
 				</tr>
 				<tr>
 					<td class="active">주소입력</td>
