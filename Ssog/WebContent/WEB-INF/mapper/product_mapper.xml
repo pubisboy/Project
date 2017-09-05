@@ -53,6 +53,9 @@
  		 </if> 		 
  		 )tmp)tmp2  
  	</select>
+ 	<select id="originlist" resultType="java.util.HashMap">
+ 		select * from origintbl
+ 	</select>
  	
  	
  

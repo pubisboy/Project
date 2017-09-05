@@ -33,7 +33,7 @@ public class ProductController {
 		if(param.get("search")!=null) {
 		String search=(String) param.get("search");
 		search="%"+search+"%";
-		param.put("search", search);
+		param.put("search", search); 
 		}
 		System.out.println("넘어온 파라미터"+param);
 		String category=(String) param.get("category");
@@ -47,13 +47,14 @@ public class ProductController {
 		param.put("end", m.get("end"));
 		System.out.println(m);
 		mav.addObject("total", r);
-	
+		List<Map> list1=new ArrayList<>();
+		list1=pdao.originlist();
 		pg.setNumberOfRecords(r);		
 		Map mm = pg.calcPaging(page, r);		
 		list=pdao.pro_list(param);
 		mav.addObject("list", list);
 		mav.addObject("paging",mm);
-		
+		mav.addObject("originlist", list1);
 		return mav;
 	}
 	

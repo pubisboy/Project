@@ -65,4 +65,16 @@ public class ProductDao {
 		}		
 		return r;
 	}
+	public List<Map> originlist(){
+		List<Map> list=new ArrayList<>();
+		SqlSession session=factory.openSession();
+		try {
+			list=session.selectList("originlist");
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}		
+		return list;
+	}
 }
