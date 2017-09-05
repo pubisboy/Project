@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cccenter">
+	<select id="faq" resultType="java.util.HashMap">
+		select f.*, c.category from
+		(SELECT * FROM FAQ)f
+		left join counsel_category c
+		on f.cate = c.num
+	</select>
+</mapper>

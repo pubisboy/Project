@@ -124,4 +124,23 @@ public class MyinfoDao{
 				
 			}
 	}
+	public boolean info_revise(Map map) {
+		SqlSession session = factory.openSession();
+		int rst = 0;
+		try {
+			rst = session.update("member.info_revise", map);
+			if(rst==1) { 
+			rst = session.update("member.join_service", map);
+			System.out.println(rst); 
+			}
+			session.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			rst = 0;
+			session.rollback();
+		}finally {
+			session.close();
+		}
+		return rst ==1;
+	}
 }
