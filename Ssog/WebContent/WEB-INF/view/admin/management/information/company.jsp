@@ -10,8 +10,8 @@
 	    	</tr>
 		</thead>
 		<tbody>
-			<c:forEach items="${list }" var="li" varStatus="vs" begin="0" step="1">
-				<tr><th>${li.label }</th><th id="${vs.index }">${li.val }</th></tr>
+			<c:forEach items="${list }" var="li" >
+				<tr><th>${li.NAME }</th><th id="${li.NAME }">${li.VALUE }</th></tr>
 			</c:forEach>
 		</tbody>
 	</table>

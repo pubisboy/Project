@@ -43,9 +43,10 @@
 		select r.* from (select n.*, t.TARGET targets from notice n left join target t on n.TARGET = t.NUM) r where r.notice_num = #{num}
 	</select>
 	
-	<insert id="putImage_notice" parameterType="java.util.ArrayList">
-		<foreach collection="list" item="src" open="INSERT ALL" separator="" close="SELECT * FROM DUAL">
-			inotice_img(num, img_uuid) values (notice_num_seq.currval, #{src})
+	<insert id="putImage_notice" parameterType="java.util.List">
+		insert into inotice_img (num, img_uuid) values
+		<foreach collection="list" item="src" separator=",">
+			 (notice_num_seq.currval, #{src})
 		</foreach>
 	</insert>
 	
@@ -53,11 +54,16 @@
 		select * from INFO_COMPANY
 	</select>
 	
-	<update id="update_info_company" parameterType="java.util.ArrayList">
-		update info_company set
-		<foreach collection="list" item="map" separator=",">
-			${map.name} = #{map.val}
-		</foreach>
+	<update id="update_info_company" parameterType="java.util.HashMap">
+		update info_company set	name = #{name}, value = #{val} where num = ${num}
 	</update>
+	
+	<delete id="delInfo_company" parameterType="java.lang.String">
+		delete from info_company where name=#{name}
+	</delete>
+	
+	<insert id="plusInfo_company">
+		insert into info_company values(#{name}, null, info_company_seq.nextval)
+	</insert>
 	
 </mapper>
