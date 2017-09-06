@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.tiles.autotag.core.runtime.annotation.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,6 +39,7 @@ public class ProductController {
 		ModelAndView mav=new ModelAndView("t_base");
 		mav.addObject("section","product/list");			
 		List<Map> list=new ArrayList<>();
+		
 		int r=pdao.paging(param);
 		int page = Integer.parseInt((String)param.get("page"));
 		Map m = pg.calcBetween(page);
