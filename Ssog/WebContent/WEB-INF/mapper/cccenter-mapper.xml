@@ -18,7 +18,9 @@
 	</select>
 	<select id="one_notice" parameterType="java.lang.String"
 		resultType="java.util.HashMap">
-		select * from notice where NOTICE_NUM=#{num} and TARGET='1'
+		select bb.* from(select b.*, rownum rnum from (SELECT * FROM NOTICE where target='1')b
+		order
+		by rnum desc)bb where bb.rnum=#{num}
 	</select>
 	<select id="noticeAll" resultType="java.util.HashMap">
 		select b.*, rownum rnum from (SELECT * FROM NOTICE where target='1')b

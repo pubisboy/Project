@@ -20,13 +20,13 @@
 </head>
 <body>
 	<div>
-		<header style="width: 100%; min-height: 30%;">
+		<header style="width: 100%; min-height: 22%;">
 			<tiles:insertAttribute name="title" />
 		</header>
 		<nav style="width: 100%;">
 			<tiles:insertAttribute name="nav" />
 		</nav>
-		<section style="min-height: 150%; margin-top: 50px; margin-top: 0px;">
+		<section style="min-height: 150%; margin-top: 50px; margin-top: 0px; padding-left: 135px; padding-top: 20px;">   
 			<tiles:insertAttribute name="section" />
 		</section>
 		<footer>
