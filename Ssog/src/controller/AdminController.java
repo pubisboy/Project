@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -30,6 +31,9 @@ public class AdminController {
 
 	@Autowired
 	AdminDao ad;
+	
+	@Autowired
+	ServletContext application;
 
 	@RequestMapping("/login.ja")
 	public String login() {
@@ -105,20 +109,47 @@ public class AdminController {
 				String[] cons = con.split("\"");
 				List list = new ArrayList<>(); 
 				for(String c : cons){
-					// System.out.println(c);
-					if(c.startsWith("/admin/resources")){
-						list.add(c);
+					if(c.contains("/admin/resources")){
+						System.out.println("src : "+c);
+						Map m = new HashMap<>();
+						m.put("src", c);
+						list.add(m);
 					}
 				}
 				boolean bb = ad.putImages(list);
 				map.put("img", bb);
+				if(bb){
+					del_tempImg();
+				}
 			}
 		}
 		return map;
 	}
 	
-	@Autowired
-	ServletContext application;
+	public void del_tempImg(){
+		List li = ad.getUuid_notice_img();
+		List srcs = new ArrayList<>();
+		Iterator<String> it = li.iterator();
+		int i = 0;
+		while(it.hasNext()){
+			String[] s = it.next().split("/");
+			String rst = s[s.length-1];
+			srcs.add(rst);
+		}
+		System.out.println(srcs);
+		String path = application.getRealPath("/admin/resources");
+		File dir = new File(path);
+		if(dir.exists()){
+			String[] tmp = dir.list();
+			System.out.println(Arrays.toString(tmp));
+			for(String s : tmp){
+				if(!srcs.contains(s)){
+					File file = new File(String.format("%s/%s", path, s));
+					file.delete();
+				}
+			}
+		}
+	}
 	
 	@RequestMapping("/notice/upload.j")
 	public ModelAndView upload(@RequestParam(name="upload") MultipartFile f, @RequestParam Map param) throws IllegalStateException, IOException{
@@ -168,20 +199,24 @@ public class AdminController {
 	
 	@RequestMapping("/information/companyModifyExec.ja")
 	public String information_companyModifyExec(@RequestParam Map params, Map map, @RequestParam(name="names", required=false) String[] names,
-			@RequestParam(name="nums", required=false) Integer[] nums){
+			@RequestParam(name="nums", required=false) Integer[] nums, @RequestParam(name="names_origin", required=false) String[] names_origin){
 		System.out.println("params : "+params.toString());
 		System.out.println(Arrays.toString(names));
+		System.out.println(Arrays.toString(names_origin));
+		System.out.println(Arrays.toString(nums));
+
 		List list = new ArrayList<>();
 		for(int i = 0; i < names.length; i ++){
 			Map m = new HashMap<>();
-			m.put("num", 1+i);
+			m.put("num", nums[i]);
 			m.put("name", names[i]);
-			m.put("val", params.get(names[i]));
+			m.put("val", params.get(names_origin[i]));
 			System.out.println("num : "+m.get("num"));
 			System.out.println("name : "+names[i]);
-			System.out.println("val : "+params.get(names[i]));
+			System.out.println("val : "+params.get(names_origin[i]));
 			list.add(m);
 		}
+		
 		boolean b = ad.updateValues(list);
 		return "redirect:/admin/information/company.ja";
 	}
@@ -202,8 +237,8 @@ public class AdminController {
 	
 	@RequestMapping("/information/plusInfoCompany.ja")
 	@ResponseBody
-	public boolean plusInfoCompany(@RequestParam(name="plus") String name){
-		boolean b = ad.plusInfo_company(name);
-		return b;
+	public int plusInfoCompany(@RequestParam(name="plus") String name){
+		int rst = ad.plusInfo_company(name);
+		return rst;
 	}
 }
