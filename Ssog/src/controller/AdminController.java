@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -151,70 +152,58 @@ public class AdminController {
 		return mav;
 	}
 	
-	public List makeList(){
-		String[] label = "회사이름,대표이사,주소,사업자 등록 번호,통신 판매업 신고 번호,개인정보 관리 책임자,대표 메일,대표 번호,FAX,기타,copyright".split(",");
-		String[] name = "NAME,CEO,ADDR,LICENSE,REPORT_NUM,PD,EMAIL,PHONE,FAX,ETC,COPYRIGHT".split(",");
-		Map m = ad.getInfo_company();
-		List list = null;
-		if(m != null){
-			List li = new ArrayList<>();
-			for(int i = 0; i < name.length; i++){
-				li.add((m.get(name[i]) == null ? "" : m.get(name[i])));
-				// System.out.println(m.get((name[i])));
-			}
-			list = new ArrayList<>();
-			for(int i = 0; i < label.length; i++){
-				Map rst = new HashMap();
-				rst.put("label", label[i]);
-				rst.put("val", li.get(i));
-				rst.put("name", name[i]);
-				list.add(rst);
-			}
-		}
-		return list;
-	}
-	
-	public List updateList(Map params){
-		String[] name = "NAME,CEO,ADDR,LICENSE,REPORT_NUM,PD,EMAIL,PHONE,FAX,ETC,COPYRIGHT".split(",");
-		List list = null;
-		list = new ArrayList<>();
-		for(int i = 0; i < name.length; i++){
-			Map rst = new HashMap();
-			rst.put("name", name[i]);
-			rst.put("val", params.get(name[i]));
-			// System.out.println(name[i] + " / "+params.get(name[i]));
-			list.add(rst);
-		}
-		return list;
-	}
-	
 	@RequestMapping("/information/company.ja")
 	public String infomation_company(Map map){
-		map.put("list", makeList());
+		map.put("list", ad.getInfo_company());
  		map.put("section", "/management/information/company");
 		return "ad_management";
 	}
 	
 	@RequestMapping("/information/companyModify.ja")
 	public String information_companyModify(Map map){
-		String[] name = "회사이름,대표이사,주소,사업자 등록 번호,통신 판매업 신고 번호,개인정보 관리 책임자,대표 메일,대표 번호,기타,copyright".split(",");
-		map.put("list", makeList());
+		map.put("list", ad.getInfo_company());
 		map.put("section", "/management/information/company_modify");
 		return "ad_management";
 	}
 	
 	@RequestMapping("/information/companyModifyExec.ja")
-	public String information_companyModifyExec(@RequestParam Map params, Map map){
+	public String information_companyModifyExec(@RequestParam Map params, Map map, @RequestParam(name="names", required=false) String[] names,
+			@RequestParam(name="nums", required=false) Integer[] nums){
 		System.out.println("params : "+params.toString());
-		List li = updateList(params);
-		boolean b = ad.updateValues(li);
+		System.out.println(Arrays.toString(names));
+		List list = new ArrayList<>();
+		for(int i = 0; i < names.length; i ++){
+			Map m = new HashMap<>();
+			m.put("num", 1+i);
+			m.put("name", names[i]);
+			m.put("val", params.get(names[i]));
+			System.out.println("num : "+m.get("num"));
+			System.out.println("name : "+names[i]);
+			System.out.println("val : "+params.get(names[i]));
+			list.add(m);
+		}
+		boolean b = ad.updateValues(list);
 		return "redirect:/admin/information/company.ja";
 	}
 	
-	@RequestMapping("/getInfoCompany.ja")
+	@RequestMapping("/information/getInfoCompany.ja")
 	@ResponseBody
-	public Map getInfoCompany(){
-		Map map = ad.getInfo_company();
-		return map;
+	public List getInfoCompany(){
+		List list = ad.getInfo_company();
+		return list;
+	}
+	
+	@RequestMapping("/information/delInfoCompany.ja")
+	@ResponseBody
+	public boolean delInfoCompany(@RequestParam(name="del") String name){
+		boolean b = ad.delInfo_company(name);
+		return b;
+	}
+	
+	@RequestMapping("/information/plusInfoCompany.ja")
+	@ResponseBody
+	public boolean plusInfoCompany(@RequestParam(name="plus") String name){
+		boolean b = ad.plusInfo_company(name);
+		return b;
 	}
 }

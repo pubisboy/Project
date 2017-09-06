@@ -195,10 +195,10 @@ public class AdminOracleDao implements AdminDao{
 		return b;
 	}
 	
-	public Map getInfo_company(){
+	public List getInfo_company(){
 		SqlSession session = factory.openSession();
 		try{
-			return session.selectOne("admin.getInfo_company");
+			return session.selectList("admin.getInfo_company");
 		}catch(Exception e){
 			System.out.println("error.getInfo_company");
 			return null;
@@ -211,11 +211,47 @@ public class AdminOracleDao implements AdminDao{
 		SqlSession session = factory.openSession();
 		boolean b = false;
 		try{
-			session.update("admin.update_info_company", list);
+			for(Object o : list){
+				session.update("admin.update_info_company", (Map)o);
+			}
 			b = true;
 			session.commit();
 		}catch(Exception e){
 			System.out.println("error.getInfo_company");
+			b = false;
+			session.rollback();
+		}finally{
+			session.close();
+		}
+		return b;
+	}
+	
+	public boolean delInfo_company(String name){
+		SqlSession session = factory.openSession();
+		boolean b = false;
+		try{
+			session.update("admin.delInfo_company", name);
+			b = true;
+			session.commit();
+		}catch(Exception e){
+			System.out.println("error.delInfo_company");
+			b = false;
+			session.rollback();
+		}finally{
+			session.close();
+		}
+		return b;
+	}
+	
+	public boolean plusInfo_company(String name){
+		SqlSession session = factory.openSession();
+		boolean b = false;
+		try{
+			session.insert("admin.plusInfo_company", name);
+			b = true;
+			session.commit();
+		}catch(Exception e){
+			System.out.println("error.plusInfo_company");
 			b = false;
 			session.rollback();
 		}finally{
