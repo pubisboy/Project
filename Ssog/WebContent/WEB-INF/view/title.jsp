@@ -1,7 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
 .modal-header, h4, .close {
 	background-color: #ffffff;
@@ -56,9 +62,9 @@
 	<h1><a href="/" style="text-decoration: none; color: black;">SSOG</a></h1>
 	</div>
 	<div class="col-sm-6" style="padding-top: 23px;">
-		<form>
+		<form action="/product/list.j"> 
       <div class="input-group">
-        <input type="text" class="form-control" placeholder="검색어를 입력하세요" style="width: 100%;"> 
+        <input type="text" class="form-control" name="search" placeholder="검색어를 입력하세요" style="width: 100%;" required="false"> 
         <div class="input-group-btn">
           <button class="btn btn-default" type="submit">
             <i class="glyphicon glyphicon-search" style="width: 20px;height: 20px;"></i>
@@ -120,4 +126,4 @@
 	$("#close").on("click",function(){
 		$("#banner").hide();
 	});
-</script>
+</script> 

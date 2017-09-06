@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <style>
 .btn-custom {
 	background-color: hsl(0, 0%, 16%) !important;
@@ -67,12 +68,51 @@
 	<div class="col-sm-12">
 		<b>회원 탈퇴 사유</b><small>회원님께서 주신 내용으로 저희 쏙쇼핑몰은 더욱 크게 발전 하겠습니다.</small>
 		<hr style="margin-top: 0px;" />
-		탈퇴사유 체크박스로 표시
+		<select name="reason" id="reason" style="width: 150px;">
+			<option value="">선택해 주세요</option>
+			<c:forEach var="i" items="${reason }">
+				<option value="${i.NUM }">${i.REASON }</option>
+			</c:forEach>
+			<option value="기타">기타</option>
+		</select>
+		<div>
+			<textarea rows="10px" cols="100%" id="etc_reason"
+				style="display: none;"></textarea>
+		</div>
 	</div>
 	<div class="col-sm-12">
 		<div align="center" style="padding-top: 15px;">
-			<button class="btn btn-custom">회원탈퇴 요청</button>
+			<button class="btn btn-custom" id="leave_rst">회원탈퇴 요청</button>
 			<button class="btn btn-custom2">취소</button>
 		</div>
 	</div>
 </div>
+<script>
+	$("#reason").on("click", function() {
+		if ($("#reason").val() == "기타") {
+			$("#etc_reason").show()
+		} else {
+			$("#etc_reason").hide()
+		}
+	});
+
+	$("#leave_rst").on("click", function() {
+		window.alert($("#reason").val());
+		window.alert($("#etc_reason").val("r"));
+		$.ajax({
+			"url" : "/member/myinfo/leave_rst.j",
+			"method" : "post",
+			"data" : {
+				"reason" : $("#reason").val(),
+				"detail" : $("#etc_reason").val()
+			}
+		}).done(function(re) {
+			if (re == true) {
+				window.alert("회원탈퇴완료");
+				location.href = "/";
+			} else {
+				window.alert("실패");
+			}
+		})
+	});
+</script>
