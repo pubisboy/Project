@@ -20,13 +20,13 @@
   -webkit-font-smoothing: antialiased;
 }
 div.gallery {
-	margin: 2.5%;
+	margin: 0%;
 	border: 1px solid #ccc;
-	float: left;
-	width: 220px;
-	height: 250px;
-}
-
+	float: left;   
+	width: 33.3%;
+	height: 350px;
+} 
+ 
 div.gallery:hover {
 	border: 1px solid #777;
 }
@@ -51,6 +51,7 @@ li {
 }
 </style>
 <div class="container" align="center">
+	<div style="width: 86.5%;"> 
 	<form action="/product/list.j">
 	<input type="hidden" value="${param.search}" name="search">
 	<input type="hidden" value="${param.category}" name="category"> 
@@ -140,7 +141,7 @@ li {
 			</div>
 		</div>
 	</c:forEach>
-
+	</div>
 </div>
 
 <!--  페이지 나오는거	 -->

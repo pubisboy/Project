@@ -2,6 +2,7 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -73,6 +74,17 @@ public class ProductController {
 		mav.addObject("origin", ori);
 		System.out.println(ori);
 		}
+		return mav;
+	}
+	@RequestMapping("/detail.j")
+	public ModelAndView productdetail(@RequestParam(name="productNumber") String num) {
+		ModelAndView mav=new ModelAndView("t_base");
+		System.out.println(num);
+		Map map=new HashMap<>();
+		map=pdao.pro_detail(num);
+		System.out.println(map);
+		mav.addObject("section", "product/productdetail");
+		
 		return mav;
 	}
 	
