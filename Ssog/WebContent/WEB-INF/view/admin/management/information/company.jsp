@@ -16,4 +16,4 @@
 		</tbody>
 	</table>
 </div>
-<a href="/admin/information/companyModify.ja">회사 정보 수정</a>
+<a href="/admin/management/information/companyModify.ja">회사 정보 수정</a>

@@ -4,7 +4,7 @@
 <c:choose>
 	<c:when test="${result }">
 		<script>
-			window.parent.CKEDITOR.tools.callFunction(${funcNum}, "${imageUrl}", "이미지 업로드 성공");
+			window.parent.CKEDITOR.tools.callFunction(${funcNum}, "${imageUrl}");
 		</script>
 	</c:when>
 	<c:otherwise>
