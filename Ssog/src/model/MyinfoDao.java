@@ -57,11 +57,74 @@ public class MyinfoDao{
 			session.close();
 		}
 	}
+	public List<Map> qnaAll(String id){
+		List<Map>list = new ArrayList<>();
+		SqlSession session = factory.openSession();
+		try {
+			list = session.selectList("myinfo.qnaAll", id);
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			session.close();
+		}
+	}
+	public int qna_cnt() {
+		SqlSession session = factory.openSession();
+		try {
+			int cnt = session.selectOne("myinfo.qna_count");
+			return cnt;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		}finally {
+			session.close();
+		}
+	}
+	public List<Map> qnapage(Map map){
+		List<Map>list = new ArrayList<>();
+		SqlSession session = factory.openSession();
+		try {
+			list = session.selectList("myinfo.qna_page", map);
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			session.close();
+		}
+	}
 	public List<Map> counsel(String id){
 		List<Map>list = new ArrayList<>();
 		SqlSession session = factory.openSession();
 		try {
 			list = session.selectList("myinfo.counsel", id);
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			session.close();
+		}
+	}
+	public int counsel_cnt() {
+		SqlSession session = factory.openSession();
+		try {
+			int cnt = session.selectOne("myinfo.counsel_count");
+			return cnt;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		}finally {
+			session.close();
+		}
+	}
+	public List<Map> counselpage(Map map){
+		List<Map>list = new ArrayList<>();
+		SqlSession session = factory.openSession();
+		try {
+			list = session.selectList("myinfo.counsel_page", map);
 			return list;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -124,4 +187,37 @@ public class MyinfoDao{
 				
 			}
 	}
+	public boolean info_revise(Map map) {
+		SqlSession session = factory.openSession();
+		int rst = 0;
+		try {
+			rst = session.update("member.info_revise", map);
+			if(rst==1) { 
+			rst = session.update("member.join_service", map);
+			System.out.println(rst); 
+			}
+			session.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			rst = 0;
+			session.rollback();
+		}finally {
+			session.close();
+		}
+		return rst ==1;
+	}
+	
+	public Map service_ck(String id) {
+		SqlSession session = factory.openSession();
+		HashMap rst = null;
+		try {
+			rst = session.selectOne("member.service_ck",id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		return rst;
+	}
+	
 }

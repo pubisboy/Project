@@ -13,13 +13,13 @@ table, th, td {
 	</h4>
 </div>
 <div class="row">
-	<div class="col-sm-12"
-		style="border-top: 2px solid #595959; border-bottom: 1px solid black; padding-top: 20px; padding-bottom: 20px;">
+	<div class="col-sm-12" style="padding-top: 10px;"> 
+	<div 
+		style="border-top: 2px solid #595959; border-bottom: 1px solid black; padding-top: 20px; padding-bottom: 20px; ">
 		<b>${memberinfo.NAME }</b> 회원님의 현재 총 사용가능 적립금액은<br /> 적립금 0<sub>원</sub>
 		입니다
-	</div>
-	<div class="col-sm-12" style="padding-top: 10px;"> 
-		<table class="table table-hover">
+	</div><br/><br/>
+		<table class="table table-hover"> 
 			<thead>
 				<tr style="border-top: 2px solid #595959; ">
 					<th>구분</th>
