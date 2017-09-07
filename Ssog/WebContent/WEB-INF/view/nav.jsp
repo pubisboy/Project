@@ -18,7 +18,7 @@
 }
 </style>
 <div align="center">
-	<div style="width: 63%;">
+	<div style="width: 67%;">
 		<div class="navbar-header">
 
 			<a class="navbar-brand"
