@@ -84,6 +84,7 @@ public class ProductController {
 		map=pdao.pro_detail(num);
 		System.out.println(map);
 		mav.addObject("section", "product/productdetail");
+		mav.addObject("map", map);
 		
 		return mav;
 	}

@@ -59,8 +59,17 @@
 			</div>
 		</div>
 		<div align="center">
-			<button style="background-color: #ff3399;">주문서 작성</button>
+			<button style="background-color: #ff3399;" id="order">주문서 작성</button>
 			<button>계속 쇼핑하기</button>
 		</div>
 	</div>
 </div>
+<script>
+var cookie = getCookie()
+$("#order").on("click",function(){
+	window.alert("눌림");
+	window.alert(cookie.indexOf("cart")); 
+});
+ 
+
+</script>
