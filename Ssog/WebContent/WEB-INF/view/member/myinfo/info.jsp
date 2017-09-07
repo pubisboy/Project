@@ -25,6 +25,10 @@ table, th, td {
 }
 </style>
 <div class="row" style="padding-top: 20px;">
+<div style="padding-left: 15px; padding-bottom: 20px;"> 
+	<img src="/image/info이미지.jpg"
+				alt="Fjords" width="730px;" > 
+</div>
 	<div class="col-sm-6" style="height: 200px;">
 		<table class="table table-condensed">
 			<thead>

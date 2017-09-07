@@ -1,13 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
 .modal-header, h4, .close {
 	background-color: #ffffff;
@@ -30,12 +23,12 @@
 <button id="close" style="position: absolute; top: 20px; right: 240px;">X</button> 
 </div>
 <div>
-	<div class="navbar navbar-inverse navbar-fixed"
+	<div class="navbar navbar navbar-fixed"
 		style="margin-bottom: 0px;">
 		<div class="navbar-header" style="padding-left: 14%;">
 			<button type="button" class="navbar-toggle" data-toggle="collapse"
 				data-target="#myNav">
-				<span class="icon-bar"></span> <span class="icon-bar"></span>
+				<span class="icon-bar" style="background-color: black;"></span><span class="icon-bar" style="background-color: black;"></span><span class="icon-bar" style="background-color: black;"></span>
 			</button>
 		</div>
 		<div class="collapse navbar-collapse" id="myNav"
@@ -43,22 +36,22 @@
 			<ul class="nav navbar-nav navbar-right">
 				<c:choose>
 					<c:when test="${sessionScope.auth eq null}">
-						<li id="log"><a id="myBtn">로그인</a></li>
-						<li><a href="/member/join.j">회원가입</a></li>
+						<li id="log"><a id="myBtn" style="padding: 0px; padding-right: 18px; padding-top:10px; font-size: 13px;">로그인</a></li>
+						<li><a href="/member/join.j" style="padding: 0px; padding-right: 18px; padding-top:10px; font-size: 13px;">회원가입</a></li>
 					</c:when>
 					<c:otherwise>
-						<li><a href="/member/logout.j">로그아웃</a></li>
+						<li><a href="/member/logout.j" style="padding: 0px; padding-right: 18px; padding-top:10px; font-size: 13px;">로그아웃</a></li>  
 					</c:otherwise>
 				</c:choose>
-				<li><a href="/member/myinfo/info.j">마이페이지</a></li>
-				<li><a href="/cart/form.j">장바구니</a></li>
-				<li><a href="/cccenter/faq.j">고객센터</a></li>
+				<li><a href="/member/myinfo/info.j" style="padding: 0px; padding-right: 18px; padding-top:10px; font-size: 13px;">마이페이지</a></li>
+				<li><a href="/cart/form.j" style="padding: 0px; padding-right: 18px; padding-top:10px; font-size: 13px;">장바구니</a></li>
+				<li><a href="/cccenter/faq.j" style="padding: 0px; padding-right: 18px; padding-top:10px; font-size: 13px;">고객센터</a></li>
 			</ul>
 		</div>
 	</div>
-	<div align="center"  class="container" style="padding-top: 30px;">
+	<div align="center"  class="container" style="padding-top: 0px;">
 	<div class="row">
-	<div class="col-sm-3">
+	<div class="col-sm-3" style="padding-right: 20px;padding-left: 0px;	">
 	<h1><a href="/" style="text-decoration: none; color: black;">SSOG</a></h1>
 	</div>
 	<div class="col-sm-6" style="padding-top: 23px;">
