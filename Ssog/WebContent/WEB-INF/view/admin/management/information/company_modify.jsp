@@ -16,6 +16,7 @@
 					<tr id="${li.NAME }_tr">
 						<th><input type="text" id="${li.NAME }_name" value="${li.NAME }" name="names"/>
 						<input type="hidden" name="nums" value="${li.NUM }"/>
+						<input type="hidden" name="names_origin" value="${li.NAME }"/>
 						</th>
 						<th><input type="text" style="width: 100%;" id="${li.NAME }_input" value="${li.VALUE }" name="${li.NAME }"/></th>
 						<th><button type="button" id="${li.NAME }_del" value="${li.NAME }" class="del">X</button></th>
@@ -57,9 +58,11 @@
 				},
 				type:"post"
 			}).done(function(rst){
-				if(rst){
+				if(rst > 0){
 					var html = "<tr id='"+data+"_tr'>";
-					html += "<th><input type='text' id='"+data+"_name' value='"+data+"' name='names'/></th>";
+					html += "<th><input type='text' id='"+data+"_name' value='"+data+"' name='names'/>";
+					html += "<input type='hidden' name='nums' value='"+rst+"'/>";
+					html += "<input type='hidden' name='names_origin' value='"+data+"'/></th>";
 					html += "<th><input type='text' style='width: 100%;' id='"+data+"_input' value='' name='"+data+"'/></th>";
 					html += "<th><button type='button' id='"+data+"_del' value='"+data+"' class='del'>X</button></th></tr>";
 					var body = $("#body").html();

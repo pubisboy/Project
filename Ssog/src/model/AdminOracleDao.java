@@ -179,8 +179,10 @@ public class AdminOracleDao implements AdminDao{
 		SqlSession session = factory.openSession();
 		boolean b = false;
 		System.out.println("list? : "+list);
+		Map map = new HashMap<>();
+		map.put("list", list);
 		try{
-			int rst = session.insert("putImage_notice", list);
+			int rst = session.insert("admin.putImage_notice", map);
 			if(rst > 0){
 				b = true;
 				session.commit();
@@ -243,20 +245,34 @@ public class AdminOracleDao implements AdminDao{
 		return b;
 	}
 	
-	public boolean plusInfo_company(String name){
+	public int plusInfo_company(String name){
 		SqlSession session = factory.openSession();
-		boolean b = false;
+		int rst = -1;
 		try{
 			session.insert("admin.plusInfo_company", name);
-			b = true;
+			rst = session.selectOne("admin.getNum_info_company", name);
 			session.commit();
 		}catch(Exception e){
 			System.out.println("error.plusInfo_company");
-			b = false;
+			rst = -1;
 			session.rollback();
 		}finally{
 			session.close();
 		}
-		return b;
+		return rst;
+	}
+	
+	public List getUuid_notice_img(){
+		List list = null;
+		SqlSession session = factory.openSession();
+		try{
+			list = session.selectList("admin.getUUID_notice_img");
+		}catch(Exception e){
+			System.out.println("error.getUuid_notice_img");
+			list = null;
+		}finally{
+			session.close();
+		}
+		return list;
 	}
 }

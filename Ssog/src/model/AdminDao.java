@@ -21,5 +21,6 @@ public interface AdminDao {
 	public List getInfo_company();
 	public boolean updateValues(List list);
 	public boolean delInfo_company(String name);
-	public boolean plusInfo_company(String name);
+	public int plusInfo_company(String name);
+	public List getUuid_notice_img();
 }

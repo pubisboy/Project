@@ -43,11 +43,12 @@
 		select r.* from (select n.*, t.TARGET targets from notice n left join target t on n.TARGET = t.NUM) r where r.notice_num = #{num}
 	</select>
 	
-	<insert id="putImage_notice" parameterType="java.util.List">
-		insert into inotice_img (num, img_uuid) values
-		<foreach collection="list" item="src" separator=",">
-			 (notice_num_seq.currval, #{src})
+	<insert id="putImage_notice" parameterType="java.util.HashMap">
+		insert all
+		<foreach collection="list" item="item" separator=" ">
+			 into notice_img (num, img_uuid) values (notice_num_seq.currval, #{item.src})
 		</foreach>
+		select * from dual
 	</insert>
 	
 	<select id="getInfo_company" resultType="java.util.HashMap">
@@ -65,5 +66,13 @@
 	<insert id="plusInfo_company">
 		insert into info_company values(#{name}, null, info_company_seq.nextval)
 	</insert>
+	
+	<select id="getNum_info_company" resultType="java.lang.Integer">
+		select i.num from info_company i where i.name=#{name}
+	</select>
+	
+	<select id="getUUID_notice_img" resultType="java.lang.String">
+		select ni.IMG_UUID from notice_img ni
+	</select>
 	
 </mapper>
