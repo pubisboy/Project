@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="container">
-	<form action="/admin/information/companyModifyExec.ja" method="post">
+	<form action="/admin/management/information/companyModifyExec.ja" method="post">
 		<table class="table table-bordered" style="width: 80%;">
 			<thead>
 				<tr>

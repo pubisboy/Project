@@ -263,7 +263,8 @@ public class AdminOracleDao implements AdminDao{
 		boolean b = false;
 		try{
 			for(Object o : list){
-				session.update("admin.updateValues_info_company", (Map)o);
+				System.out.println("map : "+(Map)o);
+				session.update("admin.updateInfo_company", (Map)o);
 			}
 			b = true;
 			session.commit();
@@ -396,6 +397,23 @@ public class AdminOracleDao implements AdminDao{
 			session.commit();
 		}catch(Exception e){
 			System.out.println("error.delTerms"+e.toString());
+			b = false;
+			session.rollback();
+		}finally{
+			session.close();
+		}
+		return b;
+	}
+	
+	public boolean delNotice(int num){
+		SqlSession session = factory.openSession();
+		boolean b = false;
+		try{
+			session.delete("admin.delNotice", num);
+			b = true;
+			session.commit();
+		}catch(Exception e){
+			System.out.println("error.delNotice"+e.toString());
 			b = false;
 			session.rollback();
 		}finally{

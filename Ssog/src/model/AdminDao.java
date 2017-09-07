@@ -31,4 +31,5 @@ public interface AdminDao {
 	public List getDetatil_notice(int num);
 	public boolean delNotice_img(int num);
 	public boolean updateImage_notice(Map map);
+	public boolean delNotice(int num);
 }

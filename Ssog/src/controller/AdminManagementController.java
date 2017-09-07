@@ -228,7 +228,7 @@ public class AdminManagementController {
 				System.out.println("val : "+params.get(names_origin[i]));
 				list.add(m);
 			}
-			
+			System.out.println("list : "+list);
 			boolean b = ad.updateValues_info_company(list);
 		}
 		return "redirect:/admin/management/information/company.ja";
@@ -318,5 +318,19 @@ public class AdminManagementController {
 		return "/admin/result";
 	}
 	
+	@RequestMapping("/notice/notice_del.ja")
+	public String notice_del(@RequestParam(name="num") Integer num, Map map){
+		boolean b = ad.delNotice(num);
+		// if(b){
+			// b = ad.delNotice_img(num);
+			if(b){
+				del_tempImg();
+			}
+		// }
+		map.put("rst", b);
+		map.put("t", "/notice/notice_list.ja");
+		map.put("f", "/notice/notice_detail.ja?num"+num);
+		return "/admin/result";
+	}
 	
 }
