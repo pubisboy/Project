@@ -27,7 +27,7 @@
 			style="margin-bottom: 0px; border-top: 1px solid #d9d9d9; border-bottom: 1px solid #d9d9d9;">
 			<tiles:insertAttribute name="nav" />
 		</nav>
-		<section style="min-height: 150%;">
+		<section style="min-height: 130%;">
 			<tiles:insertAttribute name="section" />
 		</section>
 		<footer>
