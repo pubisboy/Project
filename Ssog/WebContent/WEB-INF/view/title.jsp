@@ -127,6 +127,11 @@
 	$(document).ready(function() {
 		$("#myBtn").click(function() {
 			$("#myModal").modal();
+		var t = "";
+		
+		t= t+i.value
+			
+			
 		});
 	});
 	$("#close").on("click",function(){
