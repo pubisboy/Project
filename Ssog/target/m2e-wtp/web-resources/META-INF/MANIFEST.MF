@@ -1,9 +1,5 @@
 Manifest-Version: 1.0
-<<<<<<< HEAD
 Built-By: 1103-29
-=======
-Built-By: hello
->>>>>>> branch 'master' of https://github.com/pubisboy/Project.git
 Build-Jdk: 1.8.0_144
 Created-By: Maven Integration for Eclipse
 
