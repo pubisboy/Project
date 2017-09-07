@@ -37,8 +37,8 @@
 		<div style="padding-top: 20px;">
 			<h4 style="font-size: 17px; text-align: left;">
 				<span class="glyphicon glyphicon-info-sign"
-					style="padding-right: 10px;"></span><b style="padding-right: 10px;">자주
-					묻는 질문 TOP10</b><small style="font-size: 12px;">고객님께서 가장 많이
+					style="padding-right: 10px;"></span><b style="padding-right: 5px; color: #404040; letter-spacing: -1px;">자주
+					묻는 질문 TOP10</b><small style="font-size: 11px; letter-spacing: -1px; color:#a6a6a6; ">고객님께서 가장 많이
 					물어보시는 질문만 모았습니다.</small>
 			</h4>
 		</div>
