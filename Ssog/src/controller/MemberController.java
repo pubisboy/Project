@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -8,6 +10,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMessage.RecipientType;
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -20,11 +23,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import model.MemberDao;
+import model.ProductDao;
 
 @Controller
 public class MemberController {
 	@Autowired
 	MemberDao mdao;
+	@Autowired
+	ProductDao pdao;
 	@Autowired
 	JavaMailSender sender;
 
@@ -35,13 +41,29 @@ public class MemberController {
 		return mav;
 	}
 	
-	// 임시컨트롤러
 	@RequestMapping("/cart/form.j")
-	public ModelAndView cart() {
+	public ModelAndView cart(HttpServletRequest resp) {
 		ModelAndView mav = new ModelAndView("tw_cart/form");
+		Cookie[] cookies = resp.getCookies();
+		List<Map> list = new ArrayList<>();
+		if (cookies != null) {
+			for (int i = 0; i < cookies.length; i++) {
+				System.out.println("cart : " + cookies[i].getName().indexOf("cart"));
+				if(cookies[i].getValue().startsWith("addcart")){
+					int idx = cookies[i].getValue().indexOf("t");
+					String cookiename =  cookies[i].getName();
+					String number = cookies[i].getValue().substring(idx+1);
+				System.out.println("cookiename : "+cookiename);
+				Map map = pdao.cart(cookiename);
+				list.add(map);
+				mav.addObject("list", list);
+				mav.addObject("number",number);
+				System.out.println("list :"+list);
+				}
+			}
+		}
 		return mav;
 	}
-	//===================================================
 	
 	@RequestMapping("/member/join.j")
 	public ModelAndView join() {
@@ -64,12 +86,13 @@ public class MemberController {
 	@RequestMapping("/member/join_rst.j")
 	public ModelAndView join_rst(@RequestParam Map param, HttpSession session) {
 		ModelAndView mav = new ModelAndView("/member/join_rst");
-		String address = String.format("%s#%s#%s", param.get("postcode"),param.get("address1"),param.get("address2"));
+		String address = String.format("%s!%s!%s", param.get("postcode"),param.get("address1"),param.get("address2"));
 		param.put("address", address);
 		System.out.println(param);
 		boolean r;
 		if (session.getAttribute("suckey").equals("TT")) {
 			r = mdao.join(param);
+			boolean bl = mdao.alarm(param);
 			if (r == true) {
 				session.setAttribute("auth", param.get("id"));
 			}

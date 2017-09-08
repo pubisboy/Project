@@ -47,8 +47,8 @@
 							</tbody>
 						</table>
 						<div style="border-top: 1px solid #8c8c8c;" align="center">
-							<b>합계금액</b><span id="total"><b
-								style="padding-left: 80px; font-size: 28px;">${map.PRICE }</b></span><br />
+							<b>합계금액</b><b style="padding-left: 80px; font-size: 28px;"><span
+								id="total">${map.PRICE }</span></b><br />
 							<button id="cartadd">장바구니</button>
 							<button id="order"
 								style="background-color: #ff0066; color: white;" class="btn">주문하기</button>
@@ -62,16 +62,12 @@
 	</div>
 </div>
 <script>
-	$("#minus").on("click", function() {
-		$("#quantity").val(parseInt($("#quantity").val()) - 1)
-		$("#total").html(($("#quantity").val() * "${map.PRICE}"))
-		if($("#total").val()>0){
-			$("#total").html(0)
-		}
-		if($("#quantity").val()==-1){
-			$("#quantity").val(0)
-		}
-	});
+		$("#minus").on("click", function() {
+	if ($("#quantity").val() > 1) {
+			$("#quantity").val(parseInt($("#quantity").val()) - 1)
+			$("#total").html($("#quantity").val() * "${map.PRICE}")
+	} 
+		});
 	$("#plus").on("click", function() {
 		$("#quantity").val(1 + parseInt($("#quantity").val()))
 		$("#total").html($("#quantity").val() * "${map.PRICE}")
@@ -83,13 +79,14 @@
 	});
 	$("#cartadd").on("click", function() {
 
-		var cName = "cart"+"${map.PRO_NUM}";
-		var cValue = "addcart";
-		
+		var cName = "${map.PRO_NUM}";
+		window.alert(cName);
+		var cValue = "addcart"+$("#quantity").val();
+		window.alert(cValue);
 		var d = new Date();
 		d.setTime(d.getTime() + (3 * 24 * 60 * 60 * 1000));
 		var expires = "expires=" + d.toUTCString();
-		
+
 		cookies = cName + '=' + escape(cValue) + '; path=/ ';
 		if (typeof cDay != 'undefined')
 			cookies += ';' + expires + ';';

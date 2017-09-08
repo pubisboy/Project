@@ -91,4 +91,17 @@ public class ProductDao {
 		}		
 		return map;
 	}
+	public Map cart(String num){
+		Map map=new HashMap<>();
+		SqlSession session = factory.openSession();
+		try {
+			map = session.selectOne("product.cart",num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		return map;
+	}
+	
 }

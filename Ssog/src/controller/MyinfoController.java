@@ -172,6 +172,7 @@ public class MyinfoController {
 		info.put("postcode", spaddress[0]);
 		info.put("address1", spaddress[1]);
 		info.put("address2", spaddress[2]);
+		System.out.println("info : "+info);
 		ModelAndView mav = new ModelAndView("t_el2");
 		mav.addObject("section", "member/myinfo/info_revise");
 		mav.addObject("grade", init.get("grade"));
