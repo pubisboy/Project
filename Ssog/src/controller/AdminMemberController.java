@@ -63,9 +63,16 @@ public class AdminMemberController {
 		return "ad_member";
 	}
 	
+	@RequestMapping("/member_user/user_detail.ja")
+	public String user_detail(@RequestParam(name="id") String id, Map map){
+		map.put("section", "member_user/user_detail");
+		return "ad_member";
+	}
+	
 	@RequestMapping("/member_seller/seller_list.ja")
 	public String seller_list(Map map){
 		map.put("section", "/member_seller/seller_list");
 		return "ad_member";
 	}
+	
 }

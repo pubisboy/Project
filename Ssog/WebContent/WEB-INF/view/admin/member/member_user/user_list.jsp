@@ -15,7 +15,7 @@
 	<tbody>
 		<c:forEach items="${list }" var="i" varStatus="vs">
 			<tr>
-				<td>${i.ID }</td>
+				<td><a href="/admin/member/member_user/user_detail.ja?id=${i.ID }">${i.ID }</a></td>
 				<td>${i.NAME }</td>
 				<td>${i.EMAIL }</td>
 				<td>${i.PHONE }</td>
@@ -25,7 +25,7 @@
 </table>
 <div align="center">
 	<c:if test="${paging.startPageNo ne paging.firstPageNo }">
-		<a href="/admin/member/member_user/user_list.ja?p=${paging.startPageNo - 1}&type=${params.type }&value=${params.value}">&le;</a>
+		<a href="/admin/member/member_user/user_list.ja?p=${paging.startPageNo - 1}&type=${params.type }&value=${params.value}">&lt;</a>
 	</c:if>
 	
 	<c:forEach begin="${paging.startPageNo }" end="${paging.endPageNo }" var="i">
