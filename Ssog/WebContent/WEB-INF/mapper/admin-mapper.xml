@@ -71,7 +71,7 @@
 		select * from INFO_COMPANY
 	</select>
 	
-	<update id="update_info_company" parameterType="java.util.HashMap">
+	<update id="updateInfo_company" parameterType="java.util.HashMap">
 		update info_company set	name = #{name}, value = #{val} where num = ${num}
 	</update>
 	
@@ -109,6 +109,10 @@
 	
 	<delete id="delTerms" parameterType="java.lang.Integer">
 		delete terms where num = #{num}
+	</delete>
+	
+	<delete id="delNotice">
+		delete notice where notice_num = #{num}
 	</delete>
 	
 </mapper>

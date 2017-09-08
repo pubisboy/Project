@@ -33,7 +33,8 @@
 <script src="/ckeditor/ckeditor.js"></script>
 <script>
 	CKEDITOR.replace('content', {
-		"filebrowserUploadUrl" : "/admin/management/notice/upload.j"
+		"filebrowserUploadUrl" : "/admin/management/notice/upload.j",
+		resize_enabled : false
 	});
 </script>
 <script>
