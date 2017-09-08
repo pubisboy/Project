@@ -150,11 +150,11 @@ li {
 
 		<ul class="pagination pagination-lg">
 			<c:if test="${paging.startPageNo ne 1 }">
-				<li><a
-					href="/product/list.j?category=${param.category }&page=${paging.startPageNo-1}&search=${param.search}&sort=${param.sort}&min=${param.min}&max=${param.max}${origin}">&lt;</a></li>
+				<li><a 
+					href="/product/list.j?category=${param.category }&page=${paging.startPageNo-1}&search=${param.search}&sort=${param.sort}&min=${param.min}&max=${param.max}${origin}">&lt;</a></li> 
 			</c:if>
 			<c:forEach begin="${paging.startPageNo }" end="${paging.endPageNo }"
-				var="i">
+				var="i"> 
 				<li><a
 					href="/product/list.j?category=${param.category }&page=${i}&search=${param.search}&sort=${param.sort}&min=${param.min}&max=${param.max}${origin}">${i }</a></li>
 			</c:forEach>
