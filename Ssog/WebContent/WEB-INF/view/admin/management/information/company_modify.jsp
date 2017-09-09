@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="container">
-	<form action="/admin/information/companyModifyExec.ja" method="post">
+	<form action="/admin/management/information/companyModifyExec.ja" method="post">
 		<table class="table table-bordered" style="width: 80%;">
 			<thead>
 				<tr>
@@ -27,7 +27,7 @@
 		<div align="center">분류 추가<input type="text" id="newName"/><button type="button" id="plus">+</button></div>
 		<button type="submit">수정하기</button>
 	</form>
-	<a href="/admin/information/company.ja">취소</a>
+	<a href="/admin/management/information/company.ja">취소</a>
 </div>
 
 <script>
@@ -36,7 +36,7 @@
 		var data = $(this).val();
 		$("#"+$(this).val()+"_tr").remove();
 		$.ajax({
-			url:"/admin/information/delInfoCompany.ja",
+			url:"/admin/management/information/delInfoCompany.ja",
 			data:{
 				'del':data
 			},
@@ -52,7 +52,7 @@
 		if($("#newName").val().length > 0){
 			var data = $("#newName").val();
 			$.ajax({
-				url:"/admin/information/plusInfoCompany.ja",
+				url:"/admin/management/information/plusInfoCompany.ja",
 				data:{
 					'plus':data
 				},

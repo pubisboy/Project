@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="admin_member">
+	<select id="user_list" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select * from (select o.*, ROWNUM rnum from (select id, name, email, phone from USER_MEMBER
+		<if test="type != null and type != ''">
+			where ${type} like #{value}
+		</if>
+		order by joindate desc) o) r where r.rnum BETWEEN #{start} and #{end}
+	</select>
+	
+	<select id="user_list_count" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+		select count(*) count from (select o.*, ROWNUM rnum from (select id, name, email, phone from USER_MEMBER
+		<if test="type != null and type != ''">
+			where ${type} like #{value}
+		</if>
+		order by joindate desc) o) r
+	</select>
+	
+	<select id="user_detail_info" parameterType="java.lang.String" resultType="java.util.HashMap">
+		select * from (select * from USER_MEMBER where id=#{id}) m left join USER_RECORD r on m.id=r.id
+	</select>
+	
+	<select id="user_detail_grade" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select * from (select g.*, ROWNUM rnum from (select * from user_grade where #{BUY_TOTAL} >= standard order by standard desc) g) where rnum = 1
+	</select>
+	
+	<select id="user_detail_order" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select * from (select o.*, s.STATE st from (select * from ORDERTBL where user_id = #{id}) o left join STATE s on o.state = s.STATE_NUM) s left join CUPON_TYPE t on s.cupon_type = t.CUPON_NUM order by s.order_date desc
+	</select>
+	
+	<select id="user_detail_counsel" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select * from (select * from COUNSEL where user_id = #{id}) c left join COUNSEL_CATEGORY t on c.cate = t.NUM order by c.counsel_date desc
+	</select>
+	
+	<select id="user_detail_log" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select * from USER_LOGIN_LOG where id={id} order by CHECKIN_DATE desc
+	</select>
+	
+	<select id="user_detail_order_top3" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select * from (select o.*, s.STATE st from (select * from ORDERTBL where user_id = #{id}) o left join STATE s on o.state = s.STATE_NUM) s left join CUPON_TYPE t on s.cupon_type = t.CUPON_NUM where rownum &lt; 4 order by s.order_date desc
+	</select>
+	
+	<select id="user_detail_counsel_top3" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select * from (select * from COUNSEL where user_id = #{id}) c left join COUNSEL_CATEGORY t on c.cate = t.NUM where rownum &lt; 4 order by c.counsel_date desc
+	</select>
+	
+	<select id="user_detail_log_top3" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select * from USER_LOGIN_LOG where id={id} where rownum &lt; 4 order by CHECKIN_DATE desc
+	</select>
+	
+</mapper>

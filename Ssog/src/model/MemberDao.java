@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -78,6 +79,47 @@ public class MemberDao {
 			return rst != null;
 		} catch (Exception e) {
 			e.printStackTrace();
+			return false;
+		}finally {
+			session.close();
+		}
+	}
+	public List<Map> leavereason(){
+		SqlSession session = factory.openSession();
+		List<Map>list = new ArrayList<>();
+		try {
+			list = session.selectList("member.reave_reason");
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			session.close();
+		}
+	}
+	public boolean leavewrite(Map map) {
+		SqlSession session = factory.openSession();
+		try {
+			session.insert("member.reave_write", map);
+			session.commit();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.rollback();
+			return false;
+		}finally {
+			session.close();
+		}
+	}
+	public boolean leavemember(String id) {
+		SqlSession session = factory.openSession();
+		try {
+			session.delete("member.deletmember",id);
+			session.commit();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.rollback();
 			return false;
 		}finally {
 			session.close();
