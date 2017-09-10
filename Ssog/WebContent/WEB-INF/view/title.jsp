@@ -17,12 +17,9 @@
 	border-radius: 0px;
 }
 </style>
-<div style="min-height: 8%;" id="banner">
-	<img class="img-responsive" src="/image/banner1.jpg" alt="메인이미지1" />
-	<button id="close" style="position: absolute; top: 20px; right: 240px;">X</button>
-</div>
+
 <div>
-	<div class="navbar navbar navbar-fixed" style="margin-bottom: 0px;">
+	<div style="margin-bottom: 0px;">
 		<div class="navbar-header" style="padding-left: 14%;">
 			<button type="button" class="navbar-toggle" data-toggle="collapse"
 				data-target="#myNav">
@@ -138,7 +135,5 @@
 			$("#myModal").modal();
 		});
 	});
-	$("#close").on("click", function() {
-		$("#banner").hide();
-	});
+	
 </script>

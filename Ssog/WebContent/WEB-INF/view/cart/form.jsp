@@ -1,30 +1,54 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<style>
+.btn-custom {
+	background-color: hsl(335, 100%, 64%) !important;
+	background-repeat: repeat-x;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff4793",
+		endColorstr="#ff4793");
+	background-image: -khtml-gradient(linear, left top, left bottom, from(#ff4793),
+		to(#ff4793));
+	background-image: -moz-linear-gradient(top, #ff4793, #ff4793);
+	background-image: -ms-linear-gradient(top, #ff4793, #ff4793);
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ff4793),
+		color-stop(100%, #ff4793));
+	background-image: -webkit-linear-gradient(top, #ff4793, #ff4793);
+	background-image: -o-linear-gradient(top, #ff4793, #ff4793);
+	background-image: linear-gradient(#ff4793, #ff4793);
+	border-color: #ff4793 #ff4793 hsl(335, 100%, 64%);
+	color: #333 !important;
+	border-radius: 0px;
+	text-shadow: 0 1px 1px rgba(255, 255, 255, 0.00);
+	width: 130px;
+	height: 50px;
+	-webkit-font-smoothing: antialiased;
+}
+</style>
 <div align="center">
-	<div style="width: 65%; padding-top: 30px;">
+	<div style="width: 58.5%; padding-top: 30px;">
 		<div class="row">
 			<div class="col-sm-12"
-				style="border-bottom: 2px solid gray; border-left: 1px solid gray; border-right: 1px solid gray;">
+				style="border-bottom: 2px solid #bfbfbf; border-left: 1px solid #bfbfbf; border-right: 1px solid #bfbfbf;">
 				<div class="row">
 					<div class="col-sm-8"
-						style="border-top: 2px solid black; border-right: 1px solid gray; padding: 0px;">
+						style="border-top: 2px solid black; border-right: 1px solid #b3b3b3; padding: 0px;">
 						<div
-							style="border-bottom: 1px dotted black; padding-left: 40px; padding-top: 15px; padding-bottom: 15px; text-align: left;">
+							style="border-bottom: 2px dotted #b3b3b3; padding-left: 40px; padding-top: 15px; padding-bottom: 15px; text-align: left;">
 							<span class="glyphicon glyphicon-shopping-cart"
-								style="font-size: 50px;"></span> <b style="font-size: 26px;">장바구니</b>
+								style="font-size: 45px;"></span> <b style="font-size: 26px;">장바구니</b>
 							<span class="glyphicon glyphicon-chevron-right"
-								style="font-size: 30px; padding-left: 20px; padding-right: 20px; color: #b3b3b3;"></span>
+								style="font-size: 30px; padding-left: 55px; padding-right: 55px; color: #b3b3b3;"></span>  
 							<span class="glyphicon glyphicon-credit-card"
 								style="font-size: 30px; color: #b3b3b3;"></span> <b
 								style="font-size: 15px; color: #b3b3b3;">주문/결제</b> <span
 								class="glyphicon glyphicon-chevron-right"
-								style="font-size: 30px; padding-left: 20px; padding-right: 20px; color: #b3b3b3;"></span>
+								style="font-size: 30px; padding-left: 55px; padding-right: 55px; color: #b3b3b3;"></span> 
 							<span class="glyphicon glyphicon-gift"
 								style="font-size: 30px; color: #b3b3b3;"></span> <b
 								style="font-size: 15px; color: #b3b3b3;">주문완료</b>
 						</div>
-						<div style="padding-top: 15px;">
+						<div style="padding-top: 15px; height: 130px;">
 							<ul style="text-align: left; font-size: 12px;">
 								<li>장바구니에 담긴 상품은 <b style="color: #ff0066;">3일간</b> 저장됩니다.
 									(구매한 상품은 장바구니에서 자동삭제 됩니다)
@@ -35,32 +59,47 @@
 							</ul>
 						</div>
 					</div>
-					<div class="col-sm-4" style="border-top: 2px solid pink;">
-						<div style="border-bottom: 1px dotted black;">
-							(ID)님 반갑습니다!<br />
+					<div class="col-sm-4"
+						style="border-top: 2px solid #ff0066; padding: 0px; letter-spacing: -1px;">
+						<div
+							style="border-bottom: 2px dotted #b3b3b3; height: 86px; padding-top: 35px; padding-left: 28px;"
+							align="left">
+							<b style="font-size: 18px; color: #4d4d4d;">${memberinfo.NAME }님</b> 반갑습니다!<br />
 						</div>
-						<div>
-							등급<br /> 할인쿠폰<br /> 적립금<br />
+						<div align="left" style="padding-top: 10px; padding-left: 28px;"> 
+							<span class="glyphicon glyphicon-chevron-right"	style="font-size: 5px; color: #bfbfbf;"></span>
+							<b style="font-size: 12.2px;">등급</b>${grade.GRADE }<br />
+							<span class="glyphicon glyphicon-chevron-right" style="font-size: 5px; color: #bfbfbf;"></span>
+							<b style="font-size: 12.2px;">할인쿠폰</b><br />
+							<span class="glyphicon glyphicon-chevron-right" style="font-size: 5px; color: #bfbfbf;"></span>
+							<b style="font-size: 12.2px;">적립금</b><br />
 						</div>
 					</div>
 				</div>
 
 			</div>
-			<div class="col-sm-12">
-				<table class="table table-hover">
+			<div class="col-sm-12"
+				style="padding-top: 40px; padding-left: 0px; padding-right: 0px;">
+				<div align="left">
+					<b style="font-size: 17px;">장바구니에 담은 상품</b>
+				</div>
+				<table class="table table-hover" style="font-size: 12.5px;">
 					<thead>
-						<tr>
-							<th><input type="checkbox" /></th>
+						<tr
+							style="border-top: 2px solid black; background-color: #f2f2f2; height: 40px;">
+							<th><input type="checkbox" id="all" /></th>
 							<th>상품명</th>
 							<th>가격</th>
 							<th>수량</th>
+							<th>혜택</th>
 							<th>주문금액</th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach var="c" items="${list }">
-							<tr>
-								<td><input type="checkbox" /></td>
+							<tr style="border-bottom: 1px solid #b3b3b3;">
+								<td><input type="checkbox" class="one"
+									value="${c.PRO_NUM }" /></td>
 								<td>${c.PRO_NUM }</td>
 								<td>${c.PRICE }</td>
 								<td>
@@ -69,45 +108,58 @@
 									<button class="pl">+</button>
 									<button id="revise">수정</button>
 								</td>
+								<td>0</td>
 								<td class="price">${c.PRICE * number }</td>
 							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
+				<div align="left" style="padding-bottom: 30px;">
+					<button id="delete">선택상품 삭제</button>
+				</div>
 			</div>
 			<div class="col-sm-12" style="border: 1px solid #a6a6a6">
 				<div>
 					<div class="row" align="left">
 						<div class="col-sm-4"
-							style="border-top: 2px solid black; border-right: 1px solid #a6a6a6; padding: 0px;">
-							<div style="border-bottom: 1px solid #a6a6a6">상품합계</div>
-							<div>
-								<ul>
-									<li>상품종류</li>
+							style="border-top: 2px solid black; border-right: 1px solid #a6a6a6; padding: 0px; width: 30%;">
+							<div
+								style="border-bottom: 1px solid #a6a6a6; background-color: #f7f7f7; height: 40px; padding-top: 10px; padding-left: 20px;">
+								<b style="font-size: 13px; color: #404040;">상품합계</b>
+							</div>
+							<div style="height: 90px;">
+								<ul style="padding-left: 38px; font-size: 12px; color: #666666;">
+									<li><b style="padding-right: 60px;">상품종류</b>${etc }종</li>
 									<li>상품수량</li>
 								</ul>
 							</div>
 						</div>
 						<div class="col-sm-4"
-							style="border-top: 2px solid black; border-right: 1px solid #a6a6a6; padding: 0px;">
-							<div style="border-bottom: 1px solid #a6a6a6">할인금액</div>
-							<div>
-								<ul>
+							style="border-top: 2px solid black; border-right: 1px solid #a6a6a6; padding: 0px; letter-spacing: -1px; width: 30%;">
+							<div
+								style="border-bottom: 1px solid #a6a6a6; background-color: #f7f7f7; height: 40px; padding-top: 10px; padding-left: 20px;">
+								<b style="font-size: 13px; color: #404040;"> 할인금액</b>
+							</div>
+							<div style="height: 90px;">
+								<ul style="padding-left: 38px; font-size: 12px; color: #666666;">
 									<li>회원등급할인</li>
 									<li>이벤트할인</li>
 								</ul>
 							</div>
 						</div>
 						<div class="col-sm-4"
-							style="border-top: 2px solid #ff0066; padding: 0px;">
-							<div style="border-bottom: 1px solid #a6a6a6">
-								총 구매예상금액<b style="font-size: 20px;"><span id="totalprice"></span></b>
+							style="border-top: 2px solid #ff0066; padding: 0px;  letter-spacing: -1px; width: 40%;">
+							<div
+								style="border-bottom: 1px solid #a6a6a6; background-color: #f7f7f7; height: 40px; padding-top: 4px; padding-left: 20px;">
+								<b style="font-size: 15px;">총 구매예상금액</b> <b
+									style="font-size: 20px; color: #ff0066; padding-left: 60px;"><span
+									id="totalprice"></span></b>
 							</div>
 							<div>
-								<ul>
+								<ul style="padding-left: 38px; font-size: 12px; color: #666666;">
 									<li>상품 적립금</li>
 								</ul>
-								* 쿠폰 사용시 적용금액은 변동될 수 있습니다.
+								<b style="font-size: 12px;">* 쿠폰 사용시 적용금액은 변동될 수 있습니다.</b>
 							</div>
 						</div>
 					</div>
@@ -115,8 +167,10 @@
 				</div>
 			</div>
 		</div>
-		<div align="center">
-			<button style="background-color: #ff3399;" id="order">주문서 작성</button>
+		<div align="center" style="padding-top: 30px;">
+			<a href="/cart/order.j"><button class="btn btn-custom" id="order">
+				<b style="color: white; font-size: 13px;">주문서 작성</b>
+			</button></a>
 			<button>계속 쇼핑하기</button>
 		</div>
 	</div>
@@ -132,26 +186,19 @@
 		if ($(this).next().val() > 1) {
 			$(this).next().val(parseInt($(this).next().val()) - 1)
 		}
-		var c = $(this).next().val()*$(this).parent().prev().html();
+		var c = $(this).next().val() * $(this).parent().prev().html();
 		$(this).parent().next().html(c);
-		
+
 	});
 
 	$(".pl").on("click", function() {
 		$(this).prev().val(parseInt($(this).prev().val()) + 1);
-		var c = $(this).prev().val()*$(this).parent().prev().html();
+		var c = $(this).prev().val() * $(this).parent().prev().html();
 		$(this).parent().next().html(c);
 	});
-
-	$("#order").on("click", function() {
-	});
-	
-	
-	
 	$("#revise").on("click", function() {
-
-		var cName = $(this).parent().prev().prev().html(); 
-		var cValue = "addcart"+$(this).prev().prev().val();
+		var cName = $(this).parent().prev().prev().html();
+		var cValue = "addcart" + $(this).prev().prev().val();
 		var d = new Date();
 		d.setTime(d.getTime() + (3 * 24 * 60 * 60 * 1000));
 		var expires = "expires=" + d.toUTCString();
@@ -160,7 +207,21 @@
 		if (typeof cDay != 'undefined')
 			cookies += ';' + expires + ';';
 		document.cookie = cookies;
-		
+		location.reload();
+	});
+
+	$("#all").on("click", function() {
+		if ($("#all").prop("checked")) {
+			$("input[type=checkbox]").prop("checked", true);
+		} else {
+			$("input[type=checkbox]").prop("checked", false);
+		}
+	});
+	$("#delete").on("click", function() {
+
+	});
+
+	$("#order").on("click", function() {
 
 	});
 </script>

@@ -41,29 +41,6 @@ public class MemberController {
 		return mav;
 	}
 	
-	@RequestMapping("/cart/form.j")
-	public ModelAndView cart(HttpServletRequest resp) {
-		ModelAndView mav = new ModelAndView("tw_cart/form");
-		Cookie[] cookies = resp.getCookies();
-		List<Map> list = new ArrayList<>();
-		if (cookies != null) {
-			for (int i = 0; i < cookies.length; i++) {
-				System.out.println("cart : " + cookies[i].getName().indexOf("cart"));
-				if(cookies[i].getValue().startsWith("addcart")){
-					int idx = cookies[i].getValue().indexOf("t");
-					String cookiename =  cookies[i].getName();
-					String number = cookies[i].getValue().substring(idx+1);
-				System.out.println("cookiename : "+cookiename);
-				Map map = pdao.cart(cookiename);
-				list.add(map);
-				mav.addObject("list", list);
-				mav.addObject("number",number);
-				System.out.println("list :"+list);
-				}
-			}
-		}
-		return mav;
-	}
 	
 	@RequestMapping("/member/join.j")
 	public ModelAndView join() {
