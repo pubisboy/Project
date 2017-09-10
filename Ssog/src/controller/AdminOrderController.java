@@ -26,6 +26,14 @@ public class AdminOrderController {
 	@RequestMapping("/order_list.ja")
 	public String order_list(@RequestParam Map params, @RequestParam(name="p", defaultValue="1") Integer p, Map map){
 		System.out.println("params : "+params);
+		System.out.println("state : "+params.get("state"));
+		if(params.get("state") != null){
+			String s = (String)params.get("state");
+			if(s.equals("")){
+				params.remove("type");
+				params.remove("value");
+			}
+		}
 		String val = null;
 		if(params.get("value") != null){
 			val = (String)params.get("value");

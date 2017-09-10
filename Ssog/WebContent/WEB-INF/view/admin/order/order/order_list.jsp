@@ -8,10 +8,12 @@
 		<input type="hidden" name="type" value="${empty params.type ? '' : params.type}"/>
 		<input type="hidden" name="value" value="${empty params.value ? '' : params.value}"/>
 		<select id="state" name="state">
+			<optgroup label="상태분류">
 			<option value="">전체</option>
 			<c:forEach items="${stateKo }" var="i" varStatus="vs">
 				<option value="${stateNum[vs.index] }" ${params.state eq stateNum[vs.index] ? 'selected' : ''}>${i }</option>
 			</c:forEach>
+			</optgroup>
 		</select>
 	</form>
 </div>
