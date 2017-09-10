@@ -23,32 +23,24 @@
 		select * from (select * from USER_MEMBER where id=#{id}) m left join USER_RECORD r on m.id=r.id
 	</select>
 	
-	<select id="user_detail_grade" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+	<select id="user_detail_grade" parameterType="java.lang.Integer" resultType="java.util.HashMap">
 		select * from (select g.*, ROWNUM rnum from (select * from user_grade where #{BUY_TOTAL} >= standard order by standard desc) g) where rnum = 1
 	</select>
 	
-	<select id="user_detail_order" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-		select * from (select o.*, s.STATE st from (select * from ORDERTBL where user_id = #{id}) o left join STATE s on o.state = s.STATE_NUM) s left join CUPON_TYPE t on s.cupon_type = t.CUPON_NUM order by s.order_date desc
+	<select id="user_detail_order_top9" parameterType="java.lang.String" resultType="java.util.HashMap">
+		select * from (select o.*, s.STATE st from (select * from ORDERTBL where user_id = #{id}) o left join STATE s on o.state = s.STATE_NUM) s left join CUPON_TYPE t on s.cupon_type = t.CUPON_NUM where rownum &lt; 10 order by s.order_date desc
 	</select>
 	
-	<select id="user_detail_counsel" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-		select * from (select * from COUNSEL where user_id = #{id}) c left join COUNSEL_CATEGORY t on c.cate = t.NUM order by c.counsel_date desc
+	<select id="user_detail_counsel_top9" parameterType="java.lang.String" resultType="java.util.HashMap">
+		select n.*, nvl(r.rcount, 0) cnt from (select c.*, t.CATEGORY from (select * from COUNSEL where user_id = #{id}) c left join COUNSEL_CATEGORY t on c.cate = t.NUM where rownum &lt; 10) n left join (select num, count(*) rcount from COUNSEL_REPLY group by num) r on n.num = r.num order by n.counsel_date desc
 	</select>
 	
-	<select id="user_detail_log" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-		select * from USER_LOGIN_LOG where id={id} order by CHECKIN_DATE desc
+	<select id="user_detail_log_top9" parameterType="java.lang.String" resultType="java.util.HashMap">
+		select * from USER_LOGIN_LOG where id={id} where rownum &lt; 10 order by CHECKIN_DATE desc
 	</select>
 	
-	<select id="user_detail_order_top3" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-		select * from (select o.*, s.STATE st from (select * from ORDERTBL where user_id = #{id}) o left join STATE s on o.state = s.STATE_NUM) s left join CUPON_TYPE t on s.cupon_type = t.CUPON_NUM where rownum &lt; 4 order by s.order_date desc
-	</select>
-	
-	<select id="user_detail_counsel_top3" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-		select * from (select * from COUNSEL where user_id = #{id}) c left join COUNSEL_CATEGORY t on c.cate = t.NUM where rownum &lt; 4 order by c.counsel_date desc
-	</select>
-	
-	<select id="user_detail_log_top3" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-		select * from USER_LOGIN_LOG where id={id} where rownum &lt; 4 order by CHECKIN_DATE desc
-	</select>
+	<update id="user_detail_memo_update" parameterType="java.util.HashMap">
+		UPDATE USER_MEMBER set memo=#{memo} where id=#{id}
+	</update>
 	
 </mapper>
