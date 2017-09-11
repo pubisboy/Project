@@ -41,7 +41,7 @@
 	<form action="/admin/member/member_user/user_list.ja" method="get">
 		<select name="type">
 			<c:forEach items="${typesKo }" var="i" varStatus="vs">
-				<option value="${typesEn[vs.index] }" ${!empty params.type ? 'selected' : ''}>${i }</option>
+				<option value="${typesEn[vs.index] }" ${params.type eq typesEn[vs.index] ? 'selected' : ''}>${i }</option>
 			</c:forEach>
 		</select>
 		<input type="text" name="value" value="${empty params.value ? '' : params.value}"/>

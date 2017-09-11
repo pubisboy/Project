@@ -74,4 +74,10 @@ public class AdminController {
 		return "ad_member";
 	}
 	
+	@RequestMapping("/order.ja")
+	public String order(Map map){
+		map.put("section", "/order/order_list");
+		return "ad_order";
+	}
+	
 }
