@@ -8,7 +8,7 @@
 		select rst.*, ROWNUM rnum from
 		(select ospt.* from
 		(select osp.*, t.CUPON_NUM from
-		(select os.*, p.SELLER_ID from (select o.*, s.state st from ORDERTBL o left join state s on o.state = s.STATE_NUM) os left join PRODUCTTBL p on os.pro_num = p.PRO_NUM) osp
+		(select os.*, p.SELLER_ID, p.PRO_NAME from (select o.*, s.state st from ORDERTBL o left join state s on o.state = s.STATE_NUM) os left join PRODUCTTBL p on os.pro_num = p.PRO_NUM) osp
 		left join CUPON_TYPE t on osp.cupon_type = t.CUPON_NUM) ospt
 		<choose>
 			<when test="type != null and type != '' and state != null and state != ''">
@@ -28,7 +28,7 @@
 		select count(*) from
 		(select ospt.* from
 		(select osp.*, t.CUPON_NUM from
-		(select os.*, p.SELLER_ID from (select o.*, s.state st from ORDERTBL o left join state s on o.state = s.STATE_NUM) os left join PRODUCTTBL p on os.pro_num = p.PRO_NUM) osp
+		(select os.*, p.SELLER_ID, p.PRO_NAME from (select o.*, s.state st from ORDERTBL o left join state s on o.state = s.STATE_NUM) os left join PRODUCTTBL p on os.pro_num = p.PRO_NUM) osp
 		left join CUPON_TYPE t on osp.cupon_type = t.CUPON_NUM) ospt
 		<choose>
 			<when test="type != null and type != '' and state != null and state != ''">
@@ -45,7 +45,17 @@
 	</select>
 	
 	<select id="order_detail" parameterType="java.lang.Integer" resultType="java.util.HashMap">
-		select * from (select o.*, s.STATE st from (select * from ORDERTBL where order_num = #{order_num}) o left join STATE s on o.state = s.STATE_NUM) s left join CUPON_TYPE t on s.cupon_type = t.CUPON_NUM order by s.order_date desc
+		select ospc.*, ori.NAME ori from
+		(select osp.*, c.* from
+		(select os.*, p.PRO_NAME pname, p.PRO_QTY, p.cate, p.seller_id, p.price price_origin, p.pro_date, p.origin, p.sell_on from 
+		(select s.*, t.RATE from
+		(select o.*, s.state st from
+		(select * from ORDERTBL where order_num = #{num}) o
+		left join STATE s on o.state = s.STATE_NUM) s
+		left join CUPON_TYPE t on s.cupon_type = t.CUPON_NUM) os
+		left join PRODUCTTBL p on os.pro_num = p.PRO_NUM) osp
+		left join SMALL_CATEGORY c on osp.cate = c.S_CATE) ospc
+		left join ORIGINTBL ori on ospc.origin = ori.NUM
 	</select>
 	
 	<select id="counsel_detail" parameterType="java.lang.String" resultType="java.util.HashMap">

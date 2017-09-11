@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<div>총원 : ${total }</div>
+<div>검색 : <fmt:formatNumber value="${total }" pattern="#,###" />명</div>
 <table class="table table-bordered" style="text-align: center;">
 	<thead>
 		<tr>

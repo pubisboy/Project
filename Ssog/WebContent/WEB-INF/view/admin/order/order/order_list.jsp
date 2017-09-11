@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<div>총 건수 : ${total }</div>
+<div>검색 : <fmt:formatNumber value="${total }" pattern="#,###" />명</div>
 <div>
 	<form action="/admin/order/order_list.ja" method="get" id="stateForm">
 		<input type="hidden" name="type" value="${empty params.type ? '' : params.type}"/>
@@ -20,10 +21,11 @@
 <table class="table table-bordered" style="text-align: center;">
 	<thead>
 		<tr>
-			<th width="25%;" style="text-align: center;">주문번호</th>
-	       	<th width="25%;" style="text-align: center;">상품번호</th>
-	       	<th width="20%;" style="text-align: center;">구매자</th>
-	       	<th width="20%;" style="text-align: center;">판매자</th>
+			<th width="15%;" style="text-align: center;">주문번호</th>
+	       	<th width="15%;" style="text-align: center;">상품번호</th>
+	       	<th width="30%;" style="text-align: center;">상품이름</th>
+	       	<th width="15%;" style="text-align: center;">구매자</th>
+	       	<th width="15%;" style="text-align: center;">판매자</th>
 	       	<th width="10%;" style="text-align: center;">상태</th>
     	</tr>
 	</thead>
@@ -32,6 +34,7 @@
 			<tr>
 				<td><a href="/admin/order/order_detail.ja?order_num=${i.ORDER_NUM }">${i.ORDER_NUM }</a></td>
 				<td>${i.PRO_NUM }</td>
+				<td>${i.PRO_NAME }</td>
 				<td>${i.USER_ID }</td>
 				<td>${i.SELLER_ID }</td>
 				<td>${i.ST }</td>
