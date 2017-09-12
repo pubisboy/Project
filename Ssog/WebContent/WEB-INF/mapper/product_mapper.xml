@@ -91,7 +91,9 @@
  	<select id="productdetail" parameterType="java.lang.String" resultType="java.util.HashMap">
  		select * from (producttbl tmp1 left join origintbl tmp2 on tmp1.origin=tmp2.num) where pro_num=#{num}
  	</select>
- 	
+ 	<select id="cart" parameterType="java.lang.String" resultType="java.util.HashMap">
+ 		select * from PRODUCTTBL where pro_num= #{num}
+ 	</select>
  	
  
  </mapper>
