@@ -104,12 +104,12 @@
 								<td>${c.PRICE }</td>
 								<td>
 									<button class="mi">-</button> <input type="text"
-									style="width: 40px;" value="${number }" class="qu" />
+									style="width: 40px;" value="${c.number }" class="qu" />
 									<button class="pl">+</button>
-									<button id="revise">수정</button>
+									<button class="revise">수정</button>
 								</td>
 								<td>0</td>
-								<td class="price">${c.PRICE * number }</td>
+								<td class="price">${c.PRICE * c.number }</td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -187,17 +187,18 @@
 			$(this).next().val(parseInt($(this).next().val()) - 1)
 		}
 		var c = $(this).next().val() * $(this).parent().prev().html();
-		$(this).parent().next().html(c);
+		$(this).parent().next().next().html(c);
 
 	});
 
 	$(".pl").on("click", function() {
 		$(this).prev().val(parseInt($(this).prev().val()) + 1);
 		var c = $(this).prev().val() * $(this).parent().prev().html();
-		$(this).parent().next().html(c);
+		$(this).parent().next().next().html(c);
 	});
-	$("#revise").on("click", function() {
+	$(".revise").on("click", function() {
 		var cName = $(this).parent().prev().prev().html();
+		window.alert(cName);
 		var cValue = "addcart" + $(this).prev().prev().val();
 		var d = new Date();
 		d.setTime(d.getTime() + (3 * 24 * 60 * 60 * 1000));

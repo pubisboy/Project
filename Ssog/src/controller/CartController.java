@@ -50,17 +50,15 @@ public class CartController {
 		List<Map> list = new ArrayList<>();
 		if (cookies != null) {
 			for (int i = 0; i < cookies.length; i++) {
-				System.out.println("cart : " + cookies[i].getName().indexOf("cart"));
 				if (cookies[i].getValue().startsWith("addcart")) {
-					int idx = cookies[i].getValue().indexOf("t");
 					String cookiename = cookies[i].getName();
-					String number = cookies[i].getValue().substring(idx + 1);
+					String number = cookies[i].getValue().substring(7);
 					System.out.println("cookiename : " + cookiename);
 					Map map = pdao.cart(cookiename);
+					map.put("number", number);
 					list.add(map);
 					int etc = list.size();
 					mav.addObject("list", list);
-					mav.addObject("number", number);
 					mav.addObject("etc", etc);
 					System.out.println("list :" + list);
 				}

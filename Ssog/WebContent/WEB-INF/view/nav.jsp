@@ -12,18 +12,8 @@
 	height: 200px;
 	width: 200px;
 }
-
-.affix {
-	top: 0px !important;
-	width: 100%;
-}
-
-.affix+.container-fluid {
-	padding-top: 70px;
-}
 </style>
-<div class="navbar navbar-inverse" data-spy="affix"
-	data-offset-top="197" align="center">
+<div align="center">
 	<div style="width: 60%;">
 		<ul class="nav navbar-nav">
 			<li class="active"><a

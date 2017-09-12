@@ -17,6 +17,16 @@
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<style>
+.affix {
+	top: 0px !important;
+	width: 100%;
+}
+
+.affix+.ttt {
+	padding-top: 70px;
+}
+</style>
 </head>
 <body>
 	<div>
@@ -32,10 +42,11 @@
 		<header style="width: 100%; min-height: 12%;">
 			<tiles:insertAttribute name="title" />
 		</header>
-		<nav>
+		<nav class="navbar navbar-inverse" data-spy="affix"
+			data-offset-top="197">
 			<tiles:insertAttribute name="nav" />
 		</nav>
-		<section style="min-height: 120%;"> 
+		<section style="min-height: 120%;" class="ttt">
 			<tiles:insertAttribute name="section" />
 		</section>
 		<footer>
