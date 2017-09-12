@@ -56,8 +56,8 @@ public class AdminOrderController {
 		
 		List list = aod.order_list(params);
 		
-		String[] typesEn = "order_num,pro_num,user_id,seller_id".split(",");
-		String[] typesKo = "주문번호,상품번호,구매자,판매자".split(",");
+		String[] typesEn = "order_num,pro_num,pro_name,user_id,seller_id".split(",");
+		String[] typesKo = "주문번호,상품번호,상품이름,구매자,판매자".split(",");
 		map.put("typesEn", typesEn);
 		map.put("typesKo", typesKo);
 		
@@ -66,9 +66,6 @@ public class AdminOrderController {
 		map.put("stateNum", stateNum);
 		map.put("stateKo", stateKo);
 		
-		DecimalFormat df = new DecimalFormat("#,###");
-		String total = df.format(rows);
-		map.put("total", total);
 		map.put("list", list);
 		map.put("paging", paging);
 		map.put("section", "/order/order_list");
@@ -83,7 +80,9 @@ public class AdminOrderController {
 		System.out.println("num : "+num);
 		List liInfo = aod.order_detail(num);
 		if(liInfo.size() > 0){
+			System.out.println("liInfo : "+liInfo);
 		}
+		map.put("list", liInfo);
 		map.put("section", "/order/order_detail");
 		return "ad_order";
 	}
