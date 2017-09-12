@@ -92,6 +92,14 @@
  		select * from (producttbl tmp1 left join origintbl tmp2 on tmp1.origin=tmp2.num) where pro_num=#{num}
  	</select>
  	
+ 	<select id="large_cate" resultType="java.util.HashMap">
+ 		select * from Large_category
+ 	</select>
+ 	<select id="small_cate" parameterType="java.lang.String" resultType="java.util.HashMap">
+ 	 select * from small_Category where parent = #{num}
+ 	</select>
+ 	
+ 	
  	
  
  </mapper>

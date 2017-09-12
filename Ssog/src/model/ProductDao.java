@@ -91,4 +91,30 @@ public class ProductDao {
 		}		
 		return map;
 	}
+	
+	public List largecate() {
+		List<Map> list=new ArrayList<>();
+		SqlSession session=factory.openSession();
+		try {
+			list=session.selectList("large_cate");
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}		
+		return list;
+	}
+	
+	public List smallcate(String num) {
+		List<Map> list=new ArrayList<>();
+		SqlSession session=factory.openSession();
+		try {
+			list=session.selectList("small_cate",num);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}		
+		return list;
+	}
 }
