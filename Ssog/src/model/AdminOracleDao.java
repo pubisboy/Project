@@ -460,4 +460,91 @@ public class AdminOracleDao implements AdminDao{
 		}
 	}
 
+	public int getCount_counsel_user(Map map) {
+		SqlSession session = factory.openSession();
+		try{
+			return session.selectOne("admin.getCount_counsel_user", map);
+		}catch(Exception e){
+			System.out.println("error.getCount_counsel_user : "+e.toString());
+			return -1;
+		}finally{
+			session.close();
+		}
+	}
+
+	public int getCount_counsel_seller(Map map) {
+		SqlSession session = factory.openSession();
+		try{
+			return session.selectOne("admin.getCount_counsel_seller", map);
+		}catch(Exception e){
+			System.out.println("error.getCount_counsel_seller : "+e.toString());
+			return -1;
+		}finally{
+			session.close();
+		}
+	}
+
+	public List getList_counsel_user(Map map) {
+		List list = null;
+		SqlSession session = factory.openSession();
+		try{
+			list = session.selectList("admin.getList_counsel_user", map);
+		}catch(Exception e){
+			System.out.println("error.getList_counsel_user"+e.toString());
+			list = null;
+		}finally{
+			session.close();
+		}
+		return list;
+	}
+
+	public List getList_counsel_seller(Map map) {
+		return null;
+	}
+	
+	public List getCounsel_category(){
+		List list = null;
+		SqlSession session = factory.openSession();
+		try{
+			list = session.selectList("admin.getCounsel_category");
+		}catch(Exception e){
+			System.out.println("error.getCounsel_category"+e.toString());
+			list = null;
+		}finally{
+			session.close();
+		}
+		return list;
+	}
+	
+	public List getCounsel_user_detail(int num){
+		List list = null;
+		SqlSession session = factory.openSession();
+		try{
+			list = session.selectList("admin.getCounsel_user_detail", num);
+		}catch(Exception e){
+			System.out.println("error.getCounsel_user_detail"+e.toString());
+			list = null;
+		}finally{
+			session.close();
+		}
+		return list;
+	}
+	
+	public boolean updateCounsel_user_detail(Map map){
+		SqlSession session = factory.openSession();
+		boolean b = false;
+		try{
+			session.update("admin.updateCounsel_user_detail", map);
+			b = true;
+			session.commit();
+		}catch(Exception e){
+			System.out.println("error.updateCounsel_user_detail"+e.toString());
+			b = false;
+			session.rollback();
+		}finally{
+			session.close();
+		}
+		return b;
+	}
+
 }

@@ -35,4 +35,11 @@ public interface AdminDao {
 	public List getTarget_notice();
 	public int getCount_notice(Map map);
 	public int getCount_terms(Map map);
+	public int getCount_counsel_user(Map map);
+	public int getCount_counsel_seller(Map map);
+	public List getList_counsel_user(Map map);
+	public List getList_counsel_seller(Map map);
+	public List getCounsel_category();
+	public List getCounsel_user_detail(int num);
+	public boolean updateCounsel_user_detail(Map map);
 }
