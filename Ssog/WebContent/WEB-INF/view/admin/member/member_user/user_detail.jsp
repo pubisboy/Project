@@ -144,7 +144,7 @@ td{
 	        						 / <fmt:formatDate value="${i.ORDER_DATE }" pattern="yyyy년MM월dd일" var="o"/>[${o }]
 	        						 <%-- / <fmt:formatDate value="${i.PAY_DATE }" pattern="yyyy년MM월dd일" var="p"/>[${p }] --%>
 	        						 / [<fmt:formatNumber value="${i.PRICE }" pattern="#,###"/>]
-	        						 / ${i.CUPON_TYPE > 0 ? '[${i.CUPON_TYPE}&#37;]' : '[없음]' }
+	        						 / [${i.CUPON_TYPE > 0 ? '있음' : '없음' }]
 	        						 </li>
         						</c:forEach>
         					</ul>

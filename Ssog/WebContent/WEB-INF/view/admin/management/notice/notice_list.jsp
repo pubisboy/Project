@@ -7,7 +7,8 @@
 <div>
 	<div style="float: left; width: 33%;">
 		<form action="/admin/management/notice/notice_list.ja" method="get" id="stateForm">
-			<input type="hidden" name="value" value="${empty params.value ? '' : params.value}"/>
+			<input type="hidden" id="stateType" name="type" value="${empty params.type ? '' : params.type}"/>
+			<input type="hidden" id="stateValue" name="Value" value="${empty params.value ? '' : params.value}"/>
 			<select id="state" name="state">
 				<optgroup label="대상">
 				<option value="">전체</option>
@@ -58,12 +59,17 @@
 
 <div align="center">
 	<form action="/admin/management/notice/notice_list.ja" method="get">
+		<input type="hidden" name="state" value="${empty params.state ? '' : params.state}"/>
 		<input type="text" name="value" value="${empty params.value ? '' : params.value}"/>
 	</form>
 </div>
 
 <script>
 	$("#state").on("change", function(){
+		if($("#state").val() == ''){
+			$("#stateType").val('');
+			$("#stateValue").val('');
+		}
 		$("#stateForm").submit();
 	})
 </script>
