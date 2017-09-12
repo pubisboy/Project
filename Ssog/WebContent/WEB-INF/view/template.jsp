@@ -17,17 +17,37 @@
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<style>
+.affix {
+	top: 0px !important;
+	width: 100%;
+	z-index:9999;
+}
+
+.affix+.ttt {
+	padding-top: 70px;
+}
+</style>
 </head>
 <body>
 	<div>
-		<header style="width: 100%; min-height: 22%;">
+		<div style="min-height: 8%; background-color: #F44336; color: #fff;"
+			id="banner">
+			<h1 style="margin: 0px;">GRAND OPEN</h1>
+			<!-- 
+			<img class="img-responsive" src="/image/banner1.jpg" alt="메인이미지1" />
+			-->
+			<button id="close"
+				style="position: absolute; top: 20px; right: 240px;">X</button>
+		</div>
+		<header style="width: 100%; min-height: 12%;">
 			<tiles:insertAttribute name="title" />
 		</header>
-		<nav class="navbar navbar"
-			style="margin-bottom: 0px; border-top: 1px solid #d9d9d9; border-bottom: 1px solid #d9d9d9;">
+		<nav class="navbar navbar-inverse" data-spy="affix"
+			data-offset-top="197">
 			<tiles:insertAttribute name="nav" />
 		</nav>
-		<section style="min-height: 150%;">
+		<section style="min-height: 120%;" class="ttt">
 			<tiles:insertAttribute name="section" />
 		</section>
 		<footer>
@@ -36,3 +56,8 @@
 	</div>
 </body>
 </html>
+<script>
+	$("#close").on("click", function() {
+		$("#banner").hide();
+	});
+</script>

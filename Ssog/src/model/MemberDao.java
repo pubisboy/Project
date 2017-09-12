@@ -34,6 +34,20 @@ public class MemberDao {
 			session.close();
 		}
 	}
+	public boolean alarm(Map map) {
+		SqlSession session = factory.openSession();
+		try {
+			session.insert("member.alarmck",map);
+			session.commit();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.rollback();
+			return false;
+		}finally {
+			session.close();
+		}
+	}
 	public boolean login(Map map) {
 		SqlSession session = factory.openSession();
 		System.out.println("dao map : "+map);
