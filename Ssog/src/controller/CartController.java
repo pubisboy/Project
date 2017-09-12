@@ -70,7 +70,19 @@ public class CartController {
 	@RequestMapping("/order.j")
 	public ModelAndView order(HttpServletRequest resp, HttpSession session) {
 		Map init = init(session);
+		Map info = mmdao.id_check_repetition((String) init.get("id"));
 		ModelAndView mav = new ModelAndView("tw_cart/order");
+		System.out.println("order con :"+ init);
+		String address = (String) info.get("ADDRESS");
+		String phone = (String) info.get("PHONE");
+		String[] spaddress = address.split("!");
+		String[] phonenum = phone.split("-");
+		mav.addObject("postcode", spaddress[0]);
+		mav.addObject("address1", spaddress[1]);
+		mav.addObject("address2", spaddress[2]);
+		mav.addObject("phone1", phonenum[0]);
+		mav.addObject("phone2", phonenum[1]);
+		mav.addObject("phone3", phonenum[2]);
 		mav.addObject("memberinfo", init.get("info"));
 		Cookie[] cookies = resp.getCookies();
 		List<Map> list = new ArrayList<>();

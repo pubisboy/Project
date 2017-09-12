@@ -60,7 +60,7 @@ table, th, td {
 					<td><select name="phone1" id="phone1"
 						style="width: 60px; height: 25px;">
 							<c:forTokens var="i" items="010,011,016,017,018,019" delims=",">
-							<option value="${i }" selected="${i eq  memberinfo.phone1 ? selected : ''}" >${i }</option>
+							<option value="${i }"${i eq  memberinfo.phone1 ? 'selected' : ''} >${i }</option>
 							</c:forTokens>
 					</select>
 					 - <input type="text" style="width: 60px; height: 25px;" value="${memberinfo.phone2 }" id="phone2"/> - <input

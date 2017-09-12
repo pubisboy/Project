@@ -1,7 +1,5 @@
 package controller;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -10,7 +8,6 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMessage.RecipientType;
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -64,7 +61,11 @@ public class MemberController {
 	public ModelAndView join_rst(@RequestParam Map param, HttpSession session) {
 		ModelAndView mav = new ModelAndView("/member/join_rst");
 		String address = String.format("%s!%s!%s", param.get("postcode"),param.get("address1"),param.get("address2"));
+		String phone = String.format("%s-%s-%s", param.get("phone").toString().substring(0, 3),param.get("phone").toString().substring(3, 7),param.get("phone").toString().substring(7, 11));
+		String birth = String.format("%s/%s/%s", param.get("birth").toString().substring(0, 4),param.get("birth").toString().substring(4, 6),param.get("birth").toString().substring(6, 8));
 		param.put("address", address);
+		param.put("phone", phone);
+		param.put("birth", birth);
 		System.out.println(param);
 		boolean r;
 		if (session.getAttribute("suckey").equals("TT")) {

@@ -21,6 +21,7 @@
 .affix {
 	top: 0px !important;
 	width: 100%;
+	z-index:9999;
 }
 
 .affix+.ttt {
