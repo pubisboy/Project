@@ -17,16 +17,11 @@ public class SellerProductDao {
 	@Autowired
 	SqlSessionFactory factory;
 	
-	@Autowired
-	Paging paging;
 	
 	public List<Map<String,Object>> productList(Map map){
 		SqlSession session = factory.openSession();
 		try {
 			List<Map<String,Object>> list =  session.selectList("seller.pro_list", map);
-			paging.setRecordsPerPage(10);
-			paging.setStartPageNo(1);
-			
 			session.commit();
 			return list;
 		} catch(Exception e){
@@ -43,7 +38,6 @@ public class SellerProductDao {
 		SqlSession session = factory.openSession();
 		try{
 			int r = session.selectOne("seller.countAll", map);
-			//System.out.println("countAll: " + r);
 			return r;
 		} catch(Exception e){
 			e.printStackTrace();
@@ -53,4 +47,21 @@ public class SellerProductDao {
 			session.close();
 		}
 	}
+	
+	//중분류 카테고리
+	public List<Map<String,Object>> smallcateList(){
+		SqlSession session = factory.openSession();
+		try {
+			List<Map<String,Object>> list =  session.selectList("small_cate");
+			session.commit();
+			return list;
+		} catch(Exception e){
+			e.printStackTrace();
+			session.rollback();
+			return null;
+		} finally{
+			session.close();
+		}
+	}
+	
 }
