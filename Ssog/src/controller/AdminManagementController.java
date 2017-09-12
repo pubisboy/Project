@@ -41,13 +41,7 @@ public class AdminManagementController {
 	@RequestMapping("/notice/notice_list.ja")
 	public String notice_list(@RequestParam Map params, @RequestParam(name="p", defaultValue="1") Integer p, Map map){
 		
-/*		if(params.get("state") != null){
-			String s = (String)params.get("state");
-			if(s.equals("")){
-				params.remove("value");
-			}
-		}
-*/		String val = null;
+		String val = null;
 		if(params.get("value") != null){
 			val = (String)params.get("value");
 			if(val.length() > 0){
@@ -410,7 +404,12 @@ public class AdminManagementController {
 	public String counsel_user_list(@RequestParam Map params, @RequestParam(name="p", defaultValue="1") Integer p, Map map, HttpSession session){
 		if(session.getAttribute("pre") != null){
 			System.out.println("pre가 있다.");
-			params = (Map)session.getAttribute("pre");
+			Map pa = (Map)session.getAttribute("pre");
+			System.out.println("pre : "+pa);
+			if(p == pa.get("p")){
+				System.out.println("p : "+p+" / "+"pa.get : "+pa.get("p"));
+				params = pa; 
+			}
 			session.removeAttribute("pre");
 		}
 		/*if(params.get("state") != null){
@@ -446,9 +445,9 @@ public class AdminManagementController {
 		params.put("start", bt.get("start"));
 		params.put("end", bt.get("end"));
 		
-		System.out.println("params의 값은 "+params);
+		// System.out.println("params의 값은 "+params);
 		List<Map> rst = ad.getList_counsel_user(params);
-		System.out.println("검색 결과는 : "+rst);
+		// System.out.println("검색 결과는 : "+rst);
 		List state = ad.getCounsel_category();
 		
 		String[] typesEn = "user_id,title".split(",");
@@ -474,18 +473,18 @@ public class AdminManagementController {
 		List list = ad.getCounsel_user_detail(num);
 		Map li = (Map)list.get(0);
 		String uuid = (String)li.get("IMAGE_UUID");
-		System.out.println("uuid : "+uuid);
-		System.out.println("params : "+params);
+		// System.out.println("uuid : "+uuid);
+		// System.out.println("params : "+params);
 		session.setAttribute("pre", params);
-		
+		map.put("params", params);
 		map.put("list", list);
-		System.out.println("list : "+list);
+		// System.out.println("list : "+list);
 		map.put("section", "/management/counsel/counsel_user_detail");
 		return "ad_management";
 	}
 	
 	@RequestMapping("/counsel/counsel_user_modify.ja")
-	public String counsel_user_modify(@RequestParam(name="num") Integer num, Map map){
+	public String counsel_user_modify(@RequestParam(name="num") Integer num, Map map, HttpSession session){
 		List list = ad.getCounsel_user_detail(num);
 		Map li = (Map)list.get(0);
 		BigDecimal bd = (BigDecimal)li.get("REPLY");
@@ -497,6 +496,7 @@ public class AdminManagementController {
 		}else{
 			content = (String)li.get("CONTENT");
 		}
+		map.put("params", session.getAttribute("pre"));
 		map.put("list", list);
 		map.put("content", content);
 		map.put("section", "/management/counsel/counsel_user_modify");
@@ -504,12 +504,14 @@ public class AdminManagementController {
 	}
 	
 	@RequestMapping("/counsel/counsel_user_modifyExec.ja")
-	public String counsel_user_modifyExec(@RequestParam Map params, Map map){
-		System.out.println("params : "+params);
+	public String counsel_user_modifyExec(@RequestParam Map params, Map map, HttpSession session){
+		// System.out.println("params : "+params);
 		boolean b = ad.updateCounsel_user_detail(params);
-		System.out.println("b : "+b);
+		// System.out.println("b : "+b);
+		Map pa = (Map)session.getAttribute("pre");
+		map.put("params", pa);
 		if(b){
-			return "redirect:/admin/management/counsel/counsel_user_list.ja";
+			return "redirect:/admin/management/counsel/counsel_user_list.ja?p="+pa.get("p");
 		}else{
 			return "redirect:/admin/management/counsel/counsel_user_detail.ja?num="+params.get("num");
 		}
@@ -523,7 +525,12 @@ public class AdminManagementController {
 	public String counsel_seller_list(@RequestParam Map params, @RequestParam(name="p", defaultValue="1") Integer p, Map map, HttpSession session){
 		if(session.getAttribute("pre") != null){
 			System.out.println("pre가 있다.");
-			params = (Map)session.getAttribute("pre");
+			Map pa = (Map)session.getAttribute("pre");
+			System.out.println("pre : "+pa);
+			if(p == pa.get("p")){
+				System.out.println("p : "+p+" / "+"pa.get : "+pa.get("p"));
+				params = pa; 
+			}
 			session.removeAttribute("pre");
 		}
 		/*if(params.get("state") != null){
@@ -592,13 +599,15 @@ public class AdminManagementController {
 		session.setAttribute("pre", params);
 		
 		map.put("list", list);
+		map.put("params", params);
+		
 		System.out.println("list : "+list);
 		map.put("section", "/management/counsel/counsel_seller_detail");
 		return "ad_management";
 	}
 	
 	@RequestMapping("/counsel/counsel_seller_modify.ja")
-	public String counsel_seller_modify(@RequestParam(name="num") Integer num, Map map){
+	public String counsel_seller_modify(@RequestParam(name="num") Integer num, Map map, HttpSession session){
 		List list = ad.getCounsel_seller_detail(num);
 		Map li = (Map)list.get(0);
 		BigDecimal bd = (BigDecimal)li.get("REPLY");
@@ -610,6 +619,7 @@ public class AdminManagementController {
 		}else{
 			content = (String)li.get("CONTENT");
 		}
+		map.put("params", session.getAttribute("pre"));
 		map.put("list", list);
 		map.put("content", content);
 		map.put("section", "/management/counsel/counsel_seller_modify");
@@ -617,12 +627,14 @@ public class AdminManagementController {
 	}
 	
 	@RequestMapping("/counsel/counsel_seller_modifyExec.ja")
-	public String counsel_seller_modifyExec(@RequestParam Map params, Map map){
+	public String counsel_seller_modifyExec(@RequestParam Map params, Map map, HttpSession session){
 		System.out.println("params : "+params);
 		boolean b = ad.updateCounsel_seller_detail(params);
 		System.out.println("b : "+b);
+		Map pa = (Map)session.getAttribute("pre");
+		map.put("params", pa);
 		if(b){
-			return "redirect:/admin/management/counsel/counsel_seller_list.ja";
+			return "redirect:/admin/management/counsel/counsel_seller_list.ja?p="+pa.get("p");
 		}else{
 			return "redirect:/admin/management/counsel/counsel_seller_detail.ja?num="+params.get("num");
 		}

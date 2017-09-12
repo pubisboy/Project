@@ -54,7 +54,7 @@
 				<td>${i.CATEGORY }</td>
 				<td>${i.NUM }</td>
 				<td align="left"><a
-					href="/admin/management/counsel/counsel_seller_detail.ja?num=${i.NUM }&type=${params.type }&value=${params.value}&state=${params.state}&reply=${params.reply}&sort=${params.sort}">${i.TITLE }</a></td>
+					href="/admin/management/counsel/counsel_seller_detail.ja?num=${i.NUM }&p=${params.p }&type=${params.type }&value=${params.value}&state=${params.state}&reply=${params.reply}&sort=${params.sort}">${i.TITLE }</a></td>
 				<td>${i.USER_ID }</td>
 				<td><fmt:formatDate value="${i.COUNSEL_DATE }"
 						pattern="yyyy:MM:dd hh:mm" var="time" />${time }</td>

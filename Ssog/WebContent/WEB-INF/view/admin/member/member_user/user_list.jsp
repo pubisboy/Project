@@ -16,7 +16,7 @@
 	<tbody>
 		<c:forEach items="${list }" var="i" varStatus="vs">
 			<tr>
-				<td><a href="/admin/member/member_user/user_detail.ja?id=${i.ID }">${i.ID }</a></td>
+				<td><a href="/admin/member/member_user/user_detail.ja?id=${i.ID }&p=${params.p }&type=${params.type }&value=${params.value}">${i.ID }</a></td>
 				<td>${i.NAME }</td>
 				<td>${i.EMAIL }</td>
 				<td>${i.PHONE }</td>

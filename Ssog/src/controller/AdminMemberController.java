@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -68,7 +70,8 @@ public class AdminMemberController {
 	}
 	
 	@RequestMapping("/member_user/user_detail.ja")
-	public String user_detail(@RequestParam(name="id") String id, Map map){
+	public String user_detail(@RequestParam Map params, @RequestParam(name="id") String id, Map map, HttpSession session){
+		map.put("params", params);
 		List liInfo = amd.user_detail_info(id);
 		if(liInfo.size() > 0){
 			Map tmp = (Map)liInfo.get(0);

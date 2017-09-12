@@ -39,6 +39,7 @@
 	</tbody>
 </table>
 <div style="float: left; width: 33%; text-align: left"><a href="/admin/management/counsel/counsel_seller_modify.ja?num=${list['0'].NUM }">답변</a></div>
+<div style="float: right; text-align: left"><a href="/admin/management/counsel/counsel_seller_list.ja?p=${params.p }&type=${params.type }&value=${params.value}&state=${params.state}&reply=${params.reply}&sort=${params.sort}">목록</a></div>
 
 <script>
 	$("#image").on("click", function(){
