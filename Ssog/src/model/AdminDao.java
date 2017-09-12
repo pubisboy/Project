@@ -42,4 +42,7 @@ public interface AdminDao {
 	public List getCounsel_category();
 	public List getCounsel_user_detail(int num);
 	public boolean updateCounsel_user_detail(Map map);
+	public List getCounsel_seller_category();
+	public List getCounsel_seller_detail(int num);
+	public boolean updateCounsel_seller_detail(Map map);
 }

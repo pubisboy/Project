@@ -12,10 +12,10 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -407,8 +407,12 @@ public class AdminManagementController {
 	}
 	
 	@RequestMapping("/counsel/counsel_user_list.ja")
-	public String counsel_user_list(@RequestParam Map params, @RequestParam(name="p", defaultValue="1") Integer p, Map map){
-		
+	public String counsel_user_list(@RequestParam Map params, @RequestParam(name="p", defaultValue="1") Integer p, Map map, HttpSession session){
+		if(session.getAttribute("pre") != null){
+			System.out.println("pre가 있다.");
+			params = (Map)session.getAttribute("pre");
+			session.removeAttribute("pre");
+		}
 		/*if(params.get("state") != null){
 			String s = (String)params.get("state");
 			if(s.equals("")){
@@ -466,11 +470,13 @@ public class AdminManagementController {
 	}
 	
 	@RequestMapping("/counsel/counsel_user_detail.ja")
-	public String counsel_user_detail(@RequestParam(name="num") Integer num, Map map){
+	public String counsel_user_detail(@RequestParam Map params, @RequestParam(name="num") Integer num, Map map, HttpSession session){
 		List list = ad.getCounsel_user_detail(num);
 		Map li = (Map)list.get(0);
 		String uuid = (String)li.get("IMAGE_UUID");
 		System.out.println("uuid : "+uuid);
+		System.out.println("params : "+params);
+		session.setAttribute("pre", params);
 		
 		map.put("list", list);
 		System.out.println("list : "+list);
@@ -488,6 +494,8 @@ public class AdminManagementController {
 		if(r == 0){
 			content = (String)li.get("CONTENT");
 			content += "<hr style='border: dotted 2px red;'><br/>";
+		}else{
+			content = (String)li.get("CONTENT");
 		}
 		map.put("list", list);
 		map.put("content", content);
@@ -504,6 +512,119 @@ public class AdminManagementController {
 			return "redirect:/admin/management/counsel/counsel_user_list.ja";
 		}else{
 			return "redirect:/admin/management/counsel/counsel_user_detail.ja?num="+params.get("num");
+		}
+	}
+	
+	
+	
+	
+	
+	@RequestMapping("/counsel/counsel_seller_list.ja")
+	public String counsel_seller_list(@RequestParam Map params, @RequestParam(name="p", defaultValue="1") Integer p, Map map, HttpSession session){
+		if(session.getAttribute("pre") != null){
+			System.out.println("pre가 있다.");
+			params = (Map)session.getAttribute("pre");
+			session.removeAttribute("pre");
+		}
+		/*if(params.get("state") != null){
+			String s = (String)params.get("state");
+			if(s.equals("")){
+				params.remove("type");
+				params.remove("value");
+			}
+		}*/
+		
+		String val = null;
+		if(params.get("value") != null){
+			val = (String)params.get("value");
+			if(val.length() > 0){
+				String tmp = "%"+val+"%";
+				params.put("value", tmp);
+			}else{
+				params.put("value", "%");
+			}
+		}
+		if(params.get("reply") != null){
+			if(params.get("reply") instanceof Integer){
+				int i = Integer.parseInt((String)params.get("reply"));
+				params.put("reply", i);
+			}
+		}
+		
+		pg.setDefaultSetting(10, 10);
+		int rows = ad.getCount_counsel_seller(params);
+		pg.setNumberOfRecords(rows);
+		Map paging = pg.calcPaging(p, rows);
+		Map bt = pg.calcBetween(p);
+		params.put("start", bt.get("start"));
+		params.put("end", bt.get("end"));
+		
+		System.out.println("params의 값은 "+params);
+		List<Map> rst = ad.getList_counsel_seller(params);
+		System.out.println("검색 결과는 : "+rst);
+		List state = ad.getCounsel_seller_category();
+		
+		String[] typesEn = "user_id,title".split(",");
+		String[] typesKo = "아이디,제목".split(",");
+		map.put("typesEn", typesEn);
+		map.put("typesKo", typesKo);
+		
+		DecimalFormat df = new DecimalFormat("#,###");
+		String total = df.format(rows);
+		map.put("total", total);
+		map.put("list", rst);
+		map.put("state", state);
+		map.put("paging", paging);
+		params.put("value", val);
+		map.put("params", params);
+		map.put("section", "/management/counsel/counsel_seller_list");
+		
+		return "ad_management";
+	}
+	
+	@RequestMapping("/counsel/counsel_seller_detail.ja")
+	public String counsel_seller_detail(@RequestParam Map params, @RequestParam(name="num") Integer num, Map map, HttpSession session){
+		List list = ad.getCounsel_seller_detail(num);
+		Map li = (Map)list.get(0);
+		String uuid = (String)li.get("IMAGE_UUID");
+		System.out.println("uuid : "+uuid);
+		System.out.println("params : "+params);
+		session.setAttribute("pre", params);
+		
+		map.put("list", list);
+		System.out.println("list : "+list);
+		map.put("section", "/management/counsel/counsel_seller_detail");
+		return "ad_management";
+	}
+	
+	@RequestMapping("/counsel/counsel_seller_modify.ja")
+	public String counsel_seller_modify(@RequestParam(name="num") Integer num, Map map){
+		List list = ad.getCounsel_seller_detail(num);
+		Map li = (Map)list.get(0);
+		BigDecimal bd = (BigDecimal)li.get("REPLY");
+		int r = bd.intValue();
+		String content = null;
+		if(r == 0){
+			content = (String)li.get("CONTENT");
+			content += "<hr style='border: dotted 2px red;'><br/>";
+		}else{
+			content = (String)li.get("CONTENT");
+		}
+		map.put("list", list);
+		map.put("content", content);
+		map.put("section", "/management/counsel/counsel_seller_modify");
+		return "ad_management";
+	}
+	
+	@RequestMapping("/counsel/counsel_seller_modifyExec.ja")
+	public String counsel_seller_modifyExec(@RequestParam Map params, Map map){
+		System.out.println("params : "+params);
+		boolean b = ad.updateCounsel_seller_detail(params);
+		System.out.println("b : "+b);
+		if(b){
+			return "redirect:/admin/management/counsel/counsel_seller_list.ja";
+		}else{
+			return "redirect:/admin/management/counsel/counsel_seller_detail.ja?num="+params.get("num");
 		}
 	}
 }
