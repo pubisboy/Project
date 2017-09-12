@@ -326,11 +326,11 @@ public class AdminOracleDao implements AdminDao{
 		return list;
 	}
 	
-	public List getTerms(){
+	public List getTerms(Map map){
 		List list = null;
 		SqlSession session = factory.openSession();
 		try{
-			list = session.selectList("admin.getTerms");
+			list = session.selectList("admin.getTerms", map);
 		}catch(Exception e){
 			System.out.println("error.getTerms"+e.toString());
 			list = null;
@@ -421,4 +421,43 @@ public class AdminOracleDao implements AdminDao{
 		}
 		return b;
 	}
+	
+	public List getTarget_notice(){
+		List list = null;
+		SqlSession session = factory.openSession();
+		try{
+			list = session.selectList("admin.getTarget_notice");
+		}catch(Exception e){
+			System.out.println("error.getTarget_notice"+e.toString());
+			list = null;
+		}finally{
+			session.close();
+		}
+		return list;
+	}
+	
+	public int getCount_notice(Map map){
+		SqlSession session = factory.openSession();
+		try{
+			return session.selectOne("admin.getCount_notice", map);
+		}catch(Exception e){
+			System.out.println("error.getCount_notice : "+e.toString());
+			return -1;
+		}finally{
+			session.close();
+		}
+	}
+	
+	public int getCount_terms(Map map){
+		SqlSession session = factory.openSession();
+		try{
+			return session.selectOne("admin.getCount_Terms", map);
+		}catch(Exception e){
+			System.out.println("error.getCount_Terms : "+e.toString());
+			return -1;
+		}finally{
+			session.close();
+		}
+	}
+
 }

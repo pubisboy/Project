@@ -35,8 +35,47 @@
 		select * from ${table}
 	</select>
 	
-	<select id="getList_notice" resultType="java.util.HashMap">
-		select n.NOTICE_NUM, n.TITLE, n.NOTICE_DATE, n.TARGET, t.TARGET targets from notice n left join target t on n.TARGET = t.NUM order by n.NOTICE_DATE desc
+	<select id="getList_notice" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select rst.* from
+		(select nt.*, rownum rnum from 
+		(select n.NOTICE_NUM, n.TITLE, n.NOTICE_DATE, n.TARGET, t.TARGET targets from
+		(select * from notice
+		<choose>
+			<when test="state != null and state != '' and value != null and value != ''">
+				where TARGET = #{state} and TITLE like #{value}
+			</when>
+			<when test="state != null and state != ''">
+				where TARGET = #{state}
+			</when>
+			<when test="value != null and value != ''">
+				where TITLE like #{value}
+			</when>
+		</choose>
+		) n
+		left join target t on n.TARGET = t.NUM order by n.NOTICE_DATE desc) nt) rst where rnum between #{start} and #{end}
+	</select>
+	
+	<select id="getCount_notice" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+		select count(*) count from 
+		(select n.NOTICE_NUM, n.TITLE, n.NOTICE_DATE, n.TARGET, t.TARGET targets from
+		(select * from notice
+		<choose>
+			<when test="state != null and state != '' and value != null and value != ''">
+				where TARGET = #{state} and TITLE like #{value}
+			</when>
+			<when test="state != null and state != ''">
+				where TARGET = #{state}
+			</when>
+			<when test="value != null and value != ''">
+				where TITLE like #{value}
+			</when>
+		</choose>
+		) n
+		left join target t on n.TARGET = t.NUM order by n.NOTICE_DATE desc) nt
+	</select>
+	
+	<select id="getTarget_notice" resultType="java.util.HashMap">
+		select * from target
 	</select>
 	
 	<select id="getDetail_notice" parameterType="java.lang.Integer" resultType="java.util.HashMap">
@@ -91,8 +130,23 @@
 		select ni.IMG_UUID from notice_img ni
 	</select>
 	
-	<select id="getTerms" resultType="java.util.HashMap">
-		select num, title from terms
+	<select id="getTerms" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select rst.* from
+		(select b.*, rownum rnum from
+		(select * from terms
+		<if test="value != null and value != ''">
+			where title like #{value}
+		</if>
+		order by TERMS_DATE desc) b)rst where rnum between #{start} and #{end}
+	</select>
+	
+	<select id="getCount_Terms" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+		select count(*) from
+		(select * from terms
+		<if test="value != null and value != ''">
+			where title like #{value}
+		</if>
+		order by TERMS_DATE desc) b
 	</select>
 	
 	<select id="getDetail_terms" parameterType="java.lang.Integer" resultType="java.util.HashMap">
@@ -100,11 +154,11 @@
 	</select>
 	
 	<update id="updateTerms" parameterType="java.util.HashMap">
-		update terms set title = #{title}, content = #{content} where num = ${num}
+		update terms set title = #{title}, content = #{content} where num = ${num}, terms_date = sysdate
 	</update>
 	
 	<insert id="plusTerms" parameterType="java.util.HashMap">
-		insert into terms values (terms_seq.nextval, #{title}, #{content})
+		insert into terms values (terms_seq.nextval, #{title}, #{content}, sysdate)
 	</insert>
 	
 	<delete id="delTerms" parameterType="java.lang.Integer">

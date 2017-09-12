@@ -2,6 +2,7 @@ package controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -21,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import model.AdminDao;
+import paging.Paging;
 
 @Controller
 @RequestMapping("/admin/management")
@@ -31,12 +33,50 @@ public class AdminManagementController {
 	
 	@Autowired
 	ServletContext application;
+	
+	@Autowired
+	Paging pg;
 
 	@RequestMapping("/notice/notice_list.ja")
-	public String notice_list(Map map){
-		// List<Map> rst = ad.getValues("getValues_All", "notice");
-		List<Map> rst = ad.getValues("admin.getList_notice");
+	public String notice_list(@RequestParam Map params, @RequestParam(name="p", defaultValue="1") Integer p, Map map){
+		
+		if(params.get("state") != null){
+			String s = (String)params.get("state");
+			if(s.equals("")){
+				params.remove("value");
+			}
+		}
+		String val = null;
+		if(params.get("value") != null){
+			val = (String)params.get("value");
+			if(val.length() > 0){
+				String tmp = "%"+val+"%";
+				params.put("value", tmp);
+			}else{
+				params.put("value", "%");
+			}
+		}
+		
+		pg.setDefaultSetting(10, 10);
+		int rows = ad.getCount_notice(params);
+		pg.setNumberOfRecords(rows);
+		Map paging = pg.calcPaging(p, rows);
+		Map bt = pg.calcBetween(p);
+		params.put("start", bt.get("start"));
+		params.put("end", bt.get("end"));
+		
+		List<Map> rst = ad.getValues("admin.getList_notice", params);
+		System.out.println("params의 값은 "+params);
+		List state = ad.getTarget_notice();
+		
+		DecimalFormat df = new DecimalFormat("#,###");
+		String total = df.format(rows);
+		map.put("total", total);
 		map.put("list", rst);
+		map.put("target", state);
+		map.put("paging", paging);
+		params.put("value", val);
+		map.put("params", params);
 		map.put("section", "/management/notice/notice_list");
 		return "ad_management";
 	}
@@ -256,11 +296,43 @@ public class AdminManagementController {
 	}
 	
 	@RequestMapping("/information/terms.ja")
-	public String terms(Map map){
-		List list = ad.getTerms();
+	public String terms(@RequestParam Map params, @RequestParam(name="p", defaultValue="1") Integer p, Map map){
+		pg.setDefaultSetting(10, 5);
+		
+		System.out.println("params : "+params);
+		
+		String val = null;
+		if(params.get("value") != null){
+			val = (String)params.get("value");
+			if(val.length() > 0){
+				String tmp = "%"+val+"%";
+				params.put("value", tmp);
+			}else{
+				params.put("value", "%");
+			}
+		}
+		
+		System.out.println("params의 value : "+params.get("value"));
+		int rows = ad.getCount_terms(params);
+		pg.setNumberOfRecords(rows);
+		Map paging = pg.calcPaging(p, rows);
+		// System.out.println("paging : "+paging);
+		Map se = pg.calcBetween(p);
+		params.put("start", se.get("start"));
+		params.put("end", se.get("end"));
+		
+		List list = ad.getTerms(params);
+		
+		DecimalFormat df = new DecimalFormat("#,###");
+		String total = df.format(rows);
+		map.put("total", total);
+		
 		map.put("list", list);
-		// System.out.println("list는 : "+list);
+		map.put("paging", paging);
 		map.put("section", "/management/information/terms");
+		params.put("value", val);
+		map.put("params", params);
+		
 		return "ad_management";
 	}
 	

@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<div>검색 : <fmt:formatNumber value="${total }" pattern="#,###" />명</div>
+<div>검색 : ${total }건</div>
 <div>
 	<form action="/admin/order/order_list.ja" method="get" id="stateForm">
 		<input type="hidden" name="type" value="${empty params.type ? '' : params.type}"/>
@@ -59,7 +59,6 @@
 <div align="center">
 	<form action="/admin/order/order_list.ja" method="get">
 		<select name="type">
-			<option value="">전체</option>
 			<c:forEach items="${typesKo }" var="i" varStatus="vs">
 				<option value="${typesEn[vs.index] }" ${params.type eq typesEn[vs.index] ? 'selected' : ''}>${i }</option>
 			</c:forEach>

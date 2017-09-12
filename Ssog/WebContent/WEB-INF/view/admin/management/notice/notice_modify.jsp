@@ -30,13 +30,16 @@
    </div>
    <div class="col-xs-0 col-md-1"></div>
 </div>
+
 <script src="/ckeditor/ckeditor.js"></script>
+
 <script>
 	CKEDITOR.replace('content', {
 		"filebrowserUploadUrl" : "/admin/management/notice/upload.j",
 		resize_enabled : false
 	});
 </script>
+
 <script>
 	$("#submit").on("click", function(){
 		$.ajax({
