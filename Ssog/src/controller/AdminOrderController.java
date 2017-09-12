@@ -66,6 +66,10 @@ public class AdminOrderController {
 		map.put("stateNum", stateNum);
 		map.put("stateKo", stateKo);
 		
+		DecimalFormat df = new DecimalFormat("#,###");
+		String total = df.format(rows);
+		map.put("total", total);
+		
 		map.put("list", list);
 		map.put("paging", paging);
 		map.put("section", "/order/order_list");

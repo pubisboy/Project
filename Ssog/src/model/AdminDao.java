@@ -23,7 +23,7 @@ public interface AdminDao {
 	public boolean delInfo_company(String name);
 	public int plusInfo_company(String name);
 	public List getUuid_notice_img();
-	public List getTerms();
+	public List getTerms(Map map);
 	public List getDetail_terms(int num);
 	public boolean updateValues_terms(Map map);
 	public boolean plusTerms(Map map);
@@ -32,4 +32,7 @@ public interface AdminDao {
 	public boolean delNotice_img(int num);
 	public boolean updateImage_notice(Map map);
 	public boolean delNotice(int num);
+	public List getTarget_notice();
+	public int getCount_notice(Map map);
+	public int getCount_terms(Map map);
 }

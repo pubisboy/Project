@@ -1,12 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<c:forEach items="${list }" var="i" varStatus="vs">
-	<div>약관 번호 : ${i.NUM } / 약관 제목 : ${i.TITLE }</div>
-	<div>약관 내용 : ${i.CONTENT }</div>
-	<div>
-		<a href="/admin/management/information/terms_modify.ja?num=${i.NUM }">수정</a>
-		<a href="/admin/management/information/terms_del.ja?num=${i.NUM }">삭제</a>
-	</div>
-</c:forEach>
+<table class="table table-bordered" style="text-align: center; min-height: 50%;">
+	<tbody>
+		<tr>
+			<td>
+				<h4><b>${list['0'].TITLE}</b></h4>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<div style="float: left; width: 33%;"><b>번호</b>:${list['0'].NUM }</div>
+				<div style="float: right; width: 33%;"><b>작성일자</b>:
+				<fmt:formatDate value="${list['0'].TERMS_DATE }" pattern="yyyy-MM-dd hh:mm" var="time"/>${time } 
+				</div>
+			</td>
+		</tr>
+		<tr style="height: 100%;">
+			<td style="text-align: left">
+				${list['0'].CONTENT}
+			</td>
+		</tr>
+	</tbody>
+</table>
+<div style="float: left; width: 33%; text-align: left"><a href="/admin/management/information/terms_modify.ja?num=${list['0'].NUM }">수정</a></div>
+<div style="float: right; width: 33%; text-align: right"><a href="/admin/management/information/terms_del.ja?num=${list['0'].NUM }">삭제</a></div>
