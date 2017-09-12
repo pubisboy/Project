@@ -20,11 +20,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import model.MemberDao;
+import model.ProductDao;
 
 @Controller
 public class MemberController {
 	@Autowired
 	MemberDao mdao;
+	@Autowired
+	ProductDao pdao;
 	@Autowired
 	JavaMailSender sender;
 
@@ -35,13 +38,6 @@ public class MemberController {
 		return mav;
 	}
 	
-	// 임시컨트롤러
-	@RequestMapping("/cart/form.j")
-	public ModelAndView cart() {
-		ModelAndView mav = new ModelAndView("tw_cart/form");
-		return mav;
-	}
-	//===================================================
 	
 	@RequestMapping("/member/join.j")
 	public ModelAndView join() {
@@ -64,12 +60,17 @@ public class MemberController {
 	@RequestMapping("/member/join_rst.j")
 	public ModelAndView join_rst(@RequestParam Map param, HttpSession session) {
 		ModelAndView mav = new ModelAndView("/member/join_rst");
-		String address = String.format("%s#%s#%s", param.get("postcode"),param.get("address1"),param.get("address2"));
+		String address = String.format("%s!%s!%s", param.get("postcode"),param.get("address1"),param.get("address2"));
+		String phone = String.format("%s-%s-%s", param.get("phone").toString().substring(0, 3),param.get("phone").toString().substring(3, 7),param.get("phone").toString().substring(7, 11));
+		String birth = String.format("%s/%s/%s", param.get("birth").toString().substring(0, 4),param.get("birth").toString().substring(4, 6),param.get("birth").toString().substring(6, 8));
 		param.put("address", address);
+		param.put("phone", phone);
+		param.put("birth", birth);
 		System.out.println(param);
 		boolean r;
 		if (session.getAttribute("suckey").equals("TT")) {
 			r = mdao.join(param);
+			boolean bl = mdao.alarm(param);
 			if (r == true) {
 				session.setAttribute("auth", param.get("id"));
 			}
