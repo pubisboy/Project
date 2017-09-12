@@ -184,10 +184,10 @@ public class MyinfoController {
 	public boolean info_revise(HttpSession session, @RequestParam Map param) {
 		Map init = init(session);
 		param.put("id", (String) init.get("id"));
-		System.out.println(param);
+		System.out.println("inforevise param: "+param);
 		boolean inre = false;
 		inre = mdao.info_revise(param);
-		System.out.println(inre);
+		System.out.println("inforevise inre : "+inre);
 		return inre;
 	}
 

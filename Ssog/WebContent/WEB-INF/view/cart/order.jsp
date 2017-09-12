@@ -105,7 +105,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td class="active" style="width: 16%;">배송시<br />요구사항
+							<td class="active" style="width: 16%;" id="etc">배송시<br />요구사항
 							</td>
 							<td><textarea></textarea></td>
 						</tr>
@@ -131,7 +131,7 @@
 							align="left">기본할인 이벤트 할인(0)원0원</div>
 						<div style="padding: 10px; width: 90%;" align="left">
 							쿠폰할인 <input type="text">
-							<button>쿠폰조회 및 적용</button>
+							<a href="javascript:popupOpen();" style="color: #262626"><button id="couponlist">쿠폰조회 및 적용</button></a>
 							사용가능한 쿠폰 (0)장 0원
 
 						</div>
@@ -191,6 +191,22 @@
 		$("#address2").val("${address2}");
 		$("#phone2").val("${phone2}");
 		$("#phone3").val("${phone3}");
+		
 
 	});
+	$.ajax({
+		url : "/cart/order_rst.j",
+		method : "post",
+		data:{
+			"name" : $("#name").val(), 
+			"phone" : $("#phone1").val()+"-"+$("#phone2").val()+"-"+$("#phone3").val() ,
+			"address" :  $("#postcode").val()+"!"+$("#address1").val()+"!"+$("#address2").val(),
+			"etc" : $("#etc").val()
+		}
+	});
+	function popupOpen() {
+		var popUrl = "popup_couponlist.j";
+		var popOption = "width=370, height=360, resizable=no, scrollbars=no, status=no;";
+		window.open(popUrl, "SSOG", popOption);
+	}
 </script>

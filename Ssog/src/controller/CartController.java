@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import model.CartDao;
 import model.MemberDao;
 import model.MyinfoDao;
 import model.ProductDao;
@@ -27,6 +28,8 @@ public class CartController {
 	MemberDao mmdao;
 	@Autowired
 	MyinfoDao mdao;
+	@Autowired
+	CartDao cdao;
 	
 	public Map init(HttpSession session) {
 		String id = (String) session.getAttribute("auth");
@@ -102,6 +105,21 @@ public class CartController {
 				}
 			}
 		}
+		return mav;
+	}
+//	@RequestMapping("/order_rst.j")
+//	@ResponseBody
+//	public boolean order_rst(@RequestParam Map param) {
+//		
+//		
+//	}
+	@RequestMapping("/popup_couponlist.j")
+	public ModelAndView popup(HttpSession session) {
+		ModelAndView mav = new ModelAndView("cart/popup_couponlist");
+		Map init = init(session);
+		List<Map> list = cdao.couponlist((String) init.get("id"));
+		mav.addObject("list",list);
+		
 		return mav;
 	}
 }

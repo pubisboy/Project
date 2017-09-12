@@ -171,7 +171,7 @@ table, th, td {
 			url:"/member/myinfo/info_revise_rst.j",
 			method : "post",
 			data:{
-				"phone":($("#phone1").val()+$("#phone2").val()+$("#phone3").val()),
+				"phone":($("#phone1").val()+"-"+$("#phone2").val()+"-"+$("#phone3").val()),
 				"email":($("#email").val()+'@'+$("#site").val()),
 				"address":$("#postcode").val()+'!'+$("#address1").val()+'!'+$("#address2").val(),
 				"sms":($("#sms").prop("checked") ? 'on':'off'),
