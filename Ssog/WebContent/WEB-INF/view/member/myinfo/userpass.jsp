@@ -44,7 +44,7 @@
 	</h4>
 </div>
 <div class="row">
-	<div class="col-sm-12">
+	<div class="col-sm-12" align="left">
 		<hr style="margin: 8px; border-top: 3px solid black;">
 		<b
 			style="font-size: 12px; padding-right: 35px; padding-left: 10px; color: #262626;">기존
