@@ -53,7 +53,7 @@ table, th, td {
 						<td>${obj.CATE }</td>
 						<td>${obj.TITLE }</td>
 						<td>${obj.COUNSEL_DATE }</td>
-						<th></th>
+						<th>${obj.REPLY eq 1 ? '답변완료':'답변대기'}</th>
 					</tr>
 				</c:forEach>
 			</tbody>
