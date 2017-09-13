@@ -157,7 +157,6 @@ table, th, td {
 				}).open();
 	}
 	function test(a){
-		 alert(a);
 		 $("#site").val(a); 
 		 if(a=="직접입력"){
 			 $("#site").val("");

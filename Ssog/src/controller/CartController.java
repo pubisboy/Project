@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import model.CartDao;
@@ -87,6 +88,8 @@ public class CartController {
 		mav.addObject("phone2", phonenum[1]);
 		mav.addObject("phone3", phonenum[2]);
 		mav.addObject("memberinfo", init.get("info"));
+		List<Map> clist = cdao.couponlist((String) init.get("id"));
+		mav.addObject("clist",clist);
 		Cookie[] cookies = resp.getCookies();
 		List<Map> list = new ArrayList<>();
 		if (cookies != null) {
@@ -114,11 +117,12 @@ public class CartController {
 //		
 //	}
 	@RequestMapping("/popup_couponlist.j")
-	public ModelAndView popup(HttpSession session) {
+	public ModelAndView popup(HttpSession session,@RequestParam (name="price") String price) {
 		ModelAndView mav = new ModelAndView("cart/popup_couponlist");
 		Map init = init(session);
 		List<Map> list = cdao.couponlist((String) init.get("id"));
 		mav.addObject("list",list);
+		mav.addObject("price", price);
 		
 		return mav;
 	}
