@@ -137,6 +137,8 @@ table, th, td {
 	</div>
 </div>
 <script>
+var tmp = 0;
+var sum = 0;
 	$(".couponselect").on("click",function() {
 				var p = $(this).parent().prev().html();
 				$("#cp").html(p + '%');
@@ -147,11 +149,19 @@ table, th, td {
 				var rst2 = '${price}'.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 				var finaltotal = rst2.replace(/,/gi, '') - rst.replace(/,/gi, '');
 				var finaltotal1 = finaltotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+				var finaltotal2 = (rst2.replace(/,/gi, '') - rst.replace(/,/gi, ''))*0.01;
+				var finaltotal3 = finaltotal2.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+				var temp1 = finaltotal3.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
+				var rst1 = temp1.substring(0, temp1.indexOf('.'));
+				tmp = rst1; 
+				sum = finaltotal;
 				$("#finalcash").html(finaltotal1 + '원');
-			});
+			}); 
 	$("#okay").on("click", function() {
 		window.alert("눌림"); 
-		   opener.document.getElementById("finishcash").innerHTML = $("#finalcash").html();
+		   opener.document.getElementById("finishcash").innerHTML = sum;  
+		   opener.document.getElementById("point").innerHTML = tmp;
+		   opener.document.getElementById("onecoupon").value = $("#cp").html();  
 		   window.close();
 		      });
 </script>
