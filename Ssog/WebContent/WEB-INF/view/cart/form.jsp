@@ -18,7 +18,6 @@
 	background-image: linear-gradient(#ff4793, #ff4793);
 	border-color: #ff4793 #ff4793 hsl(335, 100%, 64%);
 	color: #333 !important;
-	border-radius: 0px;
 	text-shadow: 0 1px 1px rgba(255, 255, 255, 0.00);
 	width: 130px;
 	height: 50px;
@@ -68,11 +67,11 @@
 						</div>
 						<div align="left" style="padding-top: 10px; padding-left: 28px;"> 
 							<span class="glyphicon glyphicon-chevron-right"	style="font-size: 5px; color: #bfbfbf;"></span>
-							<b style="font-size: 12.2px;">등급</b>${grade.GRADE }<br />
+							<b style="font-size: 12.2px; padding-right: 130px;">등급</b><small>${grade.GRADE }</small><br /> 
 							<span class="glyphicon glyphicon-chevron-right" style="font-size: 5px; color: #bfbfbf;"></span>
-							<b style="font-size: 12.2px;">할인쿠폰</b><br />
+							<b style="font-size: 12.2px; padding-right: 110px">할인쿠폰</b><small>${clist.size() }</small><br /> 
 							<span class="glyphicon glyphicon-chevron-right" style="font-size: 5px; color: #bfbfbf;"></span>
-							<b style="font-size: 12.2px;">적립금</b><br />
+							<b style="font-size: 12.2px; padding-right: 120px">적립금</b><small>${point.POINT }</small><br />
 						</div>
 					</div>
 				</div>
@@ -127,10 +126,10 @@
 								style="border-bottom: 1px solid #a6a6a6; background-color: #f7f7f7; height: 40px; padding-top: 10px; padding-left: 20px;">
 								<b style="font-size: 13px; color: #404040;">상품합계</b>
 							</div>
-							<div style="height: 90px;">
+							<div style="height: 90px; padding-top: 10px;">
 								<ul style="padding-left: 38px; font-size: 12px; color: #666666;">
-									<li><b style="padding-right: 60px;">상품종류</b>${etc }종</li>
-									<li>상품수량</li>
+									<li><b style="padding-right: 120px;">상품종류</b>${etc }종</li> 
+									<li><b style="padding-right: 120px;">상품수량</b><span id="volume"></span>개</li>  
 								</ul>
 							</div>
 						</div>
@@ -140,10 +139,10 @@
 								style="border-bottom: 1px solid #a6a6a6; background-color: #f7f7f7; height: 40px; padding-top: 10px; padding-left: 20px;">
 								<b style="font-size: 13px; color: #404040;"> 할인금액</b>
 							</div>
-							<div style="height: 90px;">
+							<div style="height: 90px; padding-top: 10px;">
 								<ul style="padding-left: 38px; font-size: 12px; color: #666666;">
-									<li>회원등급할인</li>
-									<li>이벤트할인</li>
+									<li><b>회원등급할인</b></li>
+									<li><b>이벤트할인</b></li>
 								</ul>
 							</div>
 						</div>
@@ -155,11 +154,11 @@
 									style="font-size: 20px; color: #ff0066; padding-left: 60px;"><span
 									id="totalprice"></span></b>
 							</div>
-							<div>
+							<div style="padding-top: 10px;">
 								<ul style="padding-left: 38px; font-size: 12px; color: #666666;">
-									<li>상품 적립금</li>
+									<li><b>상품 적립금</b><span id="expoint" style="padding-left: 200px;"></span></li> 
 								</ul>
-								<b style="font-size: 12px;">* 쿠폰 사용시 적용금액은 변동될 수 있습니다.</b>
+								<b style="font-size: 12px; padding-left: 25px;">* 쿠폰 사용시 적용금액은 변동될 수 있습니다.</b> 
 							</div>
 						</div>
 					</div>
@@ -171,7 +170,7 @@
 			<a href="/cart/order.j"><button class="btn btn-custom" id="order">
 				<b style="color: white; font-size: 13px;">주문서 작성</b>
 			</button></a>
-			<button>계속 쇼핑하기</button>
+			<button style="width: 130px;height: 50px; font-size: 13px;" class="btn btn-default">계속 쇼핑하기</button>  
 		</div>
 	</div>
 </div>
@@ -180,8 +179,22 @@
 	$('.price').each(function() {
 		tot += parseInt($(this).html());
 	});
-	$("#totalprice").html(tot);
-
+	$("#totalprice").html(tot).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	var point = tot * 0.01;
+	var temp = point.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	var rst = temp.substring(0, temp.indexOf('.'));
+	var num_check=/^[0-9]*$/;
+	if(num_check.test(point) == true) {
+		$("#expoint").html(temp+'원');
+	}else{
+		$("#expoint").html(rst+'원');
+	}  
+	var cnt = 0;
+	$(".qu").each(function() {
+		cnt += parseInt($(this).val());
+	});
+	$("#volume").html(cnt); 
+	
 	$(".mi").on("click", function() {
 		if ($(this).next().val() > 1) {
 			$(this).next().val(parseInt($(this).next().val()) - 1)
@@ -225,4 +238,15 @@
 	$("#order").on("click", function() {
 
 	});
+	
+	
+	$("#delete").on("click",function(){
+		$(".one").each(function() {
+			if($(this).prop("checked")==true){
+				//$.cookie($(this).val(),null,{path:'/'});
+				$.removeCookie($(this).val(), { path: '/' });
+			}
+		});
+	});
+	
 </script>

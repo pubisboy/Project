@@ -15,7 +15,7 @@
 </style>
 <div align="center">
 	<div style="width: 60%;">
-		<ul class="nav navbar-nav">
+		<ul class="nav navbar-nav">  
 			<li class="active"><a
 				style="background-color: #737373; width: 120px;" href="#">Home</a></li>
 			<li class="dropdown" id="tt"><a class="dropdown-toggle"
@@ -37,6 +37,7 @@
 			<li><a href="#">채소</a></li>
 			<li><a href="#">곡물</a></li>
 		</ul>
+    
 	</div>
 </div>
 <script>
@@ -46,5 +47,17 @@
 			e.stopPropagation();
 			e.preventDefault();
 		});
+	});
+	
+	$(document).ready(function(){
+	    $(".nav-tabs a").click(function(){
+	        $(this).tab('show');
+	    });
+	    $('.nav-tabs a').on('shown.bs.tab', function(event){
+	        var x = $(event.target).text();         // active tab
+	        var y = $(event.relatedTarget).text();  // previous tab
+	        $(".act span").text(x);
+	        $(".prev span").text(y);
+	    });
 	});
 </script>

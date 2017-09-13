@@ -46,10 +46,13 @@ public class CartController {
 	@RequestMapping("/form.j")
 	public ModelAndView cart(HttpServletRequest resp, HttpSession session) {
 		Map init = init(session);
-		System.out.println(init.get("grade"));
 		ModelAndView mav = new ModelAndView("tw_cart/form");
 		mav.addObject("grade", init.get("grade"));
 		mav.addObject("memberinfo", init.get("info"));
+		List<Map> clist = cdao.couponlist((String) init.get("id"));
+		Map point = cdao.point((String) init.get("id"));
+		mav.addObject("point", point);
+		mav.addObject("clist",clist);
 		Cookie[] cookies = resp.getCookies();
 		List<Map> list = new ArrayList<>();
 		if (cookies != null) {
@@ -57,14 +60,12 @@ public class CartController {
 				if (cookies[i].getValue().startsWith("addcart")) {
 					String cookiename = cookies[i].getName();
 					String number = cookies[i].getValue().substring(7);
-					System.out.println("cookiename : " + cookiename);
 					Map map = pdao.cart(cookiename);
 					map.put("number", number);
 					list.add(map);
 					int etc = list.size();
 					mav.addObject("list", list);
 					mav.addObject("etc", etc);
-					System.out.println("list :" + list);
 				}
 			}
 		}
@@ -76,7 +77,6 @@ public class CartController {
 		Map init = init(session);
 		Map info = mmdao.id_check_repetition((String) init.get("id"));
 		ModelAndView mav = new ModelAndView("tw_cart/order");
-		System.out.println("order con :"+ init);
 		String address = (String) info.get("ADDRESS");
 		String phone = (String) info.get("PHONE");
 		String[] spaddress = address.split("!");
@@ -96,17 +96,13 @@ public class CartController {
 		List<Map> list = new ArrayList<>();
 		if (cookies != null) {
 			for (int i = 0; i < cookies.length; i++) {
-				System.out.println("cart : " + cookies[i].getName().indexOf("cart"));
 				if (cookies[i].getValue().startsWith("addcart")) {
-					int idx = cookies[i].getValue().indexOf("t");
 					String cookiename = cookies[i].getName();
-					String number = cookies[i].getValue().substring(idx + 1);
-					System.out.println("cookiename : " + cookiename);
+					String number = cookies[i].getValue().substring(7);
 					Map map = pdao.cart(cookiename);
+					map.put("number", number);
 					list.add(map);
 					mav.addObject("list", list);
-					mav.addObject("number", number);
-					System.out.println("list :" + list);
 				}
 			}
 		}
@@ -126,6 +122,11 @@ public class CartController {
 		mav.addObject("list",list);
 		mav.addObject("price", price);
 		
+		return mav;
+	}
+	@RequestMapping("/payment.j")
+	public ModelAndView payment() {
+		ModelAndView mav = new ModelAndView("tw_cart/payment"); 
 		return mav;
 	}
 }
