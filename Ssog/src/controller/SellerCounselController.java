@@ -49,7 +49,7 @@ public class SellerCounselController {
 	}
 	
 	@RequestMapping("/write_ok.j")
-	public ModelAndView insert(@RequestParam Map map, HttpSession session, 
+	public String insert(@RequestParam Map map, HttpSession session, 
 			@RequestParam(name="f") MultipartFile f) throws IllegalStateException, IOException {
 		ModelAndView mav = new ModelAndView("t_el_seller");
 		
@@ -64,16 +64,14 @@ public class SellerCounselController {
 			}
 			
 			String file_uuid = UUID.randomUUID().toString();
-			String filename = f.getOriginalFilename() + "_" + file_uuid;
-			File target = new File(dir, filename);
+			File target = new File(dir, file_uuid);
 			
 			map.put("file_uuid", file_uuid);
 			f.transferTo(target);
 			
 			boolean rst = sdao.counselInsert(map);
 			if(rst) {
-				mav.addObject("section", "seller/counsel/list");
-				mav.addObject("imageUrl", "/resource/img_counsel_seller/"+filename);
+				mav.addObject("imageUrl", "/resource/img_counsel_seller/"+file_uuid);
 				mav.addObject("result", true);
 			} else {
 				System.out.println("counsel_seller insert 실패");
@@ -81,7 +79,7 @@ public class SellerCounselController {
 		} else {
 			mav.addObject("result", false);
 		}
-		return mav;
+		return "redirect:/seller/counsel/list.j";
 	}
 	
 	@RequestMapping("/list.j")

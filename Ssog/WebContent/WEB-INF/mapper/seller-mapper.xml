@@ -91,18 +91,12 @@
   	
   	<select id="counsel_list" parameterType="java.util.HashMap" resultType="java.util.HashMap">
   		select * from counsel_seller where user_id=#{id} 
-  		<if test="cate != null">
-  			and cate = #{cate}
-  		</if>
   		 and rownum between #{start} and #{end}
   		 order by num desc
   	</select>
   	
   	<select id="counsel_total" parameterType="java.util.HashMap" resultType="java.lang.Integer">
   		select count(*) from counsel_seller where user_id=#{id}
-  		<if test="cate != null">
-  			and cate = #{cate}
-  		</if>
   	</select>
   	
   	<select id="counsel_cate" resultType="java.util.HashMap">

@@ -28,22 +28,22 @@
 	#btn { width: 85px; height: 22px; font-size: 11px; padding: 0px; }
 
 </style>
-<div style="padding-top: 20px;">
-	<h4 style="font-size: 17px; text-align: left;">
-		<span class="glyphicon glyphicon-info-sign"
-			style="padding-right: 10px;"></span><b style="padding-right: 10px;">1:1
-			문의</b><small style="font-size: 12px;">고객센터를 통하여 고객님께서 문의 하여 주신
-			문의내역입니다.</small>
-	</h4>
-</div>
-<b style="font-size: 12px; padding-right: 330px;">고객님께서 신청한 문의 : 
-	<b style="color: #ff4d4d; font-size: 13px;">${list.size()}</b>건
-	&nbsp;&nbsp;/&nbsp; 답변완료 된 문의 : 0건
-</b>
-<button type="button" class="btn btn-custom" id="btn" onclick="location='/seller/counsel/write.j'">1:1 문의 하기</button>
-<div class="row" style="padding-top: 10px;">
-	<div class="col-sm-12">
-		<table class="table table-hover">
+<div class="container" >
+	<div>
+		<b style="margin-top: 20px;">
+				<span class="glyphicon glyphicon-info-sign" style="padding-right: 10px;"></span>
+				<b style="padding-right:10px; ">1:1 문의</b>
+				<small style="font-size: 12px;">고객센터를 통하여 고객님께서 문의 하여 주신
+				문의내역입니다.</small>
+		</b>
+		<b style="font-size: 12px; padding-right: 330px;">고객님께서 신청한 문의 : 
+			<b style="color: #ff4d4d; font-size: 13px;">${total}</b>건
+			&nbsp;&nbsp;/&nbsp; 답변완료 된 문의 : 0건
+		</b>
+		<button type="button" class="btn btn-custom" id="btn" onclick="location='/seller/counsel/write.j'">1:1 문의 하기</button>
+	</div>
+	
+		<table class="table" style="margin-top: 10px;" >
 			<thead>
 				<tr style="border-top: 3px solid black;">
 					<th>문의유형</th>
@@ -58,7 +58,7 @@
 				</c:if>
 				<c:forEach var="i" items="${list}">
 					<tr>
-						<td>${i.CATE}</td>
+						<td><custom:counsel message="${i.CATE}"/></td>
 						<td>${i.TITLE }</td>
 						<td><fmt:formatDate value="${i.COUNSEL_DATE }" pattern="yyyy-MM-dd"/></td>
 						<td><custom:reply message="${i.REPLY}"/></td>
@@ -66,29 +66,28 @@
 				</c:forEach>
 			</tbody>
 		</table>
-		
-	</div>
+	
+	
+	
+		<!-- 페이지 -->
+		<div align="center">
+			<ul class="pagination">
+				<c:if test="${page.startPageNo ne 1}"><!-- 이전 -->
+					<li><a href="/seller/counsel/list.j?p=${page.startPageNo-1}">&laquo;</a></li>
+				</c:if>
+			<c:forEach var="i" begin="${page.startPageNo}" end="${page.endPageNo}">
+				<c:choose>
+					<c:when test="${i eq p}">
+						<li class="active"><a href="#">${i}</a></li>
+					</c:when>
+					<c:otherwise>
+						<li><a href="/seller/counsel/list.j?p=${i}">${i}</a></li>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>
+				<c:if test="${page.endPageNo ne page.finalPageNo}"><!-- 다음 -->
+					<li><a href="/seller/counsel/list.j?p=${page.endPageNo+1}">&raquo;</a></li>
+				</c:if>
+			</ul>
+		</div>
 </div>	
-
-
-	<!-- 페이지 -->
-	<div class="container">
-		<ul class="pagination">
-			<c:if test="${page.startPageNo ne 1}"><!-- 이전 -->
-				<li><a href="/seller/counsel/list.j?p=${page.startPageNo-1}&cate=${cate}">&laquo;</a></li>
-			</c:if>
-		<c:forEach var="i" begin="${page.startPageNo}" end="${page.endPageNo}">
-			<c:choose>
-				<c:when test="${i eq p}">
-					<li class="active"><a href="#">${i}</a></li>
-				</c:when>
-				<c:otherwise>
-					<li><a href="/seller/counsel/list.j?p=${i}&cate=${cate}">${i}</a></li>
-				</c:otherwise>
-			</c:choose>
-		</c:forEach>
-			<c:if test="${page.endPageNo ne page.finalPageNo}"><!-- 다음 -->
-				<li><a href="/seller/counsel/list.j?p=${page.endPageNo+1}&cate=${cate}">&raquo;</a></li>
-			</c:if>
-		</ul>
-	</div>
