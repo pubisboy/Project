@@ -47,7 +47,7 @@
 			data-offset-top="197">
 			<tiles:insertAttribute name="nav" />
 		</nav>
-		<section style="min-height: 120%;" class="ttt">
+		<section style="min-height: 150%;" class="ttt"> 
 			<tiles:insertAttribute name="section" />
 		</section>
 		<footer>

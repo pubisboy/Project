@@ -51,6 +51,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2e3d44', end
 			<li><a href="/seller/delete.j">회원 탈퇴</a></li>
 			
 			<li><a class="active">상품관리</a></li>
+			<li><a href="/seller/product/productReg.j">상품등록</a></li>
 			<li><a href="/seller/product/list.j">상품 목록</a></li>
 			
 			<li><a class="active">주문관리</a></li>
