@@ -149,12 +149,10 @@ public class MyinfoController {
 		Map init = init(session);
 		Map info = mmdao.id_check_repetition((String) init.get("id"));
 		Map service = mdao.service_ck((String) init.get("id"));
-		String phone1 = info.get("PHONE").toString().substring(0, 3);
-		String phone2 = info.get("PHONE").toString().substring(3, 7);
-		String phone3 = info.get("PHONE").toString().substring(7, 11);
-		info.put("phone1", phone1);
-		info.put("phone2", phone2);
-		info.put("phone3", phone3);
+		String phoneidx[] = info.get("PHONE").toString().split("-");
+		info.put("phone1", phoneidx[0]);
+		info.put("phone2", phoneidx[1]);
+		info.put("phone3", phoneidx[2]);
 		info.put("ck_sms", (String) service.get("SMS"));
 		info.put("ck_email", (String) service.get("EMAIL"));
 		info.put("ck_refresh", (String) service.get("REFRESH"));
@@ -172,6 +170,7 @@ public class MyinfoController {
 		info.put("postcode", spaddress[0]);
 		info.put("address1", spaddress[1]);
 		info.put("address2", spaddress[2]);
+		System.out.println("info : "+info);
 		ModelAndView mav = new ModelAndView("t_el2");
 		mav.addObject("section", "member/myinfo/info_revise");
 		mav.addObject("grade", init.get("grade"));

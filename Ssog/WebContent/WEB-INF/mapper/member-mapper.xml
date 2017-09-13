@@ -11,6 +11,11 @@
 		#{email},
 		#{phone}, sysdate)
 	</insert>
+	<insert id="alarmck" parameterType="java.util.HashMap">
+		INSERT into SERVICE
+		values(#{id},#{sms,jdbcType=VARCHAR},#{emailck,jdbcType=VARCHAR},#{refresh,jdbcType=VARCHAR}
+		)
+	</insert>
 	<select id="login" parameterType="java.util.HashMap" resultType="java.util.HashMap">
 		SELECT * FROM USER_MEMBER WHERE id=#{id} AND pass=#{pass}
 	</select>
@@ -31,22 +36,28 @@
 		phone=#{phone},email=#{email},address=#{address} where id=#{id}
 	</update>
 	<update id="info_service" parameterType="java.util.HashMap">
-		UPDATE SERVICE set sms=#{sms},email=#{emailck} where id =#{id}
+		UPDATE SERVICE set
+		sms=#{sms},email=#{emailck} where id =#{id}
 	</update>
 	<insert id="join_service" parameterType="java.util.HashMap">
-		UPDATE SERVICE set sms=#{sms},email=#{emailck}, refresh=#{refresh} where id =#{id}
+		UPDATE SERVICE set
+		sms=#{sms},email=#{emailck}, refresh=#{refresh} where id =#{id}
 	</insert>
-	<select id="service_ck" parameterType="java.lang.String" resultType="java.util.HashMap">
+	<select id="service_ck" parameterType="java.lang.String"
+		resultType="java.util.HashMap">
 		SELECT * FROM SERVICE WHERE ID=#{id}
 	</select>
 	<select id="reave_reason" resultType="java.util.HashMap">
-		SELECT * FROM USER_LEAVE_CATEGORY
+		SELECT * FROM
+		USER_LEAVE_CATEGORY
 	</select>
 	<insert id="reave_write" parameterType="java.util.HashMap">
-		insert into USER_LEAVE(num, reason, detail, leavedate, target) 
+		insert into
+		USER_LEAVE(num, reason, detail, leavedate, target)
 		values(USER_LEAVE_SEQ.NEXTVAL, #{reason}, #{detail}, sysdate, 0)
 	</insert>
 	<delete id="deletmember" parameterType="java.util.HashMap">
-		DELETE USER_MEMBER WHERE ID=#{id}
+		DELETE USER_MEMBER WHERE
+		ID=#{id}
 	</delete>
 </mapper>
