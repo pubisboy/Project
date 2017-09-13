@@ -52,5 +52,10 @@ public interface AdminDao {
 	public boolean putPopup(Map map);
 	public List getPopup_detail(Map map);
 	public boolean updatePopup(Map map);
-	
+	public List getCupon_base_list(Map map);
+	public int getCupon_base_count(Map map);
+	public int checkCupon(Map map);
+	public boolean updateCupon_base(Map map);
+	public List getCupon_base_one(Map map);
+	public boolean delCupon_base(Map map);
 }

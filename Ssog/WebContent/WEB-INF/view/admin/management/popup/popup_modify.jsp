@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <div class="row" align="center">
    <h2>팝업 수정</h2>
    <div id="alert"></div>
@@ -23,7 +25,8 @@
 		            <div align="left"><label>쿠폰리스트</label></div>
 		            <select class="form-control" name="cupon"  id="cupon">
 		            	<c:forEach var="i" items="${cupon }">
-		            		<option value="${i.NUM }">할인율 : ${i.RATE } / 기한 : ${i.END_DATE }</option>
+		            		<option value="${i.NUM }">할인율 : ${i.RATE }% / 기한 : 
+		            		<fmt:formatDate value="${i.END_DATE }" pattern="yyyy-MM-dd hh:mm" var="time"/>${time }
 		            	</c:forEach>
 		            </select>
 	            </div>

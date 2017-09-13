@@ -63,21 +63,18 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/management.ja")
-	public String management(Map map){
-		map.put("section", "/management/information/company");
-		return "ad_management";
+	public String management(){
+		return "redirect:/admin/management/information/company.ja";
 	}
 	
 	@RequestMapping("/member.ja")
-	public String member(Map map){
-		map.put("section", "/member_user/user_list");
-		return "ad_member";
+	public String member(){
+		return "redirect:/admin/member/member_user/user_list.ja";
 	}
 	
 	@RequestMapping("/order.ja")
-	public String order(Map map){
-		map.put("section", "/order/order_list");
-		return "ad_order";
+	public String order(){
+		return "redirect:/admin/order/order_list.ja";
 	}
 	
 }

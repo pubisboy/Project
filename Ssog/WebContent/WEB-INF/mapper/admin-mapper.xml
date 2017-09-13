@@ -510,4 +510,51 @@
 			</otherwise>
 		</choose>
 	</update>
+	
+	<select id="getCupon_base_list" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select rr.* from
+		(select rs.*, rownum rnum from 
+		(select rst.num, rst.cupon_type, rst.end_date, rst.cupon_base, rst.rate, nvl(rst.uu, 0) uu, nvl(rst.u, 0) u from 
+		(select qw.*, c.rate from 
+		(select bc.*, cb.u from 
+		(select * from CUPON_BASE b left join (select CUPON_BASE, count(*) uu from cupon_list group by CUPON_BASE) cu on b.num = cu.CUPON_BASE)bc
+		left join (select CUPON_BASE, count(*) u from popup group by CUPON_BASE)cb on bc.num = cb.CUPON_BASE) qw
+		left join cupon_type c on qw.cupon_type = c.CUPON_NUM)rst where end_date > sysdate
+		<if test="value != null and value != ''">
+			and rate = #{value}
+		</if>
+		order by end_date
+		<choose>
+			<when test="sort == 'asc'">
+				asc
+			</when>
+			<otherwise>
+				desc
+			</otherwise>
+		</choose>
+		)rs)rr where rnum between #{start} and #{end}
+	</select>
+	
+	<select id="getCupon_base_count" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+		select count(*) count from cupon_base b left join cupon_type c on b.CUPON_TYPE = c.CUPON_NUM where end_date > sysdate
+		<if test="value != null and value != ''">
+			and rate = #{value}
+		</if>
+	</select>
+	
+	<select id="checkCupon" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+		select count(*) count from cupon_list where CUPON_BASE = #{num}
+	</select>
+	
+	<update id="updateCupon_base" parameterType="java.util.HashMap">
+		update CUPON_BASE set cupon_type = (select cupon_num from CUPON_TYPE where rate = #{rate}), end_date = TO_DATE(#{date}, 'YYYY-MM-DD') where num = #{num}
+	</update>
+	
+	<select id="getCupon_base_one" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select b.num, b.CUPON_TYPE, TO_CHAR(b.END_DATE, 'yyyy-MM-dd') end_date, c.rate from cupon_base b left join cupon_type c on b.CUPON_TYPE = c.CUPON_NUM where num = #{num}
+	</select>
+	
+	<delete id="delCupon_base" parameterType="java.util.HashMap">
+		delete cupon_base where num = #{num}
+	</delete>
 </mapper>
