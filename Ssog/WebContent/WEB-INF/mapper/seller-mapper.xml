@@ -6,7 +6,7 @@
  	<!-- 기본정보 관리 -->
  	<insert id="join" parameterType="java.util.HashMap">
  		INSERT INTO SELLER_MEMBER(id, pass, name, phone, brand, joindate, account, bank)
- 		VALUES(#{id}, #{pass}, #{name}, #{phone}, #{brand}, sysdate, #{account}, #{bank})
+ 		VALUES(#{id}, #{pass}, #{name}, #{phone}, #{brand}, sysdate, #{account}, #{bank}, #{memo})
  	</insert>
   	<select id="login" parameterType="java.util.HashMap" resultType="java.util.HashMap">
   		SELECT * FROM SELLER_MEMBER WHERE id=#{id} AND pass=#{pass}
@@ -78,5 +78,14 @@
   	<!-- 리뷰 -->
   	<select id="review" parameterType="java.util.HashMap" resultType="java.util.HashMap">
   		select * from review where seller_id=#{id}
+  	</select>
+  	
+  	<!-- 1:1문의 -->
+  	<insert id="counsel_insert" parameterType="java.util.HashMap">
+  		insert into counsel_seller values(counsel_seller_seq.nextval, #{cate}, #{user_id}, #{title}, 
+  		#{content}, sysdate, #{image_uuid}, 0)
+  	</insert>
+  	<select id="counsel_list" parameterType="java.lang.String" resultType="java.util.HashMap">
+  		select * from counsel_seller where user_id=#{id}
   	</select>
  </mapper>

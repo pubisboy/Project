@@ -43,6 +43,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2e3d44', end
 <div class="row">
 	<div class="col-md-2">
 		<ul class="nav nav-stacked">
+			<li><a href="/seller/main.j">홈</a></li>
 			<li><a class="active">기본정보 관리</a></li>
 			<li><a href="/seller/info.j">회원 정보</a></li>
 			<li><a href="/seller/info_edit.j">회원 정보 변경</a></li>
@@ -51,15 +52,15 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2e3d44', end
 			
 			<li><a class="active">상품관리</a></li>
 			<li><a href="/seller/product/list.j">상품 목록</a></li>
-			<li><a href="#">상품 변경/수정</a></li>
 			
 			<li><a class="active">주문관리</a></li>
 			<li><a href="#">주문/클레임 현황</a></li>
 			<li><a href="#">매출 현황 보기</a></li>
 			
 			<li><a class="active">상담관리</a></li>
+			<li><a href="#">상품 Q&A</a></li>
 			<li><a href="#">리뷰 보기</a></li>
-			<li><a href="#">Q&A</a></li>
+			<li><a href="#">관리자에게 1:1 문의</a></li>
 		</ul>
 	</div>
 	<div class="col-md-8" align="center">
