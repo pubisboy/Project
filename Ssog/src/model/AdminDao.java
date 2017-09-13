@@ -45,4 +45,11 @@ public interface AdminDao {
 	public List getCounsel_seller_category();
 	public List getCounsel_seller_detail(int num);
 	public boolean updateCounsel_seller_detail(Map map);
+	public List getPopup_list(Map map);
+	public int getPopup_list_Count(Map map);
+	public boolean updatePopup_onoff(Map map);
+	public List getCupon_list();
+	public boolean putPopup(Map map);
+	public List getPopup_detail(Map map);
+	
 }

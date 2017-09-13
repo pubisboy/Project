@@ -16,11 +16,13 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import model.AdminDao;
 import paging.Paging;
@@ -638,5 +640,99 @@ public class AdminManagementController {
 		}else{
 			return "redirect:/admin/management/counsel/counsel_seller_detail.ja?num="+params.get("num");
 		}
+	}
+	
+	@RequestMapping("/popup/popup_list.ja")
+	public String popup_list(@RequestParam Map params, @RequestParam(name="p", defaultValue="1") Integer p, Map map){
+		String val = null;
+		if(params.get("value") != null){
+			val = (String)params.get("value");
+			if(val.length() > 0){
+				String tmp = "%"+val+"%";
+				params.put("value", tmp);
+			}else{
+				params.put("value", "%");
+			}
+		}
+		
+		pg.setDefaultSetting(10, 10);
+		int rows = ad.getPopup_list_Count(params);
+		pg.setNumberOfRecords(rows);
+		Map paging = pg.calcPaging(p, rows);
+		Map bt = pg.calcBetween(p);
+		params.put("start", bt.get("start"));
+		params.put("end", bt.get("end"));
+		
+		List<Map> rst = ad.getPopup_list(params);
+		
+		DecimalFormat df = new DecimalFormat("#,###");
+		String total = df.format(rows);
+		map.put("total", total);
+		map.put("list", rst);
+		map.put("paging", paging);
+		params.put("value", val);
+		
+		map.put("params", params);
+		map.put("section", "/management/popup/popup_list");
+		return "ad_management";
+	}
+	
+	@RequestMapping("/popup/popup_switch.ja")
+	public ModelAndView popup_switch(@RequestParam Map params){
+		
+		if(!(params.get("p") instanceof Integer)){
+			params.put("p", 1);
+		}
+		ad.updatePopup_onoff(params);
+		ModelAndView mv= new ModelAndView("redirect:/admin/management/popup/popup_list.ja");
+		mv.addAllObjects(params);
+		return mv;
+	}
+	
+	@RequestMapping("/popup/popup_write.ja")
+	public String popup_write(@RequestParam Map params, Map map){
+		List clist = ad.getCupon_list();
+		map.put("cupon", clist);
+		map.put("section", "/management/popup/popup_write");
+		return "ad_management";
+	}
+	
+	@RequestMapping("/popup/popup_writeExec.ja")
+	public ModelAndView popup_writeExec(@RequestParam Map params){
+		System.out.println("params : "+params);
+		boolean b = ad.putPopup(params);
+		System.out.println("성공 : "+b);
+		ModelAndView mv = new ModelAndView();
+		if(b){
+			mv.setViewName("redirect:/admin/management/popup/popup_list.ja");
+		}else{
+			mv.setViewName("redirect:/admin/management/popup/popup_write.ja");
+		}
+		return mv;
+	}
+	
+	@RequestMapping("/popup/popup_detail.ja")
+	public ModelAndView popup_detail(@RequestParam Map params){
+		System.out.println("params : "+params);
+		ModelAndView mv = new ModelAndView("ad_management");
+		List li = ad.getPopup_detail(params);
+		System.out.println("list는 "+li);
+		mv.addObject("list", li);
+		mv.addObject("params", params);
+		mv.addObject("section", "/management/popup/popup_detail");
+		return mv;
+	}
+	
+	@RequestMapping("/popup/popup_modify.ja")
+	public ModelAndView popup_modify(@RequestParam Map params){
+		System.out.println("modify params : "+params);
+		ModelAndView mv = new ModelAndView("ad_management");
+		List li = ad.getPopup_detail(params);
+		System.out.println("li : "+li);
+		List clist = ad.getCupon_list();
+		mv.addObject("cupon", clist);
+		mv.addObject("list", li);
+		mv.addObject("section", "/management/popup/popup_modify");
+		return mv;
 	}
 }
