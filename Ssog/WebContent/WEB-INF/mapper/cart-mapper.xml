@@ -9,9 +9,12 @@
 		values(ORDER_SEQ.NEXTVAL,#{pro_num},#{id},#{qty},#{state},sysdate,sysdate,#{price},#{coupon},#{dhl},#{etc},#{address});
 	</insert>
 	<select id="coupon" parameterType="java.lang.String" resultType="java.util.HashMap">
-		select b.*, c.RATE rate
-		from(select * from cupon_list where user_id =
-		#{id}) b
-		left join cupon_type c on b.cupon_type=c.CUPON_NUM
+		select bb.*,cc.RATE from
+		(select b.*,c.cupon_type from(select * from CUPON_LIST where user_id=#{id}) b
+		left join cupon_base c on b.cupon_base = c.NUM) bb
+		left join CUPON_TYPE cc on bb.cupon_type=cc.CUPON_NUM
+	</select>
+	<select id="point" parameterType="java.lang.String" resultType="java.util.HashMap">
+		select * from user_record where id = #{id}
 	</select>
 </mapper>

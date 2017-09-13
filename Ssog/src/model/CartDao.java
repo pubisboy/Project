@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -44,5 +45,17 @@ public class CartDao {
 			session.close();
 		}
 		return list;
+	}
+	public Map point(String id) {
+		Map map = new HashMap<>();
+		SqlSession session = factory.openSession();
+		try {
+			map = session.selectOne("cart.point", id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		return map;
 	}
 }

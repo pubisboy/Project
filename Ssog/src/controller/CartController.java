@@ -89,6 +89,8 @@ public class CartController {
 		mav.addObject("phone3", phonenum[2]);
 		mav.addObject("memberinfo", init.get("info"));
 		List<Map> clist = cdao.couponlist((String) init.get("id"));
+		Map point = cdao.point((String) init.get("id"));
+		mav.addObject("point", point);
 		mav.addObject("clist",clist);
 		Cookie[] cookies = resp.getCookies();
 		List<Map> list = new ArrayList<>();
