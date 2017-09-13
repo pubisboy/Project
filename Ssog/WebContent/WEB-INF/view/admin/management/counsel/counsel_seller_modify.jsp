@@ -7,7 +7,7 @@
    <div id="alert"></div>
    <div class="col-xs-0 col-md-1"></div>
    <div class="col-xs-12 col-md-10">
-   		<form action="/admin/management/counsel/counsel_user_modifyExec.ja" method="post">
+   		<form action="/admin/management/counsel/counsel_seller_modifyExec.ja" method="post">
          <div class="form-group">
          	<input type="hidden" name="num" value="${list['0'].NUM }"/>
             <div align="left"><label>제목</label></div>
@@ -19,7 +19,7 @@
          </div>
          <div class="form-group">
             <button id="submit" type="submit" class="btn btn-default">작성 완료</button>
-            <button type="button" class="btn btn-default"><a href="/admin/management/counsel/counsel_user_list.ja?p=${params.p }&type=${params.type }&value=${params.value}&state=${params.state}&reply=${params.reply}&sort=${params.sort}">취소</a></button>
+            <button type="button" class="btn btn-default"><a href="/admin/management/counsel/counsel_seller_list.ja?p=${params.p }&type=${params.type }&value=${params.value}&state=${params.state}&reply=${params.reply}&sort=${params.sort}">취소</a></button>
          </div>
 		</form>
    </div>

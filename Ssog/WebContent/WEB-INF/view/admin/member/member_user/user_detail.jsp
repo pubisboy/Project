@@ -74,6 +74,22 @@ td{
         	</table>
         </div>
         <div class="col-xs-3">
+        	<table class="table table-bordered" style="text-align: center; height: 47%;">
+        		<thead>
+        			<tr>
+        				<th>특이사항</th>
+        			</tr>
+        		</thead>
+        		<tbody>
+        			<tr>
+        				<td>
+        					<textarea id="memo" style="width: 100%; height: 100%; resize: none">${empty info['0'].MEMO ? '' : info['0'].MEMO}</textarea>
+        				</td>
+        			</tr>
+        		</tbody>
+        	</table>
+        </div>
+        <div class="col-xs-3">
         	<table class="table table-bordered" style="text-align: center;">
         		<thead>
         			<tr>
@@ -103,22 +119,7 @@ td{
         			</tr>
         		</tbody>
         	</table>
-        </div>
-        <div class="col-xs-3">
-        	<table class="table table-bordered" style="text-align: center; height: 47%;">
-        		<thead>
-        			<tr>
-        				<th>특이사항</th>
-        			</tr>
-        		</thead>
-        		<tbody>
-        			<tr>
-        				<td>
-        					<textarea id="memo" style="width: 100%; height: 100%; resize: none">${empty info['0'].MEMO ? '' : info['0'].MEMO}</textarea>
-        				</td>
-        			</tr>
-        		</tbody>
-        	</table>
+        	<div><a href="/admin/member/member_user/user_list.ja?p=${params.p }&type=${params.type }&value=${params.value}">목록</a></div>
         </div>
     </div>
     <div class="row">

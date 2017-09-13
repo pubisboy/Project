@@ -499,7 +499,17 @@ public class AdminOracleDao implements AdminDao{
 	}
 
 	public List getList_counsel_seller(Map map) {
-		return null;
+		List list = null;
+		SqlSession session = factory.openSession();
+		try{
+			list = session.selectList("admin.getList_counsel_seller", map);
+		}catch(Exception e){
+			System.out.println("error.getList_counsel_seller"+e.toString());
+			list = null;
+		}finally{
+			session.close();
+		}
+		return list;
 	}
 	
 	public List getCounsel_category(){
@@ -547,4 +557,51 @@ public class AdminOracleDao implements AdminDao{
 		return b;
 	}
 
+	public List getCounsel_seller_category() {
+		List list = null;
+		SqlSession session = factory.openSession();
+		try{
+			list = session.selectList("admin.getCounsel_seller_category");
+		}catch(Exception e){
+			System.out.println("error.getCounsel_seller_category"+e.toString());
+			list = null;
+		}finally{
+			session.close();
+		}
+		return list;
+	}
+
+	public List getCounsel_seller_detail(int num) {
+		List list = null;
+		SqlSession session = factory.openSession();
+		try{
+			list = session.selectList("admin.getCounsel_seller_detail", num);
+		}catch(Exception e){
+			System.out.println("error.getCounsel_seller_detail"+e.toString());
+			list = null;
+		}finally{
+			session.close();
+		}
+		return list;
+	}
+
+	public boolean updateCounsel_seller_detail(Map map) {
+		SqlSession session = factory.openSession();
+		boolean b = false;
+		try{
+			session.update("admin.updateCounsel_seller_detail", map);
+			b = true;
+			session.commit();
+		}catch(Exception e){
+			System.out.println("error.updateCounsel_seller_detail"+e.toString());
+			b = false;
+			session.rollback();
+		}finally{
+			session.close();
+		}
+		return b;
+	}
+
+	
+	
 }

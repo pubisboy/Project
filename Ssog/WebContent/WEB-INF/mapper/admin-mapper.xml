@@ -258,4 +258,95 @@
 		update counsel set content = #{content}, reply = 1 where num = #{num}
 	</update>
 	
+	
+	
+	<select id="getList_counsel_seller" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select * from 
+		(select c.*, rownum rnum from
+		(select c.*, cc.CATEGORY from counsel_seller c left join COUNSEL_seller_CATEGORY cc on c.cate = cc.NUM
+		<choose>
+			<when test="state != null and state != '' and type != null and type != '' and reply != null and reply != ''">
+				where cate = #{state} and ${type} like #{value} and reply = #{reply}
+			</when>
+			<when test="state != null and state != '' and type != null and type != ''">
+				where cate = #{state} and ${type} like #{value}
+			</when>
+			<when test="state != null and state != '' and reply != null and reply != ''">
+				where cate = #{state} and reply = #{reply}
+			</when>
+			<when test="type != null and type != '' and reply != null and reply != ''">
+				where ${type} like #{value} and reply = #{reply}
+			</when>
+			<when test="state != null and state != ''">
+				where cate = #{state}
+			</when>
+			<when test="type != null and type != ''">
+				where ${type} like #{value}
+			</when>
+			<when test="reply != null and reply != ''">
+				where reply = #{reply}
+			</when>
+		</choose>
+		order by COUNSEL_DATE
+		<choose>
+			<when test="sort == 'asc'">
+				asc
+			</when>
+			<otherwise>
+				desc
+			</otherwise>
+		</choose>
+		)c) where rnum between #{start} and #{end}
+	</select>
+	
+	<select id="getCount_counsel_seller" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+		select count(*) count from
+		(select c.*, cc.CATEGORY from counsel_seller c left join COUNSEL_seller_CATEGORY cc on c.cate = cc.NUM
+		<choose>
+			<when test="state != null and state != '' and type != null and type != '' and reply != null and reply != ''">
+				where cate = #{state} and ${type} like #{value} and reply = #{reply}
+			</when>
+			<when test="state != null and state != '' and type != null and type != ''">
+				where cate = #{state} and ${type} like #{value}
+			</when>
+			<when test="state != null and state != '' and reply != null and reply != ''">
+				where cate = #{state} and reply = #{reply}
+			</when>
+			<when test="type != null and type != '' and reply != null and reply != ''">
+				where ${type} like #{value} and reply = #{reply}
+			</when>
+			<when test="state != null and state != ''">
+				where cate = #{state}
+			</when>
+			<when test="type != null and type != ''">
+				where ${type} like #{value}
+			</when>
+			<when test="reply != null and reply != ''">
+				where reply = #{reply}
+			</when>
+		</choose>
+		order by COUNSEL_DATE
+		<choose>
+			<when test="sort == 'asc'">
+				asc
+			</when>
+			<otherwise>
+				desc
+			</otherwise>
+		</choose>
+		)c
+	</select>
+	
+	<select id="getCounsel_seller_category" resultType="java.util.HashMap">
+		select * from COUNSEL_seller_CATEGORY
+	</select>
+	
+	<select id="getCounsel_seller_detail" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+		select c.*, cc.CATEGORY from counsel_seller c left join counsel_seller_category cc on c.CATE = cc.NUM  where c.num = #{num}
+	</select>
+	
+	<update id="updateCounsel_seller_detail" parameterType="java.util.HashMap">
+		update counsel_seller set content = #{content}, reply = 1 where num = #{num}
+	</update>
+	
 </mapper>
