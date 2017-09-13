@@ -1,46 +1,110 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <style>
-	.border_none{ border-collapse:collapse;}
-	.border_none td {border-bottom:1px solid gray; padding-left:10px; }
+.btn-custom {
+  background-color: hsl(0, 0%, 16%) !important;
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#5b5b5b", endColorstr="#282828");
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#5b5b5b), to(#282828));
+  background-image: -moz-linear-gradient(top, #5b5b5b, #282828);
+  background-image: -ms-linear-gradient(top, #5b5b5b, #282828);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #5b5b5b), color-stop(100%, #282828));
+  background-image: -webkit-linear-gradient(top, #5b5b5b, #282828);
+  background-image: -o-linear-gradient(top, #5b5b5b, #282828);
+  background-image: linear-gradient(#5b5b5b, #282828);
+  border-color: #282828 #282828 hsl(0, 0%, 11%);
+  color: #fff !important;
+  border-radius: 0px;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.33);
+  -webkit-font-smoothing: antialiased;
+}
+.btn-custom2 {
+  background-color: hsl(0, 0%, 95%) !important;
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#10b10b10b", endColorstr="#f2f2f2");
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#10b10b10b), to(#f2f2f2));
+  background-image: -moz-linear-gradient(top, #10b10b10b, #f2f2f2);
+  background-image: -ms-linear-gradient(top, #10b10b10b, #f2f2f2);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #10b10b10b), color-stop(100%, #f2f2f2));
+  background-image: -webkit-linear-gradient(top, #10b10b10b, #f2f2f2);
+  background-image: -o-linear-gradient(top, #10b10b10b, #f2f2f2);
+  background-image: linear-gradient(#10b10b10b, #f2f2f2);
+  border-color: #f2f2f2 #f2f2f2 hsl(0, 0%, 92.5%);
+  color: #333 !important;
+  border-radius: 0px;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.16);
+  -webkit-font-smoothing: antialiased;
+}
+
+.txt { font-size: 12px; padding-right: 35px; padding-left: 10px; color: #262626; }
+.small { font-size: 12px; color: #8c8c8c }
 </style>
 
-  <div align="center">
-    <!-- 비밀번호 수정 폼 -->
-    <h2>비밀번호 변경</h2>
-	<form action="/seller/pass_edit_ok.j" method="post">
-	<table class="border_none" width="60%">	
-		<tr align="center">
-			<td colspan="2" bgcolor="gray"><font color="white" size="4"><b>비밀번호를 입력해주세요.</font></td>
-		</tr>
-		<tr>
-			<td width="150px" bgcolor="lightgray">새 비밀번호</td> 
-			<td width="350px">
-				<input type="password" name="pass" id="pass" width="50%" required>
-			</td>
-		</tr>
-		<tr>
-			<td width="150px" bgcolor="lightgray">비밀번호 확인</td> 
-			<td width="350px">
-				<input type="password" name="pass2" id="pass2" width="50%" required><p id="pass_chk"></p>
-			</td>
-		</tr>
-	</table>
-	<br><br>
-	<button type="submit" class="btn" id="sbt" disabled>변경하기</button>
-	</form>
-  </div>
-  
-  <script>
-  	$("#pass2").keyup(function(){
-  		if($(this).val()>0){
-	  		if($("#pass").val() != $(this).val()){
-	  	  		$("#sbt").prop("disabled",true);
-	  			$("#pass_chk").html("비밀번호 불일치");
-	  		} else {
-	  			$("#sbt").prop("disabled",false);
-	  			$("#pass_chk").html("");
-	  		} 
+<div style="padding-top: 20px;">
+	<h4 style="font-size: 17px; text-align: left;">
+		<span class="glyphicon glyphicon-info-sign" style="padding-right: 10px;"></span>
+		<b style="padding-right: 10px;">비밀번호 수정</b>
+		<small>개인정보 보호를 위하여 비밀번호는 주기적으로 변경하여 주시기 바랍니다.</small>
+	</h4>
+</div>
+<div class="row">
+	<div class="col-sm-12" align="left">
+	<form action="/seller/pass_edit_ok.j">
+		<hr style="margin: 8px; border-top: 3px solid black;">
+		
+		<h3 class="txt">기존 비밀번호</h3> 
+		<input type="password" name="pass" id="pass"/> 
+		<small class="small">* 회원님의 기존 비밀번호를 입력해주십시오</small>
+		
+		<hr style="margin: 8px;" />
+		<h3 class="txt">새 비밀번호</h3> 
+		<input type="password" name="newpass" id="newpass"/> 
+		<small class="small">* 영문 또는 숫자 조합(8자이상)</small>
+		
+		<hr style="margin: 8px;" />
+		<h3 class="txt">새 비밀번호 확인</h3> 
+		<input type="password" name="newpass2" id="newpass2"/> 
+		<small class="small">* 새 비밀번호를 다시 입력하십시오.</small>
+		
+		<hr style="margin: 8px;" />
+			<div align="center" style="padding-top: 10px;">
+				<button type="submit" style="font-size: 12px;" id="sbt" class="btn btn-custom">비밀번호 변경하기</button>
+				<button type="button" style="font-size: 12px;" class="btn btn-custom2">취소</button>
+			</div>
+		</form>
+	</div>
+</div>
+ 
+ <script>
+  	$("#sbt").on("click",function () {
+  		var passrule = /^(?=.*[a-zA-Z])((?=.*\d)|(?=.*\W)).{8,20}$/;
+  		if($("#newpass").val()==$("#newpass2").val()){
+	  		if($("#newpass").val().match(passrule)){
+		  		$.ajax({
+		  			url:"/seller/passAjax.j",
+		  			method : "post",
+		  			data : {
+		  				"pass" : $("#pass").val(),
+		  				"newpass" : $("#newpass").val()
+		  			}
+		  		}).done(function (obj) {
+		  			if(obj.pre_check){
+		  				window.alert("비밀번호가 변경되었습니다.다시로그인해주시기 바랍니다.");
+		  				location.href = "/seller/logout.j";
+		  			}else{
+		  				window.alert("현재 비밀번호가 맞지않습니다.");
+		  				location.href = "/seller/pass_edit.j";
+		  			}
+		  		});
+	  		}else{
+	  			window.alert("영문 또는 숫자 조합(8자이상)");
+	  		}
+  		}else{
+  			window.alert("비밀번호가 일치하지 않습니다.");		
   		}
   	});
+  	
+  
+  	
+  	
   </script>
