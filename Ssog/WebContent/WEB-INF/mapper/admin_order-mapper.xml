@@ -45,7 +45,8 @@
 	</select>
 	
 	<select id="order_detail" parameterType="java.lang.Integer" resultType="java.util.HashMap">
-		select ospc.*, ori.NAME ori from
+		select rst.*, l.NAME namep from 
+        (select ospc.*, ori.NAME ori from
 		(select osp.*, c.* from
 		(select os.*, p.PRO_NAME pname, p.PRO_QTY, p.cate, p.seller_id, p.price price_origin, p.pro_date, p.origin, p.sell_on from 
 		(select s.*, t.RATE from
@@ -55,7 +56,8 @@
 		left join CUPON_TYPE t on s.cupon_type = t.CUPON_NUM) os
 		left join PRODUCTTBL p on os.pro_num = p.PRO_NUM) osp
 		left join SMALL_CATEGORY c on osp.cate = c.S_CATE) ospc
-		left join ORIGINTBL ori on ospc.origin = ori.NUM
+		left join ORIGINTBL ori on ospc.origin = ori.NUM)rst
+        left join LARGE_CATEGORY l on rst.parent = l.B_CATE
 	</select>
 	
 	<select id="counsel_detail" parameterType="java.lang.String" resultType="java.util.HashMap">
