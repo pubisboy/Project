@@ -51,5 +51,6 @@ public interface AdminDao {
 	public List getCupon_list();
 	public boolean putPopup(Map map);
 	public List getPopup_detail(Map map);
+	public boolean updatePopup(Map map);
 	
 }

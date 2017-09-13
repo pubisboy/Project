@@ -499,4 +499,15 @@
 		select cp.*, t.rate from (select p.*,c.* from popup p left join CUPON_BASE c on p.CUPON_BASE = c.num)cp left join CUPON_TYPE t on cp.cupon_type = t.CUPON_NUM
 		where popup_num = #{num}
 	</select>
+	
+	<update id="updatePopup" parameterType="java.util.HashMap">
+		<choose>
+			<when test="sw == 'on'">
+				update popup set title = #{title}, content = #{content}, popup_date = sysdate, cupon_base = #{cupon}, onoff = 0 where popup_num = #{num}
+			</when>
+			<otherwise>
+				update popup set title = #{title}, content = #{content}, popup_date = sysdate, cupon_base = (null), onoff = 0 where popup_num = #{num}
+			</otherwise>
+		</choose>
+	</update>
 </mapper>

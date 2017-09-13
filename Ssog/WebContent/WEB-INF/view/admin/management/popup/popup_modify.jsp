@@ -6,9 +6,10 @@
    <div id="alert"></div>
    <div class="col-xs-0 col-md-1"></div>
    <div class="col-xs-12 col-md-10">
-   		<form action="/admin/management/popup/popup_writeExec.ja" method="post">
+   		<form action="/admin/management/popup/popup_modifyExec.ja" method="post">
 	         <div class="form-group">
 	            <div align="left"><label>제목</label></div>
+	            <input type="hidden" name="num" id="num" value="${list['0'].POPUP_NUM }">
 	            <input type="text" name="title" id="title" class="form-control" value="${list['0'].TITLE }">
 	         </div>
 	         <div class="form-group">
@@ -32,8 +33,8 @@
 	            <textarea rows="15" class="form-control" name="content" id="content" style="resize: none">${list['0'].CONTENT }</textarea>
 	         </div>
 	         <div class="form-group">
-	            <button id="submit" type="submit" class="btn btn-default">작성</button>
-	            <button type="reset" class="btn btn-default">취소</button>
+	            <button id="submit" type="submit" class="btn btn-default">수정</button>
+	            <button type="button" class="btn btn-default"><a href="/admin/management/popup/popup_list.ja?p=${params.p }&value=${params.value}&cupon=${params.cupon}&onoff=${params.onoff}&sort=${params.sort}">취소</a></button>
 	         </div>
    		</form>
    </div>

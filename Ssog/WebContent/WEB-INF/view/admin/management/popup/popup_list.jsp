@@ -30,7 +30,16 @@
 			<tr>
 				<td>${i.POPUP_NUM }</td>
 				<td align="left"><a href="/admin/management/popup/popup_detail.ja?num=${i.POPUP_NUM }&p=${params.p }&value=${params.value}&cupon=${params.cupon}&onoff=${params.onoff }&sort=${params.sort }">${i.TITLE }</a></td>
-				<td>${i.CUPON_BASE gt 0 ? 'on' : 'off' }</td>
+				<td>
+					<c:choose>
+						<c:when test="${i.CUPON_BASE gt 0}">
+							<span style="color: red;">on</span>
+						</c:when>
+						<c:otherwise>
+							<span style="color: black;">off</span>
+						</c:otherwise>
+					</c:choose>
+				</td>
 				<td><fmt:formatDate value="${i.POPUP_DATE }" pattern="yyyy-MM-dd hh:mm" var="time"/>${time }</td>
 				<td id="onoff">
 				<c:choose>

@@ -690,4 +690,21 @@ public class AdminOracleDao implements AdminDao{
 		}
 		return list;
 	}
+	
+	public boolean updatePopup(Map map){
+		SqlSession session = factory.openSession();
+		boolean b = false;
+		try{
+			session.update("admin.updatePopup", map);
+			b = true;
+			session.commit();
+		}catch(Exception e){
+			System.out.println("error.updatePopup"+e.toString());
+			b = false;
+			session.rollback();
+		}finally{
+			session.close();
+		}
+		return b;
+	}
 }

@@ -732,7 +732,18 @@ public class AdminManagementController {
 		List clist = ad.getCupon_list();
 		mv.addObject("cupon", clist);
 		mv.addObject("list", li);
+		mv.addObject("params", params);
 		mv.addObject("section", "/management/popup/popup_modify");
+		return mv;
+	}
+	
+	@RequestMapping("/popup/popup_modifyExec.ja")
+	public ModelAndView popup_modifyExec(@RequestParam Map params){
+		System.out.println("modifyExec params : "+params);
+		boolean b = ad.updatePopup(params);
+		System.out.println("popup update : "+b);
+		ModelAndView mv = new ModelAndView("redirect:/admin/management/popup/popup_list.ja");
+		mv.addAllObjects(params);
 		return mv;
 	}
 }
