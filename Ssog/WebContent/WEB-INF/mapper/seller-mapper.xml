@@ -62,7 +62,6 @@
   		  <if test="search_type != '' and search_type != null and search_word !='' and search_word != null">
 	  		  and ${search_type} like #{search_word} 
   		  </if>
-  		  
   		  order by pro_date desc)  tmp) 
   		  order by r asc)tmp3 left join origintbl tmp4 on tmp3.origin=tmp4.num)tmp5 
 	</select>
@@ -80,12 +79,33 @@
   		select * from review where seller_id=#{id}
   	</select>
   	
+  	
+  	
+  	
+  	
   	<!-- 1:1문의 -->
   	<insert id="counsel_insert" parameterType="java.util.HashMap">
-  		insert into counsel_seller values(counsel_seller_seq.nextval, #{cate}, #{user_id}, #{title}, 
-  		#{content}, sysdate, #{image_uuid}, 0)
+  		insert into counsel_seller values(counsel_seller_seq.nextval, #{cate}, #{id}, #{title}, 
+  		#{content}, sysdate, #{file_uuid}, 0)
   	</insert>
-  	<select id="counsel_list" parameterType="java.lang.String" resultType="java.util.HashMap">
-  		select * from counsel_seller where user_id=#{id}
+  	
+  	<select id="counsel_list" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+  		select * from counsel_seller where user_id=#{id} 
+  		<if test="cate != null">
+  			and cate = #{cate}
+  		</if>
+  		 and rownum between #{start} and #{end}
+  		 order by num desc
+  	</select>
+  	
+  	<select id="counsel_total" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+  		select count(*) from counsel_seller where user_id=#{id}
+  		<if test="cate != null">
+  			and cate = #{cate}
+  		</if>
+  	</select>
+  	
+  	<select id="counsel_cate" resultType="java.util.HashMap">
+  		select * from counsel_seller_category
   	</select>
  </mapper>

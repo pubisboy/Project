@@ -133,8 +133,17 @@ li {
    </div>
    <c:forEach items="${list }" var="i">
       <div class="gallery">
-         <a target="_blank" href="/product/detail.j?productNumber=${i.PRO_NUM }"> <img src="/image/다운로드.jpg"
+         <a target="_blank" href="/product/detail.j?productNumber=${i.PRO_NUM }"> 
+         <c:choose>
+         <c:when test="${empty i.IMG_UUID }">
+         <img src="/image/다운로드.jpg"
             alt="Fjords" width="300" height="200">
+            </c:when>
+            <c:otherwise>
+            <img src="/img/pro_img/${i.IMG_UUID }"
+            alt="Fjords" width="300" height="200">
+            </c:otherwise>
+            </c:choose>
          </a>
          <div class="desc">
             <div>${i.PRO_NAME }</div>
