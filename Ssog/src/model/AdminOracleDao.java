@@ -602,6 +602,92 @@ public class AdminOracleDao implements AdminDao{
 		return b;
 	}
 
+	public List getPopup_list(Map map){
+		List list = null;
+		SqlSession session = factory.openSession();
+		try{
+			list = session.selectList("admin.getPopup_list", map);
+		}catch(Exception e){
+			System.out.println("error.getPopup_list"+e.toString());
+			list = null;
+		}finally{
+			session.close();
+		}
+		return list;
+	}
 	
+	public int getPopup_list_Count(Map map){
+		SqlSession session = factory.openSession();
+		try{
+			return session.selectOne("admin.getPopup_list_Count", map);
+		}catch(Exception e){
+			System.out.println("error.getPopup_list_Count : "+e.toString());
+			return -1;
+		}finally{
+			session.close();
+		}
+	}
 	
+	public boolean updatePopup_onoff(Map map){
+		SqlSession session = factory.openSession();
+		boolean b = false;
+		try{
+			session.update("admin.updatePopup_onoff", map);
+			b = true;
+			session.commit();
+		}catch(Exception e){
+			System.out.println("error.updatePopup_onoff"+e.toString());
+			b = false;
+			session.rollback();
+		}finally{
+			session.close();
+		}
+		return b;
+	}
+	
+	public List getCupon_list(){
+		List list = null;
+		SqlSession session = factory.openSession();
+		try{
+			list = session.selectList("admin.getCupon_list");
+		}catch(Exception e){
+			System.out.println("error.getCupon_list"+e.toString());
+			list = null;
+		}finally{
+			session.close();
+		}
+		return list;
+	}
+	
+	public boolean putPopup(Map map){
+		boolean b = false;
+		SqlSession session = factory.openSession();
+		try{
+			int r = session.insert("admin.putPopup", map);
+			if(r > 0){
+				b = true;
+			}
+			session.commit();
+		}catch(Exception e){
+			System.out.println("error.putPopup"+e.toString());
+			session.rollback();
+		}finally{
+			session.close();
+		}
+		return b;
+	}
+	
+	public List getPopup_detail(Map map){
+		List list = null;
+		SqlSession session = factory.openSession();
+		try{
+			list = session.selectList("admin.getPopup_detail", map);
+		}catch(Exception e){
+			System.out.println("error.getPopup_detail"+e.toString());
+			list = null;
+		}finally{
+			session.close();
+		}
+		return list;
+	}
 }

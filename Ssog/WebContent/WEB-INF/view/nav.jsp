@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <style>
-.navbar {
-	border-radius: 0px;
-}
-
 .dropdown-submenu {
 	
 }
@@ -18,13 +14,7 @@
 }
 </style>
 <div align="center">
-	<div style="width: 67%;">
-		<div class="navbar-header">
-
-			<a class="navbar-brand"
-				style="background-color: #333333; width: 150px; color: white"
-				href="#">카테고리</a>
-		</div>
+	<div style="width: 60%;">
 		<ul class="nav navbar-nav">
 			<li class="active"><a
 				style="background-color: #737373; width: 120px;" href="#">Home</a></li>
@@ -49,7 +39,6 @@
 		</ul>
 	</div>
 </div>
-
 <script>
 	$(document).ready(function() {
 		$('.dropdown-submenu a.test').on("mouseenter", function(e) {

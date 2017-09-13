@@ -349,4 +349,154 @@
 		update counsel_seller set content = #{content}, reply = 1 where num = #{num}
 	</update>
 	
+	<select id="getPopup_list" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select * from (select p.*, rownum rnum from 
+		(select * from popup
+		<choose>
+			<when test="value != null and value != '' and cupon != null and cupon != '' and onoff != null and onoff != ''">
+				<choose>
+					<when test="cupon gt 0">
+						where cupon_base is not null
+					</when>
+					<otherwise>
+						where cupon_base is null
+					</otherwise>
+				</choose>
+				 and title like #{value} and onoff = #{onoff}
+			</when>
+			<when test="value != null and value != '' and cupon != null and cupon != ''">
+				<choose>
+					<when test="cupon gt 0">
+						where cupon_base is not null
+					</when>
+					<otherwise>
+						where cupon_base is null
+					</otherwise>
+				</choose>
+				and title like #{value}
+			</when>
+			<when test="value != null and value != '' and onoff != null and onoff != ''">
+				where title like #{value} and onoff = #{onoff}
+			</when>
+			<when test="cupon != null and cupon != '' and onoff != null and onoff != ''">
+				<choose>
+					<when test="cupon gt 0">
+						where cupon_base is not null
+					</when>
+					<otherwise>
+						where cupon_base is null
+					</otherwise>
+				</choose>
+				and onoff = #{onoff}
+			</when>
+			<when test="value != null and value != ''">
+				where title like #{value}
+			</when>
+			<when test="cupon != null and cupon != ''">
+				<choose>
+					<when test="cupon gt 0">
+						where cupon_base is not null
+					</when>
+					<otherwise>
+						where cupon_base is null
+					</otherwise>
+				</choose>
+			</when>
+			<when test="onoff != null and onoff != ''">
+				where onoff = #{onoff}
+			</when>
+		</choose>
+		order by POPUP_DATE
+		<choose>
+			<when test="sort == 'asc'">
+				asc
+			</when>
+			<otherwise>
+				desc
+			</otherwise>
+		</choose>
+		)p) where rnum between #{start} and #{end}
+	</select>
+	
+	<select id="getPopup_list_Count" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+		select count(*) count from popup
+		<choose>
+			<when test="value != null and value != '' and cupon != null and cupon != '' and onoff != null and onoff != ''">
+				<choose>
+					<when test="cupon gt 0">
+						where cupon_base is not null
+					</when>
+					<otherwise>
+						where cupon_base is null
+					</otherwise>
+				</choose>
+				 and title like #{value} and onoff = #{onoff}
+			</when>
+			<when test="value != null and value != '' and cupon != null and cupon != ''">
+				<choose>
+					<when test="cupon gt 0">
+						where cupon_base is not null
+					</when>
+					<otherwise>
+						where cupon_base is null
+					</otherwise>
+				</choose>
+				and title like #{value}
+			</when>
+			<when test="value != null and value != '' and onoff != null and onoff != ''">
+				where title like #{value} and onoff = #{onoff}
+			</when>
+			<when test="cupon != null and cupon != '' and onoff != null and onoff != ''">
+				<choose>
+					<when test="cupon gt 0">
+						where cupon_base is not null
+					</when>
+					<otherwise>
+						where cupon_base is null
+					</otherwise>
+				</choose>
+				and onoff = #{onoff}
+			</when>
+			<when test="value != null and value != ''">
+				where title like #{value}
+			</when>
+			<when test="cupon != null and cupon != ''">
+				<choose>
+					<when test="cupon == 1">
+						where cupon_base is not null
+					</when>
+					<otherwise>
+						where cupon_base is null
+					</otherwise>
+				</choose>
+			</when>
+			<when test="onoff != null and onoff != ''">
+				where onoff = #{onoff}
+			</when>
+		</choose>
+	</select>
+	
+	<update id="updatePopup_onoff" parameterType="java.util.HashMap">
+		update popup set onoff = #{of} where popup_num = #{num}
+	</update>
+	
+	<select id="getCupon_list" resultType="java.util.HashMap">
+		select b.*, t.RATE from CUPON_BASE b left join CUPON_TYPE t on b.CUPON_TYPE = t.CUPON_NUM where b.END_DATE > sysdate
+	</select>
+	
+	<insert id="putPopup" parameterType="java.util.HashMap">
+		<choose>
+			<when test="sw == 'on'">
+				insert into popup values (popup_seq.nextval, #{title}, #{content}, sysdate, #{cupon}, 0)
+			</when>
+			<otherwise>
+				insert into popup(popup_num, title, content, popup_date, onoff) values (popup_seq.nextval, #{title}, #{content}, sysdate, 0)
+			</otherwise>
+		</choose>
+	</insert>
+	
+	<select id="getPopup_detail" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select cp.*, t.rate from (select p.*,c.* from popup p left join CUPON_BASE c on p.CUPON_BASE = c.num)cp left join CUPON_TYPE t on cp.cupon_type = t.CUPON_NUM
+		where popup_num = #{num}
+	</select>
 </mapper>

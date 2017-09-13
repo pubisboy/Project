@@ -2,8 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="row" align="center">
-   <h2>1:1문의 답변</h2>
-   <div>답변 : ${list['0'].REPLY eq 0 ? '<b style="color: blue;">답변대기</b>' : '<b style="color: green;">답변완료</b>' }</div>
+   <h2>popup 수정</h2>
    <div id="alert"></div>
    <div class="col-xs-0 col-md-1"></div>
    <div class="col-xs-12 col-md-10">
