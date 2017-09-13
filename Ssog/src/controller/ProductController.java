@@ -31,18 +31,10 @@ public class ProductController {
 		if (param.get("page") == null) {
 			param.put("page", "1");
 		}
-<<<<<<< HEAD
 		if(param.get("min") == null || param.get("min").equals("")) {
-=======
-		if (param.get("min") == null) {
->>>>>>> branch 'master' of https://github.com/pubisboy/Project.git
 			param.put("min", 0);
 		}
-<<<<<<< HEAD
 		if(param.get("max")==null || param.get("max").equals("")) {
-=======
-		if (param.get("max") == null) {
->>>>>>> branch 'master' of https://github.com/pubisboy/Project.git
 			param.put("max", 9999999);
 		}
 		System.out.println("오리진 그룹" + Arrays.toString(arr));
@@ -71,6 +63,7 @@ public class ProductController {
 		list1 = pdao.originlist();
 		pg.setNumberOfRecords(r);
 		Map mm = pg.calcPaging(page, r);
+		System.out.println("파람 ============= "+ param);
 		list = pdao.pro_list(param);
 		mav.addObject("list", list);
 		mav.addObject("paging", mm);
@@ -83,25 +76,24 @@ public class ProductController {
 			mav.addObject("origin", ori);
 			System.out.println(ori);
 		}
+		
 		return mav;
+		
 	}
+		
 
 	@RequestMapping("/detail.j")
 	public ModelAndView productdetail(@RequestParam(name = "productNumber") String num) {
 		ModelAndView mav = new ModelAndView("t_base");
 		System.out.println(num);
-<<<<<<< HEAD
 		Map map=new HashMap<>(); 
 		map=pdao.pro_detail(num);
-=======
-		Map map = new HashMap<>();
 		map = pdao.pro_detail(num);
->>>>>>> branch 'master' of https://github.com/pubisboy/Project.git
 		System.out.println(map);
 		mav.addObject("section", "product/productdetail");
 		mav.addObject("map", map);
 
-		return mav;
+		return mav; 
 	}
 
 	

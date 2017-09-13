@@ -78,12 +78,13 @@ li {
 							<c:if test="${vs.index eq 0 or vs.index eq 3 or vs.index eq 6}">
 								<tr>
 							</c:if>
-							<td style="width: 33%;"><input type="checkbox" value="${i.NUM }" name="origin_group" >${i.NAME }</input></td>
+							<td style="width: 33%;"><input type="checkbox" value="${i.NUM }" name="origin_group" 
+							${ i.NUM eq param.origin_gorup  ? 'checked' : '' } > ${i.NAME }</input></td>
 							<c:if test="${vs.index eq 2 or vs.index eq 5 or vs.index eq 8}">
 								</tr>
 							</c:if>
 						</c:forEach>
-
+ 
 
 					</table>
 				</div>

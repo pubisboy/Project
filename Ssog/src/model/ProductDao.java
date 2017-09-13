@@ -91,7 +91,6 @@ public class ProductDao {
 		}		
 		return map;
 	}
-<<<<<<< HEAD
 	
 	public List largecate() {
 		List<Map> list=new ArrayList<>();
@@ -118,7 +117,6 @@ public class ProductDao {
 		}		
 		return list;
 	}
-=======
 	public Map cart(String num){
 		Map map=new HashMap<>();
 		SqlSession session = factory.openSession();
@@ -132,5 +130,20 @@ public class ProductDao {
 		return map;
 	}
 	
->>>>>>> refs/heads/master
+	public boolean productReg(Map map) {
+		boolean br=false;
+		SqlSession session = factory.openSession();
+		try {
+			int r = session.insert("productReg", map);
+			
+			if(r==1) {
+				br=true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		return br;
+	}
 }

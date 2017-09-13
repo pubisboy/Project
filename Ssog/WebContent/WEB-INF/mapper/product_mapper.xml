@@ -12,7 +12,7 @@
  		 </if>
  		 <if test="search != null and search !=''">
  		where pro_name like #{search}
- 		</if>
+ 		</if> 
  		<if test="origin_group !=null">
  			<choose>
  			<when test="(category != null and category != '') or (search != null and search !='')">
@@ -60,7 +60,9 @@
  			</foreach>
  			
  		</if> 	 
- 		 )tmp where sell_on=1)tmp2 
+ 		 )tmp where sell_on=1
+ 		 and price between #{min} and #{max}
+ 		 )tmp2 
  	</select>
  	
  	<select id="pro_list_bestseller" parameterType="java.util.HashMap" resultType="java.util.HashMap">
@@ -91,7 +93,6 @@
  	<select id="productdetail" parameterType="java.lang.String" resultType="java.util.HashMap">
  		select * from (producttbl tmp1 left join origintbl tmp2 on tmp1.origin=tmp2.num) where pro_num=#{num}
  	</select>
-<<<<<<< HEAD
  	
  	<select id="large_cate" resultType="java.util.HashMap">
  		select * from Large_category
@@ -101,11 +102,14 @@
  	</select>
  	
  	
-=======
+
  	<select id="cart" parameterType="java.lang.String" resultType="java.util.HashMap">
  		select * from PRODUCTTBL where pro_num= #{num}
  	</select>
->>>>>>> refs/heads/master
+ 	
+ 	<insert id="productReg" parameterType="java.util.HashMap">
+ 	insert into producttbl values (pro_seq.nextval,#{pro_name},#{category},#{seller},#{pro_qty},#{price},#{pro_detail},sysdate,${origin},#{uuid},1)
+ 	</insert>
  	
  
  </mapper>

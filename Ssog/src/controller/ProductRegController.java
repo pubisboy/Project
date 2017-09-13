@@ -37,7 +37,6 @@ public class ProductRegController {
 		mav.addObject("section", "seller/product/productReg");
 		List<Map> list=new ArrayList<>();
 		list=pdao.largecate();
-		System.out.println("시발"+list);
 		mav.addObject("large_cate", list);
 		List<Map> list1=pdao.originlist();
 		mav.addObject("originlist",list1);
@@ -47,14 +46,16 @@ public class ProductRegController {
 	@RequestMapping("/productRegExec")
 	public ModelAndView registerExec(@RequestParam Map map,@RequestParam(name="pro_img") MultipartFile f,
 			HttpSession session	) throws IllegalStateException, IOException {
-		System.out.println("넘어온 파라미터는 ?? "+ map);
+		ModelAndView mav=new ModelAndView("t_el_seller");
 		String path = application.getRealPath("/img/pro_img");
+		System.out.println(path);
 		File dir=new File(path);
 		if(!dir.exists()) {
 			dir.mkdirs();
 		}
-		String uuid=UUID.randomUUID().toString().substring(0, 4);
-		System.out.println(uuid);
+		String uuid = "";
+		if(!f.isEmpty()) {
+		uuid=UUID.randomUUID().toString();
 		boolean rst= false;
 		if(f.getContentType().startsWith("image")) {
 			File dst = new File(dir,uuid);
@@ -62,23 +63,24 @@ public class ProductRegController {
 			f.transferTo(dst);
 			rst=true;
 		}
-		ModelAndView mav=new ModelAndView("t_el_seller");
-		mav.addObject("rst", rst);
+		}
+		map.put("seller", session.getAttribute("seller_id"));
+		map.put("uuid", uuid);
+		boolean br=pdao.productReg(map); 
+		mav.addObject("rst", br);
 		mav.addObject("section", "seller/product/productRegExec");
-		return mav;
+		return mav; 
 	}
 	
 	@RequestMapping("/smallcate")
 	@ResponseBody 
 	public Map samllcategory(@RequestParam(name="large_cate") String num) {
-		System.out.println("파라미터 ??" + num);
+
 		Map map=new HashMap<>();
 		List<Map> list=new ArrayList<>();
 		list=pdao.smallcate(num);
 		map.put("list", list);
-		System.out.println(list);
-		System.out.println("아아아 123");
 		return map;
-		
+		 
 	}
 }
