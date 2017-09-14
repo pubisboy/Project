@@ -7,12 +7,12 @@
 	<div style="float: right; text-align: right; width: 100%;"><a href="/admin/management/popup/popup_write.ja">팝업 만들기</a></div>
 <div>
 	<div style="float: right;">
-	<a href="/admin/management/popup/popup_list.ja?p=${i}&value=${params.value}&cupon=${!empty params.cupon and params.cupon eq 1 ? 0 : 1}&onoff=${params.onoff }&sort=${params.sort}">쿠폰여부</a></div>
+	<a href="/admin/management/popup/popup_list.ja?p=${params.p}&value=${params.value}&cupon=${empty params.cupon ? 0 : (params.cupon eq 0 ? 1 : '')}&onoff=${params.onoff }&sort=${params.sort}">쿠폰여부</a></div>
 	<div style="float: right; width: 5%;">
-	<a href="/admin/management/popup/popup_list.ja?p=${i}&value=${params.value}&cupon=${params.cupon}&onoff=${!empty params.onoff and params.onoff eq 1 ? 0 : 1}&sort=${params.sort}">활성화</a></div>
+	<a href="/admin/management/popup/popup_list.ja?p=${params.p}&value=${params.value}&cupon=${params.cupon}&onoff=${empty params.onoff ? 0 : (params.onoff eq 0 ? 1 : '')}&sort=${params.sort}">활성화</a></div>
 	<div style="float: right; width: 10%;">
 	<a
-		href="/admin/management/popup/popup_list.ja?p=${i}&value=${params.value}&cupon=${params.cupon}&onoff=${params.onoff }&sort=${!empty params.sort and params.sort == 'asc' ? 'desc' : 'asc'}">오름/내림정렬</a>
+		href="/admin/management/popup/popup_list.ja?p=${params.p}&value=${params.value}&cupon=${params.cupon}&onoff=${params.onoff }&sort=${!empty params.sort and params.sort == 'asc' ? 'desc' : 'asc'}">오름/내림정렬</a>
 </div>
 </div>
 <table class="table table-bordered" style="text-align: center;">
@@ -30,7 +30,16 @@
 			<tr>
 				<td>${i.POPUP_NUM }</td>
 				<td align="left"><a href="/admin/management/popup/popup_detail.ja?num=${i.POPUP_NUM }&p=${params.p }&value=${params.value}&cupon=${params.cupon}&onoff=${params.onoff }&sort=${params.sort }">${i.TITLE }</a></td>
-				<td>${i.CUPON_BASE gt 0 ? 'on' : 'off' }</td>
+				<td>
+					<c:choose>
+						<c:when test="${i.CUPON_BASE gt 0}">
+							<span style="color: red;">on</span>
+						</c:when>
+						<c:otherwise>
+							<span style="color: black;">off</span>
+						</c:otherwise>
+					</c:choose>
+				</td>
 				<td><fmt:formatDate value="${i.POPUP_DATE }" pattern="yyyy-MM-dd hh:mm" var="time"/>${time }</td>
 				<td id="onoff">
 				<c:choose>
@@ -66,10 +75,6 @@
 		<input type="hidden" name="cupon" value="${empty params.cupon ? '' : params.cupon}"/>
 		<input type="hidden" name="onoff" value="${empty params.onoff ? '' : params.onoff}"/>
 		<input type="hidden" name="sort" value="${empty params.sort ? '' : params.sort}"/>
-		<input type="text" name="value" value="${empty params.value ? '' : params.value}"/>
+		<input type="text" name="value" value="${empty params.value ? '' : params.value}" placeholder="제목"/>
 	</form>
 </div>
-
-<script>
-	
-</script>

@@ -732,7 +732,70 @@ public class AdminManagementController {
 		List clist = ad.getCupon_list();
 		mv.addObject("cupon", clist);
 		mv.addObject("list", li);
+		mv.addObject("params", params);
 		mv.addObject("section", "/management/popup/popup_modify");
 		return mv;
+	}
+	
+	@RequestMapping("/popup/popup_modifyExec.ja")
+	public ModelAndView popup_modifyExec(@RequestParam Map params){
+		System.out.println("modifyExec params : "+params);
+		boolean b = ad.updatePopup(params);
+		System.out.println("popup update : "+b);
+		ModelAndView mv = new ModelAndView("redirect:/admin/management/popup/popup_list.ja");
+		mv.addAllObjects(params);
+		return mv;
+	}
+	
+	@RequestMapping("/cupon/cupon_list.ja")
+	public ModelAndView cupon_list(@RequestParam Map params, @RequestParam(name="p", defaultValue="1") Integer p){
+		ModelAndView mv = new ModelAndView("ad_management");
+		System.out.println("params : "+params);
+		pg.setDefaultSetting(10, 5);
+		
+		int rows = ad.getCupon_base_count(params);
+		pg.setNumberOfRecords(rows);
+		Map paging = pg.calcPaging(p, rows);
+		Map se = pg.calcBetween(p);
+		params.put("start", se.get("start"));
+		params.put("end", se.get("end"));
+		
+		List list = ad.getCupon_base_list(params);
+		
+		DecimalFormat df = new DecimalFormat("#,###");
+		String total = df.format(rows);
+		mv.addObject("total", total);
+		
+		mv.addObject("list", list);
+		mv.addObject("paging", paging);
+		mv.addObject("params", params);
+		mv.addObject("section", "/management/cupon/cupon_list");
+		return mv;
+	}
+	
+	@RequestMapping("/cupon/cupon_modify.ja")
+	@ResponseBody
+	public Map cupon_modify(@RequestParam Map params){
+		Map map = null;
+		System.out.println("ajax params : "+params);
+		boolean b = ad.updateCupon_base(params);
+		System.out.println("성공 ? "+b);
+		if(b){
+			List li = ad.getCupon_base_one(params);
+			System.out.println(li);
+			map = (Map)li.get(0);
+		}
+		return map;
+	}
+	
+	@RequestMapping("/cupon/cupon_del.ja")
+	@ResponseBody
+	public Map cupon_del(@RequestParam Map params){
+		System.out.println("ajax params : "+params);
+		boolean b = ad.delCupon_base(params);
+		System.out.println("성공 ? "+b);
+		Map map = new HashMap<>();
+		map.put("b", b);
+		return map;
 	}
 }

@@ -690,4 +690,107 @@ public class AdminOracleDao implements AdminDao{
 		}
 		return list;
 	}
+	
+	public boolean updatePopup(Map map){
+		SqlSession session = factory.openSession();
+		boolean b = false;
+		try{
+			session.update("admin.updatePopup", map);
+			b = true;
+			session.commit();
+		}catch(Exception e){
+			System.out.println("error.updatePopup"+e.toString());
+			b = false;
+			session.rollback();
+		}finally{
+			session.close();
+		}
+		return b;
+	}
+	
+	public List getCupon_base_list(Map map){
+		List list = null;
+		SqlSession session = factory.openSession();
+		try{
+			list = session.selectList("admin.getCupon_base_list", map);
+		}catch(Exception e){
+			System.out.println("error.getCupon_base_list"+e.toString());
+			list = null;
+		}finally{
+			session.close();
+		}
+		return list;
+	}
+	
+	public int getCupon_base_count(Map map){
+		SqlSession session = factory.openSession();
+		try{
+			return session.selectOne("admin.getCupon_base_count", map);
+		}catch(Exception e){
+			System.out.println("error.getCupon_base_count : "+e.toString());
+			return -1;
+		}finally{
+			session.close();
+		}
+	}
+	
+	public int checkCupon(Map map){
+		SqlSession session = factory.openSession();
+		try{
+			return session.selectOne("admin.checkCupon", map);
+		}catch(Exception e){
+			System.out.println("error.checkCupon : "+e.toString());
+			return -1;
+		}finally{
+			session.close();
+		}
+	}
+	
+	public boolean updateCupon_base(Map map){
+		SqlSession session = factory.openSession();
+		boolean b = false;
+		try{
+			session.update("admin.updateCupon_base", map);
+			b = true;
+			session.commit();
+		}catch(Exception e){
+			System.out.println("error.updateCupon_base"+e.toString());
+			b = false;
+			session.rollback();
+		}finally{
+			session.close();
+		}
+		return b;
+	}
+	
+	public List getCupon_base_one(Map map){
+		List list = null;
+		SqlSession session = factory.openSession();
+		try{
+			list = session.selectList("admin.getCupon_base_one", map);
+		}catch(Exception e){
+			System.out.println("error.getCupon_base_one"+e.toString());
+			list = null;
+		}finally{
+			session.close();
+		}
+		return list;
+	}
+	
+	public boolean delCupon_base(Map map){
+		SqlSession session = factory.openSession();
+		boolean b = false;
+		try{
+			session.delete("admin.delCupon_base", map);
+			b = true;
+			session.commit();
+		}catch(Exception e){
+			System.out.println("error.delCupon_base"+e.toString());
+			b = false;
+			session.rollback();
+		}finally{
+			session.close();
+		}
+		return b;
+	}
 }

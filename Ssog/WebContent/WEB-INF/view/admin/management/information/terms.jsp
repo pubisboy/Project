@@ -42,6 +42,6 @@
 
 <div align="center">
 	<form action="/admin/management/information/terms.ja?" method="get">
-		<input type="text" name="value" value="${empty params.value ? '' : params.value}"/>
+		<input type="text" name="value" value="${empty params.value ? '' : params.value}" placeholder="제목"/>
 	</form>
 </div>

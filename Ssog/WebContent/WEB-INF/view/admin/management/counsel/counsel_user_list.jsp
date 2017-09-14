@@ -31,11 +31,11 @@
 </div>
 <div style="float: left; width: 33%;">
 	<a
-		href="/admin/management/counsel/counsel_user_list.ja?p=${i}&type=${params.type }&value=${params.value}&state=${params.state}&reply=${params.reply}&sort=${!empty params.sort and params.sort == 'asc' ? 'desc' : 'asc'}">오름/내림정렬</a>
+		href="/admin/management/counsel/counsel_user_list.ja?p=${params.p}&type=${params.type }&value=${params.value}&state=${params.state}&reply=${params.reply}&sort=${!empty params.sort and params.sort == 'asc' ? 'desc' : 'asc'}">오름/내림정렬</a>
 </div>
 <div style="float: right;">
 	<a
-		href="/admin/management/counsel/counsel_user_list.ja?p=${i}&type=${params.type }&value=${params.value}&state=${params.state}&sort=${params.sort}&reply=${empty params.reply ? '0' : ''}">전체/답변대기</a>
+		href="/admin/management/counsel/counsel_user_list.ja?p=${params.p}&type=${params.type }&value=${params.value}&state=${params.state}&sort=${params.sort}&reply=${empty params.reply ? 0 : (params.reply eq 0 ? 1 : '')}">전체/답변대기</a>
 </div>
 <table class="table table-bordered" style="text-align: center;">
 	<thead>

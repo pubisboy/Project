@@ -60,7 +60,7 @@
 <div align="center">
 	<form action="/admin/management/notice/notice_list.ja" method="get">
 		<input type="hidden" name="state" value="${empty params.state ? '' : params.state}"/>
-		<input type="text" name="value" value="${empty params.value ? '' : params.value}"/>
+		<input type="text" name="value" value="${empty params.value ? '' : params.value}" placeholder="제목"/>
 	</form>
 </div>
 

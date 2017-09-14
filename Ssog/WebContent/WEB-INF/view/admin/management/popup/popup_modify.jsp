@@ -1,14 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <div class="row" align="center">
    <h2>팝업 수정</h2>
    <div id="alert"></div>
    <div class="col-xs-0 col-md-1"></div>
    <div class="col-xs-12 col-md-10">
-   		<form action="/admin/management/popup/popup_writeExec.ja" method="post">
+   		<form action="/admin/management/popup/popup_modifyExec.ja" method="post">
 	         <div class="form-group">
 	            <div align="left"><label>제목</label></div>
+	            <input type="hidden" name="num" id="num" value="${list['0'].POPUP_NUM }">
 	            <input type="text" name="title" id="title" class="form-control" value="${list['0'].TITLE }">
 	         </div>
 	         <div class="form-group">
@@ -22,7 +25,8 @@
 		            <div align="left"><label>쿠폰리스트</label></div>
 		            <select class="form-control" name="cupon"  id="cupon">
 		            	<c:forEach var="i" items="${cupon }">
-		            		<option value="${i.NUM }">할인율 : ${i.RATE } / 기한 : ${i.END_DATE }</option>
+		            		<option value="${i.NUM }">할인율 : ${i.RATE }% / 기한 : 
+		            		<fmt:formatDate value="${i.END_DATE }" pattern="yyyy-MM-dd hh:mm" var="time"/>${time }
 		            	</c:forEach>
 		            </select>
 	            </div>
@@ -32,8 +36,8 @@
 	            <textarea rows="15" class="form-control" name="content" id="content" style="resize: none">${list['0'].CONTENT }</textarea>
 	         </div>
 	         <div class="form-group">
-	            <button id="submit" type="submit" class="btn btn-default">작성</button>
-	            <button type="reset" class="btn btn-default">취소</button>
+	            <button id="submit" type="submit" class="btn btn-default">수정</button>
+	            <button type="button" class="btn btn-default"><a href="/admin/management/popup/popup_list.ja?p=${params.p }&value=${params.value}&cupon=${params.cupon}&onoff=${params.onoff}&sort=${params.sort}">취소</a></button>
 	         </div>
    		</form>
    </div>
