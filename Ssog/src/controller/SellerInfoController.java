@@ -23,6 +23,13 @@ public class SellerInfoController {
 	@Autowired
 	SellerInfoDao sdao;
 	
+	@RequestMapping("/test.j")
+	public ModelAndView test() {
+		ModelAndView mav = new ModelAndView("t_el_seller");
+		mav.addObject("section", "seller/test");
+		return mav;
+	}
+	
 	@RequestMapping("/main.j")
 	public ModelAndView toIndex() {
 		ModelAndView mav = new ModelAndView("t_el_seller");

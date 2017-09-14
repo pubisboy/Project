@@ -72,4 +72,18 @@ public class SellerCounselDao {
 			session.close();
 		}
 	}
+	
+	public Map detail(int num){
+		SqlSession session = factory.openSession();
+		try{
+			Map map = session.selectOne("seller.counsel_detail", num);
+			return map;
+		} catch(Exception e){
+			e.printStackTrace();
+			session.rollback();
+			return null;
+		} finally{
+			session.close();
+		}
+	}
 }

@@ -27,6 +27,7 @@
 	
 	#btn { width: 85px; height: 22px; font-size: 11px; padding: 0px; }
 	small { color:gray; }
+	.table a {color:black;}
 </style>
 <div class="container" >
 	<div style="background:pink; text-align:right">
@@ -59,7 +60,7 @@
 				<c:forEach var="i" items="${list}">
 					<tr>
 						<td><custom:counsel message="${i.CATE}"/></td>
-						<td>${i.TITLE }</td>
+						<td><a href="/seller/counsel/detail.j?num=${i.NUM}">${i.TITLE }</a></td>
 						<td><fmt:formatDate value="${i.COUNSEL_DATE }" pattern="yyyy-MM-dd"/></td>
 						<td><custom:reply message="${i.REPLY}"/></td>
 					</tr>
