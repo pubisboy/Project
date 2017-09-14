@@ -5,13 +5,15 @@
 <c:choose>
 	<c:when test="${rst }">
 		<script>
-			location.href = "/admin/${t}";
+			window.close();
+			window.opener.location.href = "/admin/${t}";
 		</script>
 	</c:when>
 	<c:otherwise>
 		<script>
 			window.alert("실패");
-			location.href = "/admin/${f}";
+			window.close();
+			window.opener.location.href = "/admin/${f}";
 		</script>
 	</c:otherwise>
 </c:choose>

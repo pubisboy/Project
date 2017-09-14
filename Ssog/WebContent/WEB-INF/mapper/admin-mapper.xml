@@ -519,9 +519,9 @@
 		(select bc.*, cb.u from 
 		(select * from CUPON_BASE b left join (select CUPON_BASE, count(*) uu from cupon_list group by CUPON_BASE) cu on b.num = cu.CUPON_BASE)bc
 		left join (select CUPON_BASE, count(*) u from popup group by CUPON_BASE)cb on bc.num = cb.CUPON_BASE) qw
-		left join cupon_type c on qw.cupon_type = c.CUPON_NUM)rst where end_date > sysdate
+		left join cupon_type c on qw.cupon_type = c.CUPON_NUM)rst
 		<if test="value != null and value != ''">
-			and rate = #{value}
+			where rate = #{value}
 		</if>
 		order by end_date
 		<choose>
@@ -536,7 +536,7 @@
 	</select>
 	
 	<select id="getCupon_base_count" parameterType="java.util.HashMap" resultType="java.lang.Integer">
-		select count(*) count from cupon_base b left join cupon_type c on b.CUPON_TYPE = c.CUPON_NUM where end_date > sysdate
+		select count(*) count from cupon_base b left join cupon_type c on b.CUPON_TYPE = c.CUPON_NUM
 		<if test="value != null and value != ''">
 			and rate = #{value}
 		</if>

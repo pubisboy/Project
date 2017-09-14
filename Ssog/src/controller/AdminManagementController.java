@@ -16,13 +16,11 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import model.AdminDao;
 import paging.Paging;
@@ -797,5 +795,21 @@ public class AdminManagementController {
 		Map map = new HashMap<>();
 		map.put("b", b);
 		return map;
+	}
+	
+	@RequestMapping("/cupon/cupon_delCom.ja")
+	public String cupon_delCom(Map map){
+		map.put("title", "쿠폰삭제");
+		map.put("section", "/management/cupon/cupon_delCom");
+		return "ad_popup";
+	}
+	
+	@RequestMapping("/cupon/cupon_delComExec.ja")
+	public String cupon_delComExec(@RequestParam Map params, Map map){
+		boolean b = ad.delCupon_base(params);
+		map.put("rst", b);
+		map.put("t", "/management/cupon/cupon_list.ja");
+		map.put("f", "/management/cupon/cupon_list.ja");
+		return "/admin/resultPopup";
 	}
 }
