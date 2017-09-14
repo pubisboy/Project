@@ -110,4 +110,17 @@ public class AdminMemberDao {
 		}
 		return rst;
 	}
+	
+	public int user_detail_buyCount(String id){
+		SqlSession session = factory.openSession();
+		int rst = -1;
+		try{
+			rst = session.selectOne("admin_member.user_detail_buyCount", id);
+		}catch(Exception e){
+			System.out.println("error.user_detail_buyCount"+e.toString());
+		}finally{
+			session.close();
+		}
+		return rst;
+	}
 }

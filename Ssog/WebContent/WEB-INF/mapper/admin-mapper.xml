@@ -563,7 +563,7 @@
 	<select id="getCupon_base_count" parameterType="java.util.HashMap" resultType="java.lang.Integer">
 		select count(*) count from cupon_base b left join cupon_type c on b.CUPON_TYPE = c.CUPON_NUM
 		<if test="value != null and value != ''">
-			and rate = #{value}
+			where rate = #{value}
 		</if>
 	</select>
 	
@@ -594,4 +594,24 @@
 	<select id="getPopup_target_detail" parameterType="java.util.HashMap" resultType="java.util.HashMap">
 		select * from popup where POPUP_NUM = #{num}
 	</select>
+	
+	<select id="getCupon_type_list" resultType="java.util.HashMap">
+		select * from CUPON_TYPE order by RATE asc
+	</select>
+	
+	<insert id="putCupon_base" parameterType="java.util.HashMap">
+		insert into cupon_base values(cupon_base_seq.nextval, #{type}, TO_DATE(#{date}))
+	</insert>
+	
+	<delete id="delPopup" parameterType="java.util.HashMap">
+		delete from popup where popup_num = #{num}
+	</delete>
+	
+	<delete id="delCounsel_user" parameterType="java.util.HashMap">
+		delete from counsel where num = #{num}
+	</delete>
+	
+	<delete id="delCounsel_seller" parameterType="java.util.HashMap">
+		delete from counsel_seller where num = #{num}
+	</delete>
 </mapper>
