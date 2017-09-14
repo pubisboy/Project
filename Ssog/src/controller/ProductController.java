@@ -85,11 +85,8 @@ public class ProductController {
 	@RequestMapping("/detail.j")
 	public ModelAndView productdetail(@RequestParam(name = "productNumber") String num) {
 		ModelAndView mav = new ModelAndView("t_base");
-		System.out.println(num);
 		Map map=new HashMap<>(); 
 		map=pdao.pro_detail(num);
-		map = pdao.pro_detail(num);
-		System.out.println(map);
 		mav.addObject("section", "product/productdetail");
 		mav.addObject("map", map);
 

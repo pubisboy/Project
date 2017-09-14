@@ -133,7 +133,7 @@ li {
    </div>
    <c:forEach items="${list }" var="i">
       <div class="gallery">
-         <a target="_blank" href="/product/detail.j?productNumber=${i.PRO_NUM }"> 
+         <a href="/product/detail.j?productNumber=${i.PRO_NUM }"> 
          <c:choose>
          <c:when test="${empty i.IMG_UUID }">
          <img src="/image/다운로드.jpg"

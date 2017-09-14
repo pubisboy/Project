@@ -68,7 +68,7 @@ public class ProductRegController {
 		map.put("uuid", uuid);
 		boolean br=pdao.productReg(map); 
 		mav.addObject("rst", br);
-		mav.addObject("section", "seller/product/productRegExec");
+		mav.addObject("section", "seller/alert/register_rst");
 		return mav; 
 	}
 	
@@ -80,7 +80,64 @@ public class ProductRegController {
 		List<Map> list=new ArrayList<>();
 		list=pdao.smallcate(num);
 		map.put("list", list);
-		return map;
+		
+		return map;		 
+	}
+	@RequestMapping("/productEdit")
+	public ModelAndView Edit (@RequestParam(name="num") String num){
+		ModelAndView mav=new ModelAndView("t_el_seller");
+		mav.addObject("section", "seller/product/productEdit");
+		Map map=new HashMap<>(); 
+		List<Map> list=new ArrayList<>();
+		list=pdao.largecate();
+		mav.addObject("large_cate", list);
+		map=pdao.pro_detail(num);
+		mav.addObject("map", map);
+		System.out.println(map);
+		List<Map> list1=pdao.originlist();
+		mav.addObject("originlist",list1);
 		 
+		return mav;
+	}
+	@RequestMapping("/productEditExec")
+	public ModelAndView editExec(@RequestParam Map map,@RequestParam(name="pro_img") MultipartFile f,
+			HttpSession session	) throws IllegalStateException, IOException {
+		ModelAndView mav=new ModelAndView("t_el_seller");
+		System.out.println("맵은 과연??"+map);
+		String path = application.getRealPath("/img/pro_img");
+		File dir=new File(path);
+		String uuid;
+		uuid = (String) map.get("uuid");
+		if((String) map.get("uuid")==null) {
+			if(!f.isEmpty()) {		
+				uuid=UUID.randomUUID().toString();
+				boolean rst= false;
+				if(f.getContentType().startsWith("image")) {
+					File dst = new File(dir,uuid);
+					if(dst.exists())dst.delete();
+					f.transferTo(dst);
+					rst=true;
+					map.put("uuid", uuid);
+				} 
+			}
+			}else { 
+				if(!f.isEmpty()) {		
+					boolean rst= false;
+					if(f.getContentType().startsWith("image")) {
+						File dst = new File(dir,uuid);
+						if(dst.exists())dst.delete();
+						f.transferTo(dst);
+						rst=true;
+						map.put("uuid", uuid);
+					}
+				}
+			}
+		map.put("seller", session.getAttribute("seller_id"));
+		System.out.println("완성된 map 은??"+map);
+		boolean br=pdao.productUpdate(map);
+		System.out.println(br);
+		mav.addObject("section", "seller/alert/register_rst");
+		return mav;  
 	}
 }
+
