@@ -27,6 +27,7 @@
 </style>
 <div align="center">
 	<div style="width: 58.5%; padding-top: 30px;">
+		<form action="/cart/payment.j" id="confirm">
 		<div class="row">
 			<div class="col-sm-12"
 				style="border-bottom: 2px solid gray; border-left: 1px solid gray; border-right: 1px solid gray;">
@@ -58,6 +59,7 @@
 					</div>
 				</div>
 			</div>
+			
 			<div class="col-sm-12"
 				style="padding-top: 40px; padding-left: 0px; padding-right: 0px; padding-bottom: 20px;">
 				<div align="left">
@@ -160,7 +162,7 @@
 						</div>
 						<div style="background-color: #e6e6e6; padding-left: 45px; height: 30px; font-size: 12.5px; padding-top: 7px;"align="left">
 							<b style="color: #404040;">할인 금액</b>
-							<b style="color: black; padding-left: 575px;"><span id="discountrate1">0원</span></b> 
+							<b style="color: black; padding-left: 430px;"><span id="discountrate1">0원</span></b> 
 						</div>
 						<div
 							style="padding: 10px; border-bottom: 1px solid #d9d9d9; width: 90%; font-size: 11.5px;"
@@ -171,7 +173,7 @@
 							<b style="color: #737373; padding-right: 60px;">쿠폰할인</b> <input type="text" 
 								id="onecoupon"> <a href="javascript:popupOpen();"
 								style="color: #262626">
-								<button id="couponlist">쿠폰조회 및 적용</button>
+								<button type="button" id="couponlist">쿠폰조회 및 적용</button>
 							</a> 사용가능한 쿠폰 <b style="color: #ff1a75;">${clist.size() }</b>장 <span id="discount"></span>
 								<div style="padding-left: 85px; padding-top: 8px; color: #999999;"> 
 								<ul> 
@@ -183,7 +185,7 @@
 							style="background-color: #e6e6e6; padding-left: 45px; height: 30px; color: #ff1a75; font-size: 12.5px; padding-top: 7px;"
 							align="left">
 							<b style="color: #404040; padding-right: 60px; ">적립금 사용 금액</b><small	style="font-size: 12px;">사용가능 적립금 ${point.POINT}원</small>
-							<b style="color: black; padding-left: 340px;"><span id="discountrate2"></span>원</b>
+							<b style="color: black; padding-left: 200px;"><span id="discountrate2"></span>원</b>
 						</div>
 						<div align="left" style="width: 90%; padding: 10px;  padding-bottom:0px; border-bottom: 1px solid #d9d9d9; font-size: 11.5px">
 							<b style="color: #737373; padding-right: 45px;">상품 적립금</b> 
@@ -236,10 +238,9 @@
 						<b style="color: #666666;">결제수단 선택</b>
 					</div>
 					<div class="col-xs-10" align="left" style="padding-top: 15px;">
-						<button class="btn btn-default"
-							style="width: 145px; height: 45px;">무통장입금</button>
-						<button class="btn btn-default"
-							style="width: 145px; height: 45px;">이메일인증</button>
+						<button type="button" class="btn btn-default" style="width: 145px; height: 45px;" id="passbook">무통장입금</button> 
+						<button type="button" class="btn btn-default"	style="width: 145px; height: 45px;" id="emailkey">이메일인증</button>
+							<input type="hidden" id="valu" value="none">
 					</div>
 				</div>
 			</div>
@@ -247,7 +248,7 @@
 				<div align="left">
 					<b style="font-size: 17px;">기타 정보</b>
 				</div>
-				<div class="row" style="border: 1px solid #d9d9d9; border-top: 2px solid black; width: 100%;"> 
+				<div class="row" style="border: 1px solid #d9d9d9; border-top: 2px solid black; width: 100%; font-size: 12px;"> 
 					<div class="col-xs-2" style="width: 20%; border-right: 1px solid #d9d9d9; border-bottom: 1px solid #d9d9d9; min-height: 30%">구매 시 유의사항</div> 
 					<div class="col-xs-10" style="width: 80%; border-bottom: 1px solid #d9d9d9; min-height: 30%">구매유의사항들어갈곳</div>
 					<div class="col-xs-2" style="width: 20%; border-right: 1px solid #d9d9d9; min-height: 4%">주문동의</div> 
@@ -263,6 +264,7 @@
 				<b style="color: white; font-size: 13px;">결제하기</b></button> 
 				<button style="width: 130px;height: 50px; font-size: 13px;" class="btn btn-default">주문취소</button> 
 			</div>
+			</form>
 	</div>
 </div>
 <script>
@@ -357,20 +359,34 @@
 		}
 
 	});
+	
+	$("#passbook").on("click",function(){
+		$("#valu").val("passbook");
+		window.alert($("#valu").val()); 
+	});
+	$("#emailkey").on("click",function(){
+		$("#valu").val("emailkey");
+		window.alert($("#valu").val());
+	});
+	
 	$("#order").on("click",function(){
-		if($("#agree").prop("checked")){
-			$.ajax({
-				url : "/cart/order_rst.j",
-				method : "post",
-				data : {
-					"name" : $("#name").val(),
-					"phone" : $("#phone1").val() + "-" + $("#phone2").val() + "-"
-							+ $("#phone3").val(),
-					"address" : $("#postcode").val() + "!" + $("#address1").val() + "!"
-							+ $("#address2").val(),
-					"etc" : $("#etc").val()
-				}
-			});
+		if($("#agree").prop("checked") && $("#valu").val()!='none'){
+			if($("#valu").val()=='emailkey'){
+				var popUrl = "popup_pay.j"; 
+				var popOption = "width=570, height=660, resizable=no, scrollbars=no, status=no;";
+				window.open(popUrl + "?price=" + 'rr', "SSOG", popOption);
+			}
+			
+		}else{
+			if(!$("#agree").prop("checked")){
+				window.alert("주문동의체크확인");
+			}else if($("#valu").val()=='none'){
+				window.alert("결제방식을 선택해주세요."); 
+			}
 		}
-	})
+	});
+	
+	var submit = function(){
+		$("#confirm ").submit();
+	}
 </script>

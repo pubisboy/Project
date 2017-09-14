@@ -4,15 +4,21 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMessage.RecipientType;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import model.CartDao;
@@ -31,6 +37,8 @@ public class CartController {
 	MyinfoDao mdao;
 	@Autowired
 	CartDao cdao;
+	@Autowired
+	JavaMailSender sender;
 	
 	public Map init(HttpSession session) {
 		String id = (String) session.getAttribute("auth");
@@ -123,6 +131,48 @@ public class CartController {
 		mav.addObject("price", price);
 		
 		return mav;
+	}
+	@RequestMapping("/popup_pay.j")
+	public ModelAndView pay() {
+		ModelAndView mav = new ModelAndView("cart/popup_pay");
+		return mav;
+	}
+	@RequestMapping("/emailaccredit.j")
+	@ResponseBody
+	public ModelAndView emailaccredit(HttpSession session,@RequestParam Map param) {
+		ModelAndView mav = new ModelAndView("cart/result");
+		MimeMessage msg = sender.createMimeMessage();
+		String fu = UUID.randomUUID().toString();
+		String sfu = fu.substring(0,8);
+		System.out.println(sfu);
+		session.setAttribute("uuid", sfu);
+		try {
+			InternetAddress from = new InternetAddress("admin");
+			msg.setSender(from);
+			InternetAddress to = new InternetAddress((String) param.get("email"));
+			msg.setRecipient(RecipientType.TO, to);
+			String text = "<h2>인증번호입니다.</h2>";
+			text += sfu;
+			msg.setText(text, "UTF-8", "html");
+			sender.send(msg);
+			mav.addObject("rst", true);
+		}catch (Exception e) {
+			e.printStackTrace();
+			mav.addObject("rst", false);
+		}
+		return mav;
+	}
+	@RequestMapping("/keyaccredit.j")
+	@ResponseBody
+	public boolean key(HttpSession session,@RequestParam Map param) {
+		System.out.println(param);
+		String uuid = (String)session.getAttribute("uuid");
+		System.out.println("session uuid : "+uuid);
+		if(uuid.equals((String)param.get("key"))) {
+			return true; 
+		}else {
+			return false;
+		}
 	}
 	@RequestMapping("/payment.j")
 	public ModelAndView payment() {
