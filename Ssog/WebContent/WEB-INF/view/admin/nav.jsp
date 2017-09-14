@@ -5,7 +5,7 @@
 	border-radius: 0px;
 }
 </style>
-<nav class="navbar navbar" style="margin-bottom: 0px;">
+<nav class="navbar navbar-default" style="margin-bottom: 0px;">
 	<div class="container-fluid">
 		<ul class="nav navbar-nav">
 			<li><a href="/admin/index.ja">Home</a></li>

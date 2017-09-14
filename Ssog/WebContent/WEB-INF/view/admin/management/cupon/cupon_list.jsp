@@ -45,6 +45,7 @@
 			</c:forEach>
 		</tbody>
 	</table>
+	<div align="right"><button type="button" class="btn" id="delCom">강제 삭제</button></div>
 	<div align="center">
 		<c:if test="${paging.startPageNo ne paging.firstPageNo }">
 			<a
@@ -70,7 +71,7 @@
 			<input type="hidden" name="sort"
 				value="${empty params.sort ? '' : params.sort}" /> <input
 				type="text" name="value"
-				value="${empty params.value ? '' : params.value}" />
+				value="${empty params.value ? '' : params.value}" placeholder="할인율" />
 		</form>
 	</div>
 </div>

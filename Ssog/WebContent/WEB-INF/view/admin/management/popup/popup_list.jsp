@@ -75,6 +75,6 @@
 		<input type="hidden" name="cupon" value="${empty params.cupon ? '' : params.cupon}"/>
 		<input type="hidden" name="onoff" value="${empty params.onoff ? '' : params.onoff}"/>
 		<input type="hidden" name="sort" value="${empty params.sort ? '' : params.sort}"/>
-		<input type="text" name="value" value="${empty params.value ? '' : params.value}"/>
+		<input type="text" name="value" value="${empty params.value ? '' : params.value}" placeholder="제목"/>
 	</form>
 </div>
