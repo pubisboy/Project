@@ -132,4 +132,8 @@
 		});
 	});
 	
+	$("#delCom").on("click", function(){
+		window.open("/admin/management/cupon/cupon_delCom.ja", "popup", "width=300, height=100");
+	});
+	
 </script>

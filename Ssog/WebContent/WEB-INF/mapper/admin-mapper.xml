@@ -487,10 +487,27 @@
 	<insert id="putPopup" parameterType="java.util.HashMap">
 		<choose>
 			<when test="sw == 'on'">
-				insert into popup values (popup_seq.nextval, #{title}, #{content}, sysdate, #{cupon}, 0)
+				insert into popup values (popup_seq.nextval, #{title}, #{content}, sysdate, #{cupon}, 0
+				<choose>
+					<when test="uuid != null and uuid != ''">
+						, #{uuid}
+					</when>
+					<otherwise>
+						, (null)
+					</otherwise>
+				</choose>
+				)
 			</when>
 			<otherwise>
-				insert into popup(popup_num, title, content, popup_date, onoff) values (popup_seq.nextval, #{title}, #{content}, sysdate, 0)
+				insert into popup(popup_num, title, content, popup_date, onoff
+				<if test="uuid != null and uuid != ''">
+					, img_uuid
+				</if>
+				) values (popup_seq.nextval, #{title}, #{content}, sysdate, 0
+				<if test="uuid != null and uuid != ''">
+					, #{uuid}
+				</if>
+				)
 			</otherwise>
 		</choose>
 	</insert>
@@ -503,10 +520,18 @@
 	<update id="updatePopup" parameterType="java.util.HashMap">
 		<choose>
 			<when test="sw == 'on'">
-				update popup set title = #{title}, content = #{content}, popup_date = sysdate, cupon_base = #{cupon}, onoff = 0 where popup_num = #{num}
+				update popup set title = #{title}, content = #{content}, popup_date = sysdate, cupon_base = #{cupon}, onoff = 0
+				<if test="uuid != null and uuid != ''">
+					, img_uuid = #{uuid}
+				</if>
+				where popup_num = #{num}
 			</when>
 			<otherwise>
-				update popup set title = #{title}, content = #{content}, popup_date = sysdate, cupon_base = (null), onoff = 0 where popup_num = #{num}
+				update popup set title = #{title}, content = #{content}, popup_date = sysdate, cupon_base = (null), onoff = 0
+				<if test="uuid != null and uuid != ''">
+					, img_uuid = #{uuid}
+				</if>
+				where popup_num = #{num}
 			</otherwise>
 		</choose>
 	</update>
@@ -519,9 +544,9 @@
 		(select bc.*, cb.u from 
 		(select * from CUPON_BASE b left join (select CUPON_BASE, count(*) uu from cupon_list group by CUPON_BASE) cu on b.num = cu.CUPON_BASE)bc
 		left join (select CUPON_BASE, count(*) u from popup group by CUPON_BASE)cb on bc.num = cb.CUPON_BASE) qw
-		left join cupon_type c on qw.cupon_type = c.CUPON_NUM)rst where end_date > sysdate
+		left join cupon_type c on qw.cupon_type = c.CUPON_NUM)rst
 		<if test="value != null and value != ''">
-			and rate = #{value}
+			where rate = #{value}
 		</if>
 		order by end_date
 		<choose>
@@ -536,7 +561,7 @@
 	</select>
 	
 	<select id="getCupon_base_count" parameterType="java.util.HashMap" resultType="java.lang.Integer">
-		select count(*) count from cupon_base b left join cupon_type c on b.CUPON_TYPE = c.CUPON_NUM where end_date > sysdate
+		select count(*) count from cupon_base b left join cupon_type c on b.CUPON_TYPE = c.CUPON_NUM
 		<if test="value != null and value != ''">
 			and rate = #{value}
 		</if>
@@ -557,4 +582,16 @@
 	<delete id="delCupon_base" parameterType="java.util.HashMap">
 		delete cupon_base where num = #{num}
 	</delete>
+	
+	<select id="checkPopup_img_uuid" parameterType="java.util.HashMap" resultType="java.lang.String">
+		select img_uuid from popup where popup_num = #{num}
+	</select>
+	
+	<select id="getPopup_target" resultType="java.util.HashMap">
+		select popup_num from popup where onoff = 1
+	</select>
+	
+	<select id="getPopup_target_detail" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select * from popup where POPUP_NUM = #{num}
+	</select>
 </mapper>

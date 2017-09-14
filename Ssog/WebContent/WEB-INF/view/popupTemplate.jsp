@@ -17,18 +17,9 @@
 </head>
 <body>
 	<div>
-		<header style="width: 100%; min-height: 5%;">
-			<tiles:insertAttribute name="header" />
-		</header>
-		<nav style="width: 100%;">
-			<tiles:insertAttribute name="nav" />
-		</nav>
 		<section style="min-height: 80%; margin-top: 50px; margin-top: 0px;" >
 			<tiles:insertAttribute name="section" />
 		</section>
-		<footer>
-			<tiles:insertAttribute name="footer" />
-		</footer>
 	</div>
 </body>
 </html>

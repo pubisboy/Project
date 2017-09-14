@@ -214,8 +214,10 @@ public class AdminOracleDao implements AdminDao{
 		SqlSession session = factory.openSession();
 		boolean b = false;
 		try{
-			session.delete("admin.delNotice_img", num);
-			b = true;
+			int r = session.delete("admin.delNotice_img", num);
+			if(r > 0){
+				b = true;
+			}
 			session.commit();
 		}catch(Exception e){
 			System.out.println("error.delNotice_img"+e.toString());
@@ -282,8 +284,10 @@ public class AdminOracleDao implements AdminDao{
 		SqlSession session = factory.openSession();
 		boolean b = false;
 		try{
-			session.delete("admin.delInfo_company", name);
-			b = true;
+			int r = session.delete("admin.delInfo_company", name);
+			if(r > 0){
+				b = true;
+			}
 			session.commit();
 		}catch(Exception e){
 			System.out.println("error.delInfo_company"+e.toString());
@@ -358,8 +362,10 @@ public class AdminOracleDao implements AdminDao{
 		SqlSession session = factory.openSession();
 		boolean b = false;
 		try{
-			session.update("admin.updateTerms", map);
-			b = true;
+			int r = session.update("admin.updateTerms", map);
+			if(r > 0){
+				b = true;
+			}
 			session.commit();
 		}catch(Exception e){
 			System.out.println("error.updateValues_terms"+e.toString());
@@ -392,8 +398,10 @@ public class AdminOracleDao implements AdminDao{
 		SqlSession session = factory.openSession();
 		boolean b = false;
 		try{
-			session.delete("admin.delTerms", num);
-			b = true;
+			int r = session.delete("admin.delTerms", num);
+			if(r > 0){
+				b = true;
+			}
 			session.commit();
 		}catch(Exception e){
 			System.out.println("error.delTerms"+e.toString());
@@ -409,8 +417,10 @@ public class AdminOracleDao implements AdminDao{
 		SqlSession session = factory.openSession();
 		boolean b = false;
 		try{
-			session.delete("admin.delNotice", num);
-			b = true;
+			int r = session.delete("admin.delNotice", num);
+			if(r > 0){
+				b = true;
+			}
 			session.commit();
 		}catch(Exception e){
 			System.out.println("error.delNotice"+e.toString());
@@ -544,8 +554,10 @@ public class AdminOracleDao implements AdminDao{
 		SqlSession session = factory.openSession();
 		boolean b = false;
 		try{
-			session.update("admin.updateCounsel_user_detail", map);
-			b = true;
+			int r = session.update("admin.updateCounsel_user_detail", map);
+			if(r > 0){
+				b = true;
+			}
 			session.commit();
 		}catch(Exception e){
 			System.out.println("error.updateCounsel_user_detail"+e.toString());
@@ -589,8 +601,10 @@ public class AdminOracleDao implements AdminDao{
 		SqlSession session = factory.openSession();
 		boolean b = false;
 		try{
-			session.update("admin.updateCounsel_seller_detail", map);
-			b = true;
+			int r = session.update("admin.updateCounsel_seller_detail", map);
+			if(r > 0){
+				b = true;
+			}
 			session.commit();
 		}catch(Exception e){
 			System.out.println("error.updateCounsel_seller_detail"+e.toString());
@@ -632,8 +646,10 @@ public class AdminOracleDao implements AdminDao{
 		SqlSession session = factory.openSession();
 		boolean b = false;
 		try{
-			session.update("admin.updatePopup_onoff", map);
-			b = true;
+			int r = session.update("admin.updatePopup_onoff", map);
+			if(r > 0){
+				b = true;
+			}
 			session.commit();
 		}catch(Exception e){
 			System.out.println("error.updatePopup_onoff"+e.toString());
@@ -695,7 +711,10 @@ public class AdminOracleDao implements AdminDao{
 		SqlSession session = factory.openSession();
 		boolean b = false;
 		try{
-			session.update("admin.updatePopup", map);
+			int r = session.update("admin.updatePopup", map);
+			if(r > 0){
+				b = true;
+			}
 			b = true;
 			session.commit();
 		}catch(Exception e){
@@ -750,8 +769,10 @@ public class AdminOracleDao implements AdminDao{
 		SqlSession session = factory.openSession();
 		boolean b = false;
 		try{
-			session.update("admin.updateCupon_base", map);
-			b = true;
+			int r = session.update("admin.updateCupon_base", map);
+			if(r > 0){
+				b = true;
+			}
 			session.commit();
 		}catch(Exception e){
 			System.out.println("error.updateCupon_base"+e.toString());
@@ -781,8 +802,10 @@ public class AdminOracleDao implements AdminDao{
 		SqlSession session = factory.openSession();
 		boolean b = false;
 		try{
-			session.delete("admin.delCupon_base", map);
-			b = true;
+			int r = session.delete("admin.delCupon_base", map);
+			if(r > 0){
+				b = true;
+			}
 			session.commit();
 		}catch(Exception e){
 			System.out.println("error.delCupon_base"+e.toString());
@@ -792,5 +815,47 @@ public class AdminOracleDao implements AdminDao{
 			session.close();
 		}
 		return b;
+	}
+	
+	public String checkPopup_img_uuid(Map map){
+		String rst = null;
+		SqlSession session = factory.openSession();
+		try{
+			rst = session.selectOne("admin.checkPopup_img_uuid", map);
+		}catch(Exception e){
+			System.out.println("error.checkPopup_img_uuid"+e.toString());
+			rst = null;
+		}finally{
+			session.close();
+		}
+		return rst;
+	}
+	
+	public List getPopup_target(){
+		List list = null;
+		SqlSession session = factory.openSession();
+		try{
+			list = session.selectList("admin.getPopup_target");
+		}catch(Exception e){
+			System.out.println("error.getPopup_target"+e.toString());
+			list = null;
+		}finally{
+			session.close();
+		}
+		return list;
+	}
+	
+	public List getPopup_target_detail(Map map){
+		List list = null;
+		SqlSession session = factory.openSession();
+		try{
+			list = session.selectList("admin.getPopup_target_detail", map);
+		}catch(Exception e){
+			System.out.println("error.getPopup_target_detail"+e.toString());
+			list = null;
+		}finally{
+			session.close();
+		}
+		return list;
 	}
 }
