@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
- <mapper namespace="product">
+ <mapper namespace="product"> 
  	<select id="pro_list" parameterType="java.util.HashMap" resultType="java.util.HashMap">
  		select * from(
  		select tmp2.* from(select tmp.*,rownum as r from 
@@ -91,7 +91,7 @@
  	</select>
  	
  	<select id="productdetail" parameterType="java.lang.String" resultType="java.util.HashMap">
- 		select * from (producttbl tmp1 left join origintbl tmp2 on tmp1.origin=tmp2.num) where pro_num=#{num}
+ 		select * from (select * from (select tmp3.*,tmp4.name as catename,tmp4.parent from (select tmp1.*,tmp2.name as origin_name from producttbl tmp1 left join origintbl tmp2 on tmp1.origin=tmp2.num)tmp3 left join small_category tmp4 on tmp3.cate=tmp4.s_cate)tmp5 left join Large_category tmp6 on tmp5.parent=tmp6.b_cate) where pro_num=#{num}
  	</select>
  	
  	<select id="large_cate" resultType="java.util.HashMap">
@@ -110,6 +110,14 @@
  	<insert id="productReg" parameterType="java.util.HashMap">
  	insert into producttbl values (pro_seq.nextval,#{pro_name},#{category},#{seller},#{pro_qty},#{price},#{pro_detail},sysdate,${origin},#{uuid},1)
  	</insert>
+ 	
+ 	<update id="productUpdate" parameterType="java.util.HashMap">
+ 	update producttbl set pro_name=#{pro_name},cate=#{category},pro_qty=#{pro_qty},price=#{price},pro_detail=#{pro_detail},origin=#{origin}
+ 	<if test="uuid != null and uuid != '' ">
+ 	,img_uuid=#{uuid} 
+ 	</if>
+ 	where pro_num=#{num}
+ 	</update>
  	
  
  </mapper>

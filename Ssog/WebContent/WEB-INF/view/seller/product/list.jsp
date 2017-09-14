@@ -150,9 +150,9 @@
 				<c:forEach var="i" items="${list}">
 					<tr align="center" class="small">
 						<td><input type="checkbox" value="${i.PRO_NUM}" name="chk"></td>
-						<td><a href="#?pro_num=${i.PRO_NUM}" id="pro_num">${i.PRO_NUM}</a></td>
+						<td><a href="/seller/product/productEdit.j?num=${i.PRO_NUM}" id="pro_num">${i.PRO_NUM}</a></td>
 						<td><span class="cut">[${i.CATE_NAME}]</span></td>
-						<td><a href="#?pro_num=${i.PRO_NUM}">${i.PRO_NAME}</a></td>
+						<td><a href="/seller/product/productEdit.j?num=${i.PRO_NUM}">${i.PRO_NAME}</a></td>
 						<td><fmt:formatNumber value="${i.PRO_QTY}" type="number"/>kg</td>
 						<td><fmt:formatNumber value="${i.PRICE}" type="number"/>원</td>
 						<td><fmt:formatDate value="${i.PRO_DATE}"  pattern="yyyy-MM-dd"/></td>
