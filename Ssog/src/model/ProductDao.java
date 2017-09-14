@@ -91,12 +91,38 @@ public class ProductDao {
 		}		
 		return map;
 	}
+	
+	public List largecate() {
+		List<Map> list=new ArrayList<>();
+		SqlSession session=factory.openSession();
+		try {
+			list=session.selectList("large_cate");
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}		
+		return list;
+	}
+	
+	public List smallcate(String num) {
+		List<Map> list=new ArrayList<>();
+		SqlSession session=factory.openSession();
+		try {
+			list=session.selectList("product.small_cate",num);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}		
+		return list;
+	}
 	public Map cart(String num){
 		Map map=new HashMap<>();
 		SqlSession session = factory.openSession();
 		try {
 			map = session.selectOne("product.cart",num);
-		} catch (Exception e) {
+		} catch (Exception e) { 
 			e.printStackTrace();
 		}finally {
 			session.close();
@@ -104,4 +130,37 @@ public class ProductDao {
 		return map;
 	}
 	
+	public boolean productReg(Map map) {
+		boolean br=false;
+		SqlSession session = factory.openSession();
+		try {
+			int r = session.insert("productReg", map);
+			
+			if(r==1) {
+				br=true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		return br;
+	}
+	
+	public boolean productUpdate(Map map) {
+		boolean br=false;
+		SqlSession session = factory.openSession();
+		try {
+			int r = session.insert("productUpdate", map);
+			
+			if(r==1) {
+				br=true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		return br;
+	}
 }

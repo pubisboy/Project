@@ -689,6 +689,7 @@ public class AdminManagementController {
 	
 	@RequestMapping("/popup/popup_write.ja")
 	public String popup_write(@RequestParam Map params, Map map){
+		
 		List clist = ad.getCupon_list();
 		map.put("cupon", clist);
 		map.put("section", "/management/popup/popup_write");
@@ -696,8 +697,24 @@ public class AdminManagementController {
 	}
 	
 	@RequestMapping("/popup/popup_writeExec.ja")
-	public ModelAndView popup_writeExec(@RequestParam Map params){
+	public ModelAndView popup_writeExec(@RequestParam Map params, @RequestParam(name="f") MultipartFile f) throws IllegalStateException, IOException{
 		System.out.println("params : "+params);
+		
+		String filename = f.getOriginalFilename();
+		String uuid = UUID.randomUUID().toString();
+		String dirs = application.getRealPath("/admin/popupImg");
+		
+		File dir = new File(dirs);
+		if(!dir.exists()){
+			dir.mkdirs();
+		}
+		
+		File file = new File(dirs, uuid);
+		if (!file.exists()) {
+			f.transferTo(file);
+			params.put("uuid", uuid);
+		}
+		
 		boolean b = ad.putPopup(params);
 		System.out.println("성공 : "+b);
 		ModelAndView mv = new ModelAndView();
@@ -736,12 +753,38 @@ public class AdminManagementController {
 	}
 	
 	@RequestMapping("/popup/popup_modifyExec.ja")
-	public ModelAndView popup_modifyExec(@RequestParam Map params){
+	public ModelAndView popup_modifyExec(@RequestParam Map params, @RequestParam(name="f") MultipartFile f) throws IllegalStateException, IOException{
+		
+		String filename = f.getOriginalFilename();
+		String uuid = null;
+		
+		String tmp = ad.checkPopup_img_uuid(params);
+		
+		System.out.println("tmp : "+tmp);
+		
+		if(tmp == null){
+			uuid = UUID.randomUUID().toString();
+		}else{
+			uuid = tmp;
+		}
+		
+		String dirs = application.getRealPath("/admin/popupImg");
+		
+		File dir = new File(dirs);
+		if(!dir.exists()){
+			dir.mkdirs();
+		}
+		
+		File file = new File(dirs, uuid);
+		if (!file.exists() || tmp != null) {
+			f.transferTo(file);
+			params.put("uuid", uuid);
+		}
+		
 		System.out.println("modifyExec params : "+params);
 		boolean b = ad.updatePopup(params);
 		System.out.println("popup update : "+b);
 		ModelAndView mv = new ModelAndView("redirect:/admin/management/popup/popup_list.ja");
-		mv.addAllObjects(params);
 		return mv;
 	}
 	

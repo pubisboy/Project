@@ -8,7 +8,7 @@
    <div id="alert"></div>
    <div class="col-xs-0 col-md-1"></div>
    <div class="col-xs-12 col-md-10">
-   		<form action="/admin/management/popup/popup_modifyExec.ja" method="post">
+   		<form action="/admin/management/popup/popup_modifyExec.ja" method="post" enctype="multipart/form-data">
 	         <div class="form-group">
 	            <div align="left"><label>제목</label></div>
 	            <input type="hidden" name="num" id="num" value="${list['0'].POPUP_NUM }">
@@ -34,6 +34,9 @@
 	         <div class="form-group">
 	            <div align="left"><label>내용</label></div>
 	            <textarea rows="15" class="form-control" name="content" id="content" style="resize: none">${list['0'].CONTENT }</textarea>
+	         </div>
+	         <div class="form-group">
+	         	<input type="file" name="f" />
 	         </div>
 	         <div class="form-group">
 	            <button id="submit" type="submit" class="btn btn-default">수정</button>
