@@ -2,9 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <style>
-	#counsel_table 		{white-space:nowrap; font-size:12px;}
-	#counsel_table td 	{padding:10px;}
-
 	.btn-custom {
 	  background-color: hsl(0, 0%, 16%) !important;
 	  background-repeat: repeat-x;
@@ -39,10 +36,17 @@
 	  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.16);
 	  -webkit-font-smoothing: antialiased;
 	}
+	
+	#counsel_table 			{white-space:nowrap; font-size:12px; height:50%;}
+	#counsel_table td 		{padding:10px; border-bottom:1px solid #595959; vertical-align: middle;}
+	#counsel_table .td_left {border-right:1px solid #595959; background:#f2f2f2;}
+	
+	.wrap {padding:10px}
+	.wrap small {color:gray;}
 </style>
 
-<div class="container">
-	<p style="padding-bottom: 10px;">
+<div class="wrap">
+	<p style="padding-bottom: 10px; text-align:left">
 		<span class="glyphicon glyphicon-info-sign " style="padding-right: 10px;"></span>
 		<b style="padding-right: 10px;">1:1 문의</b>
 		<small>고객님께서 문의하신 내용에 대한 답변은 상담관리 > 1:1 문의 게시판에서 확인 가능합니다.</small>
@@ -50,9 +54,9 @@
 	
 	<div style="border-top: 2px solid #595959;">
 		<form action="/seller/counsel/write_ok.j" enctype="multipart/form-data" method="post">
-			<table id="counsel_table" class="table" border="1">
+			<table id="counsel_table" class="table">
 				<tr>
-					<td>문의유형</td>
+					<td class="td_left">문의유형</td>
 					<td colspan="3">
 						<select class="form-control" name="cate" id="cate" style="width: 200px;height: 33px;"> 
 							<option>---선택---</option>
@@ -63,19 +67,19 @@
 					</td>
 				</tr>
 				<tr>
-					<td width="20%">이름</td>
+					<td width="20%" class="td_left">이름</td>
 					<td width="30%">${map.NAME}</td>
-					<td width="20%">연락가능 전화번호</td>
+					<td width="20%" class="td_left" style="border-left:1px solid #595959">연락가능 전화번호</td>
 					<td width="30%">${map.PHONE}</td>
 				</tr>
 				<tr>
-					<td>제목</td>
+					<td class="td_left">제목</td>
 					<td colspan="3">
 						<input type="text" style="width: 100%;" name="title">
 					</td>
 				</tr>
 				<tr>
-					<td>문의 내용</td>
+					<td class="td_left">문의 내용</td>
 					<td colspan="3">
 						<textarea name="content" rows="4" style="width:100%; resize:none; overflow: scroll;"></textarea><br>
 						<small style="font-size: 11px; padding-right: 60px;">* 정확하고 빠른 답변을 위하여 질문하시는 내용을 구체적으로 적어주세요. 
@@ -83,7 +87,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td>이미지첨부</td>
+					<td class="td_left">이미지첨부</td>
 					<td colspan="3">  
 						<input type="file" name="f">
 						<button type="button" onClick="location='#'">삭제</button><br>

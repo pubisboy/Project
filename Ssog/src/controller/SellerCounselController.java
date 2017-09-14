@@ -68,17 +68,14 @@ public class SellerCounselController {
 			
 			map.put("file_uuid", file_uuid);
 			f.transferTo(target);
-			
+			mav.addObject("imageUrl", "/resource/img_counsel_seller/"+file_uuid);
+		}
 			boolean rst = sdao.counselInsert(map);
 			if(rst) {
-				mav.addObject("imageUrl", "/resource/img_counsel_seller/"+file_uuid);
 				mav.addObject("result", true);
 			} else {
 				System.out.println("counsel_seller insert 실패");
 			}
-		} else {
-			mav.addObject("result", false);
-		}
 		return "redirect:/seller/counsel/list.j";
 	}
 	

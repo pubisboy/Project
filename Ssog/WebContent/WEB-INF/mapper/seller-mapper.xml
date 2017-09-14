@@ -85,18 +85,28 @@
   	
   	<!-- 1:1문의 -->
   	<insert id="counsel_insert" parameterType="java.util.HashMap">
-  		insert into counsel_seller values(counsel_seller_seq.nextval, #{cate}, #{id}, #{title}, 
-  		#{content}, sysdate, #{file_uuid}, 0)
+  		<choose>
+  			<when test="file_uuid != null">
+  				insert into counsel_seller values(counsel_seller_seq.nextval, #{cate}, #{id}, #{title}, 
+  				#{content}, sysdate, #{file_uuid}, 0)
+  			</when>
+  			<otherwise>
+  				insert into counsel_seller values(counsel_seller_seq.nextval, #{cate}, #{id}, #{title}, 
+  				#{content}, sysdate, (null), 0)
+  			</otherwise>
+  		</choose>
+  		
   	</insert>
   	
   	<select id="counsel_list" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-  		select * from counsel_seller where user_id=#{id} 
-  		 and rownum between #{start} and #{end}
-  		 order by num desc
+  		select * from (select tmp.*, rownum as r from (select * from counsel_seller 
+  		where user_id=#{id} order by num desc) tmp)
+		where r between #{start} and #{end}
   	</select>
   	
   	<select id="counsel_total" parameterType="java.util.HashMap" resultType="java.lang.Integer">
-  		select count(*) from counsel_seller where user_id=#{id}
+  		select count(*) from (select tmp.*, rownum as r from (select * from counsel_seller 
+  		where user_id=#{id} order by num desc) tmp)
   	</select>
   	
   	<select id="counsel_cate" resultType="java.util.HashMap">

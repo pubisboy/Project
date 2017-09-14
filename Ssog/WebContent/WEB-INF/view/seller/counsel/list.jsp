@@ -26,30 +26,30 @@
 	}
 	
 	#btn { width: 85px; height: 22px; font-size: 11px; padding: 0px; }
-
+	small { color:gray; }
 </style>
 <div class="container" >
-	<div>
-		<b style="margin-top: 20px;">
+	<div style="background:pink; text-align:right">
+		<p style="margin-top: 20px; text-align:left">
 				<span class="glyphicon glyphicon-info-sign" style="padding-right: 10px;"></span>
 				<b style="padding-right:10px; ">1:1 문의</b>
 				<small style="font-size: 12px;">고객센터를 통하여 고객님께서 문의 하여 주신
-				문의내역입니다.</small>
-		</b>
-		<b style="font-size: 12px; padding-right: 330px;">고객님께서 신청한 문의 : 
-			<b style="color: #ff4d4d; font-size: 13px;">${total}</b>건
-			&nbsp;&nbsp;/&nbsp; 답변완료 된 문의 : 0건
-		</b>
+				문의내역입니다.</small><br>
+			<b style="font-size: 12px; padding-right: 330px;">고객님께서 신청한 문의 : 
+				<b style="color: #ff4d4d; font-size: 13px;">${total}</b>건
+				&nbsp;&nbsp;/&nbsp; 답변완료 된 문의 : 0건
+			</b>
+		</p>
 		<button type="button" class="btn btn-custom" id="btn" onclick="location='/seller/counsel/write.j'">1:1 문의 하기</button>
 	</div>
 	
 		<table class="table" style="margin-top: 10px;" >
 			<thead>
 				<tr style="border-top: 3px solid black;">
-					<th>문의유형</th>
-					<th>제목</th>
-					<th>작성일자</th>
-					<th>답변</th>
+					<th width="10%">문의유형</th>
+					<th width="40%">제목</th>
+					<th width="30%">작성일자</th>
+					<th width="20%">답변</th>
 				</tr>
 			</thead>
 			<tbody>
