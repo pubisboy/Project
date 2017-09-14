@@ -5,5 +5,6 @@
 		<form action="/admin/management/cupon/cupon_delComExec.ja" method="post" >
 			<input type="text" name="num" placeholder="쿠폰 번호" />
 		</form>
+		${params.text }
 	</div>
 </div>

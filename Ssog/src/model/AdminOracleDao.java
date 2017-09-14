@@ -816,4 +816,46 @@ public class AdminOracleDao implements AdminDao{
 		}
 		return b;
 	}
+	
+	public String checkPopup_img_uuid(Map map){
+		String rst = null;
+		SqlSession session = factory.openSession();
+		try{
+			rst = session.selectOne("admin.checkPopup_img_uuid", map);
+		}catch(Exception e){
+			System.out.println("error.checkPopup_img_uuid"+e.toString());
+			rst = null;
+		}finally{
+			session.close();
+		}
+		return rst;
+	}
+	
+	public List getPopup_target(){
+		List list = null;
+		SqlSession session = factory.openSession();
+		try{
+			list = session.selectList("admin.getPopup_target");
+		}catch(Exception e){
+			System.out.println("error.getPopup_target"+e.toString());
+			list = null;
+		}finally{
+			session.close();
+		}
+		return list;
+	}
+	
+	public List getPopup_target_detail(Map map){
+		List list = null;
+		SqlSession session = factory.openSession();
+		try{
+			list = session.selectList("admin.getPopup_target_detail", map);
+		}catch(Exception e){
+			System.out.println("error.getPopup_target_detail"+e.toString());
+			list = null;
+		}finally{
+			session.close();
+		}
+		return list;
+	}
 }
