@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	${rst } 아아아
+	${rst }
 </body>
 </html>
