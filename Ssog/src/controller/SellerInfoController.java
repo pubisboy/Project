@@ -37,7 +37,7 @@ public class SellerInfoController {
 		return mav;
 	}
 
-	@RequestMapping("/join.j")
+	@RequestMapping("/info/join.j")
 	public ModelAndView join(@RequestParam Map map) {
 		ModelAndView mav = new ModelAndView("t_el_seller");
 		mav.addObject("section", "seller/join");
@@ -45,7 +45,7 @@ public class SellerInfoController {
 	}
 	
 	//회원가입에서 ID, 계좌번호 중복체크
-	@RequestMapping("/joinAjax.j")
+	@RequestMapping("/info/joinAjax.j")
 	@ResponseBody
 	public Map joinajax(@RequestParam(name = "type") String type, @RequestParam(name = "val") String val) {
 		boolean flag = false;
@@ -60,7 +60,7 @@ public class SellerInfoController {
 	}
 	
 	//비밀번호 변경 폼에서 이전 비번 가져오기
-	@RequestMapping("/passAjax.j")
+	@RequestMapping("/info/passAjax.j")
 	@ResponseBody
 	public Map passajax(@RequestParam(name="pre_pass") String pre_pass, HttpSession session){
 		String id = (String)session.getAttribute("seller_id");
@@ -142,14 +142,14 @@ public class SellerInfoController {
 	}
 	
 	//ID, 비밀번호 찾기
-	@RequestMapping("/find.j")
+	@RequestMapping("/info/find.j")
 	public ModelAndView find() {
 		ModelAndView mav = new ModelAndView("t_el_seller");
 		mav.addObject("section", "seller/find");
 		return mav;
 	}
 	
-	@RequestMapping("/find_ok.j")
+	@RequestMapping("/info/find_ok.j")
 	public ModelAndView find_ok(@RequestParam(name="account", required = false) String account) {
 		ModelAndView mav = new ModelAndView("t_el_seller");
 			Map map = sdao.overlapChk(account, "account");
@@ -162,7 +162,7 @@ public class SellerInfoController {
 	}
 	
 	//비밀번호 입력
-	@RequestMapping("/pass.j")
+	@RequestMapping("/info/pass.j")
 	public ModelAndView pass() {
 		ModelAndView mav = new ModelAndView("t_el_seller");
 		mav.addObject("section", "seller/pass");
@@ -170,7 +170,7 @@ public class SellerInfoController {
 	}
 	
 	//정보보기
-	@RequestMapping("/info.j")
+	@RequestMapping("/info/info.j")
 	public ModelAndView info(HttpSession session) {
 		ModelAndView mav = new ModelAndView("t_el_seller");
 			String id = (String)session.getAttribute("seller_id");
@@ -182,7 +182,7 @@ public class SellerInfoController {
 	}
 	
 	//정보 수정 폼
-	@RequestMapping("/info_edit.j")
+	@RequestMapping("/info/info_edit.j")
 	public ModelAndView editInfo(HttpSession session) {
 		ModelAndView mav = new ModelAndView("t_el_seller");
 		String id = (String)session.getAttribute("seller_id");
@@ -193,7 +193,7 @@ public class SellerInfoController {
 		return mav;
 	}
 	 
-	 @RequestMapping("/info_edit_ok.j")
+	 @RequestMapping("/info/info_edit_ok.j")
 		public ModelAndView editInfoRst(@RequestParam Map map, HttpSession session) {
 			ModelAndView mav = new ModelAndView("t_el_seller");
 			String id = (String)session.getAttribute("seller_id");
@@ -210,7 +210,7 @@ public class SellerInfoController {
 	
 	 
 	 //비밀번호 변경 폼
-	@RequestMapping("/pass_edit.j")
+	@RequestMapping("/info/pass_edit.j")
 	public ModelAndView editPass(@RequestParam Map map, HttpSession session) {
 		ModelAndView mav = new ModelAndView("t_el_seller");
 		String id = (String)session.getAttribute("seller_id");
@@ -219,7 +219,7 @@ public class SellerInfoController {
 		return mav;
 	}
 	
-	@RequestMapping("/pass_edit_ok.j")
+	@RequestMapping("/info/pass_edit_ok.j")
 	public ModelAndView editPassRst(@RequestParam Map map, HttpSession session) {
 		ModelAndView mav = new ModelAndView("t_el_seller");
 		String id = (String)session.getAttribute("seller_id");

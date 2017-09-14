@@ -106,15 +106,4 @@ public class SellerCounselController {
 		mav.addObject("total", total);
 		return mav;
 	}
-	
-	@RequestMapping("/detail.j")
-	public ModelAndView detail(@RequestParam(name="num") int num){
-		ModelAndView mav = new ModelAndView("t_el_seller");
-		List<Map<String, Object>> cate = sdao.category();
-			sdao.detail(num);
-		
-			mav.addObject("cate", cate);
-			mav.addObject("section", "seller/counsel/detail"); 
-		return mav;
-	}
 }

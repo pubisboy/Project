@@ -93,7 +93,7 @@
 		  				location.href = "/seller/logout.j";
 		  			}else{
 		  				window.alert("현재 비밀번호가 맞지않습니다.");
-		  				location.href = "/seller/pass_edit.j";
+		  				location.href = "/seller/info/pass_edit.j";
 		  			}
 		  		});
 	  		}else{

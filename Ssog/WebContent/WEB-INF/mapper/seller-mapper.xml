@@ -113,12 +113,4 @@
   		select * from counsel_seller_category
   	</select>
   	
-  	<select id="counsel_detail" resultType="java.util.HashMap" parameterType="java.lang.Integer">
-  		select * from counsel_seller where num=#{num}
-  	</select>
-  	
- 	<update id="counsel_edit" parameterType="java.util.HashMap">
- 		update counsel_seller set cate=#{cate}, title=#{title}, content=#{content}, image_uuid = #{file_uuid} 
- 		where num=#{num}
- 	</update>
  </mapper>

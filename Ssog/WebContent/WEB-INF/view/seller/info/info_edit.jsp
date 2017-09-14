@@ -6,8 +6,9 @@
 </style>
 
   <div align="center">
-    <!-- 회원 정보 폼 -->
-	<form action="/seller/edit_ok.j" method="post">
+    <!-- 회원 정보 수정 폼 -->
+    <h2>회원 정보 변경</h2>
+	<form action="/seller/info/info_edit_ok.j" method="post">
 	<table class="border_none" width="60%">	
 		<tr align="center">
 			<td colspan="2" bgcolor="gray"><font color="white" size="4"><b>${sessionScope.seller_id}</b>님 회원정보</font></td>
@@ -15,10 +16,6 @@
 		<tr>
 			<td width="150px" bgcolor="lightgray" >이름</td> 
 			<td width="350px"><input type="text" name="name" width="350px" value="${map.NAME }" required></td>
-		</tr>
-		<tr>
-			<td width="150px" bgcolor="lightgray" >비밀번호</td> 
-			<td width="350px" ><input type="password" name="pass" width="350px" required></td>
 		</tr>
 		<tr>
 			<td width="150px" bgcolor="lightgray">연락처</td> 
@@ -77,5 +74,5 @@
 		}
 	}
 	
-	document.getElementById("account").onkeyup = joinChk;
+	document.getElementById("account").onblur = joinChk;
 </script>

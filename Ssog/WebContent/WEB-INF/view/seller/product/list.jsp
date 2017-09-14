@@ -69,7 +69,7 @@
    
 
 
-<div class="container" >
+<div class="container"  style="width:100%" >
 		<span style="font-weight:bold; font-size:18px;">
 			<c:choose>
 				<c:when test="${!empty param.search_word }">
