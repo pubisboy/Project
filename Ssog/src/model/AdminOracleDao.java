@@ -214,8 +214,10 @@ public class AdminOracleDao implements AdminDao{
 		SqlSession session = factory.openSession();
 		boolean b = false;
 		try{
-			session.delete("admin.delNotice_img", num);
-			b = true;
+			int r = session.delete("admin.delNotice_img", num);
+			if(r > 0){
+				b = true;
+			}
 			session.commit();
 		}catch(Exception e){
 			System.out.println("error.delNotice_img"+e.toString());
@@ -282,8 +284,10 @@ public class AdminOracleDao implements AdminDao{
 		SqlSession session = factory.openSession();
 		boolean b = false;
 		try{
-			session.delete("admin.delInfo_company", name);
-			b = true;
+			int r = session.delete("admin.delInfo_company", name);
+			if(r > 0){
+				b = true;
+			}
 			session.commit();
 		}catch(Exception e){
 			System.out.println("error.delInfo_company"+e.toString());
@@ -326,11 +330,11 @@ public class AdminOracleDao implements AdminDao{
 		return list;
 	}
 	
-	public List getTerms(){
+	public List getTerms(Map map){
 		List list = null;
 		SqlSession session = factory.openSession();
 		try{
-			list = session.selectList("admin.getTerms");
+			list = session.selectList("admin.getTerms", map);
 		}catch(Exception e){
 			System.out.println("error.getTerms"+e.toString());
 			list = null;
@@ -358,8 +362,10 @@ public class AdminOracleDao implements AdminDao{
 		SqlSession session = factory.openSession();
 		boolean b = false;
 		try{
-			session.update("admin.updateTerms", map);
-			b = true;
+			int r = session.update("admin.updateTerms", map);
+			if(r > 0){
+				b = true;
+			}
 			session.commit();
 		}catch(Exception e){
 			System.out.println("error.updateValues_terms"+e.toString());
@@ -392,8 +398,10 @@ public class AdminOracleDao implements AdminDao{
 		SqlSession session = factory.openSession();
 		boolean b = false;
 		try{
-			session.delete("admin.delTerms", num);
-			b = true;
+			int r = session.delete("admin.delTerms", num);
+			if(r > 0){
+				b = true;
+			}
 			session.commit();
 		}catch(Exception e){
 			System.out.println("error.delTerms"+e.toString());
@@ -409,11 +417,398 @@ public class AdminOracleDao implements AdminDao{
 		SqlSession session = factory.openSession();
 		boolean b = false;
 		try{
-			session.delete("admin.delNotice", num);
-			b = true;
+			int r = session.delete("admin.delNotice", num);
+			if(r > 0){
+				b = true;
+			}
 			session.commit();
 		}catch(Exception e){
 			System.out.println("error.delNotice"+e.toString());
+			b = false;
+			session.rollback();
+		}finally{
+			session.close();
+		}
+		return b;
+	}
+	
+	public List getTarget_notice(){
+		List list = null;
+		SqlSession session = factory.openSession();
+		try{
+			list = session.selectList("admin.getTarget_notice");
+		}catch(Exception e){
+			System.out.println("error.getTarget_notice"+e.toString());
+			list = null;
+		}finally{
+			session.close();
+		}
+		return list;
+	}
+	
+	public int getCount_notice(Map map){
+		SqlSession session = factory.openSession();
+		try{
+			return session.selectOne("admin.getCount_notice", map);
+		}catch(Exception e){
+			System.out.println("error.getCount_notice : "+e.toString());
+			return -1;
+		}finally{
+			session.close();
+		}
+	}
+	
+	public int getCount_terms(Map map){
+		SqlSession session = factory.openSession();
+		try{
+			return session.selectOne("admin.getCount_Terms", map);
+		}catch(Exception e){
+			System.out.println("error.getCount_Terms : "+e.toString());
+			return -1;
+		}finally{
+			session.close();
+		}
+	}
+
+	public int getCount_counsel_user(Map map) {
+		SqlSession session = factory.openSession();
+		try{
+			return session.selectOne("admin.getCount_counsel_user", map);
+		}catch(Exception e){
+			System.out.println("error.getCount_counsel_user : "+e.toString());
+			return -1;
+		}finally{
+			session.close();
+		}
+	}
+
+	public int getCount_counsel_seller(Map map) {
+		SqlSession session = factory.openSession();
+		try{
+			return session.selectOne("admin.getCount_counsel_seller", map);
+		}catch(Exception e){
+			System.out.println("error.getCount_counsel_seller : "+e.toString());
+			return -1;
+		}finally{
+			session.close();
+		}
+	}
+
+	public List getList_counsel_user(Map map) {
+		List list = null;
+		SqlSession session = factory.openSession();
+		try{
+			list = session.selectList("admin.getList_counsel_user", map);
+		}catch(Exception e){
+			System.out.println("error.getList_counsel_user"+e.toString());
+			list = null;
+		}finally{
+			session.close();
+		}
+		return list;
+	}
+
+	public List getList_counsel_seller(Map map) {
+		List list = null;
+		SqlSession session = factory.openSession();
+		try{
+			list = session.selectList("admin.getList_counsel_seller", map);
+		}catch(Exception e){
+			System.out.println("error.getList_counsel_seller"+e.toString());
+			list = null;
+		}finally{
+			session.close();
+		}
+		return list;
+	}
+	
+	public List getCounsel_category(){
+		List list = null;
+		SqlSession session = factory.openSession();
+		try{
+			list = session.selectList("admin.getCounsel_category");
+		}catch(Exception e){
+			System.out.println("error.getCounsel_category"+e.toString());
+			list = null;
+		}finally{
+			session.close();
+		}
+		return list;
+	}
+	
+	public List getCounsel_user_detail(int num){
+		List list = null;
+		SqlSession session = factory.openSession();
+		try{
+			list = session.selectList("admin.getCounsel_user_detail", num);
+		}catch(Exception e){
+			System.out.println("error.getCounsel_user_detail"+e.toString());
+			list = null;
+		}finally{
+			session.close();
+		}
+		return list;
+	}
+	
+	public boolean updateCounsel_user_detail(Map map){
+		SqlSession session = factory.openSession();
+		boolean b = false;
+		try{
+			int r = session.update("admin.updateCounsel_user_detail", map);
+			if(r > 0){
+				b = true;
+			}
+			session.commit();
+		}catch(Exception e){
+			System.out.println("error.updateCounsel_user_detail"+e.toString());
+			b = false;
+			session.rollback();
+		}finally{
+			session.close();
+		}
+		return b;
+	}
+
+	public List getCounsel_seller_category() {
+		List list = null;
+		SqlSession session = factory.openSession();
+		try{
+			list = session.selectList("admin.getCounsel_seller_category");
+		}catch(Exception e){
+			System.out.println("error.getCounsel_seller_category"+e.toString());
+			list = null;
+		}finally{
+			session.close();
+		}
+		return list;
+	}
+
+	public List getCounsel_seller_detail(int num) {
+		List list = null;
+		SqlSession session = factory.openSession();
+		try{
+			list = session.selectList("admin.getCounsel_seller_detail", num);
+		}catch(Exception e){
+			System.out.println("error.getCounsel_seller_detail"+e.toString());
+			list = null;
+		}finally{
+			session.close();
+		}
+		return list;
+	}
+
+	public boolean updateCounsel_seller_detail(Map map) {
+		SqlSession session = factory.openSession();
+		boolean b = false;
+		try{
+			int r = session.update("admin.updateCounsel_seller_detail", map);
+			if(r > 0){
+				b = true;
+			}
+			session.commit();
+		}catch(Exception e){
+			System.out.println("error.updateCounsel_seller_detail"+e.toString());
+			b = false;
+			session.rollback();
+		}finally{
+			session.close();
+		}
+		return b;
+	}
+
+	public List getPopup_list(Map map){
+		List list = null;
+		SqlSession session = factory.openSession();
+		try{
+			list = session.selectList("admin.getPopup_list", map);
+		}catch(Exception e){
+			System.out.println("error.getPopup_list"+e.toString());
+			list = null;
+		}finally{
+			session.close();
+		}
+		return list;
+	}
+	
+	public int getPopup_list_Count(Map map){
+		SqlSession session = factory.openSession();
+		try{
+			return session.selectOne("admin.getPopup_list_Count", map);
+		}catch(Exception e){
+			System.out.println("error.getPopup_list_Count : "+e.toString());
+			return -1;
+		}finally{
+			session.close();
+		}
+	}
+	
+	public boolean updatePopup_onoff(Map map){
+		SqlSession session = factory.openSession();
+		boolean b = false;
+		try{
+			int r = session.update("admin.updatePopup_onoff", map);
+			if(r > 0){
+				b = true;
+			}
+			session.commit();
+		}catch(Exception e){
+			System.out.println("error.updatePopup_onoff"+e.toString());
+			b = false;
+			session.rollback();
+		}finally{
+			session.close();
+		}
+		return b;
+	}
+	
+	public List getCupon_list(){
+		List list = null;
+		SqlSession session = factory.openSession();
+		try{
+			list = session.selectList("admin.getCupon_list");
+		}catch(Exception e){
+			System.out.println("error.getCupon_list"+e.toString());
+			list = null;
+		}finally{
+			session.close();
+		}
+		return list;
+	}
+	
+	public boolean putPopup(Map map){
+		boolean b = false;
+		SqlSession session = factory.openSession();
+		try{
+			int r = session.insert("admin.putPopup", map);
+			if(r > 0){
+				b = true;
+			}
+			session.commit();
+		}catch(Exception e){
+			System.out.println("error.putPopup"+e.toString());
+			session.rollback();
+		}finally{
+			session.close();
+		}
+		return b;
+	}
+	
+	public List getPopup_detail(Map map){
+		List list = null;
+		SqlSession session = factory.openSession();
+		try{
+			list = session.selectList("admin.getPopup_detail", map);
+		}catch(Exception e){
+			System.out.println("error.getPopup_detail"+e.toString());
+			list = null;
+		}finally{
+			session.close();
+		}
+		return list;
+	}
+	
+	public boolean updatePopup(Map map){
+		SqlSession session = factory.openSession();
+		boolean b = false;
+		try{
+			int r = session.update("admin.updatePopup", map);
+			if(r > 0){
+				b = true;
+			}
+			b = true;
+			session.commit();
+		}catch(Exception e){
+			System.out.println("error.updatePopup"+e.toString());
+			b = false;
+			session.rollback();
+		}finally{
+			session.close();
+		}
+		return b;
+	}
+	
+	public List getCupon_base_list(Map map){
+		List list = null;
+		SqlSession session = factory.openSession();
+		try{
+			list = session.selectList("admin.getCupon_base_list", map);
+		}catch(Exception e){
+			System.out.println("error.getCupon_base_list"+e.toString());
+			list = null;
+		}finally{
+			session.close();
+		}
+		return list;
+	}
+	
+	public int getCupon_base_count(Map map){
+		SqlSession session = factory.openSession();
+		try{
+			return session.selectOne("admin.getCupon_base_count", map);
+		}catch(Exception e){
+			System.out.println("error.getCupon_base_count : "+e.toString());
+			return -1;
+		}finally{
+			session.close();
+		}
+	}
+	
+	public int checkCupon(Map map){
+		SqlSession session = factory.openSession();
+		try{
+			return session.selectOne("admin.checkCupon", map);
+		}catch(Exception e){
+			System.out.println("error.checkCupon : "+e.toString());
+			return -1;
+		}finally{
+			session.close();
+		}
+	}
+	
+	public boolean updateCupon_base(Map map){
+		SqlSession session = factory.openSession();
+		boolean b = false;
+		try{
+			int r = session.update("admin.updateCupon_base", map);
+			if(r > 0){
+				b = true;
+			}
+			session.commit();
+		}catch(Exception e){
+			System.out.println("error.updateCupon_base"+e.toString());
+			b = false;
+			session.rollback();
+		}finally{
+			session.close();
+		}
+		return b;
+	}
+	
+	public List getCupon_base_one(Map map){
+		List list = null;
+		SqlSession session = factory.openSession();
+		try{
+			list = session.selectList("admin.getCupon_base_one", map);
+		}catch(Exception e){
+			System.out.println("error.getCupon_base_one"+e.toString());
+			list = null;
+		}finally{
+			session.close();
+		}
+		return list;
+	}
+	
+	public boolean delCupon_base(Map map){
+		SqlSession session = factory.openSession();
+		boolean b = false;
+		try{
+			int r = session.delete("admin.delCupon_base", map);
+			if(r > 0){
+				b = true;
+			}
+			session.commit();
+		}catch(Exception e){
+			System.out.println("error.delCupon_base"+e.toString());
 			b = false;
 			session.rollback();
 		}finally{

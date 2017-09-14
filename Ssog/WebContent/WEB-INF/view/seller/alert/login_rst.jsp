@@ -14,4 +14,4 @@
 	</c:otherwise>
 </c:choose>
 
-<meta http-equiv="refresh" content="0;url=/seller/main.j" />
+<meta http-equiv="refresh" content="0;url=/seller/product/list.j" />

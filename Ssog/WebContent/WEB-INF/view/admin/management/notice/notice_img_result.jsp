@@ -7,4 +7,9 @@
 			window.parent.CKEDITOR.tools.callFunction(${funcNum}, "${imageUrl}");
 		</script>
 	</c:when>
-</c:choose> 
+	<c:otherwise>
+		<!-- <script>
+			window.alert("이미지 업로드 실패");
+		</script> -->
+	</c:otherwise>
+</c:choose>
