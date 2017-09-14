@@ -106,7 +106,7 @@
 									<dt style="font-size: 13px; padding-bottom: 7px;">My
 										Wallet</dt>
 									<dd>
-										<li style="font-size: 13px;">할인쿠폰</li>
+										<li style="font-size: 13px;">할인쿠폰<b style="color: #ff1a75;">${coulist.size() }장</b></li>
 									</dd>
 									<dd>
 										<li style="font-size: 13px;">적립금</li>
