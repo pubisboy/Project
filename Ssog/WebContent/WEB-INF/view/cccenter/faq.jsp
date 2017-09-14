@@ -19,27 +19,25 @@
 				<small style="font-size: 18px; padding-left: 18px; color: #bfbfbf">SEARCH</small>
 			</div>
 			<div class="col-sm-9" style="padding-top: 15px; padding-left: 0px;">
-					<div class="input-group">
 					<form action="/cccenter/faq.j">
-						<input type="text" class="form-control" placeholder="search"
-							name="search">
+					<div class="input-group">
+						<input type="text" class="form-control" placeholder="search" name="search">
 						<div class="input-group-btn">
-							<button class="btn btn-default" type="submit">
+							<button class="btn btn-default" type="submit" style="width: 40px;height: 34px;">
 								<i class="glyphicon glyphicon-search"></i>
 							</button>
 						</div>
+					</div> 
 							</form>
-					</div>
 			</div>
 		</div>
 	</div>
 	<div class="col-sm-12">
 		<div style="padding-top: 20px;">
 			<h4 style="font-size: 17px; text-align: left;">
-				<span class="glyphicon glyphicon-info-sign"
-					style="padding-right: 10px;"></span><b style="padding-right: 5px; color: #404040; letter-spacing: -1px;">자주
-					묻는 질문 TOP10</b><small style="font-size: 11px; letter-spacing: -1px; color:#a6a6a6; ">고객님께서 가장 많이
-					물어보시는 질문만 모았습니다.</small>
+				<span class="glyphicon glyphicon-info-sign"style="padding-right: 10px;"></span> 
+				<b style="padding-right: 5px; color: #404040; letter-spacing: -1px;">자주 묻는 질문 TOP10</b>
+				<small style="font-size: 11px; letter-spacing: -1px; color:#a6a6a6; ">고객님께서 가장 많이 물어보시는 질문만 모았습니다.</small>
 			</h4>
 		</div>
 		<div

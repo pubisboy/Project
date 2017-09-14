@@ -158,10 +158,10 @@ var sum = 0;
 				$("#finalcash").html(finaltotal1 + '원');
 			}); 
 	$("#okay").on("click", function() {
-		window.alert("눌림"); 
 		   opener.document.getElementById("finishcash").innerHTML = sum;  
 		   opener.document.getElementById("point").innerHTML = tmp;
-		   opener.document.getElementById("onecoupon").value = $("#cp").html();  
+		   opener.document.getElementById("onecoupon").value = $("#cp").html();
+		   opener.document.getElementById("discountrate1").innerHTML = $("#dis").html();  
 		   window.close();
 		      });
 </script>

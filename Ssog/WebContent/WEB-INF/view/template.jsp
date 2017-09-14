@@ -44,14 +44,14 @@
 			<tiles:insertAttribute name="title" />
 		</header>
 		<nav class="navbar navbar-inverse" data-spy="affix"
-			data-offset-top="197">
+			data-offset-top="197" style="margin: 0px;"> 
 			<tiles:insertAttribute name="nav" />
 		</nav>
 		<section style="min-height: 150%;" class="ttt"> 
 			<tiles:insertAttribute name="section" />
 		</section>
-		<footer>
-			<tiles:insertAttribute name="footer" />
+		<footer style="padding-top: 50px;">
+			<tiles:insertAttribute name="footer"/>
 		</footer>
 	</div>
 </body>
