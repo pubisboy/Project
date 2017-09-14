@@ -127,41 +127,23 @@ li {
    
 <!--  상품 목록 보이는 곳    -->
 
-<<<<<<< HEAD
-	<div style="margin-top: 25px;" align="left">
-		<span style="color: red; font-size: 20px;">${total } 개</span> 의 상품이
-		있습니다.
-	</div>
-	<c:forEach items="${list }" var="i">
-		<div class="gallery">
-			<a target="_blank" href="/product/detail.j?productNumber=${i.PRO_NUM }"> 
-			<c:choose>
-			<c:when test="${empty i.IMG_UUID }">
-			<img src="/image/다운로드.jpg"
-				alt="Fjords" width="300" height="200">
-				</c:when>
-				<c:otherwise>
-				<img src="/img/pro_img/${i.IMG_UUID }"
-				alt="Fjords" width="300" height="200">
-				</c:otherwise>
-				</c:choose>
-			</a>
-			<div class="desc">
-				<div>${i.PRO_NAME }</div>
-				<div>${i.PRO_DATE } // ${i.PRICE } //${i.NAME }</div> 
-			</div>
-		</div>
-	</c:forEach>
-	</div>
-=======
    <div style="margin-top: 25px;" align="left">
       <span style="color: red; font-size: 20px;">${total } 개</span> 의 상품이
       있습니다.
    </div>
    <c:forEach items="${list }" var="i">
       <div class="gallery">
-         <a target="_blank" href="/product/detail.j?productNumber=${i.PRO_NUM }"> <img src="/image/다운로드.jpg"
+         <a href="/product/detail.j?productNumber=${i.PRO_NUM }"> 
+         <c:choose>
+         <c:when test="${empty i.IMG_UUID }">
+         <img src="/image/다운로드.jpg"
             alt="Fjords" width="300" height="200">
+            </c:when>
+            <c:otherwise>
+            <img src="/img/pro_img/${i.IMG_UUID }"
+            alt="Fjords" width="300" height="200">
+            </c:otherwise>
+            </c:choose>
          </a>
          <div class="desc">
             <div>${i.PRO_NAME }</div>
@@ -170,7 +152,6 @@ li {
       </div>
    </c:forEach>
    </div>
->>>>>>> branch 'master' of https://github.com/pubisboy/Project.git
 </div>
 
 <!--  페이지 나오는거    -->
