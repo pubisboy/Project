@@ -27,7 +27,6 @@
 				<p id="id_chk"></p>
 			</div>
 			<div class="form-group">
-
 				<input class="form-control" type="password" placeholder="●●●●●"
 					name="pass" id="pass" required style="width: 90%;" /><br />
 				<hr />
