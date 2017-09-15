@@ -42,9 +42,9 @@
 		</div>
 		<header style="width: 100%; min-height: 12%;">
 			<tiles:insertAttribute name="title" />
-		</header>
-		<nav class="navbar navbar-inverse" data-spy="affix"
-			data-offset-top="197">
+		</header> 
+		<nav class="navbar navbar-default" data-spy="affix"  
+			data-offset-top="165" style="margin-bottom: 0;"> 
 			<tiles:insertAttribute name="nav" />
 		</nav>
 		<section style="min-height: 150%;" class="ttt"> 
