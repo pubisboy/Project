@@ -29,46 +29,57 @@ td{
 				<tbody>
 					<tr>
 						<th class="type">주문번호</th>
-						<td>${list['0'].ORDER_NUM }</td>
+						<td>${list[0].ORDER_NUM }</td>
 					</tr>
 					<tr>
 						<th class="type">상품번호</th>
-						<td>${list['0'].PRO_NUM }</td>
+						<td>${list[0].PRO_NUM }</td>
 					</tr>
 					<tr>
 						<th class="type">상품이름</th>
-						<td>${list['0'].PNAME }</td>
+						<td>${list[0].PNAME }</td>
 					</tr>
 					<tr>
 						<th class="type">구매자</th>
-						<td>${list['0'].USER_ID }</td>
+						<td>${list[0].USER_ID }</td>
+					</tr>
+					<tr>
+						<th class="type">수령인</th>
+						<td>${list[0].RECEIVER }</td>
 					</tr>
 					<tr>
 						<th class="type">주문가격</th>
-						<td>${list['0'].PRICE }</td>
+						<td id="price">
+							<fmt:formatNumber value="${list[0].PRICE }" pattern="#,###"/>원
+						</td>
 					</tr>
 					<tr>
 						<th class="type">할인율</th>
 						<td>
 						<c:choose>
-							<c:when test="${list['0'].RATE eq 0}">
+							<c:when test="${list[0].RATE eq 0}">
 								할인없음
 							</c:when>
 							<c:otherwise>
-								${list['0'].RATE }%
+								${list[0].RATE }%
 							</c:otherwise>
 						</c:choose>
 						</td>
 					</tr>
-					<tr>
-						<th class="type">주문개수</th>
-						<td>${list['0'].ORDER_QTY }</td>
+					<tr id="qty" class="modify">
+						<th class='type'>주문개수</th>
+						<td id='${list[0].ORDER_QTY }'>
+							<fmt:formatNumber value='${list[0].ORDER_QTY }' pattern='#,###'/>개
+							<span><button id="qtyb" class="bs">수정</button></span>
+						</td>
 					</tr>
-					<tr>
-						<th class="type">주문상태</th>
-						<td>${list['0'].ST }</td>
+					<tr id="state" class="modify">
+						<th class='type'>주문상태</th>
+						<td id='${list[0].STATE }'>${list[0].ST }
+							<span><button id="stateb" class="bs">수정</button></span>
+						</td>
 					</tr>
-					<c:forTokens items="${list['0'].ADDRESS }" delims="!" var="i" varStatus="vs">
+					<c:forTokens items="${list[0].ADDRESS }" delims="!" var="i" varStatus="vs">
 						<tr>
 							<c:if test="${vs.first }">
 								<th rowspan="3" class="type">배송지</th>
@@ -78,22 +89,22 @@ td{
 					</c:forTokens>
 					<tr>
 						<th class="type">기타사항</th>
-						<td>${list['0'].ETC }</td>
+						<td>${list[0].ETC }</td>
 					</tr>
 					<tr>
 						<th class="type">주문일자</th>
-						<td><fmt:formatDate value="${list['0'].ORDER_DATE }"
+						<td><fmt:formatDate value="${list[0].ORDER_DATE }"
 								pattern="yyyy년MM월dd일" var="i" />${i }</td>
 					</tr>
 					<tr>
 						<th class="type">결제일자</th>
 						<td>
 						<c:choose>
-							<c:when test="${empty list['0'].PAY_DATE }">
+							<c:when test="${empty list[0].PAY_DATE }">
 								미결제
 							</c:when>
 							<c:otherwise>
-								<fmt:formatDate value="${list['0'].PAY_DATE }" pattern="yyyy년MM월dd일" var="i" />${i }
+								<fmt:formatDate value="${list[0].PAY_DATE }" pattern="yyyy년MM월dd일" var="i" />${i }
 							</c:otherwise>
 						</c:choose>
 						</td>
@@ -112,45 +123,55 @@ td{
 				<tbody>
 					<tr>
 						<th class="type">상품번호</th>
-						<td>${list['0'].PRO_NUM }</td>
+						<td>${list[0].PRO_NUM }</td>
 					</tr>
 					<tr>
 						<th class="type">상품이름</th>
-						<td>${list['0'].PNAME }</td>
+						<td>${list[0].PNAME }</td>
 					</tr>
 					<tr>
 						<th class="type">판매자</th>
-						<td>${list['0'].SELLER_ID }</td>
+						<td>${list[0].SELLER_ID }</td>
 					</tr>
 					<tr>
 						<th class="type">등록일자</th>
-						<td>${list['0'].PRO_DATE }</td>
+						<td>${list[0].PRO_DATE }</td>
 					</tr>
 					<tr>
 						<th class="type">상품가격</th>
-						<td>${list['0'].PRICE_ORIGIN }</td>
+						<td>
+							<fmt:formatNumber value="${list[0].PRICE_ORIGIN }" pattern="#,###"/>원
+						</td>
 					</tr>
 					<tr>
 						<th rowspan="2" class="type">카테고리</th>
-						<td>${list['0'].NAMEP }</td>
+						<td>${list[0].NAMEP }</td>
 					</tr>
 					<tr>
-						<td>${list['0'].NAME }</td>
+						<td>${list[0].NAME }</td>
 					</tr>
 					<tr>
 						<th class="type">원산지</th>
-						<td>${list['0'].ORI }</td>
+						<td>${list[0].ORI }</td>
 					</tr>
 					<tr>
 						<th class="type">남은수량</th>
-						<td>${list['0'].PRO_QTY }</td>
+						<td>
+							<fmt:formatNumber value="${list[0].PRO_QTY }" pattern="#,###"/>개
+						</td>
 					</tr>
 					<tr>
 						<th class="type">판매여부</th>
-						<td>${list['0'].SELL_ON == 1 ? '판매중' : '판매중단' }</td>
+						<td>${list[0].SELL_ON == 1 ? '판매중' : '판매중단' }</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
 	</div>
 </div>
+
+<script>
+
+
+
+</script>

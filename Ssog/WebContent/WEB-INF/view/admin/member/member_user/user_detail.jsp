@@ -41,7 +41,7 @@ td{
         			<tr>
         				<th class="type">생년월일</th>
         				<td>
-        					${info['0'].BIRTH['0'] }년
+        					${user_detail_info['0'].BIRTH['0'] }년
         					${info['0'].BIRTH['1'] }월
         					${info['0'].BIRTH['2'] }일
         				</td>
@@ -118,7 +118,9 @@ td{
         			</tr>
         			<tr>
         				<th style="text-align: center; width: 50%;">포인트</th>
-        				<td>포인트</td>
+        				<td>
+        					<fmt:formatNumber value="${info['0'].POINT }" pattern="#,###"/>
+        				</td>
         			</tr>
         			<tr>
         				<td colspan="2" style="text-align: center"><a href="">로그</a></td>
