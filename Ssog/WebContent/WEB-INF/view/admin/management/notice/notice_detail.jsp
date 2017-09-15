@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <table class="table table-bordered" style="text-align: center; min-height: 50%;">
 	<tbody>
@@ -25,6 +26,13 @@
 		</tr>
 	</tbody>
 </table>
-<div style="float: left; width: 10%; text-align: left"><a href="/admin/management/notice/notice_modify.ja?num=${list.NOTICE_NUM }&p=${params.p }&value=${params.value}&cupon=${params.cupon}&onoff=${params.onoff}&sort=${params.sort}">수정</a></div>
-<div style="float: left; width: 10%; text-align: left"><a href="/admin/management/notice/notice_del.ja?num=${list.NOTICE_NUM }&p=${params.p }&value=${params.value}&cupon=${params.cupon}&onoff=${params.onoff}&sort=${params.sort}">삭제</a></div>
-<div style="float: right; width: 33%; text-align: right"><a href="/admin/management/notice/notice_list.ja?num=${list['0'].POPUP_NUM }&p=${params.p }&value=${params.value}&state=${params.state}">목록으로</a></div>
+<div style="float: left; width: 10%; text-align: left">
+<button type="button" class="btn btn-default" onclick="cancel('/admin/management/notice/notice_modify.ja?num=${list.NOTICE_NUM }&p=${params.p }&value=${params.value}&cupon=${params.cupon}&onoff=${params.onoff}&sort=${params.sort}');">수정</button>
+</div>
+<div style="float: left; width: 10%; text-align: left">
+<button type="button" class="btn btn-default" onclick="cancel('/admin/management/notice/notice_del.ja?num=${list.NOTICE_NUM }&p=${params.p }&value=${params.value}&cupon=${params.cupon}&onoff=${params.onoff}&sort=${params.sort}');">삭제</button>
+</div>
+<div style="float: right; width: 33%; text-align: right">
+<button type="button" class="btn btn-default" onclick="cancel('/admin/management/notice/notice_list.ja?num=${list['0'].POPUP_NUM }&p=${params.p }&value=${params.value}&state=${params.state}');">목록</button>
+</div>
+<script src="<c:url value="/etc.js" />"></script>

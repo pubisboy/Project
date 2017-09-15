@@ -25,5 +25,14 @@
 		</tr>
 	</tbody>
 </table>
-<div style="float: left; width: 33%; text-align: left"><a href="/admin/management/information/terms_modify.ja?num=${list['0'].NUM }">수정</a></div>
-<div style="float: right; width: 33%; text-align: right"><a href="/admin/management/information/terms_del.ja?num=${list['0'].NUM }">삭제</a></div>
+
+<div style="float: left; width: 10%; text-align: left">
+<button type="button" class="btn btn-default" onclick="cancel('/admin/management/information/terms_modify.ja?num=${list['0'].NUM }');">수정</button>
+</div>
+<div style="float: left; width: 10%; text-align: left">
+<button type="button" class="btn btn-default" onclick="cancel('/admin/management/information/terms_del.ja?num=${list['0'].NUM }');">삭제</button>
+</div>
+<div style="float: right; width: 33%; text-align: right">
+<button type="button" class="btn btn-default" onclick="cancel('/admin/management/information/terms.ja');">목록</button>
+</div>
+<script src="<c:url value="/etc.js" />"></script>

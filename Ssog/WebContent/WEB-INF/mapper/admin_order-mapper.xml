@@ -67,5 +67,13 @@
 	<select id="log_list" parameterType="java.lang.String" resultType="java.util.HashMap">
 		select * from USER_LOGIN_LOG where id={id} order by CHECKIN_DATE desc
 	</select>
+	
+	<delete id="del_order" parameterType="java.lang.Integer">
+		delete ordertbl where order_num = #{num}
+	</delete>
+	
+	<update id="update_order" parameterType="java.util.HashMap">
+		update ordertbl set state = #{state} where order_num = #{num}
+	</update>
 
 </mapper>

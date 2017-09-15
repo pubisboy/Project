@@ -32,7 +32,7 @@
 	</select>
 	
 	<select id="user_detail_counsel_top9" parameterType="java.lang.String" resultType="java.util.HashMap">
-		select num, title, reply from (select c.*, rownum rnum from (select * from counsel order by counsel_date desc) c)rst where rnum &lt; 10
+		select num, title, reply from (select c.*, rownum rnum from (select * from counsel where user_id=#{id} order by counsel_date desc) c)rst where rnum &lt; 10
 	</select>
 	<!-- <select id="user_detail_counsel_top9" parameterType="java.lang.String" resultType="java.util.HashMap">
 		select n.*, nvl(r.rcount, 0) cnt from (select c.*, t.CATEGORY from (select * from COUNSEL where user_id = #{id}) c left join COUNSEL_CATEGORY t on c.cate = t.NUM where rownum &lt; 10) n left join (select num, count(*) rcount from COUNSEL_REPLY group by num) r on n.num = r.num order by n.counsel_date desc

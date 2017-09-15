@@ -52,4 +52,42 @@ public class AdminOrderDao {
 		}
 		return rst;
 	}
+	
+	public boolean del_order(int num){
+		SqlSession session = factory.openSession();
+		boolean b = false;
+		try{
+			int r = session.delete("admin_order.del_order", num);
+			if(r > 0){
+				b = true;
+			}
+			session.commit();
+		}catch(Exception e){
+			System.out.println("error.del_order"+e.toString());
+			b = false;
+			session.rollback();
+		}finally{
+			session.close();
+		}
+		return b;
+	}
+	
+	public boolean update_order(Map map){
+		SqlSession session = factory.openSession();
+		boolean b = false;
+		try{
+			int rst = session.insert("admin_order.update_order", map);
+			if(rst > 0){
+				b = true;
+				session.commit();
+			}
+		}catch(Exception e){
+			System.out.println("error.update_order"+e.toString());
+			b = false;
+			session.rollback();
+		}finally{
+			session.close();
+		}
+		return b;
+	}
 }

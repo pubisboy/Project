@@ -5,10 +5,12 @@ import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import model.AdminOrderDao;
 import paging.Paging;
@@ -88,5 +90,41 @@ public class AdminOrderController {
 		map.put("list", liInfo);
 		map.put("section", "/order/order_detail");
 		return "ad_order";
+	}
+	
+	@RequestMapping("/order_del.ja")
+	public String order_del(@RequestParam Map params, Map map){
+		int num = Integer.parseInt((String)params.get("num"));
+		boolean b = aod.del_order(num);
+		map.put("rst", b);
+		map.put("t", "/order/order_list.ja");
+		map.put("f", "/order/order_detail.ja");
+		return "/admin/result";
+	}
+	
+	@RequestMapping("/order_modify.ja")
+	@ResponseBody
+	public Map order_modify(@RequestParam Map params){
+		String html = "<select id='stsel'>";
+		System.out.println("넘어온 거 : "+params);
+		String[] stateNum = "1,2,3,4,5,6,7".split(",");
+		String[] stateKo = "주문,결제완료,배송중,배송완료,구매확정,교환중,반품중".split(",");
+		for(int i = 0; i < stateNum.length; i++){
+			String s = String.format("<option value='%s' id='%s'>%s</option>",stateNum[i],stateNum[i],stateKo[i]);
+			html += s;
+		}
+		html+="</select>";
+		System.out.println("만들어진 : "+html);
+		Map map = new HashedMap();
+		map.put("html", html);
+		return map;
+	}
+	
+	@RequestMapping("/order_modifyExec.ja")
+	@ResponseBody
+	public boolean order_modifyExec(@RequestParam Map params){
+		System.out.println("넘어온 거 : "+params);
+		boolean b = aod.update_order(params);
+		return b;
 	}
 }
