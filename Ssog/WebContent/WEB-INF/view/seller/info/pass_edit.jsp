@@ -37,20 +37,19 @@
 }
 
 .txt { font-size: 12px; padding-right: 35px; padding-left: 10px; color: #262626; }
-.small { font-size: 12px; color: #8c8c8c }
+small { font-size: 12px; color: #8c8c8c; margin-left:5px; }
 </style>
 
-<div style="padding-top: 20px;">
-	<h4 style="font-size: 17px; text-align: left;">
-		<span class="glyphicon glyphicon-info-sign" style="padding-right: 10px;"></span>
-		<b style="padding-right: 10px;">비밀번호 수정</b>
-		<small>개인정보 보호를 위하여 비밀번호는 주기적으로 변경하여 주시기 바랍니다.</small>
-	</h4>
-</div>
 <div class="row">
-	<div class="col-sm-12" align="left">
+	<p style="padding-top: 20px; text-align:center;">
+		<span class="glyphicon glyphicon-info-sign" style="padding-right: 10px;"></span>
+		<b style="padding-right: 10px; font-size:17px">비밀번호 수정</b>
+		<small>개인정보 보호를 위하여 비밀번호는 주기적으로 변경하여 주시기 바랍니다.</small>
+	</p>
+
+	<div style="text-align:left">
 	<form action="/seller/pass_edit_ok.j">
-		<hr style="margin: 8px; border-top: 3px solid black;">
+		<hr style="margin-top: 8px; border-top: 3px solid black;">
 		
 		<h3 class="txt">기존 비밀번호</h3> 
 		<input type="password" name="pass" id="pass"/> 
@@ -93,7 +92,7 @@
 		  				location.href = "/seller/logout.j";
 		  			}else{
 		  				window.alert("현재 비밀번호가 맞지않습니다.");
-		  				location.href = "/seller/pass_edit.j";
+		  				location.href = "/seller/info/pass_edit.j";
 		  			}
 		  		});
 	  		}else{

@@ -105,22 +105,17 @@ li{
                     <span class="icon-bar"></span> 
                     <span class="icon-bar"></span>
                 </button>  
-               <ul class="nav navbar-nav">
                 <li class="dropdown">
-             	 <a class="navbar-brand" class="dropdown-toggle" data-toggle="dropdown" href="/product/list.j">카테고리<b class="caret"></b></a>   
-             		 <ul class="dropdown-menu">
-                           <li class="kopie"><a href="#">Dropdown Link 4</a></li>
+              <a class="navbar-brand" class="ropdown-toggle" data-toggle="dropdown" href="/product/list.j">카테고리<b class="caret"></b></a>   
+              <ul class="dropdown-menu">
+                                    <li class="kopie"><a href="#">Dropdown Link 4</a></li>
                            <li><a href="#">Dropdown Submenu Link 4.1</a></li>
                            <li><a href="#">Dropdown Submenu Link 4.2</a></li>
                            <li><a href="#">Dropdown Submenu Link 4.3</a></li>
                            <li><a href="#">Dropdown Submenu Link 4.4</a></li>
                                                                       
-                     </ul>
-             	</li>
-             	</ul>
-             	
-             
-                 
+                        </ul>
+              </li>
             </div>
             
             <div class="collapse navbar-collapse" id="navbar-collapse-1"   >

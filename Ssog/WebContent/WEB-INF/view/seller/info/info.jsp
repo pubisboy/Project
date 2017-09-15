@@ -7,8 +7,8 @@
 
   <div align="center">
     <!-- 회원 정보 폼 -->
-	<form action="/seller/info_edit.j" method="post">
-	<table class="border_none" width="60%">	
+	<form action="/seller/info/info_edit.j" method="post">
+	<table class="border_none">	
 		<tr align="center">
 			<td colspan="2" bgcolor="gray"><font color="white" size="4"><b>${sessionScope.seller_id}</b>님 회원정보</font></td>
 		</tr>

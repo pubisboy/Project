@@ -1,10 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <div align="center" class="row">
-	<div class="col-xs-0 col-md-3"></div>
-	<div class="col-xs-12 col-md-6">
 		<h3 style="margin: 0">회원가입</h3>
-		
+		<br>
 		<form action="/seller/alert/join_rst.j" method="post">
 			<div class="form-group">
 				<input class="form-control" type="text" placeholder="아이디" name="id"
@@ -46,8 +44,6 @@
 			</div>
 		</form>
 
-	</div>
-	<div class="col-xs-0 col-md-3"></div>
 
 </div>
 <script>
