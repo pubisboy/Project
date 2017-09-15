@@ -66,8 +66,8 @@ li{
      background-color: #ccc;
    }
 
-   .navbar-nav .open .dropdown-menu {
-     border-bottom: 1px solid white; 
+   .navbar-nav .open .dropdown-menu { 
+     border-bottom: 0px solid white;  
      border-radius: 0;
    }
   .dropdown-menu {
@@ -84,7 +84,7 @@ li{
    }
 
 }
-
+ 
 #sohot > li > a {
    color: white;
    padding-left: 20px;
@@ -130,8 +130,8 @@ li{
                 </button>  
                 <ul class="nav ssibal navbar-nav"> 
                 <li class="dropdown">
-              <a class="navbar-brand" class="ropdown-toggle"  href="/product/list.j" id="socool"><span class="glyphicon glyphicon-menu-hamburger"></span>카테고리<b class="caret"></b></a>   
-              <ul class="nav dropdown-menu sohott" id="sohot" >
+              <a class="navbar-brand" class="ropdown-toggle"  href="/product/list.j" id="socool" ><span class="glyphicon glyphicon-menu-hamburger"></span>카테고리<b class="caret"></b></a>   
+              <ul class="nav dropdown-menu sohott" id="sohot" style="border-top: 0px;">
                            <li class="kopie"><a href="#" style="color: white;">씨발 Link 4</a></li> 
                            <li><a href="#">Dropdown Submenu Link 4.1</a></li>
                            <li><a href="#">Dropdown Submenu Link 4.2</a></li>
