@@ -23,7 +23,7 @@
 		<nav>
 			<tiles:insertAttribute name="nav" />
 		</nav>
-		<section style="min-height: 150%;">
+		<section style="width:100%; min-height: 150%;">
 			<tiles:insertAttribute name="section" />
 		</section>
 		<footer>
