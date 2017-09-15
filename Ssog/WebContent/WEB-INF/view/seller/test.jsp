@@ -11,7 +11,7 @@ li{
 }
 
  
-.dropdown-submenu { 
+.dropdown-submenu {
     position:relative;
 }
 .dropdown-submenu>.dropdown-menu {
@@ -84,32 +84,9 @@ li{
    }
 
 }
-
-#sohot > li > a {
-   color: white;
-   padding-left: 20px;
-}
-
-#sohot{
-   height:462px; 
-   width: 80px;
-   background-color: rgba( 120, 120, 120, 0.4 );
-   color :  white;   
-   box-shadow: 0px 0px 0px #888888;
-   padding-top: 0px;
-   margin: 0px;   
-}
-#socool{
-   width: 160px;
-   background-color: #262626;
-   color : #ffffff;
-}
  
 @media (min-width: 768px) {
-  ul.nav li:hover > ul.dropdown-menu { 
-    display: block;
-  }
-  ul.ssibal li > ul.dropdown-menu{ 
+  ul.nav li:hover > ul.dropdown-menu {
     display: block;
   }
   #navbar {
@@ -119,7 +96,7 @@ li{
   
 </style>    
 <div align="center" > 
-<div id="navbar" style="width: 67%; height: 7%">    
+<div id="navbar" style="width: 65%; height: 7%">    
   <div class="navbar navbar-static-top" role="navigation" style="height:100%; margin-bottom: 0px;"> 
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
@@ -128,11 +105,10 @@ li{
                     <span class="icon-bar"></span> 
                     <span class="icon-bar"></span>
                 </button>  
-                <ul class="nav ssibal navbar-nav"> 
                 <li class="dropdown">
-              <a class="navbar-brand" class="ropdown-toggle"  href="/product/list.j" id="socool"><span class="glyphicon glyphicon-menu-hamburger"></span>카테고리<b class="caret"></b></a>   
-              <ul class="nav dropdown-menu sohott" id="sohot" >
-                           <li class="kopie"><a href="#" style="color: white;">씨발 Link 4</a></li> 
+              <a class="navbar-brand" class="ropdown-toggle" data-toggle="dropdown" href="/product/list.j">카테고리<b class="caret"></b></a>   
+              <ul class="dropdown-menu">
+                                    <li class="kopie"><a href="#">Dropdown Link 4</a></li>
                            <li><a href="#">Dropdown Submenu Link 4.1</a></li>
                            <li><a href="#">Dropdown Submenu Link 4.2</a></li>
                            <li><a href="#">Dropdown Submenu Link 4.3</a></li>
@@ -140,7 +116,6 @@ li{
                                                                       
                         </ul>
               </li>
-              </ul>
             </div>
             
             <div class="collapse navbar-collapse" id="navbar-collapse-1"   >
@@ -229,16 +204,20 @@ li{
 </div>
 </div>
 <script>
-$(window).scroll(function(event){
-   var si = $("#ssibal").attr("class"); 
-   console.log(si);
-   var a=si.split(" ");
-   if(a[2]== "affix" ){
-      $("#sohot").fadeOut();
-   }else{
-      $("#sohot").fadeIn();
-   }
-});
-
-
+   $(document).ready(function() {
+      $("#c0").on("mouseenter", function()  { 
+         $("#c1").next('ul').hide();
+         $("#c2").next('ul').hide(); 
+      });
+      $("#c1").on("mouseenter", function()  {
+         $("#c2").next('ul').hide();          
+      });
+      
+      
+      $('.dropdown-submenu a.test').on("mouseenter", function(e) {         
+         $(this).next('ul').fadeIn();   
+         e.stopPropagation();
+         e.preventDefault();          
+      });      
+   });
 </script>

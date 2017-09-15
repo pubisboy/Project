@@ -4,15 +4,21 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMessage.RecipientType;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import model.CartDao;
@@ -31,7 +37,9 @@ public class CartController {
 	MyinfoDao mdao;
 	@Autowired
 	CartDao cdao;
-	
+	@Autowired
+	JavaMailSender sender;
+
 	public Map init(HttpSession session) {
 		String id = (String) session.getAttribute("auth");
 		Map grade = mdao.usergrade(id);
@@ -46,10 +54,13 @@ public class CartController {
 	@RequestMapping("/form.j")
 	public ModelAndView cart(HttpServletRequest resp, HttpSession session) {
 		Map init = init(session);
-		System.out.println(init.get("grade"));
 		ModelAndView mav = new ModelAndView("tw_cart/form");
 		mav.addObject("grade", init.get("grade"));
 		mav.addObject("memberinfo", init.get("info"));
+		List<Map> clist = cdao.couponlist((String) init.get("id"));
+		Map point = cdao.point((String) init.get("id"));
+		mav.addObject("point", point);
+		mav.addObject("clist", clist);
 		Cookie[] cookies = resp.getCookies();
 		List<Map> list = new ArrayList<>();
 		if (cookies != null) {
@@ -57,14 +68,12 @@ public class CartController {
 				if (cookies[i].getValue().startsWith("addcart")) {
 					String cookiename = cookies[i].getName();
 					String number = cookies[i].getValue().substring(7);
-					System.out.println("cookiename : " + cookiename);
 					Map map = pdao.cart(cookiename);
 					map.put("number", number);
 					list.add(map);
 					int etc = list.size();
 					mav.addObject("list", list);
 					mav.addObject("etc", etc);
-					System.out.println("list :" + list);
 				}
 			}
 		}
@@ -76,7 +85,6 @@ public class CartController {
 		Map init = init(session);
 		Map info = mmdao.id_check_repetition((String) init.get("id"));
 		ModelAndView mav = new ModelAndView("tw_cart/order");
-		System.out.println("order con :"+ init);
 		String address = (String) info.get("ADDRESS");
 		String phone = (String) info.get("PHONE");
 		String[] spaddress = address.split("!");
@@ -91,41 +99,92 @@ public class CartController {
 		List<Map> clist = cdao.couponlist((String) init.get("id"));
 		Map point = cdao.point((String) init.get("id"));
 		mav.addObject("point", point);
-		mav.addObject("clist",clist);
+		mav.addObject("clist", clist);
 		Cookie[] cookies = resp.getCookies();
 		List<Map> list = new ArrayList<>();
 		if (cookies != null) {
 			for (int i = 0; i < cookies.length; i++) {
-				System.out.println("cart : " + cookies[i].getName().indexOf("cart"));
 				if (cookies[i].getValue().startsWith("addcart")) {
-					int idx = cookies[i].getValue().indexOf("t");
 					String cookiename = cookies[i].getName();
-					String number = cookies[i].getValue().substring(idx + 1);
-					System.out.println("cookiename : " + cookiename);
+					String number = cookies[i].getValue().substring(7);
 					Map map = pdao.cart(cookiename);
+					map.put("number", number);
 					list.add(map);
 					mav.addObject("list", list);
-					mav.addObject("number", number);
-					System.out.println("list :" + list);
 				}
 			}
 		}
 		return mav;
 	}
-//	@RequestMapping("/order_rst.j")
-//	@ResponseBody
-//	public boolean order_rst(@RequestParam Map param) {
-//		
-//		
-//	}
+
+	@RequestMapping("/order_rst.j")
+	public ModelAndView order_rst(@RequestParam Map param) {
+		ModelAndView mav = new ModelAndView("cart/payment");
+		boolean bl = cdao.order(param);
+		
+		return mav;
+	}
+
 	@RequestMapping("/popup_couponlist.j")
-	public ModelAndView popup(HttpSession session,@RequestParam (name="price") String price) {
+	public ModelAndView popup(HttpSession session, @RequestParam(name = "price") String price) {
 		ModelAndView mav = new ModelAndView("cart/popup_couponlist");
 		Map init = init(session);
 		List<Map> list = cdao.couponlist((String) init.get("id"));
-		mav.addObject("list",list);
+		mav.addObject("list", list);
 		mav.addObject("price", price);
-		
+
+		return mav;
+	}
+
+	@RequestMapping("/popup_pay.j")
+	public ModelAndView pay() {
+		ModelAndView mav = new ModelAndView("cart/popup_pay");
+		return mav;
+	}
+
+	@RequestMapping("/emailaccredit.j")
+	@ResponseBody
+	public ModelAndView emailaccredit(HttpSession session, @RequestParam Map param) {
+		ModelAndView mav = new ModelAndView("cart/result");
+		MimeMessage msg = sender.createMimeMessage();
+		String fu = UUID.randomUUID().toString();
+		String sfu = fu.substring(0, 8);
+		System.out.println(sfu);
+		session.setAttribute("uuid", sfu);
+		try {
+			InternetAddress from = new InternetAddress("admin");
+			msg.setSender(from);
+			InternetAddress to = new InternetAddress((String) param.get("email"));
+			msg.setRecipient(RecipientType.TO, to);
+			String text = "<h2>인증번호입니다.</h2>";
+			text += sfu;
+			msg.setText(text, "UTF-8", "html");
+			sender.send(msg);
+			mav.addObject("rst", true);
+		} catch (Exception e) {
+			e.printStackTrace();
+			mav.addObject("rst", false);
+		}
+		return mav;
+	}
+
+	@RequestMapping("/keyaccredit.j")
+	@ResponseBody
+	public boolean key(HttpSession session, @RequestParam Map param) {
+		System.out.println(param);
+		String uuid = (String) session.getAttribute("uuid");
+		System.out.println("session uuid : " + uuid);
+		if (uuid.equals((String) param.get("key"))) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	@RequestMapping("/payment.j")
+	public ModelAndView payment(@RequestParam Map param) {
+		ModelAndView mav = new ModelAndView("tw_cart/payment");
+
 		return mav;
 	}
 }
