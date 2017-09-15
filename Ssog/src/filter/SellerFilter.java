@@ -31,7 +31,6 @@ public class SellerFilter implements Filter {
 			}else{
 				session.setAttribute("goLogin", "goLogin");
 				req.setAttribute("goLogin", "goLogin");
-				resp.sendRedirect("/seller/main.j?goLogin=goLogin");
 			}
 		}
 	}
