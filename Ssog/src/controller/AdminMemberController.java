@@ -110,12 +110,14 @@ public class AdminMemberController {
 			for(int i = 0; i < liCounsel99.size(); i++){
 				Map m = (Map)liCounsel99.get(i);
 				String s = (String)m.get("TITLE");
-				if(s.length() > 20){
-					s = s.substring(0, 18);
+				if(s.length() > 15){
+					s = s.substring(0, 12);
 					StringBuilder sb = new StringBuilder(s);
 					sb.append("...");
 					s = sb.toString();
+					System.out.println("잘린 제목 : "+s);
 				}
+				/*((Map)liCounsel99.get(i)).put("", "");*/
 				liCounsel9.add(s);
 			}
 			map.put("counsel9", liCounsel99);
