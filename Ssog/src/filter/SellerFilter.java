@@ -25,7 +25,8 @@ public class SellerFilter implements Filter {
 		}else{
 			String uri = req.getRequestURI();
 			System.out.println("uri : "+uri);
-			if(uri.startsWith("/seller/info/join") || uri.startsWith("/seller/main")){
+			if(uri.startsWith("/seller/info/join") || uri.startsWith("/seller/main") || uri.startsWith("/seller/alert/login_rst") 
+					|| uri.startsWith("/seller/logout") || uri.startsWith("/seller/alert/join_rst.j")){
 				chain.doFilter(req, resp);
 			}else{
 				session.setAttribute("goLogin", "goLogin");

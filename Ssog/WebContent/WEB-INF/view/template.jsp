@@ -41,7 +41,7 @@
 				style="position: absolute; top: 20px; right: 240px;">X</button>
 		</div>
 		<header style="width: 100%; min-height: 12%;">
-			<tiles:insertAttribute name="title" />
+			<tiles:insertAttribute name="header" />
 		</header> 
 		<nav class="navbar navbar-default" data-spy="affix"  
 			data-offset-top="165" style="margin-bottom: 0;" id="ssibal"> 
