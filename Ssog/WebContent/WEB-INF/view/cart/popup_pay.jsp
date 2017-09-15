@@ -89,8 +89,11 @@
 				"key":$("#key").val()
 			}
 		}).done(function(re){
-			if(re==true){
+			console.log(re);
+			console.log(typeof re); 
+			if(re==true){ 
 				window.alert("결제완료");
+				window.close(); 
 				window.opener.submit();
 			}
 		})

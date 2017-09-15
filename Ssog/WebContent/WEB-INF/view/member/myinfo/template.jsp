@@ -81,9 +81,8 @@
 								style="width: 50%; margin-top: 10px;">
 								<dl>
 									<dt style="font-size: 13px;">온라인등급</dt>
-									<p
-										style="font-size: 20px; padding-left: 60px; padding-top: 7px;">${grade.GRADE }</p>
-								</dl>
+									<dt style="font-size: 20px; padding-left: 44px; padding-top: 7px;">${grade.GRADE }</dt> 
+								</dl> 
 							</div>
 							<div class="col-xs-3 col-sm-6"
 								style="width: 50%; margin-top: 7px; margin-bottom: 10px;"
@@ -105,8 +104,8 @@
 								<dl>
 									<dt style="font-size: 13px; padding-bottom: 7px;">My
 										Wallet</dt>
-									<dd>
-										<li style="font-size: 13px;">할인쿠폰<b style="color: #ff1a75;">${coulist.size() }장</b></li>
+									<dd style="padding-left: 33px;">   
+										<li style="font-size: 13px;">할인쿠폰<b style="color: #ff1a75; padding-left: 10px;">${coulist.size() }장</b></li>
 									</dd>
 									<dd>
 										<li style="font-size: 13px;">적립금</li>

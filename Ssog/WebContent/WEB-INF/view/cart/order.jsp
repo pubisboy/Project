@@ -82,10 +82,12 @@
 							<tr style="border-bottom: 1px solid #b3b3b3; font-size: 12.5px;">
 								<td>${c.IMG_UUID }</td> 
 								<td>${c.PRO_NAME }</td>
+								<input type="hidden" value="${c.number }" name="pd1">
+								<input type="hidden" value="${c.PRO_NUM}" name="pd2">
 								<td><fmt:formatNumber value="${c.PRICE }" pattern="#,###"/>원</td>
 								<td>${c.number }</td> 
 								<td></td>
-								<td><fmt:formatNumber value="${c.PRICE * c.number }" pattern="#,###"/>원</td>
+								<td><fmt:formatNumber value="${c.PRICE * c.number }" pattern="#,###"/>원</td> 
 								<td style="display: none;"class="price" >${c.PRICE * c.number }</td>
 							</tr>
 						</c:forEach>
@@ -100,7 +102,7 @@
 					<tbody>
 						<tr style="border-top: 2px solid black; font-size: 12px;">
 							<td class="active" style="width: 16%;">수령인</td>
-							<td><input type="text" id="name" /><input type="checkbox"
+							<td><input type="text" id="name" name="name"/><input type="checkbox"
 								id="equal" />주문자와 동일</td>
 						</tr>
 						<tr style="font-size: 12px;">
@@ -111,9 +113,9 @@
 										<option value="${i }" ${i eq  phone1 ? 'selected' : ''}>${i }</option>
 									</c:forTokens>
 							</select> - <input type="text" style="width: 60px; height: 25px;"
-								value="${memberinfo.phone2 }" id="phone2" /> - <input
+								value="${memberinfo.phone2 }" id="phone2" name="phone2"/> - <input
 								type="text" style="width: 60px; height: 25px;"
-								value="${memberinfo.phone3 }" id="phone3" /><br /></td>
+								value="${memberinfo.phone3 }" id="phone3" name="phone3"/><br /></td>
 						</tr>
 						<tr style="font-size: 12px;">
 							<td class="active">주소입력</td>
@@ -132,7 +134,7 @@
 							</td>
 						</tr>
 						<tr style="font-size: 12px;">
-							<td class="active" style="width: 16%;" id="etc">배송시<br />요구사항
+							<td class="active" style="width: 16%;" id="etc" name="etc">배송시<br />요구사항
 							</td>
 							<td><textarea style="width: 484px; height: 66px;"></textarea></td>
 						</tr>
@@ -171,7 +173,7 @@
 						</div>
 						<div style="padding: 10px; padding-bottom:0px; width: 90%; font-size: 11.5px" align="left">
 							<b style="color: #737373; padding-right: 60px;">쿠폰할인</b> <input type="text" 
-								id="onecoupon"> <a href="javascript:popupOpen();"
+								id="onecoupon" name="onecoupon"><a href="javascript:popupOpen();"
 								style="color: #262626">
 								<button type="button" id="couponlist">쿠폰조회 및 적용</button>
 							</a> 사용가능한 쿠폰 <b style="color: #ff1a75;">${clist.size() }</b>장 <span id="discount"></span>
@@ -191,6 +193,7 @@
 							<b style="color: #737373; padding-right: 45px;">상품 적립금</b> 
 							<input type="radio"	name="chk_point" value="save" />적립
 							<input type="radio"	name="chk_point" value="use" />즉시사용(상품 적립금<span id="point"></span>원)
+							<input type="hidden" id="hdpoint" name="hdpoint"/>
 								<div style="padding-left: 85px; padding-top: 8px; color: #999999;">  
 								<ul>
 								<li>일부 브랜드 상품은 구매 시 적립금 즉시 사용 또는 적립이 제한 될 수 있습니다.</li>
@@ -199,7 +202,7 @@
 						</div>
 						<div align="left" style="width: 90%; padding: 10px; padding-bottom:0px; font-size: 11.5px">
 							<b style="color: #737373; padding-right: 45px;">보유 적립금</b>
-							<input type="text" id="consume" value="" />원
+							<input type="text" id="consume" value="" name="consume"/>원
 							<input type="checkbox" id="application">전액사용(보유적립금<span id="conpoint"></span>원)
 							<div style="padding-left: 85px; padding-top: 8px; color: #999999;">   
 							<ul>
@@ -220,7 +223,8 @@
 						</div>
 						<div>
 						
-							<b style="font-size: 20px;"><span id="finishcash"></span>원</b>  
+							<b style="font-size: 20px;"><span id="finishcash"></span>원</b>
+							<input type="hidden" id="totalcash" name="totalcash">
 						</div>
 					</div>
 				</div>
@@ -238,8 +242,8 @@
 						<b style="color: #666666;">결제수단 선택</b>
 					</div>
 					<div class="col-xs-10" align="left" style="padding-top: 15px;">
-						<button type="button" class="btn btn-default" style="width: 145px; height: 45px;" id="passbook">무통장입금</button> 
-						<button type="button" class="btn btn-default"	style="width: 145px; height: 45px;" id="emailkey">이메일인증</button>
+						<button type="button" class="btn btn-default" style="width: 145px; height: 45px;" id="passbook" name="passbook">무통장입금</button> 
+						<button type="button" class="btn btn-default"	style="width: 145px; height: 45px;" id="emailkey" name="emailkey">이메일인증</button>
 							<input type="hidden" id="valu" value="none">
 					</div>
 				</div>
@@ -260,7 +264,7 @@
 			</div>
 		</div>
 			<div align="center" style="padding-top: 30px;"> 
-				<button id="order" class="btn btn-custom">
+				<button id="order" class="btn btn-custom" type="button"> 
 				<b style="color: white; font-size: 13px;">결제하기</b></button> 
 				<button style="width: 130px;height: 50px; font-size: 13px;" class="btn btn-default">주문취소</button> 
 			</div>
@@ -274,7 +278,7 @@
 	});
 	$("#amount ").html(tot.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '원'); 
 	$("#finishcash").html(tot);
-	var conpoint = "${point.POINT}"
+	var conpoint = "${point.POINT}";
 	$("#conpoint").html(conpoint);
 	var discountrate = 0;
 	$("#discountrate2").html(discountrate);
@@ -284,8 +288,10 @@
 	var num_check=/^[0-9]*$/;
 	if(num_check.test(pt) == true) {
 		$("#point").html(temp);
+		$("#hdpoint").html(temp);
 	}else{
 		$("#point").html(rst);
+		$("#hdpoint").html(temp);
 	}  
 	
 	$("#equal").on("change", function() {
@@ -362,11 +368,11 @@
 	
 	$("#passbook").on("click",function(){
 		$("#valu").val("passbook");
-		window.alert($("#valu").val()); 
+		window.alert($("#finishcash").html());
 	});
 	$("#emailkey").on("click",function(){
 		$("#valu").val("emailkey");
-		window.alert($("#valu").val());
+		window.alert($("#finishcash").html());  
 	});
 	
 	$("#order").on("click",function(){
@@ -375,8 +381,8 @@
 				var popUrl = "popup_pay.j"; 
 				var popOption = "width=570, height=660, resizable=no, scrollbars=no, status=no;";
 				window.open(popUrl + "?price=" + 'rr', "SSOG", popOption);
+				$("#totalcash").val($("#finishcash").html()); 
 			}
-			
 		}else{
 			if(!$("#agree").prop("checked")){
 				window.alert("주문동의체크확인");

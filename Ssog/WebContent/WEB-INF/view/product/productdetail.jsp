@@ -86,10 +86,8 @@
 		var d = new Date();
 		d.setTime(d.getTime() + (3 * 24 * 60 * 60 * 1000));
 		var expires = "expires=" + d.toUTCString();
-
 		cookies = cName + '=' + escape(cValue) + '; path=/ ';
-		if (typeof cDay != 'undefined')
-			cookies += ';' + expires + ';';
+		cookies += ';' + expires + ';';
 		document.cookie = cookies;
 
 	});

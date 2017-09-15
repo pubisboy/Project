@@ -37,12 +37,12 @@
 							<span class="glyphicon glyphicon-shopping-cart"
 								style="font-size: 45px;"></span> <b style="font-size: 26px;">장바구니</b>
 							<span class="glyphicon glyphicon-chevron-right"
-								style="font-size: 30px; padding-left: 55px; padding-right: 55px; color: #b3b3b3;"></span>  
+								style="font-size: 30px; padding-left: 35px; padding-right: 35px; color: #b3b3b3;"></span>  
 							<span class="glyphicon glyphicon-credit-card"
 								style="font-size: 30px; color: #b3b3b3;"></span> <b
 								style="font-size: 15px; color: #b3b3b3;">주문/결제</b> <span
 								class="glyphicon glyphicon-chevron-right"
-								style="font-size: 30px; padding-left: 55px; padding-right: 55px; color: #b3b3b3;"></span> 
+								style="font-size: 30px; padding-left: 35px; padding-right: 35px; color: #b3b3b3;"></span> 
 							<span class="glyphicon glyphicon-gift"
 								style="font-size: 30px; color: #b3b3b3;"></span> <b
 								style="font-size: 15px; color: #b3b3b3;">주문완료</b>
@@ -243,8 +243,17 @@
 	$("#delete").on("click",function(){
 		$(".one").each(function() {
 			if($(this).prop("checked")==true){
-				//$.cookie($(this).val(),null,{path:'/'});
-				$.removeCookie($(this).val(), { path: '/' });
+				var cName = $(this).val();
+				window.alert(cName);
+				var cValue = "new";
+				window.alert(cValue);
+				var d = new Date();
+				d.setTime(d.getTime() + (0));
+				var expires = "expires=" + d.toUTCString();
+				cookies = cName + '=' + escape(cValue) + '; path=/ ';
+				cookies += ';' + expires + ';';
+				document.cookie = cookies;
+				location.reload(); 
 			}
 		});
 	});

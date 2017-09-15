@@ -1,7 +1,6 @@
 package model;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -11,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class SellerInfoDao {
-	@Autowired
+	@Autowired 
 	SqlSessionFactory factory;
 	
 	public boolean join(Map map) {

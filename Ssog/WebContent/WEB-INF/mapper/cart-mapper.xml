@@ -6,7 +6,7 @@
 	<insert id="order" parameterType="java.util.HashMap">
 		INSERT INTO
 		ORDERTBL(order_num,pro_num,user_id,order_qty,state,order_date,pay_date,price,cupon_type,dhl,etc,address)
-		values(ORDER_SEQ.NEXTVAL,#{pro_num},#{id},#{qty},#{state},sysdate,sysdate,#{price},#{coupon},#{dhl},#{etc},#{address});
+		values(ORDER_SEQ.NEXTVAL,#{pd2},#{id},#{pd1},2,sysdate,sysdate,#{price},#{onecoupon},1,#{etc},#{address},#{name});
 	</insert>
 	<select id="coupon" parameterType="java.lang.String" resultType="java.util.HashMap">
 		select bb.*,cc.RATE from
