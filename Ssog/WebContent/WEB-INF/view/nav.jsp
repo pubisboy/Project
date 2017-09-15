@@ -10,10 +10,20 @@ li{
     padding-left:5px;
 }
 
- 
-.dropdown-submenu { 
-    position:relative;
+#bigcate .smalldiv{
+	position:absolute;
+	left:-290%;
+	width:800%;
 }
+
+ 
+.dropdown-submenu{ 
+    position:relative;
+    background: pink;
+}
+
+
+
 .dropdown-submenu>.dropdown-menu {
    top:0;left:100%;
    margin-top:-6px;margin-left:-1px;
@@ -31,14 +41,17 @@ li{
   margin-right: -10px;
   margin-top: 5px;
   width: 0;
+
 }
  
 .dropdown-submenu:hover>a:after {
     border-left-color:#555;
+    
  }
 
 .dropdown-menu > li > a:hover, .dropdown-menu > .active > a:hover {
   text-decoration: underline;
+  background: gray;
 }  
   
 @media (max-width: 767px) {
@@ -79,9 +92,8 @@ li{
    .dropdown-menu .dropdown-menu .dropdown-menu {
       padding-left: 30px;
    }
-   li.dropdown.open {
-    border: 0px solid red;
-   }
+  
+  
 
 }
 
@@ -130,7 +142,7 @@ li{
                 </button>  
                 <ul class="nav ssibal navbar-nav"> 
                 <li class="dropdown">
-              <a class="navbar-brand" class="ropdown-toggle"  href="/product/list.j" id="socool"><span class="glyphicon glyphicon-menu-hamburger"></span>카테고리<b class="caret"></b></a>   
+              <a class="navbar-brand" class="dropdown-toggle"  href="/product/list.j" id="socool"><span class="glyphicon glyphicon-menu-hamburger"></span>카테고리<b class="caret"></b></a>   
               <ul class="nav dropdown-menu sohott" id="sohot" >
                            <li class="kopie"><a href="#" style="color: white;">씨발 Link 4</a></li> 
                            <li><a href="#">Dropdown Submenu Link 4.1</a></li>
@@ -148,24 +160,25 @@ li{
                     <li ><a href="#">Active Link</a></li>
                     <li><a href="#">Link</a></li>
                      
-                    <li class="dropdown">
+                    <li class="dropdown"  id="bigcate">
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a> 
                       
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu smalldiv">
                           <li class="kopie"><a href="#">Dropdown</a></li>
                             <li><a href="#">Dropdown Link 1</a></li>
                             <li ><a href="#">Dropdown Link 2</a></li>
                             <li><a href="#">Dropdown Link 3</a></li>
                           
                             <li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown Link 4</a>
-                        <ul class="dropdown-menu">
+                        	
+                        	<ul class="dropdown-menu sss">
                                     <li class="kopie"><a href="#">Dropdown Link 4</a></li>
                            <li><a href="#">Dropdown Submenu Link 4.1</a></li>
                            <li><a href="#">Dropdown Submenu Link 4.2</a></li>
                            <li><a href="#">Dropdown Submenu Link 4.3</a></li>
                            <li><a href="#">Dropdown Submenu Link 4.4</a></li>
                                                                       
-                        </ul>
+                       		 </ul>
                      </li>
                           
                             <li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown Link 5</a>

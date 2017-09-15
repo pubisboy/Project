@@ -25,7 +25,7 @@ public class AdminFilter implements Filter {
 		}else{
 			String uri = req.getRequestURI();
 			System.out.println("uri : "+uri);
-			if(uri.startsWith("/admin/login")){
+			if(uri.startsWith("/admin/login") || uri.startsWith("/admin/popupImg")){
 				chain.doFilter(req, resp);				
 			}else{
 				resp.sendRedirect("/admin/login.ja");

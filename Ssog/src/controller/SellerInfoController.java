@@ -121,7 +121,7 @@ public class SellerInfoController {
 			c.setPath("/");
 			c.setMaxAge(0);
 			response.addCookie(c);
-		return "redirect:/";
+		return "redirect:/seller/main.j";
 	}
 	
 	//회원탈퇴

@@ -5,8 +5,8 @@
  <mapper namespace="seller">
  	<!-- 기본정보 관리 -->
  	<insert id="join" parameterType="java.util.HashMap">
- 		INSERT INTO SELLER_MEMBER(id, pass, name, phone, brand, joindate, account, bank)
- 		VALUES(#{id}, #{pass}, #{name}, #{phone}, #{brand}, sysdate, #{account}, #{bank}, #{memo})
+ 		INSERT INTO SELLER_MEMBER(id, pass, name, phone, brand, joindate, account, bank, memo)
+ 		VALUES(#{id}, #{pass}, #{name}, #{phone}, #{brand}, sysdate, #{account}, #{bank}, (null))
  	</insert>
   	<select id="login" parameterType="java.util.HashMap" resultType="java.util.HashMap">
   		SELECT * FROM SELLER_MEMBER WHERE id=#{id} AND pass=#{pass}
