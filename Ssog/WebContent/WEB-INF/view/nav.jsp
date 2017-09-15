@@ -84,6 +84,26 @@ li{
    }
 
 }
+
+#sohot > li > a {
+	color: white;
+	padding-left: 20px;
+}
+
+#sohot{
+	height:462px; 
+	width: 80px;
+	background-color: rgba( 120, 120, 120, 0.4 );
+	color :  white;	
+	box-shadow: 0px 0px 0px #888888;
+	padding-top: 0px;
+	margin: 0px;	
+}
+#socool{
+	width: 160px;
+	background-color: #262626;
+	color : #ffffff;
+}
  
 @media (min-width: 768px) {
   ul.nav li:hover > ul.dropdown-menu { 
@@ -99,7 +119,7 @@ li{
   
 </style>    
 <div align="center" > 
-<div id="navbar" style="width: 65%; height: 7%">    
+<div id="navbar" style="width: 67%; height: 7%">    
   <div class="navbar navbar-static-top" role="navigation" style="height:100%; margin-bottom: 0px;"> 
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
@@ -110,13 +130,13 @@ li{
                 </button>  
                 <ul class="nav ssibal navbar-nav"> 
                 <li class="dropdown">
-              <a class="navbar-brand" class="ropdown-toggle"  href="/product/list.j">카테고리<b class="caret"></b></a>	
-              <ul class="nav dropdown-menu">
-                                    <li class="kopie"><a href="#">씨발 Link 4</a></li> 
-                           <li><a href="#">Dropdown Submenu Link 4.1</a></li>
-                           <li><a href="#">Dropdown Submenu Link 4.2</a></li>
-                           <li><a href="#">Dropdown Submenu Link 4.3</a></li>
-                           <li><a href="#">Dropdown Submenu Link 4.4</a></li>
+              <a class="navbar-brand" class="ropdown-toggle"  href="/product/list.j" id="socool"><span class="glyphicon glyphicon-menu-hamburger"></span>카테고리<b class="caret"></b></a>	
+              <ul class="nav dropdown-menu sohott" id="sohot" >
+                           <li class="kopie"><a href="#" style="color: white;">씨발 Link 4</a></li> 
+                           <li><a href="#">종간나썌끼</a></li>
+                           <li><a href="#">뻐큐머거ㅗㅗ</a></li>
+                           <li><a href="#">호날두</a></li>
+                           <li><a href="#">카레이서</a></li>
                                                                       
                         </ul>
               </li>
@@ -209,6 +229,17 @@ li{
 </div>
 </div>
 <script>
+$(window).scroll(function(event){
+	var si = $("#ssibal").attr("class"); 
+	console.log(si);
+	var a=si.split(" ");
+	if(a[2]== "affix" ){
+		$("#sohot").fadeOut();
+	}else{
+		$("#sohot").fadeIn();
+	}
+});
 
 
 </script>
+

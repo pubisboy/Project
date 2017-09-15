@@ -44,7 +44,7 @@
 			<tiles:insertAttribute name="title" />
 		</header> 
 		<nav class="navbar navbar-default" data-spy="affix"  
-			data-offset-top="165" style="margin-bottom: 0;"> 
+			data-offset-top="165" style="margin-bottom: 0;" id="ssibal"> 
 			<tiles:insertAttribute name="nav" />
 		</nav>
 		<section style="min-height: 150%;" class="ttt"> 
