@@ -4,8 +4,11 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -77,9 +80,10 @@ public class AdminManagementController {
 	}
 	
 	@RequestMapping("/notice/notice_detail.ja")
-	public String notice_detail(@RequestParam(name="num") Integer num, Map map){
+	public String notice_detail(@RequestParam(name="num") Integer num, @RequestParam Map params, Map map){
 		Map rst = ad.getValues("admin.getDetail_notice", num);
 		map.put("list", rst);
+		map.put("params", params);
 		map.put("section", "/management/notice/notice_detail");
 		return "ad_management";
 	}
@@ -517,7 +521,14 @@ public class AdminManagementController {
 		}
 	}
 	
-	
+	@RequestMapping("/counsel/counsel_user_del.ja")
+	public String counsel_user_del(@RequestParam Map params, Map map){
+		boolean b = ad.delCounsel_user(params);
+		map.put("rst", b);
+		map.put("t", "/management/counsel/counsel_user_list.ja");
+		map.put("f", "/management/counsel/counsel_user_detail.ja");
+		return "/admin/result";
+	}
 	
 	
 	
@@ -638,6 +649,15 @@ public class AdminManagementController {
 		}else{
 			return "redirect:/admin/management/counsel/counsel_seller_detail.ja?num="+params.get("num");
 		}
+	}
+	
+	@RequestMapping("/counsel/counsel_seller_del.ja")
+	public String counsel_seller_del(@RequestParam Map params, Map map){
+		boolean b = ad.delCounsel_seller(params);
+		map.put("rst", b);
+		map.put("t", "/management/counsel/counsel_seller_list.ja");
+		map.put("f", "/management/counsel/counsel_seller_detail.ja");
+		return "/admin/result";
 	}
 	
 	@RequestMapping("/popup/popup_list.ja")
@@ -788,6 +808,15 @@ public class AdminManagementController {
 		return mv;
 	}
 	
+	@RequestMapping("/popup/popup_del.ja")
+	public String popup_del(@RequestParam Map params, Map map){
+		boolean b = ad.delPopup(params);
+		map.put("rst", b);
+		map.put("t", "/management/popup/popup_list.ja");
+		map.put("f", "/management/popup/popup_write.ja");
+		return "/admin/result";
+	}
+	
 	@RequestMapping("/cupon/cupon_list.ja")
 	public ModelAndView cupon_list(@RequestParam Map params, @RequestParam(name="p", defaultValue="1") Integer p){
 		ModelAndView mv = new ModelAndView("ad_management");
@@ -854,5 +883,53 @@ public class AdminManagementController {
 		map.put("t", "/management/cupon/cupon_list.ja");
 		map.put("f", "/management/cupon/cupon_list.ja");
 		return "/admin/resultPopup";
+	}
+	
+	@RequestMapping("/cupon/cupon_write.ja")
+	public String cupon_write(Map map){
+		List list = ad.getCupon_type_list();
+		Calendar c = Calendar.getInstance();
+		int now = c.get(Calendar.YEAR);
+		map.put("list", list);
+		map.put("year", now);
+		map.put("section", "/management/cupon/cupon_write");
+		return "ad_management";
+	}
+	
+	@RequestMapping("/cupon/calc_day.ja")
+	@ResponseBody
+	public List calc_day(@RequestParam Map params){
+		System.out.println("날짜 ajax : "+params);
+		Calendar c = Calendar.getInstance();
+		int y = Integer.parseInt((String)params.get("y"));
+		int m = Integer.parseInt((String)params.get("m"));
+		int d = Integer.parseInt((String)params.get("d"));
+		c.set(y, m-1, d);
+		int day = c.getActualMaximum(Calendar.DAY_OF_MONTH);
+		List days = new ArrayList<>();
+		for(int i = 1; i <= day; i++){
+			String s = String.format("<option value='%d'>%d</option>", i, i);
+			System.out.println("s : "+s);
+			days.add(s);
+		}
+		System.out.println("days : "+days);
+		
+		return days;
+	}
+	
+	@RequestMapping("/cupon/cupon_writeExec.ja")
+	public String cupon_writeExec(@RequestParam Map params, Map map){
+		System.out.println("params : "+params);
+		String y = (String)params.get("year");
+		String m = (String)params.get("month");
+		String d = (String)params.get("day");
+		String date = String.format("%s-%s-%s", y, m, d);
+		params.put("date", date);
+		System.out.println("params2 : "+params);
+		boolean b = ad.putCupon_base(params);
+		map.put("rst", b);
+		map.put("t", "/management/cupon/cupon_list.ja");
+		map.put("f", "/management/cupon/cupon_write.ja");
+		return "/admin/result";
 	}
 }

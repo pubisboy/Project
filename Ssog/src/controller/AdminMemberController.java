@@ -98,9 +98,12 @@ public class AdminMemberController {
 			System.out.println("liInfo : "+liInfo);
 			System.out.println("liGrade : "+liGrade);
 			System.out.println("liOrder9 : "+liOrder9);
+			int buyc = amd.user_detail_buyCount(id);
+			System.out.println("buyc : "+buyc);
 			map.put("info", liInfo);
 			map.put("grade", liGrade);
 			map.put("order9", liOrder9);
+			map.put("buyCount", buyc);
 			
 			List liCounsel9 = amd.user_detail_counsel_top9(id);
 			map.put("counsel9", liCounsel9);
