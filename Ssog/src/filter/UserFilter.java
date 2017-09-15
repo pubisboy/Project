@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class SellerFilter implements Filter {
+public class UserFilter implements Filter {
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -19,18 +19,18 @@ public class SellerFilter implements Filter {
 		HttpServletRequest req = (HttpServletRequest)request;
 		HttpServletResponse resp = (HttpServletResponse)response;
 		HttpSession session = req.getSession();
-		String seller = (String)session.getAttribute("seller");
-		if(seller != null){
+		String auth = (String)session.getAttribute("auth");
+		if(auth != null){
 			chain.doFilter(req, resp);
 		}else{
 			String uri = req.getRequestURI();
 			System.out.println("uri : "+uri);
-			if(uri.startsWith("/seller/info/join") || uri.startsWith("/seller/main")){
+			if(uri.startsWith("/member/join")){
 				chain.doFilter(req, resp);
 			}else{
 				session.setAttribute("goLogin", "goLogin");
 				req.setAttribute("goLogin", "goLogin");
-				resp.sendRedirect("/seller/main?goLogin=goLogin");
+				resp.sendRedirect("/?goLogin=goLogin");
 			}
 		}
 	}

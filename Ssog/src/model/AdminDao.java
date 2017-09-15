@@ -61,4 +61,10 @@ public interface AdminDao {
 	public String checkPopup_img_uuid(Map map);
 	public List getPopup_target();
 	public List getPopup_target_detail(Map map);
+	public List getCupon_type_list();
+	public boolean putCupon_base(Map map);
+	public boolean delPopup(Map map);
+	public boolean delCounsel_user(Map map);
+	public boolean delCounsel_seller(Map map);
+	
 }

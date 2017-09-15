@@ -112,7 +112,13 @@ td{
         			</tr>
         			<tr>
         				<th style="text-align: center; width: 50%;">구매건수</th>
-        				<td>구매건수</td>
+        				<td>
+        					<fmt:formatNumber value="${buyCount }" pattern="#,###"/>건
+        				</td>
+        			</tr>
+        			<tr>
+        				<th style="text-align: center; width: 50%;">포인트</th>
+        				<td>포인트</td>
         			</tr>
         			<tr>
         				<td colspan="2" style="text-align: center"><a href="">로그</a></td>
@@ -123,7 +129,7 @@ td{
         </div>
     </div>
     <div class="row">
-        <div class="col-xs-7">
+        <div class="col-xs-6">
         	<table class="table table-bordered" style="text-align: center; height: 30%;">
         		<thead>
         			<tr>
@@ -139,13 +145,12 @@ td{
         			<tr>
         				<td>
         					<ul>
-        						<li>[주문번호] / [상품번호] / [상태] / [개수] / [주문일] / [가격] / [할인]</li>
+        						<li>[주문번호] / [상품번호] / [주문일] / [상태] / [가격]</li>
         						<c:forEach items="${order9 }" var="i">
-	        						<li>[${i.ORDER_NUM }] / [${i.PRO_NUM }] / [${i.ST }] / [${i.ORDER_QTY }]
+	        						<li>[${i.ORDER_NUM }] / [${i.PRO_NUM }]
 	        						 / <fmt:formatDate value="${i.ORDER_DATE }" pattern="yyyy년MM월dd일" var="o"/>[${o }]
-	        						 <%-- / <fmt:formatDate value="${i.PAY_DATE }" pattern="yyyy년MM월dd일" var="p"/>[${p }] --%>
+	        						 / [${i.ST }]
 	        						 / [<fmt:formatNumber value="${i.PRICE }" pattern="#,###"/>]
-	        						 / [${i.CUPON_TYPE > 0 ? '있음' : '없음' }]
 	        						 </li>
         						</c:forEach>
         					</ul>
@@ -154,7 +159,7 @@ td{
         		</tbody>
         	</table>
         </div>
-        <div class="col-xs-5">
+        <div class="col-xs-6">
         	<table class="table table-bordered" style="text-align: center; height: 30%;">
         		<thead>
         			<tr>
@@ -170,10 +175,10 @@ td{
         			<tr>
         				<td>
         					<ul>
-        						<li>[제목] / [상태]</li>
+        						<li>[번호] / [제목] / [상태]</li>
         						<c:forEach items="${counsel9 }" var="i">
-	        						<li>[${i.TITLE }] / [${i.CNT == 0 ? '미처리' : '답변완료'}]
-	        						 </li>
+	        						<li>[${i.NUM }] / [${i.TITLE }] / [${i.REPLY == 0 ? '미처리' : '답변완료'}]
+	        						</li>
         						</c:forEach>
         					</ul>
         				</td>

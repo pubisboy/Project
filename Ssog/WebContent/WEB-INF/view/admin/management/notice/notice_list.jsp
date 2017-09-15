@@ -34,7 +34,7 @@
 		<c:forEach items="${list }" var="i" varStatus="vs">
 			<tr>
 				<td>${i.NOTICE_NUM }</td>
-				<td align="left"><a href="/admin/management/notice/notice_detail.ja?num=${i.NOTICE_NUM }">${i.TITLE }</a></td>
+				<td align="left"><a href="/admin/management/notice/notice_detail.ja?num=${i.NOTICE_NUM }&p=${params.p }&value=${params.value}&state=${params.state}">${i.TITLE }</a></td>
 				<td>
 				<fmt:formatDate value="${i.NOTICE_DATE }" pattern="yyyy-MM-dd hh:mm" var="time"/>${time }</td>
 				<td>${i.TARGETS }</td>
