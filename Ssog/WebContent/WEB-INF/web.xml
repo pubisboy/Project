@@ -51,7 +51,7 @@
 	
 	<filter>
 		<filter-name>userLogin</filter-name>
-		<filter-class>filter.SellerFilter</filter-class>
+		<filter-class>filter.UserFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>userLogin</filter-name>
