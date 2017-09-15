@@ -75,7 +75,6 @@ public class AdminOrderController {
 		map.put("section", "/order/order_list");
 		params.put("value", val);
 		map.put("params", params);
-		
 		return "ad_order";
 	}
 	
