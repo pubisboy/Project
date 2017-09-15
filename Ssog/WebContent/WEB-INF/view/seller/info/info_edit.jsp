@@ -9,7 +9,7 @@
     <!-- 회원 정보 수정 폼 -->
     <h2>회원 정보 변경</h2>
 	<form action="/seller/info/info_edit_ok.j" method="post">
-	<table class="border_none" width="60%">	
+	<table class="border_none">	
 		<tr align="center">
 			<td colspan="2" bgcolor="gray"><font color="white" size="4"><b>${sessionScope.seller_id}</b>님 회원정보</font></td>
 		</tr>

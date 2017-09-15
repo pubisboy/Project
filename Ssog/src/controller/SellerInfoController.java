@@ -40,7 +40,7 @@ public class SellerInfoController {
 	@RequestMapping("/info/join.j")
 	public ModelAndView join(@RequestParam Map map) {
 		ModelAndView mav = new ModelAndView("t_el_seller");
-		mav.addObject("section", "seller/join");
+		mav.addObject("section", "seller/info/join");
 		return mav;
 	}
 	
@@ -145,7 +145,7 @@ public class SellerInfoController {
 	@RequestMapping("/info/find.j")
 	public ModelAndView find() {
 		ModelAndView mav = new ModelAndView("t_el_seller");
-		mav.addObject("section", "seller/find");
+		mav.addObject("section", "seller/info/find");
 		return mav;
 	}
 	
@@ -157,7 +157,7 @@ public class SellerInfoController {
 				String pwd = sdao.change((String)map.get("PASS"));
 		mav.addObject("id", id);
 		mav.addObject("pwd", pwd);
-		mav.addObject("section", "seller/find_ok");
+		mav.addObject("section", "seller/info/find_ok");
 		return mav;
 	}
 	
@@ -165,7 +165,7 @@ public class SellerInfoController {
 	@RequestMapping("/info/pass.j")
 	public ModelAndView pass() {
 		ModelAndView mav = new ModelAndView("t_el_seller");
-		mav.addObject("section", "seller/pass");
+		mav.addObject("section", "seller/info/pass");
 		return mav;
 	}
 	
@@ -177,7 +177,7 @@ public class SellerInfoController {
 			Map<String,Object> map = sdao.overlapChk(id, "id");
 			map.put("id", id);
 		mav.addObject("map", map);
-		mav.addObject("section", "seller/info"); 
+		mav.addObject("section", "seller/info/info"); 
 		return mav;
 	}
 	
@@ -189,7 +189,7 @@ public class SellerInfoController {
 		Map<String,Object> map = sdao.overlapChk(id, "id");
 			map.put("id", id);
 		mav.addObject("map", map);
-		mav.addObject("section", "seller/info_edit");
+		mav.addObject("section", "seller/info/info_edit");
 		return mav;
 	}
 	 
@@ -215,7 +215,7 @@ public class SellerInfoController {
 		ModelAndView mav = new ModelAndView("t_el_seller");
 		String id = (String)session.getAttribute("seller_id");
 		map.put("id", id);
-		mav.addObject("section", "seller/pass_edit");
+		mav.addObject("section", "seller/info/pass_edit");
 		return mav;
 	}
 	
