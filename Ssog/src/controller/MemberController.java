@@ -45,6 +45,13 @@ public class MemberController {
 		return mav;
 	}
 	
+	@RequestMapping("/getInfoCompany.j")
+	@ResponseBody
+	public List getInfoCompany(){
+		List list = ad.getInfo_company();
+		return list;
+	}
+	
 	@RequestMapping("/popup.j")
 	public String popup(@RequestParam Map params, Map map){
 		System.out.println("popup params : "+params);

@@ -273,13 +273,6 @@ public class AdminManagementController {
 		return "redirect:/admin/management/information/company.ja";
 	}
 	
-	@RequestMapping("/information/getInfoCompany.ja")
-	@ResponseBody
-	public List getInfoCompany(){
-		List list = ad.getInfo_company();
-		return list;
-	}
-	
 	@RequestMapping("/information/delInfoCompany.ja")
 	@ResponseBody
 	public boolean delInfoCompany(@RequestParam(name="del") String name){

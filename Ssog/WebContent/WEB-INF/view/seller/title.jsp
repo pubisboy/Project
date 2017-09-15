@@ -121,4 +121,14 @@
 			$("#myModal").modal();
 		});
 	});
+	
+	var login = function(){
+		$("#myModal").modal();
+	}
+	
+	var goLogin = "${param.goLogin}";
+	
+	if(goLogin != null && goLogin.length > 0){
+		login();
+	}
 </script>
