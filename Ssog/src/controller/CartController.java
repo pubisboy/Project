@@ -184,7 +184,7 @@ public class CartController {
 	@RequestMapping("/payment.j")
 	public ModelAndView payment(@RequestParam Map param) {
 		ModelAndView mav = new ModelAndView("tw_cart/payment");
-
+		
 		return mav;
 	}
 }
