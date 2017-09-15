@@ -25,7 +25,7 @@ public class UserFilter implements Filter {
 		}else{
 			String uri = req.getRequestURI();
 			System.out.println("uri : "+uri);
-			if(uri.startsWith("/member/join")){
+			if(uri.startsWith("/member/join") || uri.startsWith("/member/login_rst")){
 				chain.doFilter(req, resp);
 			}else{
 				session.setAttribute("goLogin", "goLogin");
