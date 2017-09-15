@@ -79,9 +79,8 @@ li{
    .dropdown-menu .dropdown-menu .dropdown-menu {
       padding-left: 30px;
    }
-   li.dropdown.open {
-    border: 0px solid red;
-   }
+  
+  
 
 }
 
@@ -130,7 +129,7 @@ li{
                 </button>  
                 <ul class="nav ssibal navbar-nav"> 
                 <li class="dropdown">
-              <a class="navbar-brand" class="ropdown-toggle"  href="/product/list.j" id="socool"><span class="glyphicon glyphicon-menu-hamburger"></span>카테고리<b class="caret"></b></a>   
+              <a class="navbar-brand" class="dropdown-toggle"  href="/product/list.j" id="socool"><span class="glyphicon glyphicon-menu-hamburger"></span>카테고리<b class="caret"></b></a>   
               <ul class="nav dropdown-menu sohott" id="sohot" >
                            <li class="kopie"><a href="#" style="color: white;">씨발 Link 4</a></li> 
                            <li><a href="#">Dropdown Submenu Link 4.1</a></li>
