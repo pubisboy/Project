@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<div id="myCarousel" class="carousel slide" data-ride="carousel" > 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
     <!-- Indicators -->
     <ol class="carousel-indicators">
       <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -36,3 +37,9 @@
       <span class="sr-only">Next</span>
     </a>
 </div>
+
+<c:forEach items="${list }" var="i" varStatus="vs">
+	<script>
+		window.open("/popup.j?num=${i.POPUP_NUM}", "", "width=300, height=500, left=${vs.index * 50}, top=${vs.index * 50}");
+	</script>
+</c:forEach>

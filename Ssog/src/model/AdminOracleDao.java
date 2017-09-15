@@ -816,4 +816,135 @@ public class AdminOracleDao implements AdminDao{
 		}
 		return b;
 	}
+	
+	public String checkPopup_img_uuid(Map map){
+		String rst = null;
+		SqlSession session = factory.openSession();
+		try{
+			rst = session.selectOne("admin.checkPopup_img_uuid", map);
+		}catch(Exception e){
+			System.out.println("error.checkPopup_img_uuid"+e.toString());
+			rst = null;
+		}finally{
+			session.close();
+		}
+		return rst;
+	}
+	
+	public List getPopup_target(){
+		List list = null;
+		SqlSession session = factory.openSession();
+		try{
+			list = session.selectList("admin.getPopup_target");
+		}catch(Exception e){
+			System.out.println("error.getPopup_target"+e.toString());
+			list = null;
+		}finally{
+			session.close();
+		}
+		return list;
+	}
+	
+	public List getPopup_target_detail(Map map){
+		List list = null;
+		SqlSession session = factory.openSession();
+		try{
+			list = session.selectList("admin.getPopup_target_detail", map);
+		}catch(Exception e){
+			System.out.println("error.getPopup_target_detail"+e.toString());
+			list = null;
+		}finally{
+			session.close();
+		}
+		return list;
+	}
+	
+	public List getCupon_type_list(){
+		List list = null;
+		SqlSession session = factory.openSession();
+		try{
+			list = session.selectList("admin.getCupon_type_list");
+		}catch(Exception e){
+			System.out.println("error.getCupon_type_list"+e.toString());
+			list = null;
+		}finally{
+			session.close();
+		}
+		return list;
+	}
+	
+	public boolean putCupon_base(Map map){
+		boolean b = false;
+		SqlSession session = factory.openSession();
+		try{
+			int r = session.insert("admin.putCupon_base", map);
+			if(r > 0){
+				b = true;
+			}
+			session.commit();
+		}catch(Exception e){
+			System.out.println("error.putCupon_base"+e.toString());
+			session.rollback();
+		}finally{
+			session.close();
+		}
+		return b;
+	}
+	
+	public boolean delPopup(Map map){
+		SqlSession session = factory.openSession();
+		boolean b = false;
+		try{
+			int r = session.delete("admin.delPopup", map);
+			if(r > 0){
+				b = true;
+			}
+			session.commit();
+		}catch(Exception e){
+			System.out.println("error.delPopup"+e.toString());
+			b = false;
+			session.rollback();
+		}finally{
+			session.close();
+		}
+		return b;
+	}
+	
+	public boolean delCounsel_user(Map map){
+		SqlSession session = factory.openSession();
+		boolean b = false;
+		try{
+			int r = session.delete("admin.delCounsel_user", map);
+			if(r > 0){
+				b = true;
+			}
+			session.commit();
+		}catch(Exception e){
+			System.out.println("error.delCounsel_user"+e.toString());
+			b = false;
+			session.rollback();
+		}finally{
+			session.close();
+		}
+		return b;
+	}
+	
+	public boolean delCounsel_seller(Map map){
+		SqlSession session = factory.openSession();
+		boolean b = false;
+		try{
+			int r = session.delete("admin.delCounsel_seller", map);
+			if(r > 0){
+				b = true;
+			}
+			session.commit();
+		}catch(Exception e){
+			System.out.println("error.delCounsel_seller"+e.toString());
+			b = false;
+			session.rollback();
+		}finally{
+			session.close();
+		}
+		return b;
+	}
 }

@@ -6,7 +6,7 @@
 	<hr width="400px" noshade style="color:gray;">
 	<br>
 	
-	<form action="/seller/find_ok.j">
+	<form action="/seller/info/find_ok.j">
 		<h5>가입했던 계좌번호를 입력하세요.</h5>
 		<table>
 			<tr>

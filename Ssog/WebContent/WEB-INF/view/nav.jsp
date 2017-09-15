@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <link href="http://fonts.googleapis.com/css?family=Bitter&subset=latin" rel="stylesheet" type="text/css">
 
 <style> 
 li{
-	list-style: none;
+   list-style: none;
 }
 .dropdown-menu > li.kopie > a {
     padding-left:5px;
@@ -86,23 +86,23 @@ li{
 }
 
 #sohot > li > a {
-	color: white;
-	padding-left: 20px;
+   color: white;
+   padding-left: 20px;
 }
 
 #sohot{
-	height:462px; 
-	width: 80px;
-	background-color: rgba( 120, 120, 120, 0.4 );
-	color :  white;	
-	box-shadow: 0px 0px 0px #888888;
-	padding-top: 0px;
-	margin: 0px;	
+   height:462px; 
+   width: 80px;
+   background-color: rgba( 120, 120, 120, 0.4 );
+   color :  white;   
+   box-shadow: 0px 0px 0px #888888;
+   padding-top: 0px;
+   margin: 0px;   
 }
 #socool{
-	width: 160px;
-	background-color: #262626;
-	color : #ffffff;
+   width: 160px;
+   background-color: #262626;
+   color : #ffffff;
 }
  
 @media (min-width: 768px) {
@@ -130,24 +130,24 @@ li{
                 </button>  
                 <ul class="nav ssibal navbar-nav"> 
                 <li class="dropdown">
-              <a class="navbar-brand" class="ropdown-toggle"  href="/product/list.j" id="socool"><span class="glyphicon glyphicon-menu-hamburger"></span>카테고리<b class="caret"></b></a>	
+              <a class="navbar-brand" class="ropdown-toggle"  href="/product/list.j" id="socool"><span class="glyphicon glyphicon-menu-hamburger"></span>카테고리<b class="caret"></b></a>   
               <ul class="nav dropdown-menu sohott" id="sohot" >
                            <li class="kopie"><a href="#" style="color: white;">씨발 Link 4</a></li> 
-                           <li><a href="#">종간나썌끼</a></li>
-                           <li><a href="#">뻐큐머거ㅗㅗ</a></li>
-                           <li><a href="#">호날두</a></li>
-                           <li><a href="#">카레이서</a></li>
+                           <li><a href="#">Dropdown Submenu Link 4.1</a></li>
+                           <li><a href="#">Dropdown Submenu Link 4.2</a></li>
+                           <li><a href="#">Dropdown Submenu Link 4.3</a></li>
+                           <li><a href="#">Dropdown Submenu Link 4.4</a></li>
                                                                       
                         </ul>
               </li>
               </ul>
             </div>
             
-            <div class="collapse navbar-collapse" id="navbar-collapse-1"	>
+            <div class="collapse navbar-collapse" id="navbar-collapse-1"   >
                 <ul class="nav navbar-nav">
                     <li ><a href="#">Active Link</a></li>
                     <li><a href="#">Link</a></li>
-                  	
+                     
                     <li class="dropdown">
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a> 
                       
@@ -230,16 +230,15 @@ li{
 </div>
 <script>
 $(window).scroll(function(event){
-	var si = $("#ssibal").attr("class"); 
-	console.log(si);
-	var a=si.split(" ");
-	if(a[2]== "affix" ){
-		$("#sohot").fadeOut();
-	}else{
-		$("#sohot").fadeIn();
-	}
+   var si = $("#ssibal").attr("class"); 
+   console.log(si);
+   var a=si.split(" ");
+   if(a[2]== "affix" ){
+      $("#sohot").fadeOut();
+   }else{
+      $("#sohot").fadeIn();
+   }
 });
 
 
 </script>
-

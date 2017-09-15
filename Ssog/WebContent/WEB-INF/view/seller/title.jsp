@@ -42,13 +42,13 @@
 				<c:choose>
 					<c:when test="${sessionScope.seller_id eq null}">
 						<li id="log"><a id="myBtn">로그인</a></li>
-						<li><a href="/seller/join.j">회원가입</a></li>
+						<li><a href="/seller/info/join.j">회원가입</a></li>
 					</c:when>
 					<c:otherwise>
 						<li><a href="/seller/logout.j">로그아웃</a></li>
 					</c:otherwise>
 				</c:choose>
-				<li><a href="/seller/info.j">나의정보</a></li>
+				<li><a href="/seller/info/info.j">나의정보</a></li>
 				<li><a href="#"></a></li>
 				<li><a href="#"></a></li>
 			</ul>
@@ -121,4 +121,14 @@
 			$("#myModal").modal();
 		});
 	});
+	
+	var login = function(){
+		$("#myModal").modal();
+	}
+	
+	var goLogin = "${param.goLogin}";
+	
+	if(goLogin != null && goLogin.length > 0){
+		login();
+	}
 </script>

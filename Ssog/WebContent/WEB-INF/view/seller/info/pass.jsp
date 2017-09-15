@@ -8,7 +8,7 @@
   <div align="center">
     <!-- 비밀번호 수정 폼 -->
     <h2>비밀번호 변경</h2>
-	<form action="/seller/info.j" method="post">
+	<form action="/seller/info/info.j" method="post">
 	<table class="border_none" width="60%">	
 		<tr align="center">
 			<td colspan="2" bgcolor="gray"><font color="white" size="4"><b>비밀번호를 입력해주세요.</b></font></td>

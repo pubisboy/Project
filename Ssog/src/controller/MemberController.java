@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import model.AdminDao;
 import model.MemberDao;
 import model.ProductDao;
 
@@ -30,14 +32,37 @@ public class MemberController {
 	ProductDao pdao;
 	@Autowired
 	JavaMailSender sender;
+	@Autowired
+	AdminDao ad;
 
 	@RequestMapping({ "/", "/index.j" })
 	public ModelAndView toIndex() {
 		ModelAndView mav = new ModelAndView("t_base");
+		List list = ad.getPopup_target();
+		mav.addObject("list", list);
+		System.out.println("list : "+list);
 		mav.addObject("section", "/main");
 		return mav;
 	}
 	
+	@RequestMapping("/getInfoCompany.j")
+	@ResponseBody
+	public List getInfoCompany(){
+		List list = ad.getInfo_company();
+		return list;
+	}
+	
+	@RequestMapping("/popup.j")
+	public String popup(@RequestParam Map params, Map map){
+		System.out.println("popup params : "+params);
+		List list = ad.getPopup_target_detail(params);
+		System.out.println("list : "+list);
+		Map tmp = (Map)list.get(0);
+		map.put("title", tmp.get("TITLE"));
+		map.put("section", "/popup");
+		map.put("params", list);
+		return "main_popup";
+	}
 	
 	@RequestMapping("/member/join.j")
 	public ModelAndView join() {

@@ -50,8 +50,8 @@
 		<section style="min-height: 150%;" class="ttt"> 
 			<tiles:insertAttribute name="section" />
 		</section>
-		<footer>
-			<tiles:insertAttribute name="footer" />
+		<footer style="padding-top: 50px;">
+			<tiles:insertAttribute name="footer"/>
 		</footer>
 	</div>
 </body>

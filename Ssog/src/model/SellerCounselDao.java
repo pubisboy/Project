@@ -13,10 +13,40 @@ public class SellerCounselDao {
 	@Autowired
 	SqlSessionFactory factory;
 	
-	public List<Map<String,Object>> productList(Map map){
+	public boolean counselInsert(Map map){
 		SqlSession session = factory.openSession();
 		try {
-			List<Map<String,Object>> list =  session.selectList("seller.pro_list", map);
+			session.insert("seller.counsel_insert", map);
+			session.commit();
+			return true;
+		} catch(Exception e){
+			e.printStackTrace();
+			session.rollback();
+			return false;
+		} finally{
+			session.close();
+		}
+	}
+	
+	public List<Map<String,Object>> category(){
+		SqlSession session = factory.openSession();
+		try {
+			List<Map<String,Object>> list = session.selectList("seller.counsel_cate");
+			session.commit();
+			return list;
+		} catch(Exception e){
+			e.printStackTrace();
+			session.rollback();
+			return null;
+		} finally{
+			session.close();
+		}
+	}
+	
+	public List<Map<String,Object>> counselList(Map map){
+		SqlSession session = factory.openSession();
+		try {
+			List<Map<String,Object>> list =  session.selectList("seller.counsel_list", map);
 			session.commit();
 			return list;
 		} catch(Exception e){
@@ -32,7 +62,7 @@ public class SellerCounselDao {
 	public Integer totalList(Map map){
 		SqlSession session = factory.openSession();
 		try{
-			int r = session.selectOne("seller.countAll", map);
+			int r = session.selectOne("seller.counsel_total", map);
 			return r;
 		} catch(Exception e){
 			e.printStackTrace();

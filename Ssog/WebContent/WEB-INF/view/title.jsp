@@ -33,7 +33,7 @@
 			<ul class="nav navbar-nav navbar-right">
 				<c:choose>
 					<c:when test="${sessionScope.auth eq null}">
-						<li id="log"><a class="myBtn"
+						<li id="log"><a class="myBtn" id="login"
 							style="padding: 0px; padding-right: 18px; padding-top: 10px; font-size: 13px;">로그인</a></li>
 						<li><a href="/member/join.j"
 							style="padding: 0px; padding-right: 18px; padding-top: 10px; font-size: 13px;">회원가입</a></li>
@@ -135,5 +135,15 @@
 			$("#myModal").modal();
 		});
 	});
+	
+	var login = function(){
+		$("#myModal").modal();
+	}
+	
+	var goLogin = "${param.goLogin}";
+	
+	if(goLogin != null && goLogin.length > 0){
+		login();
+	}
 	
 </script>

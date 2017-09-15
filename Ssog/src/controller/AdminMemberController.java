@@ -98,12 +98,27 @@ public class AdminMemberController {
 			System.out.println("liInfo : "+liInfo);
 			System.out.println("liGrade : "+liGrade);
 			System.out.println("liOrder9 : "+liOrder9);
+			int buyc = amd.user_detail_buyCount(id);
+			System.out.println("buyc : "+buyc);
 			map.put("info", liInfo);
 			map.put("grade", liGrade);
 			map.put("order9", liOrder9);
+			map.put("buyCount", buyc);
 			
-			List liCounsel9 = amd.user_detail_counsel_top9(id);
-			map.put("counsel9", liCounsel9);
+			List liCounsel99 = amd.user_detail_counsel_top9(id);
+			List liCounsel9 = new ArrayList<>();
+			for(int i = 0; i < liCounsel99.size(); i++){
+				Map m = (Map)liCounsel99.get(i);
+				String s = (String)m.get("TITLE");
+				if(s.length() > 20){
+					s = s.substring(0, 18);
+					StringBuilder sb = new StringBuilder(s);
+					sb.append("...");
+					s = sb.toString();
+				}
+				liCounsel9.add(s);
+			}
+			map.put("counsel9", liCounsel99);
 			map.put("section", "member_user/user_detail");
 		}
 		return "ad_member";

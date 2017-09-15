@@ -139,29 +139,42 @@ table, th, td {
 <script>
 var tmp = 0;
 var sum = 0;
+var finaltotal = 0;
 	$(".couponselect").on("click",function() {
 				var p = $(this).parent().prev().html();
 				$("#cp").html(p + '%');
 				var discount = ("${price}") * ((p * 0.01));
 				var temp = discount.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
 				var rst = temp.substring(0, temp.indexOf('.'));
-				$("#dis").html(rst + '원');
+				var num_check=/^[0-9]*$/; 
+				if(num_check.test(discount) == true) {
+					$("#dis").html(temp + '원'); 
+				}else{
+					$("#dis").html(rst + '원'); 
+				}  
+				
 				var rst2 = '${price}'.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-				var finaltotal = rst2.replace(/,/gi, '') - rst.replace(/,/gi, '');
+				if(num_check.test(discount) == true) {
+					finaltotal = rst2.replace(/,/gi, '') - temp.replace(/,/gi, ''); 
+				}else{
+					finaltotal = rst2.replace(/,/gi, '') - rst.replace(/,/gi, ''); 
+				}  
 				var finaltotal1 = finaltotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-				var finaltotal2 = (rst2.replace(/,/gi, '') - rst.replace(/,/gi, ''))*0.01;
+				
+				var finaltotal2 = (rst2.replace(/,/gi, '') - temp.replace(/,/gi, ''))*0.01; 
+				
 				var finaltotal3 = finaltotal2.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 				var temp1 = finaltotal3.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
 				var rst1 = temp1.substring(0, temp1.indexOf('.'));
-				tmp = rst1; 
+				tmp = rst1;  
 				sum = finaltotal;
 				$("#finalcash").html(finaltotal1 + '원');
 			}); 
 	$("#okay").on("click", function() {
-		window.alert("눌림"); 
 		   opener.document.getElementById("finishcash").innerHTML = sum;  
 		   opener.document.getElementById("point").innerHTML = tmp;
-		   opener.document.getElementById("onecoupon").value = $("#cp").html();  
+		   opener.document.getElementById("onecoupon").value = $("#cp").html();
+		   opener.document.getElementById("discountrate1").innerHTML = $("#dis").html();  
 		   window.close();
 		      });
 </script>
