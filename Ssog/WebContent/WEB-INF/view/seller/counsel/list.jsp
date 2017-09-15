@@ -29,7 +29,7 @@
 	small { color:gray; }
 	.table a {color:black;}
 </style>
-<div class="container" style="width:100%;" >
+<div class="container" >
 	<div style="background:pink; text-align:right">
 		<p style="margin-top: 20px; text-align:left">
 				<span class="glyphicon glyphicon-info-sign" style="padding-right: 10px;"></span>
