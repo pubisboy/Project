@@ -102,7 +102,7 @@
 					<tbody>
 						<tr style="border-top: 2px solid black; font-size: 12px;">
 							<td class="active" style="width: 16%;">수령인</td>
-							<td><input type="text" id="name" name="name"/><input type="checkbox"
+							<td><input type="text" id="name" name="receiver"/><input type="checkbox"
 								id="equal" />주문자와 동일</td>
 						</tr>
 						<tr style="font-size: 12px;">
@@ -134,9 +134,9 @@
 							</td>
 						</tr>
 						<tr style="font-size: 12px;">
-							<td class="active" style="width: 16%;" id="etc" name="etc">배송시<br />요구사항
+							<td class="active" style="width: 16%;">배송시<br />요구사항
 							</td>
-							<td><textarea style="width: 484px; height: 66px;"></textarea></td>
+							<td><textarea style="width: 484px; height: 66px;" id="etc" name="etc"></textarea></td> 
 						</tr>
 					</tbody>
 				</table>

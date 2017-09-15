@@ -180,11 +180,32 @@ public class CartController {
 			return false;
 		}
 	}
-
+	
 	@RequestMapping("/payment.j")
-	public ModelAndView payment(@RequestParam Map param) {
+	public ModelAndView payment(@RequestParam Map param,HttpSession session) {
+		Map init = init(session);
 		ModelAndView mav = new ModelAndView("tw_cart/payment");
-		
+		String ad1 = (String)param.get("postcode");
+		String ad2 = (String)param.get("address1");
+		String ad3 = (String)param.get("address2");
+		String address = ad1+"!"+ad2+"!"+ad3;
+		param.put("address", address);
+		String ph1 = (String)param.get("phone1");
+		String ph2 = (String)param.get("phone2");
+		String ph3 = (String)param.get("phone3");
+		String phone = ph1+"!"+ph2+"!"+ph3;
+		param.put("phone", phone); 
+		String coupon = (String)param.get("onecoupon");
+		int index = coupon.indexOf("%");
+		String cupon = coupon.substring(0, index);
+		param.put("cupon", cupon);
+		param.put("id", (String) init.get("id"));
+		System.out.println(param);
+		boolean bl = cdao.order(param);
+		System.out.println(bl); 
+		if(bl==true) {
+			System.out.println("결제완료");
+		}
 		return mav;
 	}
 }
