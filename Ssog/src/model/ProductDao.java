@@ -109,7 +109,7 @@ public class ProductDao {
 		List<Map> list=new ArrayList<>();
 		SqlSession session=factory.openSession();
 		try {
-			list=session.selectList("small_cate",num);
+			list=session.selectList("product.small_cate",num);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
@@ -122,7 +122,7 @@ public class ProductDao {
 		SqlSession session = factory.openSession();
 		try {
 			map = session.selectOne("product.cart",num);
-		} catch (Exception e) {
+		} catch (Exception e) { 
 			e.printStackTrace();
 		}finally {
 			session.close();
@@ -135,6 +135,23 @@ public class ProductDao {
 		SqlSession session = factory.openSession();
 		try {
 			int r = session.insert("productReg", map);
+			
+			if(r==1) {
+				br=true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		return br;
+	}
+	
+	public boolean productUpdate(Map map) {
+		boolean br=false;
+		SqlSession session = factory.openSession();
+		try {
+			int r = session.insert("productUpdate", map);
 			
 			if(r==1) {
 				br=true;

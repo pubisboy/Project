@@ -4,8 +4,11 @@
 	<div style="width: 67%;">
 		<div class="col-sm-12" style="border: 1px solid gray;">
 			<div class="row">
-				<div class="col-sm-8">
-					<div>이미지들어가는곳</div>
+				<div class="col-sm-8" style="padding-left: 20px;"> 
+					<div  style="border: 1px solid black; height: 425px; width: 648px;">
+					<img src="/img/pro_img/${map.IMG_UUID }" style="height: 100% ; width: 100%;">
+					
+					</div> 
 					상품만족도
 				</div>
 				<div class="col-sm-4">
@@ -21,21 +24,21 @@
 								<tr>
 									<th>행사할인가</th>
 									<th style="padding-left: 60px;">-</th>
-								</tr>
+								</tr> 
 								<tr>
 									<th>적립금</th>
 									<th style="padding-left: 60px;">-</th>
 								</tr>
 								<tr>
 									<th>생산지</th>
-									<th style="padding-left: 60px;">${map.NAME }</th>
+									<th style="padding-left: 60px;">${map.ORIGIN_NAME }</th>
 								</tr>
 								<tr>
 									<th>판매자</th>
-									<th style="padding-left: 60px;">-</th>
+									<th style="padding-left: 60px;">${map.SELLER_ID }</th>
 								</tr>
-								<tr>
-									<th>수령</th>
+								<tr> 
+									<th>수량</th> 
 									<th style="padding-left: 60px;">
 										<div>
 											<button id="minus">-</button>

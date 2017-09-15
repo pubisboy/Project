@@ -1,49 +1,61 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-<%-- <div class="navbar navbar-default">
-	<div class="navbar-header">
-		<c:if test="${sessionScope.seller_id ne null }">
-			<a href="#" class="navbar-brand"><b>${sessionScope.seller_id}님</b></a>
-		</c:if>
-		<button type="button" class="navbar-toggle" data-toggle="collapse"
-			data-target="#myNav">+</button>
-		<!-- 화면 작아졌을때 + 버튼 뜬다. navbar-inverse로 하면 버튼이 안뜸 -->
-	</div>
-	<div class="collapse navbar-collapse" id="myNav">
-		<ul class="nav navbar-nav">
-			<li><a href="#">게시판</a></li>
-			<li><a href="#">자료실</a></li>
-		</ul>
-		<ul class="nav navbar-nav navbar-right">
-			<c:choose>
-				<c:when test="${sessionScope.seller_id eq null}">
-					<li>냐무냐무</li>
-				</c:when>
-				<c:otherwise>
-					<li class="dropdown"><a class="dropdown-toggle"
-						data-toggle="dropdown" href="#">MyPage<span class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<li><a href="#">나의 정보</a></li>
-							<li><a href="#">프로필 사진변경</a></li>
-							<li><a href="#">쪽지함</a></li>
-							<li><a href="#">로그아웃</a></li>
-						</ul>
-					</li>
-				</c:otherwise>
-			</c:choose>
-		</ul>
-	</div>
+<style>
+	.row ul {
+	    list-style-type: none;
+	    margin: 0;
+	    padding: 0;
+	    width: 200px;
+	    background-color: #f1f1f1;
+	}
+	
+	.row li a {
+	    display: block;
+	    color: #000;
+	    padding: 8px 16px;
+	    font-size: 12px;
+	    color: gray;
+	    text-decoration: none;
+	    
+	}
+	
+	.row li a.active {
+		color: lightgray;
+		font-weight:bold;
+		font-size: 12px;
+		background: rgb(46,61,68); /* Old browsers */
+background: -moz-linear-gradient(top, rgba(46,61,68,1) 0%, rgba(43,58,65,1) 50%, rgba(42,53,60,1) 51%, rgba(43,57,71,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, rgba(46,61,68,1) 0%,rgba(43,58,65,1) 50%,rgba(42,53,60,1) 51%,rgba(43,57,71,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, rgba(46,61,68,1) 0%,rgba(43,58,65,1) 50%,rgba(42,53,60,1) 51%,rgba(43,57,71,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2e3d44', endColorstr='#2b3947',GradientType=0 ); /* IE6-9 */
+		
+	}
+	
+	.row li a:hover:not(.active) {
+	    text-decoration:underline;
+	}
+</style>
+<div>
+	<ul class="nav nav-stacked">
+		<li><a href="/seller/main.j">홈</a></li>
+		<li><a class="active">기본정보 관리</a></li>
+		<li><a href="/seller/info/info.j">회원 정보</a></li>
+		<li><a href="/seller/info/info_edit.j">회원 정보 변경</a></li>
+		<li><a href="/seller/info/pass_edit.j">비밀번호 변경</a></li>
+		<li><a href="/seller/delete.j">회원 탈퇴</a></li>
+		
+		<li><a class="active">상품관리</a></li>
+		<li><a href="/seller/product/productReg.j">상품등록</a></li>
+		<li><a href="/seller/product/list.j">상품 목록</a></li>
+		
+		<li><a class="active">주문관리</a></li>
+		<li><a href="#">주문/클레임 현황</a></li>
+		<li><a href="#">매출 현황 보기</a></li>
+		
+		<li><a class="active">상담관리</a></li>
+		<li><a href="#">상품 Q&A</a></li>
+		<li><a href="#">리뷰 보기</a></li>
+		<li><a href="/seller/counsel/list.j">관리자에게 1:1 문의</a></li>
+	</ul>
 </div>
-
-<c:if test="${sessionScope.seller_id ne null}">
-	<script>
-		var ws = new WebSocket("ws://192.168.10.90/ws/alert.ws");
-		ws.onmessage = function(e){
-			window.alert(e.data);
-			var audio = new Audio('/alert.mp3');
-			audio.play();
-		};
-	</script>
-</c:if> --%>

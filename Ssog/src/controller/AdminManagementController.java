@@ -2,15 +2,20 @@ package controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import model.AdminDao;
+import paging.Paging;
 
 @Controller
 @RequestMapping("/admin/management")
@@ -31,20 +37,53 @@ public class AdminManagementController {
 	
 	@Autowired
 	ServletContext application;
+	
+	@Autowired
+	Paging pg;
 
 	@RequestMapping("/notice/notice_list.ja")
-	public String notice_list(Map map){
-		// List<Map> rst = ad.getValues("getValues_All", "notice");
-		List<Map> rst = ad.getValues("admin.getList_notice");
+	public String notice_list(@RequestParam Map params, @RequestParam(name="p", defaultValue="1") Integer p, Map map){
+		
+		String val = null;
+		if(params.get("value") != null){
+			val = (String)params.get("value");
+			if(val.length() > 0){
+				String tmp = "%"+val+"%";
+				params.put("value", tmp);
+			}else{
+				params.put("value", "%");
+			}
+		}
+		
+		pg.setDefaultSetting(10, 10);
+		int rows = ad.getCount_notice(params);
+		pg.setNumberOfRecords(rows);
+		Map paging = pg.calcPaging(p, rows);
+		Map bt = pg.calcBetween(p);
+		params.put("start", bt.get("start"));
+		params.put("end", bt.get("end"));
+		
+		List<Map> rst = ad.getValues("admin.getList_notice", params);
+		System.out.println("params의 값은 "+params);
+		List state = ad.getTarget_notice();
+		
+		DecimalFormat df = new DecimalFormat("#,###");
+		String total = df.format(rows);
+		map.put("total", total);
 		map.put("list", rst);
+		map.put("target", state);
+		map.put("paging", paging);
+		params.put("value", val);
+		map.put("params", params);
 		map.put("section", "/management/notice/notice_list");
 		return "ad_management";
 	}
 	
 	@RequestMapping("/notice/notice_detail.ja")
-	public String notice_detail(@RequestParam(name="num") Integer num, Map map){
+	public String notice_detail(@RequestParam(name="num") Integer num, @RequestParam Map params, Map map){
 		Map rst = ad.getValues("admin.getDetail_notice", num);
 		map.put("list", rst);
+		map.put("params", params);
 		map.put("section", "/management/notice/notice_detail");
 		return "ad_management";
 	}
@@ -234,13 +273,6 @@ public class AdminManagementController {
 		return "redirect:/admin/management/information/company.ja";
 	}
 	
-	@RequestMapping("/information/getInfoCompany.ja")
-	@ResponseBody
-	public List getInfoCompany(){
-		List list = ad.getInfo_company();
-		return list;
-	}
-	
 	@RequestMapping("/information/delInfoCompany.ja")
 	@ResponseBody
 	public boolean delInfoCompany(@RequestParam(name="del") String name){
@@ -256,11 +288,43 @@ public class AdminManagementController {
 	}
 	
 	@RequestMapping("/information/terms.ja")
-	public String terms(Map map){
-		List list = ad.getTerms();
+	public String terms(@RequestParam Map params, @RequestParam(name="p", defaultValue="1") Integer p, Map map){
+		pg.setDefaultSetting(10, 5);
+		
+		System.out.println("params : "+params);
+		
+		String val = null;
+		if(params.get("value") != null){
+			val = (String)params.get("value");
+			if(val.length() > 0){
+				String tmp = "%"+val+"%";
+				params.put("value", tmp);
+			}else{
+				params.put("value", "%");
+			}
+		}
+		
+		System.out.println("params의 value : "+params.get("value"));
+		int rows = ad.getCount_terms(params);
+		pg.setNumberOfRecords(rows);
+		Map paging = pg.calcPaging(p, rows);
+		// System.out.println("paging : "+paging);
+		Map se = pg.calcBetween(p);
+		params.put("start", se.get("start"));
+		params.put("end", se.get("end"));
+		
+		List list = ad.getTerms(params);
+		
+		DecimalFormat df = new DecimalFormat("#,###");
+		String total = df.format(rows);
+		map.put("total", total);
+		
 		map.put("list", list);
-		// System.out.println("list는 : "+list);
+		map.put("paging", paging);
 		map.put("section", "/management/information/terms");
+		params.put("value", val);
+		map.put("params", params);
+		
 		return "ad_management";
 	}
 	
@@ -333,4 +397,532 @@ public class AdminManagementController {
 		return "/admin/result";
 	}
 	
+	@RequestMapping("/counsel/counsel_user_list.ja")
+	public String counsel_user_list(@RequestParam Map params, @RequestParam(name="p", defaultValue="1") Integer p, Map map, HttpSession session){
+		if(session.getAttribute("pre") != null){
+			System.out.println("pre가 있다.");
+			Map pa = (Map)session.getAttribute("pre");
+			System.out.println("pre : "+pa);
+			if(p == pa.get("p")){
+				System.out.println("p : "+p+" / "+"pa.get : "+pa.get("p"));
+				params = pa; 
+			}
+			session.removeAttribute("pre");
+		}
+		/*if(params.get("state") != null){
+			String s = (String)params.get("state");
+			if(s.equals("")){
+				params.remove("type");
+				params.remove("value");
+			}
+		}*/
+		
+		String val = null;
+		if(params.get("value") != null){
+			val = (String)params.get("value");
+			if(val.length() > 0){
+				String tmp = "%"+val+"%";
+				params.put("value", tmp);
+			}else{
+				params.put("value", "%");
+			}
+		}
+		if(params.get("reply") != null){
+			if(params.get("reply") instanceof Integer){
+				int i = Integer.parseInt((String)params.get("reply"));
+				params.put("reply", i);
+			}
+		}
+		
+		pg.setDefaultSetting(10, 10);
+		int rows = ad.getCount_counsel_user(params);
+		pg.setNumberOfRecords(rows);
+		Map paging = pg.calcPaging(p, rows);
+		Map bt = pg.calcBetween(p);
+		params.put("start", bt.get("start"));
+		params.put("end", bt.get("end"));
+		
+		// System.out.println("params의 값은 "+params);
+		List<Map> rst = ad.getList_counsel_user(params);
+		// System.out.println("검색 결과는 : "+rst);
+		List state = ad.getCounsel_category();
+		
+		String[] typesEn = "user_id,title".split(",");
+		String[] typesKo = "아이디,제목".split(",");
+		map.put("typesEn", typesEn);
+		map.put("typesKo", typesKo);
+		
+		DecimalFormat df = new DecimalFormat("#,###");
+		String total = df.format(rows);
+		map.put("total", total);
+		map.put("list", rst);
+		map.put("state", state);
+		map.put("paging", paging);
+		params.put("value", val);
+		map.put("params", params);
+		map.put("section", "/management/counsel/counsel_user_list");
+		
+		return "ad_management";
+	}
+	
+	@RequestMapping("/counsel/counsel_user_detail.ja")
+	public String counsel_user_detail(@RequestParam Map params, @RequestParam(name="num") Integer num, Map map, HttpSession session){
+		List list = ad.getCounsel_user_detail(num);
+		Map li = (Map)list.get(0);
+		String uuid = (String)li.get("IMAGE_UUID");
+		// System.out.println("uuid : "+uuid);
+		// System.out.println("params : "+params);
+		session.setAttribute("pre", params);
+		map.put("params", params);
+		map.put("list", list);
+		// System.out.println("list : "+list);
+		map.put("section", "/management/counsel/counsel_user_detail");
+		return "ad_management";
+	}
+	
+	@RequestMapping("/counsel/counsel_user_modify.ja")
+	public String counsel_user_modify(@RequestParam(name="num") Integer num, Map map, HttpSession session){
+		List list = ad.getCounsel_user_detail(num);
+		Map li = (Map)list.get(0);
+		BigDecimal bd = (BigDecimal)li.get("REPLY");
+		int r = bd.intValue();
+		String content = null;
+		if(r == 0){
+			content = (String)li.get("CONTENT");
+			content += "<hr style='border: dotted 2px red;'><br/>";
+		}else{
+			content = (String)li.get("CONTENT");
+		}
+		map.put("params", session.getAttribute("pre"));
+		map.put("list", list);
+		map.put("content", content);
+		map.put("section", "/management/counsel/counsel_user_modify");
+		return "ad_management";
+	}
+	
+	@RequestMapping("/counsel/counsel_user_modifyExec.ja")
+	public String counsel_user_modifyExec(@RequestParam Map params, Map map, HttpSession session){
+		// System.out.println("params : "+params);
+		boolean b = ad.updateCounsel_user_detail(params);
+		// System.out.println("b : "+b);
+		Map pa = (Map)session.getAttribute("pre");
+		map.put("params", pa);
+		if(b){
+			return "redirect:/admin/management/counsel/counsel_user_list.ja?p="+pa.get("p");
+		}else{
+			return "redirect:/admin/management/counsel/counsel_user_detail.ja?num="+params.get("num");
+		}
+	}
+	
+	@RequestMapping("/counsel/counsel_user_del.ja")
+	public String counsel_user_del(@RequestParam Map params, Map map){
+		boolean b = ad.delCounsel_user(params);
+		map.put("rst", b);
+		map.put("t", "/management/counsel/counsel_user_list.ja");
+		map.put("f", "/management/counsel/counsel_user_detail.ja");
+		return "/admin/result";
+	}
+	
+	
+	
+	@RequestMapping("/counsel/counsel_seller_list.ja")
+	public String counsel_seller_list(@RequestParam Map params, @RequestParam(name="p", defaultValue="1") Integer p, Map map, HttpSession session){
+		if(session.getAttribute("pre") != null){
+			System.out.println("pre가 있다.");
+			Map pa = (Map)session.getAttribute("pre");
+			System.out.println("pre : "+pa);
+			if(p == pa.get("p")){
+				System.out.println("p : "+p+" / "+"pa.get : "+pa.get("p"));
+				params = pa; 
+			}
+			session.removeAttribute("pre");
+		}
+		/*if(params.get("state") != null){
+			String s = (String)params.get("state");
+			if(s.equals("")){
+				params.remove("type");
+				params.remove("value");
+			}
+		}*/
+		
+		String val = null;
+		if(params.get("value") != null){
+			val = (String)params.get("value");
+			if(val.length() > 0){
+				String tmp = "%"+val+"%";
+				params.put("value", tmp);
+			}else{
+				params.put("value", "%");
+			}
+		}
+		if(params.get("reply") != null){
+			if(params.get("reply") instanceof Integer){
+				int i = Integer.parseInt((String)params.get("reply"));
+				params.put("reply", i);
+			}
+		}
+		
+		pg.setDefaultSetting(10, 10);
+		int rows = ad.getCount_counsel_seller(params);
+		pg.setNumberOfRecords(rows);
+		Map paging = pg.calcPaging(p, rows);
+		Map bt = pg.calcBetween(p);
+		params.put("start", bt.get("start"));
+		params.put("end", bt.get("end"));
+		
+		System.out.println("params의 값은 "+params);
+		List<Map> rst = ad.getList_counsel_seller(params);
+		System.out.println("검색 결과는 : "+rst);
+		List state = ad.getCounsel_seller_category();
+		
+		String[] typesEn = "user_id,title".split(",");
+		String[] typesKo = "아이디,제목".split(",");
+		map.put("typesEn", typesEn);
+		map.put("typesKo", typesKo);
+		
+		DecimalFormat df = new DecimalFormat("#,###");
+		String total = df.format(rows);
+		map.put("total", total);
+		map.put("list", rst);
+		map.put("state", state);
+		map.put("paging", paging);
+		params.put("value", val);
+		map.put("params", params);
+		map.put("section", "/management/counsel/counsel_seller_list");
+		
+		return "ad_management";
+	}
+	
+	@RequestMapping("/counsel/counsel_seller_detail.ja")
+	public String counsel_seller_detail(@RequestParam Map params, @RequestParam(name="num") Integer num, Map map, HttpSession session){
+		List list = ad.getCounsel_seller_detail(num);
+		Map li = (Map)list.get(0);
+		String uuid = (String)li.get("IMAGE_UUID");
+		System.out.println("uuid : "+uuid);
+		System.out.println("params : "+params);
+		session.setAttribute("pre", params);
+		
+		map.put("list", list);
+		map.put("params", params);
+		
+		System.out.println("list : "+list);
+		map.put("section", "/management/counsel/counsel_seller_detail");
+		return "ad_management";
+	}
+	
+	@RequestMapping("/counsel/counsel_seller_modify.ja")
+	public String counsel_seller_modify(@RequestParam(name="num") Integer num, Map map, HttpSession session){
+		List list = ad.getCounsel_seller_detail(num);
+		Map li = (Map)list.get(0);
+		BigDecimal bd = (BigDecimal)li.get("REPLY");
+		int r = bd.intValue();
+		String content = null;
+		if(r == 0){
+			content = (String)li.get("CONTENT");
+			content += "<hr style='border: dotted 2px red;'><br/>";
+		}else{
+			content = (String)li.get("CONTENT");
+		}
+		map.put("params", session.getAttribute("pre"));
+		map.put("list", list);
+		map.put("content", content);
+		map.put("section", "/management/counsel/counsel_seller_modify");
+		return "ad_management";
+	}
+	
+	@RequestMapping("/counsel/counsel_seller_modifyExec.ja")
+	public String counsel_seller_modifyExec(@RequestParam Map params, Map map, HttpSession session){
+		System.out.println("params : "+params);
+		boolean b = ad.updateCounsel_seller_detail(params);
+		System.out.println("b : "+b);
+		Map pa = (Map)session.getAttribute("pre");
+		map.put("params", pa);
+		if(b){
+			return "redirect:/admin/management/counsel/counsel_seller_list.ja?p="+pa.get("p");
+		}else{
+			return "redirect:/admin/management/counsel/counsel_seller_detail.ja?num="+params.get("num");
+		}
+	}
+	
+	@RequestMapping("/counsel/counsel_seller_del.ja")
+	public String counsel_seller_del(@RequestParam Map params, Map map){
+		boolean b = ad.delCounsel_seller(params);
+		map.put("rst", b);
+		map.put("t", "/management/counsel/counsel_seller_list.ja");
+		map.put("f", "/management/counsel/counsel_seller_detail.ja");
+		return "/admin/result";
+	}
+	
+	@RequestMapping("/popup/popup_list.ja")
+	public String popup_list(@RequestParam Map params, @RequestParam(name="p", defaultValue="1") Integer p, Map map){
+		String val = null;
+		if(params.get("value") != null){
+			val = (String)params.get("value");
+			if(val.length() > 0){
+				String tmp = "%"+val+"%";
+				params.put("value", tmp);
+			}else{
+				params.put("value", "%");
+			}
+		}
+		
+		pg.setDefaultSetting(10, 10);
+		int rows = ad.getPopup_list_Count(params);
+		pg.setNumberOfRecords(rows);
+		Map paging = pg.calcPaging(p, rows);
+		Map bt = pg.calcBetween(p);
+		params.put("start", bt.get("start"));
+		params.put("end", bt.get("end"));
+		
+		List<Map> rst = ad.getPopup_list(params);
+		
+		DecimalFormat df = new DecimalFormat("#,###");
+		String total = df.format(rows);
+		map.put("total", total);
+		map.put("list", rst);
+		map.put("paging", paging);
+		params.put("value", val);
+		
+		map.put("params", params);
+		map.put("section", "/management/popup/popup_list");
+		return "ad_management";
+	}
+	
+	@RequestMapping("/popup/popup_switch.ja")
+	public ModelAndView popup_switch(@RequestParam Map params){
+		
+		if(!(params.get("p") instanceof Integer)){
+			params.put("p", 1);
+		}
+		ad.updatePopup_onoff(params);
+		ModelAndView mv= new ModelAndView("redirect:/admin/management/popup/popup_list.ja");
+		mv.addAllObjects(params);
+		return mv;
+	}
+	
+	@RequestMapping("/popup/popup_write.ja")
+	public String popup_write(@RequestParam Map params, Map map){
+		
+		List clist = ad.getCupon_list();
+		map.put("cupon", clist);
+		map.put("section", "/management/popup/popup_write");
+		return "ad_management";
+	}
+	
+	@RequestMapping("/popup/popup_writeExec.ja")
+	public ModelAndView popup_writeExec(@RequestParam Map params, @RequestParam(name="f") MultipartFile f) throws IllegalStateException, IOException{
+		System.out.println("params : "+params);
+		
+		String filename = f.getOriginalFilename();
+		String uuid = UUID.randomUUID().toString();
+		String dirs = application.getRealPath("/admin/popupImg");
+		
+		File dir = new File(dirs);
+		if(!dir.exists()){
+			dir.mkdirs();
+		}
+		
+		File file = new File(dirs, uuid);
+		if (!file.exists()) {
+			f.transferTo(file);
+			params.put("uuid", uuid);
+		}
+		
+		boolean b = ad.putPopup(params);
+		System.out.println("성공 : "+b);
+		ModelAndView mv = new ModelAndView();
+		if(b){
+			mv.setViewName("redirect:/admin/management/popup/popup_list.ja");
+		}else{
+			mv.setViewName("redirect:/admin/management/popup/popup_write.ja");
+		}
+		return mv;
+	}
+	
+	@RequestMapping("/popup/popup_detail.ja")
+	public ModelAndView popup_detail(@RequestParam Map params){
+		System.out.println("params : "+params);
+		ModelAndView mv = new ModelAndView("ad_management");
+		List li = ad.getPopup_detail(params);
+		System.out.println("list는 "+li);
+		mv.addObject("list", li);
+		mv.addObject("params", params);
+		mv.addObject("section", "/management/popup/popup_detail");
+		return mv;
+	}
+	
+	@RequestMapping("/popup/popup_modify.ja")
+	public ModelAndView popup_modify(@RequestParam Map params){
+		System.out.println("modify params : "+params);
+		ModelAndView mv = new ModelAndView("ad_management");
+		List li = ad.getPopup_detail(params);
+		System.out.println("li : "+li);
+		List clist = ad.getCupon_list();
+		mv.addObject("cupon", clist);
+		mv.addObject("list", li);
+		mv.addObject("params", params);
+		mv.addObject("section", "/management/popup/popup_modify");
+		return mv;
+	}
+	
+	@RequestMapping("/popup/popup_modifyExec.ja")
+	public ModelAndView popup_modifyExec(@RequestParam Map params, @RequestParam(name="f") MultipartFile f) throws IllegalStateException, IOException{
+		
+		String filename = f.getOriginalFilename();
+		String uuid = null;
+		
+		String tmp = ad.checkPopup_img_uuid(params);
+		
+		System.out.println("tmp : "+tmp);
+		
+		if(tmp == null){
+			uuid = UUID.randomUUID().toString();
+		}else{
+			uuid = tmp;
+		}
+		
+		String dirs = application.getRealPath("/admin/popupImg");
+		
+		File dir = new File(dirs);
+		if(!dir.exists()){
+			dir.mkdirs();
+		}
+		
+		File file = new File(dirs, uuid);
+		if (!file.exists() || tmp != null) {
+			f.transferTo(file);
+			params.put("uuid", uuid);
+		}
+		
+		System.out.println("modifyExec params : "+params);
+		boolean b = ad.updatePopup(params);
+		System.out.println("popup update : "+b);
+		ModelAndView mv = new ModelAndView("redirect:/admin/management/popup/popup_list.ja");
+		return mv;
+	}
+	
+	@RequestMapping("/popup/popup_del.ja")
+	public String popup_del(@RequestParam Map params, Map map){
+		boolean b = ad.delPopup(params);
+		map.put("rst", b);
+		map.put("t", "/management/popup/popup_list.ja");
+		map.put("f", "/management/popup/popup_write.ja");
+		return "/admin/result";
+	}
+	
+	@RequestMapping("/cupon/cupon_list.ja")
+	public ModelAndView cupon_list(@RequestParam Map params, @RequestParam(name="p", defaultValue="1") Integer p){
+		ModelAndView mv = new ModelAndView("ad_management");
+		System.out.println("params : "+params);
+		pg.setDefaultSetting(10, 5);
+		
+		int rows = ad.getCupon_base_count(params);
+		pg.setNumberOfRecords(rows);
+		Map paging = pg.calcPaging(p, rows);
+		Map se = pg.calcBetween(p);
+		params.put("start", se.get("start"));
+		params.put("end", se.get("end"));
+		
+		List list = ad.getCupon_base_list(params);
+		
+		DecimalFormat df = new DecimalFormat("#,###");
+		String total = df.format(rows);
+		mv.addObject("total", total);
+		
+		mv.addObject("list", list);
+		mv.addObject("paging", paging);
+		mv.addObject("params", params);
+		mv.addObject("section", "/management/cupon/cupon_list");
+		return mv;
+	}
+	
+	@RequestMapping("/cupon/cupon_modify.ja")
+	@ResponseBody
+	public Map cupon_modify(@RequestParam Map params){
+		Map map = null;
+		System.out.println("ajax params : "+params);
+		boolean b = ad.updateCupon_base(params);
+		System.out.println("성공 ? "+b);
+		if(b){
+			List li = ad.getCupon_base_one(params);
+			System.out.println(li);
+			map = (Map)li.get(0);
+		}
+		return map;
+	}
+	
+	@RequestMapping("/cupon/cupon_del.ja")
+	@ResponseBody
+	public Map cupon_del(@RequestParam Map params){
+		System.out.println("ajax params : "+params);
+		boolean b = ad.delCupon_base(params);
+		System.out.println("성공 ? "+b);
+		Map map = new HashMap<>();
+		map.put("b", b);
+		return map;
+	}
+	
+	@RequestMapping("/cupon/cupon_delCom.ja")
+	public String cupon_delCom(Map map){
+		map.put("title", "쿠폰삭제");
+		map.put("section", "/management/cupon/cupon_delCom");
+		return "ad_popup";
+	}
+	
+	@RequestMapping("/cupon/cupon_delComExec.ja")
+	public String cupon_delComExec(@RequestParam Map params, Map map){
+		boolean b = ad.delCupon_base(params);
+		map.put("rst", b);
+		map.put("t", "/management/cupon/cupon_list.ja");
+		map.put("f", "/management/cupon/cupon_list.ja");
+		return "/admin/resultPopup";
+	}
+	
+	@RequestMapping("/cupon/cupon_write.ja")
+	public String cupon_write(Map map){
+		List list = ad.getCupon_type_list();
+		Calendar c = Calendar.getInstance();
+		int now = c.get(Calendar.YEAR);
+		map.put("list", list);
+		map.put("year", now);
+		map.put("section", "/management/cupon/cupon_write");
+		return "ad_management";
+	}
+	
+	@RequestMapping("/cupon/calc_day.ja")
+	@ResponseBody
+	public List calc_day(@RequestParam Map params){
+		System.out.println("날짜 ajax : "+params);
+		Calendar c = Calendar.getInstance();
+		int y = Integer.parseInt((String)params.get("y"));
+		int m = Integer.parseInt((String)params.get("m"));
+		int d = Integer.parseInt((String)params.get("d"));
+		c.set(y, m-1, d);
+		int day = c.getActualMaximum(Calendar.DAY_OF_MONTH);
+		List days = new ArrayList<>();
+		for(int i = 1; i <= day; i++){
+			String s = String.format("<option value='%d'>%d</option>", i, i);
+			System.out.println("s : "+s);
+			days.add(s);
+		}
+		System.out.println("days : "+days);
+		
+		return days;
+	}
+	
+	@RequestMapping("/cupon/cupon_writeExec.ja")
+	public String cupon_writeExec(@RequestParam Map params, Map map){
+		System.out.println("params : "+params);
+		String y = (String)params.get("year");
+		String m = (String)params.get("month");
+		String d = (String)params.get("day");
+		String date = String.format("%s-%s-%s", y, m, d);
+		params.put("date", date);
+		System.out.println("params2 : "+params);
+		boolean b = ad.putCupon_base(params);
+		map.put("rst", b);
+		map.put("t", "/management/cupon/cupon_list.ja");
+		map.put("f", "/management/cupon/cupon_write.ja");
+		return "/admin/result";
+	}
 }

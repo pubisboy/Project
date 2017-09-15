@@ -87,7 +87,7 @@
 		
 	
 	
-	<div class="container" style="width:90%; text-align:left;">
+	<div class="wrap" style="width:90%; border:1px solid gray;">
 		
 		<ul id="tab_sellon" style="width:30%;">
 			<c:choose>
@@ -125,8 +125,8 @@
 		
 			
 		<!-- 상품 목록 테이블 -->
-		<form method="post" name="table_form" style="width:90%; text-align:left;">
-			<table class="table table-striped" width="90%">	
+		<form method="post" name="table_form" style="border:1px solid black;">
+			<table class="table table-striped">	
 				<thead>
 				<tr align="center">
 					<td bgcolor="gray" width="5%"><input type="checkbox" name="allChk" onclick="check()"></td>
@@ -150,9 +150,9 @@
 				<c:forEach var="i" items="${list}">
 					<tr align="center" class="small">
 						<td><input type="checkbox" value="${i.PRO_NUM}" name="chk"></td>
-						<td><a href="#?pro_num=${i.PRO_NUM}" id="pro_num">${i.PRO_NUM}</a></td>
+						<td><a href="/seller/product/productEdit.j?num=${i.PRO_NUM}" id="pro_num">${i.PRO_NUM}</a></td>
 						<td><span class="cut">[${i.CATE_NAME}]</span></td>
-						<td><a href="#?pro_num=${i.PRO_NUM}">${i.PRO_NAME}</a></td>
+						<td><a href="/seller/product/productEdit.j?num=${i.PRO_NUM}">${i.PRO_NAME}</a></td>
 						<td><fmt:formatNumber value="${i.PRO_QTY}" type="number"/>kg</td>
 						<td><fmt:formatNumber value="${i.PRICE}" type="number"/>원</td>
 						<td><fmt:formatDate value="${i.PRO_DATE}"  pattern="yyyy-MM-dd"/></td>
@@ -171,7 +171,7 @@
 	</div>
 
 	<!-- 페이지 -->
-	<div class="container">
+	<div class="container" style="width:90%; border:1px solid gray;">
 		<ul class="pagination">
 			<c:if test="${page.startPageNo ne 1}"><!-- 이전 -->
 				<li><a href="/seller/product/list.j?p=${page.startPageNo-1}&state=${param.state}&search_type=${param.search_type}&search_word=${param.search_word}">&laquo;</a></li>
@@ -201,9 +201,9 @@
 		
 		
 		<!-- 검색창. form에 action 경로에는 실제 주소만 됨. 파라미터 추가 설정하고 싶을 땐 hidden 속성을 이용 -->
-		<form action="/seller/product/list.j" id="search_form">
+		<form action="/seller/product/list.j" id="search_form"  style="border:1px solid gray; align:center;">
 			<input type="hidden" value="${param.state}" name="state">
-			<table>
+			<table align="center" style="border:1px solid gray;">
 				<tr>
 					<td>
 						<select name="search_type" class="search" style="width:90px">

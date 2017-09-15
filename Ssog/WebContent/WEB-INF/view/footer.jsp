@@ -11,7 +11,7 @@
 <script>
 	function init(){
 		$.ajax({
-			url:"/admin/management/information/getInfoCompany.ja",
+			url:"/getInfoCompany.j",
 			method: "post"
 		}).done(function(rst){
 			console.log(rst);

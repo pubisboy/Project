@@ -23,7 +23,7 @@ public interface AdminDao {
 	public boolean delInfo_company(String name);
 	public int plusInfo_company(String name);
 	public List getUuid_notice_img();
-	public List getTerms();
+	public List getTerms(Map map);
 	public List getDetail_terms(int num);
 	public boolean updateValues_terms(Map map);
 	public boolean plusTerms(Map map);
@@ -32,4 +32,39 @@ public interface AdminDao {
 	public boolean delNotice_img(int num);
 	public boolean updateImage_notice(Map map);
 	public boolean delNotice(int num);
+	public List getTarget_notice();
+	public int getCount_notice(Map map);
+	public int getCount_terms(Map map);
+	public int getCount_counsel_user(Map map);
+	public int getCount_counsel_seller(Map map);
+	public List getList_counsel_user(Map map);
+	public List getList_counsel_seller(Map map);
+	public List getCounsel_category();
+	public List getCounsel_user_detail(int num);
+	public boolean updateCounsel_user_detail(Map map);
+	public List getCounsel_seller_category();
+	public List getCounsel_seller_detail(int num);
+	public boolean updateCounsel_seller_detail(Map map);
+	public List getPopup_list(Map map);
+	public int getPopup_list_Count(Map map);
+	public boolean updatePopup_onoff(Map map);
+	public List getCupon_list();
+	public boolean putPopup(Map map);
+	public List getPopup_detail(Map map);
+	public boolean updatePopup(Map map);
+	public List getCupon_base_list(Map map);
+	public int getCupon_base_count(Map map);
+	public int checkCupon(Map map);
+	public boolean updateCupon_base(Map map);
+	public List getCupon_base_one(Map map);
+	public boolean delCupon_base(Map map);
+	public String checkPopup_img_uuid(Map map);
+	public List getPopup_target();
+	public List getPopup_target_detail(Map map);
+	public List getCupon_type_list();
+	public boolean putCupon_base(Map map);
+	public boolean delPopup(Map map);
+	public boolean delCounsel_user(Map map);
+	public boolean delCounsel_seller(Map map);
+	
 }

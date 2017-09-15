@@ -36,7 +36,7 @@ public class SellerProductController {
 		map.put("search_word", search_word);
 		
 		int total = sdao.totalList(map);
-		page.setDefaultSetting(2, 4); //줄 개수, 페이지 개수
+		page.setDefaultSetting(10, 4); //줄 개수, 페이지 개수
 		page.setNumberOfRecords(total);
 		Map op = page.calcBetween(p);
 		Map rst = page.calcPaging(p, total); //현재페이지, 총개수

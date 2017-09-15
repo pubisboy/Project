@@ -7,4 +7,6 @@
 			window.parent.CKEDITOR.tools.callFunction(${funcNum}, "${imageUrl}");
 		</script>
 	</c:when>
-</c:choose> 
+	<c:otherwise>
+	</c:otherwise>
+</c:choose>
