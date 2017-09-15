@@ -18,7 +18,7 @@
 <body>
 	<div>
 		<header style="width: 100%; min-height: 5%;">
-			<tiles:insertAttribute name="title" />
+			<tiles:insertAttribute name="header" />
 		</header>
 		<nav style="width: 100%;">
 			<tiles:insertAttribute name="nav" />

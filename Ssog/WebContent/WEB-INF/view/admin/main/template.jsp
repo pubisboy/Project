@@ -13,7 +13,7 @@
 				<tiles:insertAttribute name="nav" />
 			</nav>
 		</div>
-		<div class="col-md-10">
+		<div class="col-md-10" style="margin-top: 30px;">
 			<section>
 				<tiles:insertAttribute name="section"/>
 			</section>

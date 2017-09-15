@@ -8,8 +8,8 @@
 		</script>
 	</c:when>
 	<c:otherwise>
-		<script>
+		<!-- <script>
 			window.alert("이미지 업로드 실패");
-		</script>
+		</script> -->
 	</c:otherwise>
 </c:choose>

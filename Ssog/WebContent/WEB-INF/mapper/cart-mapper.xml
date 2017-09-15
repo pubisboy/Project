@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cart">
+	<insert id="order" parameterType="java.util.HashMap">
+		INSERT INTO
+		ORDERTBL(order_num,pro_num,user_id,order_qty,state,order_date,pay_date,price,cupon_type,dhl,etc,address)
+		values(ORDER_SEQ.NEXTVAL,#{pro_num},#{id},#{qty},#{state},sysdate,sysdate,#{price},#{coupon},#{dhl},#{etc},#{address});
+	</insert>
+	<select id="coupon" parameterType="java.lang.String" resultType="java.util.HashMap">
+		select bb.*,cc.RATE from
+		(select b.*,c.cupon_type from(select * from CUPON_LIST where user_id=#{id}) b
+		left join cupon_base c on b.cupon_base = c.NUM) bb
+		left join CUPON_TYPE cc on bb.cupon_type=cc.CUPON_NUM
+	</select>
+	<select id="point" parameterType="java.lang.String" resultType="java.util.HashMap">
+		select * from user_record where id = #{id}
+	</select>
+</mapper>
