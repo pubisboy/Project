@@ -203,7 +203,6 @@ function modify(){
 	});
 };
 function submit(){
-	window.alert("변경 작동");
 	var tmp = $("#stsel").val();
 	var state = $("#"+tmp).html();
 	$.ajax({

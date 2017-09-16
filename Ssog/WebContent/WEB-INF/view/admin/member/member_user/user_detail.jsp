@@ -140,7 +140,7 @@ td{
         				<th style="text-align: center;">
         					<ul class="list-inline" style="margin-bottom: 2px;">
         						<li style="text-align: center;">주문</li>
-        						<li style="text-align:center; float:right"><a href="/admin/order/order_list.ja?type=user_id&value=${info['0'].ID }" onclick="window.open(this.href, '','width=1400, height=800');return false;">+더보기</a></li>
+        						<li style="text-align:center; float:right"><a href="/admin/sales/order/order_list.ja?type=user_id&value=${info['0'].ID }" onclick="window.open(this.href, '','width=1400, height=800');return false;">+더보기</a></li>
         					</ul>
 						</th>
         			</tr>
@@ -152,7 +152,7 @@ td{
         						<li>[주문번호] / [상품번호] / [주문일] / [상태] / [가격]</li>
         						<c:forEach items="${order9 }" var="i">
 	        						<li>
-	        						[<a href="/admin/order/order_detail.ja?order_num=${i.ORDER_NUM }" onclick="window.open(this.href, '','width=1600, height=900');return false;">${i.ORDER_NUM }</a>]
+	        						[<a href="/admin/sales/order/order_detail.ja?order_num=${i.ORDER_NUM }" onclick="window.open(this.href, '','width=1600, height=900');return false;">${i.ORDER_NUM }</a>]
 	        						 / [${i.PRO_NUM }]
 	        						 / <fmt:formatDate value="${i.ORDER_DATE }" pattern="yyyy년MM월dd일" var="o"/>[${o }]
 	        						 / [${i.ST }]
