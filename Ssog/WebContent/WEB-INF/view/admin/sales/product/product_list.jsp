@@ -18,7 +18,6 @@
 			</optgroup>
 		</select>
 		<select id="second" name="second">
-			<%-- <option value="${empty params.second ? '' : params.second}"></option> --%>
 		</select>
 	</form>
 </div>
@@ -88,6 +87,7 @@
 </div>
 
 <script>
+	
 	function first(){
 		if($("#first").val() != null && $("#first").val() != ""){
 			$.ajax({
@@ -96,14 +96,17 @@
 					'first':$("#first").val(),
 				}
 			}).done(function(rst){
-				$("#second").html(rst.html);
+				$("#second").append(rst.html);
+				var f = "${params.second}";
+				if(f.length > 0){
+					$("#"+f+"s").prop("selected", true);
+				}
 			});
 		}else{
 			$("#second").html("");
 			$("#form").submit();
 		}
 	}
-	
 	if($("#first").val() != null && $("#first").val() != ""){
 		first();
 	}
@@ -115,4 +118,5 @@
 	$("#second").on("change", function(){
 		$("#form").submit();
 	});
+	
 </script>
