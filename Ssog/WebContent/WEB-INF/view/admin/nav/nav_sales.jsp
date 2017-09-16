@@ -10,6 +10,7 @@ li {
 	<div class="container-fluid">
 		<ul class="nav nav-stacked nav-pills" style="margin-top: 20px;">
 			<li style="text-align: center;"><a href="/admin/sales/order/order_list.ja">주문현황</a></li>
+			<li style="text-align: center;"><a href="/admin/sales/product/product_list.ja">상품현황</a></li>
 		</ul>
 	</div>
 </nav>
