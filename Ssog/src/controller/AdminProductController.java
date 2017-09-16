@@ -126,4 +126,16 @@ public class AdminProductController {
 		map.put("html", html);
 		return map;
 	}
+	
+	/*@RequestMapping("/product_detail.ja")
+	public String product_detail(@RequestParam(name="num") Integer num, Map map){
+		System.out.println("num : "+num);
+		List liInfo = aod.order_detail(num);
+		if(liInfo.size() > 0){
+			System.out.println("liInfo : "+liInfo);
+		}
+		map.put("list", liInfo);
+		map.put("section", "/order/order_detail");
+		return "ad_sales";
+	}*/
 }

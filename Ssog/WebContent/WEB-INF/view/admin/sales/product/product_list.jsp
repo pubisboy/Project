@@ -88,12 +88,14 @@
 
 <script>
 	
+	
+	/* 이 부분을 만들었지만, 이해가 잘 안 되 */
 	function first(){
 		if($("#first").val() != null && $("#first").val() != ""){
 			$.ajax({
 				'url':"/admin/sales/product/product_second.ja",
 				'data':{
-					'first':$("#first").val(),
+					'first':$("#first").val()
 				}
 			}).done(function(rst){
 				$("#second").append(rst.html);
