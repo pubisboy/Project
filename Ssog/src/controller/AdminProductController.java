@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -127,15 +128,101 @@ public class AdminProductController {
 		return map;
 	}
 	
-	/*@RequestMapping("/product_detail.ja")
-	public String product_detail(@RequestParam(name="num") Integer num, Map map){
-		System.out.println("num : "+num);
-		List liInfo = aod.order_detail(num);
+	@RequestMapping("/product_detail.ja")
+	public String product_detail(@RequestParam Map params, Map map){
+		List liInfo = apd.product_detail(params);
+		int saleQty = apd.get_saleQty(params);
+		int saleSum = apd.get_saleSum(params);
+		int rate = apd.get_rate(params);
+		System.out.println("rate : "+rate);
+		Map m = (Map)liInfo.get(0);
+		BigDecimal i = (BigDecimal)m.get("PRICE");
+		
+		if(rate > 0){
+			int rateMoney = (int)(i.intValue() * (rate/100.0));
+			System.out.println("rateMoney : "+rateMoney);
+			int ratePrice = i.intValue() - rateMoney;
+			System.out.println("ratePrice : "+ratePrice);
+			map.put("rateMoney", rateMoney);
+			map.put("ratePrice", ratePrice);
+		}
+		int cnt = apd.get_star_cnt(params);
+		double s = apd.get_star(params);
+		DecimalFormat df = new DecimalFormat("#.##");
+		String star = df.format(s);
+		/*String star = String.format("%.2f", s);*/
+
+		List gr = apd.get_grade(i.intValue());
+		Map lm = (Map)gr.get(0);
+		String grade = (String)lm.get("GRADE");
+		map.put("grade", grade);
+		
 		if(liInfo.size() > 0){
 			System.out.println("liInfo : "+liInfo);
+			System.out.println("qty : "+saleQty);
+			System.out.println("saleSum : "+saleSum);
+			System.out.println("star : "+star);
 		}
 		map.put("list", liInfo);
-		map.put("section", "/order/order_detail");
+		map.put("rate", rate);
+		map.put("qty", saleQty);
+		map.put("sum", saleSum);
+		map.put("star", star);
+		map.put("cnt", cnt);
+		map.put("params", params);
+		map.put("section", "/product/product_detail");
 		return "ad_sales";
-	}*/
+	}
+	
+	@RequestMapping("/product_modify.ja")
+	@ResponseBody
+	public Map order_modify(@RequestParam Map params){
+		String htmlb = "<select id='stb' onchange='sel();'>";
+		String htmls = "<select id='sts'>";
+		System.out.println("넘어온 거 : "+params);
+		List listb = apd.get_catefory_l();
+		String nameb = "B_CATE";
+		List lists = apd.get_catefory_s();
+		String names = "S_CATE";
+		
+		int nowb = Integer.parseInt((String)params.get("nowb"));
+		int nows = Integer.parseInt((String)params.get("nows"));
+		
+		for(int i = 0; i < listb.size(); i++){
+			Map m = (Map)listb.get(i);
+			String s = null;
+			String name = (String)m.get("NAME");
+			BigDecimal bd = (BigDecimal)m.get(nameb);
+			int num = bd.intValue();
+			if(nowb == num){
+				s = String.format("<option value='%s' id='%s' selected>%s</option>",num,num,name);
+			}else{
+				s = String.format("<option value='%s' id='%s'>%s</option>",num,num,name);
+			}
+			htmlb += s;
+		}
+		htmlb+="</select>";
+		
+		for(int i = 0; i < lists.size(); i++){
+			Map m = (Map)lists.get(i);
+			String s = null;
+			String name = (String)m.get("NAME");
+			BigDecimal bd = (BigDecimal)m.get(names);
+			int num = bd.intValue();
+			if(nows == num){
+				s = String.format("<option value='%s' id='%s' selected>%s</option>",num,num,name);
+			}else{
+				s = String.format("<option value='%s' id='%s'>%s</option>",num,num,name);
+			}
+			htmls += s;
+		}
+		htmls+="</select>";
+		
+		System.out.println("만들어진 : "+htmlb);
+		System.out.println("만들어진 : "+htmls);
+		Map map = new HashedMap();
+		map.put("htmlb", htmlb);
+		map.put("htmls", htmls);
+		return map;
+	}
 }

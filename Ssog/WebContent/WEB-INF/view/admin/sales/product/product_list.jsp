@@ -44,7 +44,7 @@
 	<tbody>
 		<c:forEach items="${list }" var="i" varStatus="vs">
 			<tr>
-				<td><a href="/admin/sales/product/product_detail.ja?num=${i.PRO_NUM }">${i.PRO_NUM }</a></td>
+				<td><a href="/admin/sales/product/product_detail.ja?num=${i.PRO_NUM }&p=${params.p}&type=${params.type }&value=${params.value}&first=${params.first}&second=${params.second}&on=${params.on}&sort=${params.sort}">${i.PRO_NUM }</a></td>
 				<td>${i.BC }</td>
 				<td>${i.SC }</td>
 				<td>${i.PRO_NAME }</td>

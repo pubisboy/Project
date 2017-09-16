@@ -67,17 +67,97 @@ public class AdminProductDao {
 	}
 	
 	
-	public List order_detail(int num){
+	public List product_detail(Map map){
 		SqlSession session = factory.openSession();
 		List rst = null;
 		try{
-			rst = session.selectList("admin_product.order_detail", num);
+			rst = session.selectList("admin_product.product_detail", map);
 		}catch(Exception e){
-			System.out.println("error.order_detail"+e.toString());
+			System.out.println("error.product_detail"+e.toString());
 		}finally{
 			session.close();
 		}
 		return rst;
+	}
+	
+	public int get_saleQty(Map map){
+		SqlSession session = factory.openSession();
+		Integer rst = -1;
+		try{
+			rst = session.selectOne("admin_product.get_saleQty", map);
+			if(rst == null){
+				rst = -1;
+			}
+		}catch(Exception e){
+			System.out.println("error.get_saleQty"+e.toString());
+		}finally{
+			session.close();
+		}
+		return rst.intValue();
+	}
+	
+	public int get_saleSum(Map map){
+		SqlSession session = factory.openSession();
+		Integer rst = -1;
+		try{
+			rst = session.selectOne("admin_product.get_saleSum", map);
+			if(rst == null){
+				rst = -1;
+			}
+		}catch(Exception e){
+			System.out.println("error.get_saleSum"+e.toString());
+		}finally{
+			session.close();
+		}
+		return rst.intValue();
+	}
+	
+	public double get_star(Map map){
+		SqlSession session = factory.openSession();
+		Double rst = -1.0;
+		try{
+			rst = session.selectOne("admin_product.get_star", map);
+			if(rst == null){
+				rst = -1.0;
+			}
+		}catch(Exception e){
+			System.out.println("error.get_star"+e.toString());
+		}finally{
+			session.close();
+		}
+		return rst.doubleValue();
+	}
+	
+	public int get_star_cnt(Map map){
+		SqlSession session = factory.openSession();
+		Integer rst = -1;
+		try{
+			rst = session.selectOne("admin_product.get_star_cnt", map);
+			if(rst == null){
+				rst = -1;
+			}
+		}catch(Exception e){
+			System.out.println("error.get_star_cnt"+e.toString());
+		}finally{
+			session.close();
+		}
+		return rst.intValue();
+	}
+	
+	public int get_rate(Map map){
+		SqlSession session = factory.openSession();
+		Integer rst = -1;
+		try{
+			rst = session.selectOne("admin_product.get_rate", map);
+			if(rst == null){
+				rst = -1;
+			}
+		}catch(Exception e){
+			System.out.println("error.get_rate"+e.toString());
+		}finally{
+			session.close();
+		}
+		return rst.intValue();
 	}
 	
 	public boolean del_order(int num){
@@ -116,5 +196,18 @@ public class AdminProductDao {
 			session.close();
 		}
 		return b;
+	}
+	
+	public List get_grade(int buy_total){
+		SqlSession session = factory.openSession();
+		List rst = null;
+		try{
+			rst = session.selectList("admin_product.get_grade", buy_total);
+		}catch(Exception e){
+			System.out.println("error.get_grade"+e.toString());
+		}finally{
+			session.close();
+		}
+		return rst;
 	}
 }

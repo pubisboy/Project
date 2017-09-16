@@ -86,7 +86,7 @@
 		select * from LARGE_CATEGORY
 	</select>
 	
-	<select id="product_detail" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+	<select id="product_detail" parameterType="java.util.HashMap" resultType="java.util.HashMap">
 		select bb.pro_num, bb.pro_name, bb.cate, bb.seller_id, bb.pro_qty, bb.price, 
 		bb.pro_detail, bb.pro_date, bb.origin, bb.img_uuid, bb.sell_on, bb.bc, 
 		bb.sc, bb.parent, o.name ori from
@@ -94,7 +94,31 @@
 		(select p.*, c.name sc, c.PARENT from PRODUCTTBL p left join SMALL_CATEGORY 
 		c on p.CATE = c.S_CATE)b
 		left join LARGE_CATEGORY lc on b.PARENT = lc.B_CATE)bb
-		left join origintbl o on bb.origin = o.NUM where pro_num = #{num};
+		left join origintbl o on bb.origin = o.NUM where pro_num = #{num}
+	</select>
+	
+	<select id="get_saleQty" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+		select sum(b.qty) qty from (select pro_num pnum, order_qty qty from ordertbl where pro_num = #{num} and state = 5)b group by pnum
+	</select>
+	
+	<select id="get_saleSum" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+		select sum(b.price) price from (select pro_num pnum, price from ordertbl where pro_num = #{num} and state = 5)b group by pnum
+	</select>
+	
+	<select id="get_star" parameterType="java.util.HashMap" resultType="java.lang.Double">
+		select avg(b.star) avgs from (select pro_num pnum, star from REVIEW where pro_num = #{num})b group by pnum
+	</select>
+	
+	<select id="get_star_cnt" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+		select count(*) cnt from REVIEW where pro_num = #{num}
+	</select>
+	
+	<select id="get_rate" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+		select * from (select * from event_list where product_id = #{num}) e left join cupon_type c on e.CUPON_TYPE = c.CUPON_NUM
+	</select>
+	
+	<select id="get_grade" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select * from (select g.*, ROWNUM rnum from (select * from seller_grade where #{total} >= standard order by standard desc) g) where rnum = 1       
 	</select>
 	
 	<delete id="del_product" parameterType="java.lang.Integer">
