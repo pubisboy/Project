@@ -13,35 +13,14 @@
 		c on p.CATE = c.S_CATE)b
 		left join LARGE_CATEGORY lc on b.PARENT = lc.B_CATE
 		<choose>
-			<when test="type != null and type != '' and state != null and state != '' and first != null and first != '' and on != null and on != ''">
-				where ${type} like #{value} and state = #{state} and ${first} = #{second} and sell_on = #{on}
-			</when>
-			<when test="type != null and type != '' and state != null and state != '' and first != null and first != ''">
-				where ${type} like #{value} and state = #{state} and ${first} = #{second}
-			</when>
-			<when test="type != null and type != '' and state != null and state != '' and on != null and on != ''">
-				where ${type} like #{value} and state = #{state} and sell_on = #{on}
-			</when>
-			<when test="type != null and type != '' and first != null and first != '' and on != null and on != ''">
+			<when test="type != null and type != ''and first != null and first != '' and on != null and on != ''">
 				where ${type} like #{value} and ${first} = #{second} and sell_on = #{on}
-			</when>
-			<when test="state != null and state != '' and first != null and first != '' and on != null and on != ''">
-				where state = #{state} and ${first} = #{second} and sell_on = #{on}
-			</when>
-			<when test="type != null and type != '' and state != null and state != ''">
-				where ${type} like #{value} and state = #{state}
 			</when>
 			<when test="type != null and type != '' and first != null and first != ''">
 				where ${type} like #{value} and ${first} = #{second}
 			</when>
 			<when test="type != null and type != '' and on != null and on != ''">
 				where ${type} like #{value} and sell_on = #{on}
-			</when>
-			<when test="state != null and state != '' and first != null and first != ''">
-				where state = #{state} and ${first} = #{second}
-			</when>
-			<when test="state != null and state != '' and on != null and on != ''">
-				where state = #{state} and sell_on = #{on}
 			</when>
 			<when test="first != null and first != '' and on != null and on != ''">
 				where ${first} = #{second} and sell_on = #{on}
@@ -55,9 +34,6 @@
 			</when>
 			<when test="first != null and first != ''">
 				where ${first} = #{second}
-			</when>
-			<when test="state != null and state != ''">
-				where state = #{state}
 			</when>
 		</choose>
 		order by pro_date
@@ -78,35 +54,14 @@
 		c on p.CATE = c.S_CATE)b
 		left join LARGE_CATEGORY lc on b.PARENT = lc.B_CATE
 		<choose>
-			<when test="type != null and type != '' and state != null and state != '' and first != null and first != '' and on != null and on != ''">
-				where ${type} like #{value} and state = #{state} and ${first} = #{second} and sell_on = #{on}
-			</when>
-			<when test="type != null and type != '' and state != null and state != '' and first != null and first != ''">
-				where ${type} like #{value} and state = #{state} and ${first} = #{second}
-			</when>
-			<when test="type != null and type != '' and state != null and state != '' and on != null and on != ''">
-				where ${type} like #{value} and state = #{state} and sell_on = #{on}
-			</when>
-			<when test="type != null and type != '' and first != null and first != '' and on != null and on != ''">
+			<when test="type != null and type != ''and first != null and first != '' and on != null and on != ''">
 				where ${type} like #{value} and ${first} = #{second} and sell_on = #{on}
-			</when>
-			<when test="state != null and state != '' and first != null and first != '' and on != null and on != ''">
-				where state = #{state} and ${first} = #{second} and sell_on = #{on}
-			</when>
-			<when test="type != null and type != '' and state != null and state != ''">
-				where ${type} like #{value} and state = #{state}
 			</when>
 			<when test="type != null and type != '' and first != null and first != ''">
 				where ${type} like #{value} and ${first} = #{second}
 			</when>
 			<when test="type != null and type != '' and on != null and on != ''">
 				where ${type} like #{value} and sell_on = #{on}
-			</when>
-			<when test="state != null and state != '' and first != null and first != ''">
-				where state = #{state} and ${first} = #{second}
-			</when>
-			<when test="state != null and state != '' and on != null and on != ''">
-				where state = #{state} and sell_on = #{on}
 			</when>
 			<when test="first != null and first != '' and on != null and on != ''">
 				where ${first} = #{second} and sell_on = #{on}
@@ -120,9 +75,6 @@
 			</when>
 			<when test="first != null and first != ''">
 				where ${first} = #{second}
-			</when>
-			<when test="state != null and state != ''">
-				where state = #{state}
 			</when>
 		</choose>
 	</select>
