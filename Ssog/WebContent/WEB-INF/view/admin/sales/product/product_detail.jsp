@@ -172,58 +172,43 @@ td{
 
 <script>
 var ori;
+var orib;
+var oris;
 function modify(){
-	orib =$("#stateb").html();
-	oris =$("#states").html();
+	orib =$("#bc").html();
+	oris =$("#sc").html();
 	nowb = $("#stateb").val();
 	nows = $("#states").val();
 	$.ajax({
 		'url':"/admin/sales/product/product_modify.ja",
 		'data':{
-			'nowb':$("#stateb").val(),
 			'nows':$("#states").val()
 		}
 	}).done(function(rst){
-		$("#bc").html(rst.htmlb);
 		$("#sc").html(rst.htmls);
 		$("#modify").html("<button id='submit' style='height: 25px;' onclick='submit();'>변경</button><button id='cancels' style='height: 25px;' onclick='cancels();'>취소</button>");
-		
 	});
 };
 
-function sel(){
-	$.ajax({
-		'url':"/admin/sales/product/product_modify2.ja",
-		'data':{
-			'sel':$(this).val()
-		}
-	}).done(function(rst){
-		$("#sc").html(rst.html);
-	});
-}
 function submit(){
-	var tmp = $("#stsel").val();
-	var state = $("#"+tmp).html();
 	$.ajax({
-		'url':"/admin/sales/order/order_modifyExec.ja",
+		'url':"/admin/sales/product/product_modifyExec.ja",
 		'data':{
 			'num':$("#num").html(),
-			'state':$("#stsel").val()
+			'cate':$("#sts").val()
 		}
 	}).done(function(rst){
-		if(rst){
-			$("#st").html(state);
-			if(tmp != 5){
+		if(rst.b){
+			$("#bc").html(rst.bc);
+			$("#sc").html(rst.sc);
 				$("#modify").html("<button id='mbutton' style='height: 25px;' onclick='modify();'>수정</button>");
-			}else{
-				$("#modify").html("");
-			}
 		}
 	});
 };
 function cancels(){
 	$("#modify").html("<button id='mbutton' style='height: 25px;' onclick='modify();'>수정</button>");
-	$("#st").html(ori);
+	$("#bc").html(orib);
+	$("#sc").html(oris);
 };
 </script>
 <script src="<c:url value="/etc.js" />"></script>

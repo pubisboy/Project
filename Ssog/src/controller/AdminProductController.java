@@ -176,32 +176,13 @@ public class AdminProductController {
 	
 	@RequestMapping("/product_modify.ja")
 	@ResponseBody
-	public Map order_modify(@RequestParam Map params){
-		String htmlb = "<select id='stb' onchange='sel();'>";
+	public Map product_modify(@RequestParam Map params){
 		String htmls = "<select id='sts'>";
 		System.out.println("넘어온 거 : "+params);
-		List listb = apd.get_catefory_l();
-		String nameb = "B_CATE";
 		List lists = apd.get_catefory_s();
 		String names = "S_CATE";
 		
-		int nowb = Integer.parseInt((String)params.get("nowb"));
 		int nows = Integer.parseInt((String)params.get("nows"));
-		
-		for(int i = 0; i < listb.size(); i++){
-			Map m = (Map)listb.get(i);
-			String s = null;
-			String name = (String)m.get("NAME");
-			BigDecimal bd = (BigDecimal)m.get(nameb);
-			int num = bd.intValue();
-			if(nowb == num){
-				s = String.format("<option value='%s' id='%s' selected>%s</option>",num,num,name);
-			}else{
-				s = String.format("<option value='%s' id='%s'>%s</option>",num,num,name);
-			}
-			htmlb += s;
-		}
-		htmlb+="</select>";
 		
 		for(int i = 0; i < lists.size(); i++){
 			Map m = (Map)lists.get(i);
@@ -218,11 +199,20 @@ public class AdminProductController {
 		}
 		htmls+="</select>";
 		
-		System.out.println("만들어진 : "+htmlb);
 		System.out.println("만들어진 : "+htmls);
 		Map map = new HashedMap();
-		map.put("htmlb", htmlb);
 		map.put("htmls", htmls);
 		return map;
+	}
+	
+	@RequestMapping("/product_modifyExec.ja")
+	@ResponseBody
+	public boolean product_modifyExec(@RequestParam Map params){
+		System.out.println("넘어온 거 : "+params);
+		boolean b = apd.update_product(params);
+		if(b){
+			
+		}
+		return b;
 	}
 }

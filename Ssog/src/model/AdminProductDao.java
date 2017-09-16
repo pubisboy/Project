@@ -179,17 +179,17 @@ public class AdminProductDao {
 		return b;
 	}
 	
-	public boolean update_order(Map map){
+	public boolean update_product(Map map){
 		SqlSession session = factory.openSession();
 		boolean b = false;
 		try{
-			int rst = session.insert("admin_product.update_order", map);
+			int rst = session.insert("admin_product.update_product", map);
 			if(rst > 0){
 				b = true;
 				session.commit();
 			}
 		}catch(Exception e){
-			System.out.println("error.update_order"+e.toString());
+			System.out.println("error.update_product"+e.toString());
 			b = false;
 			session.rollback();
 		}finally{
