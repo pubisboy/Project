@@ -2,11 +2,14 @@ package controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import model.AdminProductDao;
 import paging.Paging;
 
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,7 +29,6 @@ public class AdminProductController {
 	@RequestMapping("/product_list.ja")
 	public String product_list(@RequestParam Map params, @RequestParam(name="p", defaultValue="1") Integer p, Map map){
 		System.out.println("params : "+params);
-		System.out.println("state : "+params.get("state"));
 		
 		String val = null;
 		if(params.get("value") != null){
@@ -90,5 +92,38 @@ public class AdminProductController {
 		params.put("value", val);
 		map.put("params", params);
 		return "ad_sales";
+	}
+	
+	@RequestMapping("/product_second.ja")
+	@ResponseBody
+	public Map product_second(@RequestParam Map params){
+		List list = null;
+		String first = (String)params.get("first");
+		String name = null;
+		String val = "NAME";
+		if(first.equalsIgnoreCase("b_cate")){
+			list = apd.get_catefory_l();
+			name = "B_CATE";
+		}else{
+			list = apd.get_catefory_s();
+			name = "S_CATE";
+		}
+		System.out.println("넘어오는 값 : "+params);
+		System.out.println("list : "+list);
+		System.out.println("name : "+name);
+		
+		String html = "<optgroup label='상세분류'>";
+			for(Object o : list){
+				Map m = (Map)o;
+				BigDecimal tmp = (BigDecimal)m.get(name);
+				int cate = tmp.intValue();
+				String s = String.format("<option value='%s'>%s</option>",cate, (String)m.get(val));
+				html += s;
+			}
+		html += "</optgroup>";
+		
+		Map map = new HashMap<>();
+		map.put("html", html);
+		return map;
 	}
 }

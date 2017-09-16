@@ -80,10 +80,10 @@
 	</select>
 	
 	<select id="get_catefory_s" resultType="java.util.HashMap">
-		select * from SMALL_CATEGORY;
+		select * from SMALL_CATEGORY
 	</select>
 	<select id="get_catefory_l" resultType="java.util.HashMap">
-		select * from LARGE_CATEGORY;
+		select * from LARGE_CATEGORY
 	</select>
 	
 	<select id="product_detail" parameterType="java.lang.Integer" resultType="java.util.HashMap">

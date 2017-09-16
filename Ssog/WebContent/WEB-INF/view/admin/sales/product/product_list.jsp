@@ -5,21 +5,30 @@
 
 <div>검색 : ${total }건</div>
 <div style="float: left;">
-	<select id="first" name="state">
-		<optgroup label="상태분류">
-		<option value="">전체</option>
-		<c:forEach items="${stateKo }" var="i" varStatus="vs">
-			<option value="${stateNum[vs.index] }" ${params.first eq stateNum[vs.index] ? 'selected' : ''}>${i }</option>
-		</c:forEach>
-		</optgroup>
-	</select>
-	<select id="second">
-	
-	</select>
+	<form action="/admin/sales/product/product_list.ja" id="form" method="get">
+		<input type="hidden" name="value" value="${empty params.value ? '' : params.value}"/>
+		<input type="hidden" name="sort"  value="${empty params.sort ? '' : params.sort}"/>
+		<input type="hidden" name="on"  value="${empty params.on ? '' : params.on}"/>
+		<select id="first" name="first">
+			<optgroup label="대소분류">
+			<option value="">전체</option>
+			<c:forEach items="${stateKo }" var="i" varStatus="vs">
+				<option value="${stateNum[vs.index] }" ${params.first eq stateNum[vs.index] ? 'selected' : ''}>${i }</option>
+			</c:forEach>
+			</optgroup>
+		</select>
+		<select id="second" name="second">
+			<%-- <option value="${empty params.second ? '' : params.second}"></option> --%>
+		</select>
+	</form>
+</div>
+<div style="float: right;">
+	<a
+		href="/admin/sales/product/product_list.ja?p=${params.p}&type=${params.type }&value=${params.value}&first=${params.first}&second=${params.second}&sort=${params.sort}&on=${empty params.on ? 0 : (params.on eq 0 ? 1 : '')}">${empty params.on ? '전체' : (params.on eq 0 ? '중지' : '판매중')}</a>
 </div>
 <div style="float: right; width: 5%;">
 	<a
-		href="/admin/sales/product/product_list.ja?p=${params.p}&type=${params.type }&value=${params.value}&fisrt=${params.first}&second=${params.second}&sort=${!empty params.sort and params.sort == 'asc' ? 'desc' : 'asc'}">${!empty params.sort and params.sort == 'asc' ? '오름' : '내림'}</a>
+		href="/admin/sales/product/product_list.ja?p=${params.p}&type=${params.type }&value=${params.value}&first=${params.first}&second=${params.second}&on=${params.on}&sort=${!empty params.sort and params.sort == 'asc' ? 'desc' : 'asc'}">${!empty params.sort and params.sort == 'asc' ? '오름' : '내림'}</a>
 </div>
 <table class="table table-bordered" style="text-align: center;">
 	<thead>
@@ -51,21 +60,21 @@
 </table>
 <div align="center">
 	<c:if test="${paging.startPageNo ne paging.firstPageNo }">
-		<a href="/admin/sales/product/product_list.ja?p=${paging.startPageNo - 1}&type=${params.type }&value=${params.value}&state=${params.state}&sort=${params.sort}">&lt;</a>
+		<a href="/admin/sales/product/product_list.ja?p=${paging.startPageNo - 1}&type=${params.type }&value=${params.value}&first=${params.first}&second=${params.second}&sort=${params.sort}&on=${params.on}">&lt;</a>
 	</c:if>
 	
 	<c:forEach begin="${paging.startPageNo }" end="${paging.endPageNo }" var="i">
-		<a href="/admin/sales/product/product_list.ja?p=${i}&type=${params.type }&value=${params.value}&state=${params.state}&sort=${params.sort}" ${paging.currentPageNo eq i ? 'style="font-weight:bold"' : '' }>${i }</a>
+		<a href="/admin/sales/product/product_list.ja?p=${i}&type=${params.type }&value=${params.value}&first=${params.first}&second=${params.second}&sort=${params.sort}&on=${params.on}" ${paging.currentPageNo eq i ? 'style="font-weight:bold"' : '' }>${i }</a>
 	</c:forEach>
 	
 	<c:if test="${paging.endPageNo ne paging.finalPageNo }">
-		<a href="/admin/sales/product/product_list.ja?p=${paging.endPageNo + 1}&type=${params.type }&value=${params.value}&state=${params.state}&sort=${params.sort}">&gt;</a>
+		<a href="/admin/sales/product/product_list.ja?p=${paging.endPageNo + 1}&type=${params.type }&value=${params.value}&first=${params.first}&second=${params.second}&sort=${params.sort}&on=${params.on}">&gt;</a>
 	</c:if>
 </div>
 
 <div align="center">
 	<form action="/admin/sales/product/product_list.ja" method="get">
-		<select name="type">
+		<select name="type" id="type">
 			<c:forEach items="${typesKo }" var="i" varStatus="vs">
 				<option value="${typesEn[vs.index] }" ${params.type eq typesEn[vs.index] ? 'selected' : ''}>${i }</option>
 			</c:forEach>
@@ -73,10 +82,37 @@
 		<input type="text" name="value" value="${empty params.value ? '' : params.value}"/>
 		<input type="hidden" name="first" value="${empty params.first ? '' : params.first}"/>
 		<input type="hidden" name="second" value="${empty params.second ? '' : params.second}"/>
-		<input type="hidden" name="sort" value="${empty params.sort ? '' : params.sort}"/>
+		<input type="hidden" name="sort"  value="${empty params.sort ? '' : params.sort}"/>
+		<input type="hidden" name="on"  value="${empty params.on ? '' : params.on}"/>
 	</form>
 </div>
 
 <script>
+	function first(){
+		if($("#first").val() != null && $("#first").val() != ""){
+			$.ajax({
+				'url':"/admin/sales/product/product_second.ja",
+				'data':{
+					'first':$("#first").val(),
+				}
+			}).done(function(rst){
+				$("#second").html(rst.html);
+			});
+		}else{
+			$("#second").html("");
+			$("#form").submit();
+		}
+	}
 	
+	if($("#first").val() != null && $("#first").val() != ""){
+		first();
+	}
+	
+	$("#first").on("change", function(){
+		first();
+	});
+	
+	$("#second").on("change", function(){
+		$("#form").submit();
+	});
 </script>
