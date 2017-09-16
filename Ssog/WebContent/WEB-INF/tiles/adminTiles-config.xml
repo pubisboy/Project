@@ -43,13 +43,13 @@
 		</put-attribute>
 	</definition>
 	
-	<definition name="ad_order" extends="ad_main">
+	<definition name="ad_sales" extends="ad_main">
 		<put-attribute name="section">
 			<definition template="/WEB-INF/view/admin/main/template.jsp">
 				<put-attribute name="nav"
-					expression="/WEB-INF/view/admin/nav/nav_order.jsp" />
+					expression="/WEB-INF/view/admin/nav/nav_sales.jsp" />
 				<put-attribute name="section"
-					expression="/WEB-INF/view/admin/order/${section}.jsp" />
+					expression="/WEB-INF/view/admin/sales/${section}.jsp" />
 			</definition>
 		</put-attribute>
 	</definition>

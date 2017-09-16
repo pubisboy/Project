@@ -72,9 +72,9 @@ public class AdminController {
 		return "redirect:/admin/member/member_user/user_list.ja";
 	}
 	
-	@RequestMapping("/order.ja")
-	public String order(){
-		return "redirect:/admin/order/order_list.ja";
+	@RequestMapping("/sales.ja")
+	public String sales(){
+		return "redirect:/admin/sales/order/order_list.ja";
 	}
 	
 }

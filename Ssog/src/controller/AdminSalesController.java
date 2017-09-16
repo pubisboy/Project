@@ -1,6 +1,5 @@
-/*package controller;
+package controller;
 
-import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
@@ -16,8 +15,8 @@ import model.AdminOrderDao;
 import paging.Paging;
 
 @Controller
-@RequestMapping("/admin/sales/order")
-public class AdminOrderController {
+@RequestMapping("/admin/sales")
+public class AdminSalesController {
 
 	@Autowired
 	AdminOrderDao aod;
@@ -25,17 +24,17 @@ public class AdminOrderController {
 	@Autowired
 	Paging pg;
 	
-	@RequestMapping("/order_list.ja")
+	@RequestMapping("/order/order_list.ja")
 	public String order_list(@RequestParam Map params, @RequestParam(name="p", defaultValue="1") Integer p, Map map){
 		System.out.println("params : "+params);
 		System.out.println("state : "+params.get("state"));
-		if(params.get("state") != null){
+		/*if(params.get("state") != null){
 			String s = (String)params.get("state");
 			if(s.equals("")){
 				params.remove("type");
 				params.remove("value");
 			}
-		}
+		}*/
 		String val = null;
 		if(params.get("value") != null){
 			val = (String)params.get("value");
@@ -80,7 +79,7 @@ public class AdminOrderController {
 		return "ad_sales";
 	}
 	
-	@RequestMapping("/order_detail.ja")
+	@RequestMapping("/order/order_detail.ja")
 	public String order_detail(@RequestParam(name="order_num") Integer num, Map map){
 		System.out.println("num : "+num);
 		List liInfo = aod.order_detail(num);
@@ -92,7 +91,7 @@ public class AdminOrderController {
 		return "ad_sales";
 	}
 	
-	@RequestMapping("/order_del.ja")
+	@RequestMapping("/order/order_del.ja")
 	public String order_del(@RequestParam Map params, Map map){
 		int num = Integer.parseInt((String)params.get("num"));
 		boolean b = aod.del_order(num);
@@ -102,7 +101,7 @@ public class AdminOrderController {
 		return "/admin/result";
 	}
 	
-	@RequestMapping("/order_modify.ja")
+	@RequestMapping("/order/order_modify.ja")
 	@ResponseBody
 	public Map order_modify(@RequestParam Map params){
 		String html = "<select id='stsel'>";
@@ -126,7 +125,7 @@ public class AdminOrderController {
 		return map;
 	}
 	
-	@RequestMapping("/order_modifyExec.ja")
+	@RequestMapping("/order/order_modifyExec.ja")
 	@ResponseBody
 	public boolean order_modifyExec(@RequestParam Map params){
 		System.out.println("넘어온 거 : "+params);
@@ -134,4 +133,3 @@ public class AdminOrderController {
 		return b;
 	}
 }
-*/

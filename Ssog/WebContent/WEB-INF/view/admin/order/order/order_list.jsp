@@ -5,7 +5,7 @@
 
 <div>검색 : ${total }건</div>
 <div>
-	<form action="/admin/order/order_list.ja" method="get" id="stateForm">
+	<form action="/admin/sales/order/order_list.ja" method="get" id="stateForm">
 		<input type="hidden" id="stateType" name="type" value="${empty params.type ? '' : params.type}"/>
 		<input type="hidden" id="stateValue" name="Value" value="${empty params.value ? '' : params.value}"/>
 		<select id="state" name="state">
@@ -32,7 +32,7 @@
 	<tbody>
 		<c:forEach items="${list }" var="i" varStatus="vs">
 			<tr>
-				<td><a href="/admin/order/order_detail.ja?order_num=${i.ORDER_NUM }">${i.ORDER_NUM }</a></td>
+				<td><a href="/admin/sales/order/order_detail.ja?order_num=${i.ORDER_NUM }">${i.ORDER_NUM }</a></td>
 				<td>${i.PRO_NUM }</td>
 				<td>${i.PRO_NAME }</td>
 				<td>${i.USER_ID }</td>
@@ -44,20 +44,20 @@
 </table>
 <div align="center">
 	<c:if test="${paging.startPageNo ne paging.firstPageNo }">
-		<a href="/admin/order/order_list.ja?p=${paging.startPageNo - 1}&type=${params.type }&value=${params.value}&state=${params.state}">&lt;</a>
+		<a href="/admin/sales/order/order_list.ja?p=${paging.startPageNo - 1}&type=${params.type }&value=${params.value}&state=${params.state}">&lt;</a>
 	</c:if>
 	
 	<c:forEach begin="${paging.startPageNo }" end="${paging.endPageNo }" var="i">
-		<a href="/admin/order/order_list.ja?p=${i}&type=${params.type }&value=${params.value}&state=${params.state}" ${paging.currentPageNo eq i ? 'style="font-weight:bold"' : '' }>${i }</a>
+		<a href="/admin/sales/order/order_list.ja?p=${i}&type=${params.type }&value=${params.value}&state=${params.state}" ${paging.currentPageNo eq i ? 'style="font-weight:bold"' : '' }>${i }</a>
 	</c:forEach>
 	
 	<c:if test="${paging.endPageNo ne paging.finalPageNo }">
-		<a href="/admin/order/order_list.ja?p=${paging.endPageNo + 1}&type=${params.type }&value=${params.value}&state=${params.state}">&gt;</a>
+		<a href="/admin/sales/order/order_list.ja?p=${paging.endPageNo + 1}&type=${params.type }&value=${params.value}&state=${params.state}">&gt;</a>
 	</c:if>
 </div>
 
 <div align="center">
-	<form action="/admin/order/order_list.ja" method="get">
+	<form action="/admin/sales/order/order_list.ja" method="get">
 		<select name="type">
 			<c:forEach items="${typesKo }" var="i" varStatus="vs">
 				<option value="${typesEn[vs.index] }" ${params.type eq typesEn[vs.index] ? 'selected' : ''}>${i }</option>

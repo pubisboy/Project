@@ -178,11 +178,11 @@ td{
 			</table>
 <c:if test="${list[0].STATE ne 5}">
 	<div style="float: left; width: 10%; text-align: left">
-	<button type="button" class="btn btn-default" onclick="cancel('/admin/order/order_del.ja?num=${list[0].ORDER_NUM }');">삭제</button>
+	<button type="button" class="btn btn-default" onclick="cancel('/admin/sales/order/order_del.ja?num=${list[0].ORDER_NUM }');">삭제</button>
 	</div>
 </c:if>		
 	<div style="float: right; width: 33%; text-align: right">
-	<button type="button" class="btn btn-default" onclick="cancel('/admin/order/order_list.ja?p=${params.p }&type=${params.type }&value=${params.value}&state=${params.state}');">목록</button>
+	<button type="button" class="btn btn-default" onclick="cancel('/admin/sales/order/order_list.ja?p=${params.p }&type=${params.type }&value=${params.value}&state=${params.state}');">목록</button>
 	</div>
 		</div>
 	</div>
@@ -193,10 +193,13 @@ var ori;
 function modify(){
 	ori =$("#st").html();
 	$.ajax({
-		'url':"/admin/order/order_modify.ja"
+		'url':"/admin/sales/order/order_modify.ja",
+		'data':{
+			'now':$("#state").val()
+		}
 	}).done(function(rst){
 		$("#st").html(rst.html);
-		$("#modify").html("<button id='submit' style='height: 25px;' onclick='submit();'>변경</button><button id='cancel' style='height: 25px;' onclick='cancel();'>취소</button>");
+		$("#modify").html("<button id='submit' style='height: 25px;' onclick='submit();'>변경</button><button id='cancels' style='height: 25px;' onclick='cancels();'>취소</button>");
 	});
 };
 function submit(){
@@ -204,7 +207,7 @@ function submit(){
 	var tmp = $("#stsel").val();
 	var state = $("#"+tmp).html();
 	$.ajax({
-		'url':"/admin/order/order_modifyExec.ja",
+		'url':"/admin/sales/order/order_modifyExec.ja",
 		'data':{
 			'num':$("#num").html(),
 			'state':$("#stsel").val()
@@ -220,9 +223,9 @@ function submit(){
 		}
 	});
 };
-function cancel(){
-	window.alert("취소 작동");
+function cancels(){
 	$("#modify").html("<button id='mbutton' style='height: 25px;' onclick='modify();'>수정</button>");
 	$("#st").html(ori);
 };
 </script>
+<script src="<c:url value="/etc.js" />"></script>
