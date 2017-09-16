@@ -160,7 +160,7 @@ td{
 			</table>
 <c:if test="${list[0].STATE ne 5}">
 	<div style="float: left; width: 10%; text-align: left">
-	<button type="button" class="btn btn-default" onclick="cancel('/admin/sales/product/product_del.ja?num=${list[0].ORDER_NUM }');">삭제</button>
+	<button type="button" class="btn btn-default" onclick="cancel('/admin/sales/product/product_del.ja?num=${list[0].PRO_NUM }');">삭제</button>
 	</div>
 </c:if>		
 	<div style="float: right; width: 33%; text-align: right">
@@ -198,11 +198,7 @@ function submit(){
 			'cate':$("#sts").val()
 		}
 	}).done(function(rst){
-		if(rst.b){
-			$("#bc").html(rst.bc);
-			$("#sc").html(rst.sc);
-				$("#modify").html("<button id='mbutton' style='height: 25px;' onclick='modify();'>수정</button>");
-		}
+		location.reload();
 	});
 };
 function cancels(){

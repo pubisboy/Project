@@ -160,17 +160,17 @@ public class AdminProductDao {
 		return rst.intValue();
 	}
 	
-	public boolean del_order(int num){
+	public boolean del_product(int num){
 		SqlSession session = factory.openSession();
 		boolean b = false;
 		try{
-			int r = session.delete("admin_product.del_order", num);
+			int r = session.delete("admin_product.del_product", num);
 			if(r > 0){
 				b = true;
 			}
 			session.commit();
 		}catch(Exception e){
-			System.out.println("error.del_order"+e.toString());
+			System.out.println("error.del_product"+e.toString());
 			b = false;
 			session.rollback();
 		}finally{

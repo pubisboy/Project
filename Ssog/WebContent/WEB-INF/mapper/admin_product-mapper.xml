@@ -122,15 +122,11 @@
 	</select>
 	
 	<delete id="del_product" parameterType="java.lang.Integer">
-		delete PRODUCTTBL where order_num = #{num}
+		delete PRODUCTTBL where pro_num = #{num}
 	</delete>
 	
 	<update id="update_product" parameterType="java.util.HashMap">
 		update PRODUCTTBL set cate = #{cate} where pro_num = #{num}
 	</update>
-	
-	<select id="">
-		
-	</select>
 
 </mapper>

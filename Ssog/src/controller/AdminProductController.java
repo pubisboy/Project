@@ -210,9 +210,16 @@ public class AdminProductController {
 	public boolean product_modifyExec(@RequestParam Map params){
 		System.out.println("넘어온 거 : "+params);
 		boolean b = apd.update_product(params);
-		if(b){
-			
-		}
 		return b;
+	}
+	
+	@RequestMapping("/product_del.ja")
+	public String product_del(@RequestParam Map params, Map map){
+		int num = Integer.parseInt((String)params.get("num"));
+		boolean b = apd.del_product(num);
+		map.put("rst", b);
+		map.put("t", "/sales/product/product_list.ja");
+		map.put("f", "/sales/product/product_detail.ja?num="+num);
+		return "/admin/result";
 	}
 }
