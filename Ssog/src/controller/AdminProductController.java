@@ -95,8 +95,7 @@ public class AdminProductController {
 	}
 	
 	@RequestMapping("/product_second.ja")
-	@ResponseBody
-	public Map product_second(@RequestParam Map params){
+	public String product_second(@RequestParam Map params, Map map){
 		List list = null;
 		String first = (String)params.get("first");
 		String name = null;
@@ -113,17 +112,16 @@ public class AdminProductController {
 		System.out.println("name : "+name);
 		
 		String html = "<optgroup label='상세분류'>";
-			for(Object o : list){
-				Map m = (Map)o;
-				BigDecimal tmp = (BigDecimal)m.get(name);
-				int cate = tmp.intValue();
-				String s = String.format("<option value='%s'>%s</option>",cate, (String)m.get(val));
-				html += s;
-			}
+		for(Object o : list){
+			Map m = (Map)o;
+			BigDecimal tmp = (BigDecimal)m.get(name);
+			int cate = tmp.intValue();
+			String s = String.format("<option value='${!empty params.second and params.second eq %s ? \'selected\' : \'\'}'>%s</option>",cate, (String)m.get(val));
+			html += s;
+		}
 		html += "</optgroup>";
 		
-		Map map = new HashMap<>();
 		map.put("html", html);
-		return map;
+		return "/admin/makeHtml";
 	}
 }
