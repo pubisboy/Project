@@ -993,16 +993,16 @@ public class AdminOracleDao implements AdminDao{
 		return b;
 	}
 	
-	public boolean check_admin(Map map){
+	public boolean admin_modify(Map map){
 		SqlSession session = factory.openSession();
 		boolean b = false;
 		try{
-			int r = session.selectOne("admin_admin.check_admin", map);
+			int r = session.selectOne("admin_admin.admin_modify", map);
 			if(r > 0){
 				b = true;
 			}
 		}catch(Exception e){
-			System.out.println("error.check_admin"+e.toString());
+			System.out.println("error.admin_modify"+e.toString());
 			b = false;
 		}finally{
 			session.close();

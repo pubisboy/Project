@@ -69,5 +69,5 @@ public interface AdminDao {
 	public List<Map> admin_list(Map map);
 	public int admin_list_count(Map map);
 	public boolean admin_del(Map map);
-	public boolean check_admin(Map map);
+	public boolean admin_modify(Map map);
 }

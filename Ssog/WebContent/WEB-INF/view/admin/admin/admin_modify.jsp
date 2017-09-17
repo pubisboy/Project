@@ -59,7 +59,7 @@ $("#submit").on("click",function () {
 	if($("#newpass").val().match(passrule)){
 	
 	$.ajax({
-		url:"/admin/admin/admin_modify.ja",
+		url:"/admin/admin/admin_modifyExec.ja",
 		method : "post",
 		data : {
 			"pass" : $("#pass").val(),
@@ -67,10 +67,10 @@ $("#submit").on("click",function () {
 		}
 	}).done(function (result) {
 		if(result==true){
-			window.alert("비밀번호가 변경되었습니다.다시로그인해주시기 바랍니다.");
+			window.alert("비밀번호가 변경 성공");
 			location.href = "/admin/logout.j";
 		}else{
-			window.alert("현재비밀번호가 맞지않습니다.");
+			window.alert("비밀번호 변경 실패");
 			location.href = "/admin/admin/admin_modify.ja";
 		}
 	});

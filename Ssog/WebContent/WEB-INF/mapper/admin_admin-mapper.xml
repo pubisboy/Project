@@ -19,8 +19,8 @@
 		order by joindate desc) o) r
 	</select>
 	
-	<select id="check_admin" parameterType="java.util.HashMap" resultType="java.lang.Integer">
-		select count(*) count from admin_member where id = #{id} and pass = #{pass}
+	<select id="admin_modify" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+		update admin_member set pass = #{newpass} where id = #{id} and pass = #{pass}
 	</select>
 	
 	<delete id="admin_del" parameterType="java.util.HashMap">

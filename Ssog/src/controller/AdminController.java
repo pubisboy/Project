@@ -141,13 +141,19 @@ public class AdminController {
 	
 	
 	@RequestMapping("/admin/admin_modify.ja")
-	public String admin_modify(@RequestParam Map params, HttpSession session, Map map){
+	public String admin_modify(Map map){
+		map.put("section", "/admin/admin_modify");
+		return "ad_admin";
+	}
+	
+	@RequestMapping("/admin/admin_modifyExec.ja")
+	@ResponseBody
+	public boolean admin_modifyExec(@RequestParam Map params, HttpSession session){
 		String id = (String)session.getAttribute("admin");
 		String pass = (String)params.get("pass");
 		String newpass = (String)params.get("newpass");
-		
-		map.put("section", "/admin/admin_modify");
-		return "ad_admin";
+		boolean b = ad.admin_modify(params);
+		return b;
 	}
 	
 	@RequestMapping("/admin/admin_del.ja")
