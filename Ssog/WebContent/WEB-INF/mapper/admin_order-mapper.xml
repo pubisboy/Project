@@ -5,7 +5,8 @@
 <mapper namespace="admin_order">
 
 	<select id="order_list" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-		select rst.*, ROWNUM rnum from
+		select * from
+		(select rr.*, ROWNUM rnum from
 		(select ospt.* from
 		(select osp.*, t.CUPON_NUM from
 		(select os.*, p.SELLER_ID, p.PRO_NAME from (select o.*, s.state st from ORDERTBL o left join state s on o.state = s.STATE_NUM) os left join PRODUCTTBL p on os.pro_num = p.PRO_NUM) osp
@@ -21,7 +22,16 @@
 				where state = #{state}
 			</when>
 		</choose>
-		order by order_date desc) rst
+		order by order_date
+		<choose>
+			<when test="sort == 'asc'">
+				asc
+			</when>
+			<otherwise>
+				desc
+			</otherwise>
+		</choose>
+		) rr) rst where rnum between #{start} and #{end}
 	</select>
 	
 	<select id="order_list_count" parameterType="java.util.HashMap" resultType="java.lang.Integer">
@@ -75,5 +85,21 @@
 	<update id="update_order" parameterType="java.util.HashMap">
 		update ordertbl set state = #{state} where order_num = #{num}
 	</update>
-
+	
+	<update id="update_order_user_record" parameterType="java.util.HashMap">
+		update user_record set buy_total = buy_total + (select price from ORDERTBL where ORDER_NUM = #{num}),
+		point = point + (select price * (select rate from point) / 100 from ORDERTBL where ORDER_NUM = #{num})
+		where id = (select user_id from ORDERTBL where ORDER_NUM = #{num})
+	</update>
+	
+	<update id="update_order_seller_record" parameterType="java.util.HashMap">
+		update seller_record set price_total = price_total+(select price from ORDERTBL where ORDER_NUM = #{num})
+		where id = (select seller_id from PRODUCTTBL where PRO_NUM = (select pro_num from ORDERTBL where ORDER_NUM = #{num}))
+	</update>
+	
+	<update id="update_order_sell_qty" parameterType="java.util.HashMap">
+		update sell_qty set TOTAL_SELL = TOTAL_SELL+(select order_qty from ORDERTBL where order_num = #{num})
+		where pro_num = (select pro_num from ORDERTBL where order_num = #{num})
+	</update>
+	
 </mapper>
