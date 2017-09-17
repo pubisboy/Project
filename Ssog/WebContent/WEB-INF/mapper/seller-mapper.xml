@@ -3,7 +3,7 @@
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="seller">
- 	<!-- 기본정보 관리 -->
+ 	<!-- ******************기본정보 관리***************** -->
  	<insert id="join" parameterType="java.util.HashMap">
  		INSERT INTO SELLER_MEMBER(id, pass, name, phone, brand, joindate, account, bank, memo)
  		VALUES(#{id}, #{pass}, #{name}, #{phone}, #{brand}, sysdate, #{account}, #{bank}, (null))
@@ -30,7 +30,7 @@
   	</update>
   	
   	
-  	<!-- 상품 관리  -->
+  	<!-- ******************상품 관리***************** -->
   	<!-- column명을 대입해야 할 때는 '$'를 쓴다. '$'가 '#'보다 우선순위가 더 먼저 -->
   	<select id="pro_list" parameterType="java.util.HashMap" resultType="java.util.HashMap">
   		select tmp5.* from(select tmp3.*,tmp4.name as origin_name from 
@@ -74,7 +74,7 @@
   	
   	
   	
-  	<!-- 리뷰 -->
+  	<!-- ******************리뷰***************** -->
   	<select id="review_list" parameterType="java.util.HashMap" resultType="java.util.HashMap">
   		select * from review where seller_id=#{id}
   		order by num desc
@@ -116,4 +116,26 @@
   		select * from counsel_seller_category
   	</select>
   	
+  	
+  	
+  	<!-- ******************상품 Q&A***************** -->
+  	
+  	
+  	
+  	
+  	<!-- ******************주문관리***************** -->
+  	<select id="order_list" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+  		select * from (select tmp1.*, rownum as r from (select * from ordertbl join producttbl
+		on ordertbl.pro_num = producttbl.pro_num
+		where ordertbl.pro_num = any(select pro_num from producttbl where seller_id = #{id})) tmp1)
+		where r between #{start} and #{end}
+		order by order_num desc
+  	</select>
+  	
+  	<select id="order_total" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+  		select count(*) from (select tmp1.*, rownum as r from (select * from ordertbl join producttbl
+		on ordertbl.pro_num = producttbl.pro_num
+		where ordertbl.pro_num = any(select pro_num from producttbl where seller_id = #{id})) tmp1)
+		where r between #{start} and #{end}
+  	</select>
  </mapper>
