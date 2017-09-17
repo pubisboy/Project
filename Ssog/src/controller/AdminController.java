@@ -152,6 +152,7 @@ public class AdminController {
 		String id = (String)session.getAttribute("admin");
 		String pass = (String)params.get("pass");
 		String newpass = (String)params.get("newpass");
+		params.put("id", id);
 		boolean b = ad.admin_modify(params);
 		return b;
 	}
