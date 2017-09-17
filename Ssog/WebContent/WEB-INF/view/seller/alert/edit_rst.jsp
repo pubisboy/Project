@@ -15,4 +15,4 @@
 		
 	</c:otherwise>
 </c:choose>
-<meta http-equiv="refresh" content="0;url=/seller/info.j" />
+<meta http-equiv="refresh" content="0;url=/seller/info/info.j" />

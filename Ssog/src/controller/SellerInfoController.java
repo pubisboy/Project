@@ -59,23 +59,6 @@ public class SellerInfoController {
 		return map;
 	}
 	
-	//비밀번호 변경 폼에서 이전 비번 가져오기
-	@RequestMapping("/info/passAjax.j")
-	@ResponseBody
-	public Map passajax(@RequestParam(name="pre_pass") String pre_pass, HttpSession session){
-		String id = (String)session.getAttribute("seller_id");
-		boolean flag = false;
-		Map m = sdao.overlapChk(id, "id");
-		String db_pass = (String) m.get("PASS");
-		if (pre_pass.equals(db_pass)) {
-			flag = true;
-		} else {
-			flag = false;
-		}
-		Map map = new HashMap<>();
-		map.put("pre_check", flag);
-		return map;
-	}
 	
 	@RequestMapping("/alert/join_rst.j")
 	public ModelAndView join_rst(@RequestParam Map param, HttpSession session) {
@@ -85,7 +68,7 @@ public class SellerInfoController {
 			session.setAttribute("seller_id", (String)param.get("id"));
 		} 
 		mav.addObject("rst", b);
-		mav.addObject("section", "seller/main");
+		mav.addObject("section", "seller/alert/join_rst");
 		return mav;
 	}
 	
@@ -108,7 +91,7 @@ public class SellerInfoController {
 			}
 		}
 		ModelAndView mav = new ModelAndView("t_el_seller");
-		mav.addObject("section", "seller/main");
+		mav.addObject("section", "seller/alert/login_rst");
 		mav.addObject("rst", rst);
 		return mav;
 	}
@@ -219,18 +202,25 @@ public class SellerInfoController {
 		return mav;
 	}
 	
-	@RequestMapping("/info/pass_edit_ok.j")
-	public ModelAndView editPassRst(@RequestParam Map map, HttpSession session) {
-		ModelAndView mav = new ModelAndView("t_el_seller");
-		String id = (String)session.getAttribute("seller_id");
-		map.put("id", id);
-		boolean b = sdao.editPass(map);
-		if(b) {
-			mav.addObject("rst", b);
+	//비밀번호 변경 폼에서 이전 비번 가져오기
+		@RequestMapping("/info/passAjax.j")
+		@ResponseBody
+		public Map passajax(@RequestParam Map param, HttpSession session){
+			String id = (String)session.getAttribute("seller_id");
+			String pass = (String) param.get("pass");
+			
+			boolean flag = false;
+			Map m = sdao.overlapChk(id, "id");
+			String db_pass = (String) m.get("PASS");
+			if (pass.equals(db_pass)) {
+				param.put("id", id);
+				boolean rst = sdao.editPass(param);
+				if(rst)	flag = true;
+			} else {
+				flag = false;
+			}
+			Map map = new HashMap<>();
+			map.put("pre_check", flag);
+			return map;
 		}
-		mav.addObject("section", "seller/alert/edit_rst");
-		return mav;
-	}
-	
-	
 }

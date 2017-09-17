@@ -5,8 +5,8 @@
  <mapper namespace="seller">
  	<!-- 기본정보 관리 -->
  	<insert id="join" parameterType="java.util.HashMap">
- 		INSERT INTO SELLER_MEMBER(id, pass, name, phone, brand, joindate, account, bank)
- 		VALUES(#{id}, #{pass}, #{name}, #{phone}, #{brand}, sysdate, #{account}, #{bank}, #{memo})
+ 		INSERT INTO SELLER_MEMBER(id, pass, name, phone, brand, joindate, account, bank, memo)
+ 		VALUES(#{id}, #{pass}, #{name}, #{phone}, #{brand}, sysdate, #{account}, #{bank}, (null))
  	</insert>
   	<select id="login" parameterType="java.util.HashMap" resultType="java.util.HashMap">
   		SELECT * FROM SELLER_MEMBER WHERE id=#{id} AND pass=#{pass}
@@ -26,7 +26,7 @@
   		where id=#{id}
   	</update>
   	<update id="edit_pass" parameterType="java.util.HashMap">
-  		update seller_member set pass=#{pass} where id=#{id}
+  		update seller_member set pass=#{newpass} where id=#{id}
   	</update>
   	
   	
@@ -44,7 +44,7 @@
 	  		  and ${search_type} like #{search_word} 
   		 </if>
   		 <if test="big_cate != '' and big_cate != null and small_cate != '' and small_cate != null">
-	  		  and ${big_cate} = #{small_cate}
+	  		  and ${b_cate} = #{sub_cate}
   		 </if>
   		 order by pro_date desc)  tmp) 
   		  order by r asc)tmp3 left join origintbl tmp4 on tmp3.origin=tmp4.num)tmp5 
@@ -75,10 +75,13 @@
   	
   	
   	<!-- 리뷰 -->
-  	<select id="review" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+  	<select id="review_list" parameterType="java.util.HashMap" resultType="java.util.HashMap">
   		select * from review where seller_id=#{id}
+  		order by num desc
   	</select>
-  	
+  	<select id="review_total" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+  		select count(*) from review where seller_id=#{id}
+  	</select>
   	
   	
   	

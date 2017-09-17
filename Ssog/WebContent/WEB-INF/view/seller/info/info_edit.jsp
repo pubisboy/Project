@@ -32,7 +32,7 @@
 		<tr >
 			<td width="150px" bgcolor="lightgray">계좌번호</td> 
 			<td width="350px">
-				<input type="text" id="account" name="account" width="350px" value="${map.ACCOUNT}" required>
+				<input type="text" id="account" name="account" width="350px" value="[${map.BANK}] ${map.ACCOUNT}" required>
 				 <span id="account_chk"></span>
 			</td>
 		</tr>

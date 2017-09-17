@@ -12,7 +12,7 @@
 	<c:otherwise>
 	<script>
 		window.alert("가입실패.");
-		location.href="/seller/join.j";
+		location.href="/seller/info/join.j";
 		</script>
 		
 	</c:otherwise>

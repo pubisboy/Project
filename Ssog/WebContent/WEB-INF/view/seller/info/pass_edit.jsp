@@ -48,7 +48,7 @@ small { font-size: 12px; color: #8c8c8c; margin-left:5px; }
 	</p>
 
 	<div style="text-align:left">
-	<form action="/seller/pass_edit_ok.j">
+	<form>
 		<hr style="margin-top: 8px; border-top: 3px solid black;">
 		
 		<h3 class="txt">기존 비밀번호</h3> 
@@ -67,7 +67,7 @@ small { font-size: 12px; color: #8c8c8c; margin-left:5px; }
 		
 		<hr style="margin: 8px;" />
 			<div align="center" style="padding-top: 10px;">
-				<button type="submit" style="font-size: 12px;" id="sbt" class="btn btn-custom">비밀번호 변경하기</button>
+				<button type="button" style="font-size: 12px;" id="sbt" class="btn btn-custom">비밀번호 변경하기</button>
 				<button type="button" style="font-size: 12px;" class="btn btn-custom2">취소</button>
 			</div>
 		</form>
@@ -80,7 +80,7 @@ small { font-size: 12px; color: #8c8c8c; margin-left:5px; }
   		if($("#newpass").val()==$("#newpass2").val()){
 	  		if($("#newpass").val().match(passrule)){
 		  		$.ajax({
-		  			url:"/seller/passAjax.j",
+		  			url:"/seller/info/passAjax.j",
 		  			method : "post",
 		  			data : {
 		  				"pass" : $("#pass").val(),
@@ -88,8 +88,8 @@ small { font-size: 12px; color: #8c8c8c; margin-left:5px; }
 		  			}
 		  		}).done(function (obj) {
 		  			if(obj.pre_check){
-		  				window.alert("비밀번호가 변경되었습니다.다시로그인해주시기 바랍니다.");
-		  				location.href = "/seller/logout.j";
+		  				window.alert("비밀번호가 변경되었습니다.");
+		  				location.href = "/seller/info/info.j";
 		  			}else{
 		  				window.alert("현재 비밀번호가 맞지않습니다.");
 		  				location.href = "/seller/info/pass_edit.j";
