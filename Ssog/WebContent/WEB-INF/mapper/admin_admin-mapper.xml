@@ -26,4 +26,8 @@
 	<delete id="admin_del" parameterType="java.util.HashMap">
 		delete admin_member where id = #{id}
 	</delete>
+	
+	<insert id="admin_create" parameterType="java.util.HashMap">
+		insert into admin_member values(#{id}, #{pass}, sysdate, #{owner})
+	</insert>
 </mapper>

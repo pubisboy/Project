@@ -997,7 +997,7 @@ public class AdminOracleDao implements AdminDao{
 		SqlSession session = factory.openSession();
 		boolean b = false;
 		try{
-			int r = session.selectOne("admin_admin.admin_modify", map);
+			int r = session.update("admin_admin.admin_modify", map);
 			if(r > 0){
 				b = true;
 			}
@@ -1010,4 +1010,21 @@ public class AdminOracleDao implements AdminDao{
 		return b;
 	}
 	
+	public boolean admin_create(Map map){
+		boolean b = false;
+		SqlSession session = factory.openSession();
+		try{
+			int r = session.insert("admin_admin.admin_create", map);
+			if(r > 0){
+				b = true;
+			}
+			session.commit();
+		}catch(Exception e){
+			System.out.println("error.admin_create"+e.toString());
+			session.rollback();
+		}finally{
+			session.close();
+		}
+		return b;
+	}
 }

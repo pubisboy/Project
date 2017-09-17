@@ -66,9 +66,9 @@ $("#submit").on("click",function () {
 			"newpass" : $("#newpass").val()
 		}
 	}).done(function (result) {
-		if(result==true){
-			window.alert("비밀번호가 변경 성공");
-			location.href = "/admin/logout.j";
+		if(result){
+			window.alert("비밀번호 변경 성공");
+			location.href = "/admin/logout.ja";
 		}else{
 			window.alert("비밀번호 변경 실패");
 			location.href = "/admin/admin/admin_modify.ja";
@@ -78,7 +78,7 @@ $("#submit").on("click",function () {
 		window.alert("영문 또는 숫자 조합(8자이상)");
 	}
 	}else{
-		window.alert("비밀번호가 일치하지 않습니다.");		
+		window.alert("확인 비밀번호 불일치");		
 	}
 });
 

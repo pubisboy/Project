@@ -153,7 +153,9 @@ public class AdminController {
 		String pass = (String)params.get("pass");
 		String newpass = (String)params.get("newpass");
 		params.put("id", id);
+		System.out.println("params : "+params);
 		boolean b = ad.admin_modify(params);
+		System.out.println("결과 : "+b);
 		return b;
 	}
 	
@@ -161,6 +163,21 @@ public class AdminController {
 	@ResponseBody
 	public boolean admin_del(@RequestParam Map params, Map map){
 		boolean b = ad.admin_del(params);
+		return b;
+	}
+	
+	@RequestMapping("/admin/admin_create.ja")
+	public String admin_create(Map map){
+		map.put("section", "/admin/admin_create");
+		return "ad_admin";
+	}
+	
+	@RequestMapping("/admin/admin_createExec.ja")
+	@ResponseBody
+	public boolean admin_createExec(@RequestParam Map params){
+		System.out.println("params : "+params);
+		boolean b = ad.admin_create(params);
+		System.out.println("결과 : "+b);
 		return b;
 	}
 	
