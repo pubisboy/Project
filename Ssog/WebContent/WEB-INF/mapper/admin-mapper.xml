@@ -587,12 +587,22 @@
 		select img_uuid from popup where popup_num = #{num}
 	</select>
 	
-	<select id="getPopup_target" resultType="java.util.HashMap">
+	<select id="getPopup_target" parameterType="java.util.ArrayList" resultType="java.util.HashMap">
 		select popup_num from popup where onoff = 1
+		<foreach collection="list" item="num">
+			and POPUP_NUM != #{num}
+		</foreach>
 	</select>
 	
 	<select id="getPopup_target_detail" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-		select * from popup where POPUP_NUM = #{num}
+		select bc.*, t.RATE from 
+		(select b.*,c.CUPON_TYPE from (select * from popup where POPUP_NUM = #{num}) b
+		left join CUPON_BASE c on b.cupon_base = c.NUM) bc
+		left join CUPON_TYPE t on bc.CUPON_TYPE = t.CUPON_NUM
+	</select>
+	
+	<select id="getCupon_date" parameterType="java.util.HashMap" resultType="java.util.Date">
+		select end_date edate from CUPON_BASE where num = (select cupon_base from popup where POPUP_NUM = #{num})
 	</select>
 	
 	<select id="getCupon_type_list" resultType="java.util.HashMap">
@@ -614,4 +624,8 @@
 	<delete id="delCounsel_seller" parameterType="java.util.HashMap">
 		delete from counsel_seller where num = #{num}
 	</delete>
+	
+	<select id="createCupon" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+		insert into cupon_list values(CUPON_LIST_NUM_SEQ.NEXTVAL, #{cupon}, #{id})
+	</select>
 </mapper>

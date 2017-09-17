@@ -27,6 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import model.AdminDao;
 import paging.Paging;
+import paging.Title;
 
 @Controller
 @RequestMapping("/admin/management")
@@ -40,6 +41,9 @@ public class AdminManagementController {
 	
 	@Autowired
 	Paging pg;
+	
+	@Autowired
+	Title tt;
 
 	@RequestMapping("/notice/notice_list.ja")
 	public String notice_list(@RequestParam Map params, @RequestParam(name="p", defaultValue="1") Integer p, Map map){
@@ -64,6 +68,19 @@ public class AdminManagementController {
 		params.put("end", bt.get("end"));
 		
 		List<Map> rst = ad.getValues("admin.getList_notice", params);
+		for(int i = 0; i < rst.size(); i++){
+			Map m = (Map)rst.get(i);
+			String s = (String)m.get("TITLE");
+			if(s.length() > 20){
+				s = s.substring(0, 17);
+				StringBuilder sb = new StringBuilder(s);
+				sb.append("...");
+				s = sb.toString();
+				System.out.println("잘린 제목 : "+s);
+			}
+			((Map)rst.get(i)).put("TITLE", s);
+		}
+		
 		System.out.println("params의 값은 "+params);
 		List state = ad.getTarget_notice();
 		
@@ -314,6 +331,7 @@ public class AdminManagementController {
 		params.put("end", se.get("end"));
 		
 		List list = ad.getTerms(params);
+		tt.subTitle(list, "TITLE", 20);
 		
 		DecimalFormat df = new DecimalFormat("#,###");
 		String total = df.format(rows);
@@ -444,6 +462,7 @@ public class AdminManagementController {
 		
 		// System.out.println("params의 값은 "+params);
 		List<Map> rst = ad.getList_counsel_user(params);
+		tt.subTitle(rst, "TITLE", 20);
 		// System.out.println("검색 결과는 : "+rst);
 		List state = ad.getCounsel_category();
 		
@@ -572,6 +591,7 @@ public class AdminManagementController {
 		
 		System.out.println("params의 값은 "+params);
 		List<Map> rst = ad.getList_counsel_seller(params);
+		tt.subTitle(rst, "TITLE", 20);
 		System.out.println("검색 결과는 : "+rst);
 		List state = ad.getCounsel_seller_category();
 		
@@ -675,6 +695,7 @@ public class AdminManagementController {
 		params.put("end", bt.get("end"));
 		
 		List<Map> rst = ad.getPopup_list(params);
+		tt.subTitle(rst, "TITLE", 20);
 		
 		DecimalFormat df = new DecimalFormat("#,###");
 		String total = df.format(rows);

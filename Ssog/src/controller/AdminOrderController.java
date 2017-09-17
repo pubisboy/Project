@@ -1,6 +1,5 @@
 package controller;
 
-import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +15,7 @@ import model.AdminOrderDao;
 import paging.Paging;
 
 @Controller
-@RequestMapping("/admin/order")
+@RequestMapping("/admin/sales/order")
 public class AdminOrderController {
 
 	@Autowired
@@ -57,7 +56,20 @@ public class AdminOrderController {
 		params.put("end", se.get("end"));
 		
 		List list = aod.order_list(params);
-		
+		System.out.println("주문 리스트"+list);
+		for(int i = 0; i < list.size(); i++){
+			Map m = (Map)list.get(i);
+			String s = (String)m.get("PRO_NAME");
+			if(s.length() > 10){
+				s = s.substring(0, 7);
+				StringBuilder sb = new StringBuilder(s);
+				sb.append("...");
+				s = sb.toString();
+				System.out.println("잘린 제목 : "+s);
+			}
+			((Map)list.get(i)).put("PRO_NAME", s);
+		}
+		System.out.println("주문 리스트"+list);
 		String[] typesEn = "order_num,pro_num,pro_name,user_id,seller_id".split(",");
 		String[] typesKo = "주문번호,상품번호,상품이름,구매자,판매자".split(",");
 		map.put("typesEn", typesEn);
@@ -77,19 +89,20 @@ public class AdminOrderController {
 		map.put("section", "/order/order_list");
 		params.put("value", val);
 		map.put("params", params);
-		return "ad_order";
+		return "ad_sales";
 	}
 	
 	@RequestMapping("/order_detail.ja")
-	public String order_detail(@RequestParam(name="order_num") Integer num, Map map){
+	public String order_detail(@RequestParam Map params, @RequestParam(name="order_num") Integer num, Map map){
 		System.out.println("num : "+num);
 		List liInfo = aod.order_detail(num);
 		if(liInfo.size() > 0){
 			System.out.println("liInfo : "+liInfo);
 		}
 		map.put("list", liInfo);
+		map.put("params", params);
 		map.put("section", "/order/order_detail");
-		return "ad_order";
+		return "ad_sales";
 	}
 	
 	@RequestMapping("/order_del.ja")
@@ -97,8 +110,8 @@ public class AdminOrderController {
 		int num = Integer.parseInt((String)params.get("num"));
 		boolean b = aod.del_order(num);
 		map.put("rst", b);
-		map.put("t", "/order/order_list.ja");
-		map.put("f", "/order/order_detail.ja");
+		map.put("t", "/sales/order/order_list.ja");
+		map.put("f", "/sales/order/order_detail.ja");
 		return "/admin/result";
 	}
 	
@@ -109,8 +122,14 @@ public class AdminOrderController {
 		System.out.println("넘어온 거 : "+params);
 		String[] stateNum = "1,2,3,4,5,6,7".split(",");
 		String[] stateKo = "주문,결제완료,배송중,배송완료,구매확정,교환중,반품중".split(",");
+		int now = Integer.parseInt((String)params.get("now"));
 		for(int i = 0; i < stateNum.length; i++){
-			String s = String.format("<option value='%s' id='%s'>%s</option>",stateNum[i],stateNum[i],stateKo[i]);
+			String s;
+			if(now == Integer.parseInt(stateNum[i])){
+				s = String.format("<option value='%s' id='%s' selected>%s</option>",stateNum[i],stateNum[i],stateKo[i]);
+			}else{
+				s = String.format("<option value='%s' id='%s'>%s</option>",stateNum[i],stateNum[i],stateKo[i]);
+			}
 			html += s;
 		}
 		html+="</select>";
@@ -124,7 +143,17 @@ public class AdminOrderController {
 	@ResponseBody
 	public boolean order_modifyExec(@RequestParam Map params){
 		System.out.println("넘어온 거 : "+params);
+		String state = (String)params.get("state");
+		System.out.println("state : "+state);
 		boolean b = aod.update_order(params);
+		if(b && state.equals("5")){
+			b = aod.update_order_user_record(params);
+			System.out.println("구매자 레코드 : "+b);
+			b = aod.update_order_seller_record(params);
+			System.out.println("판매자 레코드 : "+b);
+			b = aod.update_order_sell_qty(params);
+			System.out.println("개수 레코드 : "+b);
+		}
 		return b;
 	}
 }
