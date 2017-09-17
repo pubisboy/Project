@@ -301,14 +301,14 @@ public class AdminOracleDao implements AdminDao{
 	
 	public int plusInfo_company(String name){
 		SqlSession session = factory.openSession();
-		int rst = -1;
+		int rst = 0;
 		try{
 			session.insert("admin.plusInfo_company", name);
 			rst = session.selectOne("admin.getNum_info_company", name);
 			session.commit();
 		}catch(Exception e){
 			System.out.println("error.plusInfo_company"+e.toString());
-			rst = -1;
+			rst = 0;
 			session.rollback();
 		}finally{
 			session.close();
@@ -947,4 +947,67 @@ public class AdminOracleDao implements AdminDao{
 		}
 		return b;
 	}
+	
+	public List<Map> admin_list(Map map){
+		SqlSession session = factory.openSession();
+		List<Map> rst = null;
+		try{
+			rst = session.selectList("admin_admin.admin_list", map);
+		}catch(Exception e){
+			System.out.println("error.admin_list"+e.toString());
+		}finally{
+			session.close();
+		}
+		return rst;
+	}
+	
+	public int admin_list_count(Map map){
+		SqlSession session = factory.openSession();
+		int rst = 0;
+		try{
+			rst = session.selectOne("admin_admin.admin_list_count", map);
+		}catch(Exception e){
+			System.out.println("error.admin_list_count"+e.toString());
+		}finally{
+			session.close();
+		}
+		return rst;
+	}
+	
+	public boolean admin_del(Map map){
+		SqlSession session = factory.openSession();
+		boolean b = false;
+		try{
+			int r = session.delete("admin_admin.admin_del", map);
+			if(r > 0){
+				b = true;
+			}
+			session.commit();
+		}catch(Exception e){
+			System.out.println("error.admin_del"+e.toString());
+			b = false;
+			session.rollback();
+		}finally{
+			session.close();
+		}
+		return b;
+	}
+	
+	public boolean check_admin(Map map){
+		SqlSession session = factory.openSession();
+		boolean b = false;
+		try{
+			int r = session.selectOne("admin_admin.check_admin", map);
+			if(r > 0){
+				b = true;
+			}
+		}catch(Exception e){
+			System.out.println("error.check_admin"+e.toString());
+			b = false;
+		}finally{
+			session.close();
+		}
+		return b;
+	}
+	
 }

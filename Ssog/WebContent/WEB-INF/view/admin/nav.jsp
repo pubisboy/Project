@@ -12,7 +12,11 @@
 			<li><a href="/admin/member.ja">회원</a></li>
 			<li><a href="/admin/sales.ja">매출</a></li>
 			<li><a href="/admin/management.ja">관리</a></li>
+			<li><a href="/admin/admin.ja">관리자</a></li>
 		</ul>
+		<ul class="nav navbar-nav navbar-right">
+	    	<li><a href="/admin/logout.ja">로그아웃</a></li>
+	    </ul>
 	</div>
 </nav>
 

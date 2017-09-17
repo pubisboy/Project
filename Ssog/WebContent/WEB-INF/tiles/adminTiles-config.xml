@@ -58,5 +58,16 @@
 		<put-attribute name="title" expression="${title}" />
 		<put-attribute name="section" expression="/WEB-INF/view/admin/${section}.jsp" />
 	</definition>
+	
+	<definition name="ad_admin" extends="ad_main">
+		<put-attribute name="section">
+			<definition template="/WEB-INF/view/admin/main/template.jsp">
+				<put-attribute name="nav"
+					expression="/WEB-INF/view/admin/nav/nav_admin.jsp" />
+				<put-attribute name="section"
+					expression="/WEB-INF/view/admin/${section}.jsp" />
+			</definition>
+		</put-attribute>
+	</definition>
 
 </tiles-definitions>

@@ -66,5 +66,8 @@ public interface AdminDao {
 	public boolean delPopup(Map map);
 	public boolean delCounsel_user(Map map);
 	public boolean delCounsel_seller(Map map);
-	
+	public List<Map> admin_list(Map map);
+	public int admin_list_count(Map map);
+	public boolean admin_del(Map map);
+	public boolean check_admin(Map map);
 }

@@ -22,30 +22,32 @@ td{
 
 <div class="container">
 	<div class="row">
-		<div class="col-xs-6">
+		<div class="col-xs-8">
 			<table class="table table-bordered"
 				style="text-align: center; height: 47%;">
 				<thead>
 					<tr>
-						<th colspan="2" style="text-align: center;">상품정보</th>
+						<th colspan="4" style="text-align: center;">상품정보</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
 						<th class="type">상품번호</th>
 						<td id="num">${list[0].PRO_NUM }</td>
+						<th class="type">판매여부</th>
+						<td>
+							${SELL_ON eq 1 ? '판매중' : '중지'}
+						</td>
 					</tr>
 					<tr>
 						<th class="type">상품이름</th>
-						<td>${list[0].PRO_NAME }</td>
+						<td colspan="3">${list[0].PRO_NAME }</td>
 					</tr>
 					<tr>
 						<th class="type">카테(대)</th>
 						<td>
 							<input type="hidden" value="${list[0].PARENT }" id="stateb"/><span id="bc">${list[0].BC }</span>
 						</td>
-					</tr>
-					<tr>
 						<th class="type">카테(소)</th>
 						<td>
 							<input type="hidden" value="${list[0].CATE }" id="states"/><span id="sc">${list[0].SC }</span>
@@ -57,8 +59,6 @@ td{
 					<tr>
 						<th class="type">원산지</th>
 						<td>${list[0].ORI }</td>
-					</tr>
-					<tr>
 						<th class="type">가격</th>
 						<td>
 							<fmt:formatNumber value="${list[0].PRICE }" pattern="#,###"/>원
@@ -79,8 +79,6 @@ td{
 							</c:otherwise>
 						</c:choose>
 						</td>
-					</tr>
-					<tr>
 						<th class='type'>개수</th>
 						<td>
 							<fmt:formatNumber value='${list[0].PRO_QTY }' pattern='#,###'/>개
@@ -89,23 +87,30 @@ td{
 					<tr>
 						<th class="type">판매자</th>
 						<td>${list[0].SELLER_ID }</td>
-					</tr>
-					<tr>
 						<th class="type">등록일</th>
 						<td>
 							<fmt:formatDate value="${list[0].PRO_DATE }" pattern="yyyy년MM월dd일" var="i" />${i }
 						</td>
 					</tr>
+				</tbody>
+			</table>
+			<div>
+			<table class="table table-bordered"
+				style="text-align: center; height: 30%;">
+				<thead>
 					<tr>
-						<th class="type">판매여부</th>
-						<td>
-							${SELL_ON eq 1 ? '판매중' : '중지'}
-						</td>
+						<th colspan="2" style="text-align: center;">상품설명</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>${list[0].PRO_DETAIL }</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
-		<div class="col-xs-2"></div>
+		</div>
+		
 		<div class="col-xs-4">
 			<table class="table table-bordered"
 				style="text-align: center; height: 30%;">

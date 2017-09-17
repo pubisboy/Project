@@ -29,7 +29,7 @@ public class AdminProductDao {
 	
 	public int product_list_count(Map map){
 		SqlSession session = factory.openSession();
-		int rst = -1;
+		int rst = 0;
 		try{
 			rst = session.selectOne("admin_product.product_list_count", map);
 		}catch(Exception e){
@@ -82,11 +82,11 @@ public class AdminProductDao {
 	
 	public int get_saleQty(Map map){
 		SqlSession session = factory.openSession();
-		Integer rst = -1;
+		Integer rst = 0;
 		try{
 			rst = session.selectOne("admin_product.get_saleQty", map);
 			if(rst == null){
-				rst = -1;
+				rst = 0;
 			}
 		}catch(Exception e){
 			System.out.println("error.get_saleQty"+e.toString());
@@ -98,11 +98,11 @@ public class AdminProductDao {
 	
 	public int get_saleSum(Map map){
 		SqlSession session = factory.openSession();
-		Integer rst = -1;
+		Integer rst = 0;
 		try{
 			rst = session.selectOne("admin_product.get_saleSum", map);
 			if(rst == null){
-				rst = -1;
+				rst = 0;
 			}
 		}catch(Exception e){
 			System.out.println("error.get_saleSum"+e.toString());
@@ -114,11 +114,11 @@ public class AdminProductDao {
 	
 	public double get_star(Map map){
 		SqlSession session = factory.openSession();
-		Double rst = -1.0;
+		Double rst = 0.0;
 		try{
 			rst = session.selectOne("admin_product.get_star", map);
 			if(rst == null){
-				rst = -1.0;
+				rst = 0.0;
 			}
 		}catch(Exception e){
 			System.out.println("error.get_star"+e.toString());
@@ -130,11 +130,11 @@ public class AdminProductDao {
 	
 	public int get_star_cnt(Map map){
 		SqlSession session = factory.openSession();
-		Integer rst = -1;
+		Integer rst = 0;
 		try{
 			rst = session.selectOne("admin_product.get_star_cnt", map);
 			if(rst == null){
-				rst = -1;
+				rst = 0;
 			}
 		}catch(Exception e){
 			System.out.println("error.get_star_cnt"+e.toString());
@@ -146,11 +146,11 @@ public class AdminProductDao {
 	
 	public int get_rate(Map map){
 		SqlSession session = factory.openSession();
-		Integer rst = -1;
+		Integer rst = 0;
 		try{
 			rst = session.selectOne("admin_product.get_rate", map);
 			if(rst == null){
-				rst = -1;
+				rst = 0;
 			}
 		}catch(Exception e){
 			System.out.println("error.get_rate"+e.toString());

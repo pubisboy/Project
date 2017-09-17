@@ -29,7 +29,7 @@ public class AdminOrderDao {
 	
 	public int order_list_count(Map map){
 		SqlSession session = factory.openSession();
-		int rst = -1;
+		int rst = 0;
 		try{
 			rst = session.selectOne("admin_order.order_list_count", map);
 		}catch(Exception e){
@@ -83,6 +83,63 @@ public class AdminOrderDao {
 			}
 		}catch(Exception e){
 			System.out.println("error.update_order"+e.toString());
+			b = false;
+			session.rollback();
+		}finally{
+			session.close();
+		}
+		return b;
+	}
+	
+	public boolean update_order_user_record(Map map){
+		SqlSession session = factory.openSession();
+		boolean b = false;
+		try{
+			int rst = session.insert("admin_order.update_order_user_record", map);
+			if(rst > 0){
+				b = true;
+				session.commit();
+			}
+		}catch(Exception e){
+			System.out.println("error.update_order_user_record"+e.toString());
+			b = false;
+			session.rollback();
+		}finally{
+			session.close();
+		}
+		return b;
+	}
+	
+	public boolean update_order_seller_record(Map map){
+		SqlSession session = factory.openSession();
+		boolean b = false;
+		try{
+			int rst = session.insert("admin_order.update_order_seller_record", map);
+			if(rst > 0){
+				b = true;
+				session.commit();
+			}
+		}catch(Exception e){
+			System.out.println("error.update_order_seller_record"+e.toString());
+			b = false;
+			session.rollback();
+		}finally{
+			session.close();
+		}
+		return b;
+	}
+	
+	public boolean update_order_sell_qty(Map map){
+		SqlSession session = factory.openSession();
+		boolean b = false;
+		try{
+			int rst = session.insert("admin_order.update_order_sell_qty", map);
+			if(rst > 0){
+				b = true;
+				session.commit();
+			}
+		}catch(Exception e){
+			System.out.println("error.update_order_sell_qty"+e.toString());
 			b = false;
 			session.rollback();
 		}finally{

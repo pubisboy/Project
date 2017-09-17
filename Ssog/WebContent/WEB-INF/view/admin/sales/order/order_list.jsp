@@ -38,7 +38,7 @@
 	<tbody>
 		<c:forEach items="${list }" var="i" varStatus="vs">
 			<tr>
-				<td><a href="/admin/sales/order/order_detail.ja?order_num=${i.ORDER_NUM }">${i.ORDER_NUM }</a></td>
+				<td><a href="/admin/sales/order/order_detail.ja?order_num=${i.ORDER_NUM }&type=${params.type }&value=${params.value}&state=${params.state}&sort=${params.sort}">${i.ORDER_NUM }</a></td>
 				<td>${i.PRO_NUM }</td>
 				<td>${i.PRO_NAME }</td>
 				<td>

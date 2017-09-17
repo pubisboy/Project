@@ -68,6 +68,7 @@
 				<value>/WEB-INF/mapper/admin_member-mapper.xml</value>
 				<value>/WEB-INF/mapper/admin_order-mapper.xml</value>
 				<value>/WEB-INF/mapper/admin_product-mapper.xml</value>
+				<value>/WEB-INF/mapper/admin_admin-mapper.xml</value>
 			</list>
 		</property>
 	</bean>

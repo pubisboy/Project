@@ -139,7 +139,7 @@ td{
 	</div>
 </c:if>		
 	<div style="float: right; width: 33%; text-align: right">
-	<button type="button" class="btn btn-default" onclick="cancel('/admin/sales/order/order_list.ja?p=${params.p }&type=${params.type }&value=${params.value}&state=${params.state}');">목록</button>
+	<button type="button" class="btn btn-default" onclick="cancel('/admin/sales/order/order_list.ja?p=${params.p }&type=${params.type }&value=${params.value}&state=${params.state}&sort${params.sort}');">목록</button>
 	</div>
 		</div>
 	</div>
@@ -176,6 +176,9 @@ function submit(){
 			}else{
 				$("#modify").html("");
 			}
+		}else{
+			window.alert("변경 실패");
+			location.reload();
 		}
 	});
 };

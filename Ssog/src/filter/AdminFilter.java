@@ -20,6 +20,7 @@ public class AdminFilter implements Filter {
 		HttpServletResponse resp = (HttpServletResponse)response;
 		HttpSession session = req.getSession();
 		String admin = (String)session.getAttribute("admin");
+		System.out.println("id : "+admin);
 		if(admin != null){
 			chain.doFilter(req, resp);
 		}else{

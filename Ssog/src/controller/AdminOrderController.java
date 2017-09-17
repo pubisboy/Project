@@ -57,6 +57,19 @@ public class AdminOrderController {
 		
 		List list = aod.order_list(params);
 		System.out.println("주문 리스트"+list);
+		for(int i = 0; i < list.size(); i++){
+			Map m = (Map)list.get(i);
+			String s = (String)m.get("PRO_NAME");
+			if(s.length() > 10){
+				s = s.substring(0, 7);
+				StringBuilder sb = new StringBuilder(s);
+				sb.append("...");
+				s = sb.toString();
+				System.out.println("잘린 제목 : "+s);
+			}
+			((Map)list.get(i)).put("PRO_NAME", s);
+		}
+		System.out.println("주문 리스트"+list);
 		String[] typesEn = "order_num,pro_num,pro_name,user_id,seller_id".split(",");
 		String[] typesKo = "주문번호,상품번호,상품이름,구매자,판매자".split(",");
 		map.put("typesEn", typesEn);
@@ -80,13 +93,14 @@ public class AdminOrderController {
 	}
 	
 	@RequestMapping("/order_detail.ja")
-	public String order_detail(@RequestParam(name="order_num") Integer num, Map map){
+	public String order_detail(@RequestParam Map params, @RequestParam(name="order_num") Integer num, Map map){
 		System.out.println("num : "+num);
 		List liInfo = aod.order_detail(num);
 		if(liInfo.size() > 0){
 			System.out.println("liInfo : "+liInfo);
 		}
 		map.put("list", liInfo);
+		map.put("params", params);
 		map.put("section", "/order/order_detail");
 		return "ad_sales";
 	}
@@ -129,7 +143,17 @@ public class AdminOrderController {
 	@ResponseBody
 	public boolean order_modifyExec(@RequestParam Map params){
 		System.out.println("넘어온 거 : "+params);
+		String state = (String)params.get("state");
+		System.out.println("state : "+state);
 		boolean b = aod.update_order(params);
+		if(b && state.equals("5")){
+			b = aod.update_order_user_record(params);
+			System.out.println("구매자 레코드 : "+b);
+			b = aod.update_order_seller_record(params);
+			System.out.println("판매자 레코드 : "+b);
+			b = aod.update_order_sell_qty(params);
+			System.out.println("개수 레코드 : "+b);
+		}
 		return b;
 	}
 }
