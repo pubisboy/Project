@@ -119,7 +119,7 @@ li{
   
 </style>    
 <div align="center" > 
-<div id="navbar" style="width: 67%; height: 7%">    
+<div id="navbar" style="width: 53%; height: 7%">        
   <div class="navbar navbar-static-top" role="navigation" style="height:100%; margin-bottom: 0px;"> 
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">

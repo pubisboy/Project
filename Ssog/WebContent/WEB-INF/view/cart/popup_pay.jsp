@@ -73,11 +73,16 @@
 			}
 	}
 	$("#accredit").on("click",function(){
+		window.alert("인증번호가 전송됬습니다.");
 		$.ajax({
 			url:"/cart/emailaccredit.j",
 			method:"post",
 			data:{
 				"email":$("#email").val()+"@"+$("#site").val()
+			}
+		}).done(function(rere){
+			if(rere==true){
+				window.alert("인증되었습니다.");
 			}
 		})
 	});

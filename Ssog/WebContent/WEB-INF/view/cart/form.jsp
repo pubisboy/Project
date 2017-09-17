@@ -25,7 +25,7 @@
 }
 </style>
 <div align="center">
-	<div style="width: 58.5%; padding-top: 30px;">
+	<div style="width: 51.5%; padding-top: 30px;">    
 		<div class="row">
 			<div class="col-sm-12"
 				style="border-bottom: 2px solid #bfbfbf; border-left: 1px solid #bfbfbf; border-right: 1px solid #bfbfbf;">
@@ -170,7 +170,7 @@
 			<a href="/cart/order.j"><button class="btn btn-custom" id="order">
 				<b style="color: white; font-size: 13px;">주문서 작성</b>
 			</button></a>
-			<button style="width: 130px;height: 50px; font-size: 13px;" class="btn btn-default">계속 쇼핑하기</button>  
+			<a href="/"><button style="width: 130px;height: 50px; font-size: 13px;" class="btn btn-default">계속 쇼핑하기</button></a>  
 		</div>
 	</div>
 </div>
@@ -231,14 +231,7 @@
 			$("input[type=checkbox]").prop("checked", false);
 		}
 	});
-	$("#delete").on("click", function() {
-
-	});
-
-	$("#order").on("click", function() {
-
-	});
-	
+ 	
 	
 	$("#delete").on("click",function(){
 		$(".one").each(function() {

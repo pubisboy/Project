@@ -14,10 +14,10 @@ table, th, td {
 			문의내역입니다.</small>
 	</h4>
 </div>
-<b style="font-size: 12px; padding-right: 353px;">고객님께서 신청한 문의 : <b
-	style="color: #ff4d4d; font-size: 13px;">${qlist.size() }</b>건
-</b>
-<div class="row" style="padding-top: 10px;">
+<div align="left">
+<b style="font-size: 12px;">고객님께서 신청한 문의 : <b style="color: #ff4d4d; font-size: 13px;">${qlist.size() }</b>건</b>
+</div>
+<div class="row" style="padding-top: 10px;"> 
 	<div class="col-sm-12">
 		<table class="table table-hover">
 			<thead>

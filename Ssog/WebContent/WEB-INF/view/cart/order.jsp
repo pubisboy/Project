@@ -26,8 +26,8 @@
 }
 </style>
 <div align="center">
-	<div style="width: 58.5%; padding-top: 30px;">
-		<form action="/cart/payment.j" id="confirm">
+	<div style="width: 51.5%; padding-top: 30px;">
+		<form action="/cart/payment.j" id="confirm"> 
 		<div class="row">
 			<div class="col-sm-12"
 				style="border-bottom: 2px solid gray; border-left: 1px solid gray; border-right: 1px solid gray;">
@@ -186,7 +186,7 @@
 						<div
 							style="background-color: #e6e6e6; padding-left: 45px; height: 30px; color: #ff1a75; font-size: 12.5px; padding-top: 7px;"
 							align="left">
-							<b style="color: #404040; padding-right: 60px; ">적립금 사용 금액</b><small	style="font-size: 12px;">사용가능 적립금 ${point.POINT}원</small>
+							<b style="color: #404040; padding-right: 60px; ">적립금 사용 금액</b><small	style="font-size: 12px;">사용가능 적립금${point.POINT}원</small>
 							<b style="color: black; padding-left: 200px;"><span id="discountrate2"></span>원</b>
 						</div>
 						<div align="left" style="width: 90%; padding: 10px;  padding-bottom:0px; border-bottom: 1px solid #d9d9d9; font-size: 11.5px">
@@ -244,7 +244,7 @@
 					<div class="col-xs-10" align="left" style="padding-top: 15px;">
 						<button type="button" class="btn btn-default" style="width: 145px; height: 45px;" id="passbook" name="passbook">무통장입금</button> 
 						<button type="button" class="btn btn-default"	style="width: 145px; height: 45px;" id="emailkey" name="emailkey">이메일인증</button>
-							<input type="hidden" id="valu" value="none">
+							<input type="hidden" id="valu" value="none" name = valu> 
 					</div>
 				</div>
 			</div>
@@ -288,12 +288,12 @@
 	var num_check=/^[0-9]*$/;
 	if(num_check.test(pt) == true) {
 		$("#point").html(temp);
-		$("#hdpoint").html(temp);
+		$("#hdpoint").val(temp);
 	}else{
 		$("#point").html(rst);
-		$("#hdpoint").html(temp);
+		$("#hdpoint").val(rst);  
 	}  
-	
+	var basic = $("#finishcash").html();
 	$("#equal").on("change", function() {
 		if ($("#equal").prop("checked")) {
 			$("#name").val("${memberinfo.NAME}");
@@ -326,17 +326,17 @@
 	$(":input:radio[name=chk_point]").on("change", function() {
 		var st = $(":input:radio[name=chk_point]:checked").val();
 		if (st == "use") {
-			var pt = $("#point").html();
+			var pt = $("#point").html(); 
 			var pt2 = pt.replace(/,/gi, '');
+			//$("#hdpoint").val(pt2);
 			var finicash = $("#finishcash").html();
-			var finalcash = finicash - pt2;
+			window.alert(finicash); 
+			window.alert(basic);
+			var finalcash = basic - pt2;
 			$("#finishcash").html(finalcash);
+			basic = finalcash;
 		} else {
-			var pt = $("#point").html();
-			var pt2 = pt.replace(/,/gi, '');
-			var finicash = $("#finishcash").html();
-			var finalcash = parseInt(finicash) + parseInt(pt2);
-			$("#finishcash").html(finalcash);
+			$("#finishcash").html(basic);
 		}
 	});
 	$("#application").on("change", function() {
@@ -352,27 +352,31 @@
 			$("#finishcash").html(cashsum);
 		}
 	});
-	var basic = $("#finishcash").html();
-	$("#consume").on("change", function() {
-			var thissum = $(this).val();
+		
+		var basicReload = function(){
+			basic = $("#finishcash").html();
+			}
+	$("#consume").on("change", function() { 
+		var thissum = $(this).val();
 		if (parseInt(thissum) > parseInt("${point.POINT }")) {
 			window.alert("적립금사용금액은 보유적립금보다 클 수 없습니다.");
-		} else {
-			var mifinicash = basic - thissum;
-			var current = conpoint - thissum;
+		//}else if(parseInt(thissum)<parseInt($("#finishcash").html())){   
+			//window.alert("적립금을 총결제금액보다 많이 사용할수 없습니다.");  	
+		}else { 
+			window.alert(basic);
+			var mifinicash = basic - thissum; 
+			var current = conpoint - thissum; 
 			$("#finishcash").html(mifinicash);
-			$("#conpoint").html(current);
+			$("#conpoint").html(current); 
 		}
 
 	});
 	
-	$("#passbook").on("click",function(){
+	$("#passbook").on("click",function(){ 
 		$("#valu").val("passbook");
-		window.alert($("#finishcash").html());
 	});
 	$("#emailkey").on("click",function(){
 		$("#valu").val("emailkey");
-		window.alert($("#finishcash").html());  
 	});
 	
 	$("#order").on("click",function(){
