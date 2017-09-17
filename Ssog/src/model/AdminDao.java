@@ -1,5 +1,6 @@
 package model;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -59,7 +60,7 @@ public interface AdminDao {
 	public List getCupon_base_one(Map map);
 	public boolean delCupon_base(Map map);
 	public String checkPopup_img_uuid(Map map);
-	public List getPopup_target();
+	public List getPopup_target(List li);
 	public List getPopup_target_detail(Map map);
 	public List getCupon_type_list();
 	public boolean putCupon_base(Map map);
@@ -71,4 +72,6 @@ public interface AdminDao {
 	public boolean admin_del(Map map);
 	public boolean admin_modify(Map map);
 	public boolean admin_create(Map map);
+	public boolean createCupon(Map map);
+	public Date getCupon_date(Map map); 
 }

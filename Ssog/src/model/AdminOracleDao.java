@@ -1,5 +1,6 @@
 package model;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -831,11 +832,11 @@ public class AdminOracleDao implements AdminDao{
 		return rst;
 	}
 	
-	public List getPopup_target(){
+	public List getPopup_target(List denys){
 		List list = null;
 		SqlSession session = factory.openSession();
 		try{
-			list = session.selectList("admin.getPopup_target");
+			list = session.selectList("admin.getPopup_target", denys);
 		}catch(Exception e){
 			System.out.println("error.getPopup_target"+e.toString());
 			list = null;
@@ -1026,5 +1027,36 @@ public class AdminOracleDao implements AdminDao{
 			session.close();
 		}
 		return b;
+	}
+	
+	public boolean createCupon(Map map){
+		boolean b = false;
+		SqlSession session = factory.openSession();
+		try{
+			int r = session.insert("admin.createCupon", map);
+			if(r > 0){
+				b = true;
+			}
+			session.commit();
+		}catch(Exception e){
+			System.out.println("error.createCupon"+e.toString());
+			session.rollback();
+		}finally{
+			session.close();
+		}
+		return b;
+	}
+	
+	public Date getCupon_date(Map map){
+		SqlSession session = factory.openSession();
+		Date date = null;
+		try{
+			date = session.selectOne("admin.getCupon_date", map);
+		}catch(Exception e){
+			System.out.println("error.getCupon_date"+e.toString());
+		}finally{
+			session.close();
+		}
+		return date;
 	}
 }
