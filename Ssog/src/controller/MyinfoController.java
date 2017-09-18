@@ -55,7 +55,11 @@ public class MyinfoController {
 		List<Map> qlist = mdao.qanda((String) init.get("id"));
 		List<Map> clist = mdao.counsel((String) init.get("id"));
 		List<Map> coulist = cdao.couponlist((String) init.get("id"));
+		List<Map> slist = cdao.state((String) init.get("id"));
+		
+		System.out.println(slist);
 		ModelAndView mav = new ModelAndView("t_el2");
+		mav.addObject("slist", slist);
 		mav.addObject("coulist",coulist); 
 		mav.addObject("section", "member/myinfo/info");
 		mav.addObject("grade", init.get("grade"));

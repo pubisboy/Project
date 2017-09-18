@@ -25,7 +25,7 @@
 }
 </style>
 <div align="center">
-	<div style="width: 61%; padding-top: 30px;"> 
+	<div style="width: 61%; padding-top: 30px;">
 		<div class="row">
 			<div class="col-sm-12"
 				style="border-bottom: 2px solid #bfbfbf; border-left: 1px solid #bfbfbf; border-right: 1px solid #bfbfbf;">
@@ -37,11 +37,12 @@
 							<span class="glyphicon glyphicon-shopping-cart"
 								style="font-size: 45px;"></span> <b style="font-size: 26px;">장바구니</b>
 							<span class="glyphicon glyphicon-chevron-right"
-								style="font-size: 30px; padding-left: 35px; padding-right: 35px; color: #b3b3b3;"></span>  
-							<span class="glyphicon glyphicon-credit-card" style="font-size: 30px; color: #b3b3b3;"></span>
-							<b style="font-size: 15px; color: #b3b3b3;">주문/결제</b> <span
+								style="font-size: 30px; padding-left: 35px; padding-right: 35px; color: #b3b3b3;"></span>
+							<span class="glyphicon glyphicon-credit-card"
+								style="font-size: 30px; color: #b3b3b3;"></span> <b
+								style="font-size: 15px; color: #b3b3b3;">주문/결제</b> <span
 								class="glyphicon glyphicon-chevron-right"
-								style="font-size: 30px; padding-left: 35px; padding-right: 35px; color: #b3b3b3;"></span> 
+								style="font-size: 30px; padding-left: 35px; padding-right: 35px; color: #b3b3b3;"></span>
 							<span class="glyphicon glyphicon-gift"
 								style="font-size: 30px; color: #b3b3b3;"></span> <b
 								style="font-size: 15px; color: #b3b3b3;">주문완료</b>
@@ -62,15 +63,19 @@
 						<div
 							style="border-bottom: 2px dotted #b3b3b3; height: 86px; padding-top: 35px; padding-left: 28px;"
 							align="left">
-							<b style="font-size: 18px; color: #4d4d4d;">${memberinfo.NAME }님</b> 반갑습니다!<br />
+							<b style="font-size: 18px; color: #4d4d4d;">${memberinfo.NAME }님</b>
+							반갑습니다!<br />
 						</div>
-						<div align="left" style="padding-top: 10px; padding-left: 28px;"> 
-							<span class="glyphicon glyphicon-chevron-right"	style="font-size: 5px; color: #bfbfbf;"></span>
-							<b style="font-size: 12.2px; padding-right: 130px;">등급</b><small>${grade.GRADE }</small><br /> 
-							<span class="glyphicon glyphicon-chevron-right" style="font-size: 5px; color: #bfbfbf;"></span>
-							<b style="font-size: 12.2px; padding-right: 110px">할인쿠폰</b><small>${clist.size() }</small><br /> 
-							<span class="glyphicon glyphicon-chevron-right" style="font-size: 5px; color: #bfbfbf;"></span>
-							<b style="font-size: 12.2px; padding-right: 120px">적립금</b><small>${point.POINT }</small><br />
+						<div align="left" style="padding-top: 10px; padding-left: 28px;">
+							<span class="glyphicon glyphicon-chevron-right"
+								style="font-size: 5px; color: #bfbfbf;"></span> <b
+								style="font-size: 12.2px; padding-right: 130px;">등급</b><small>${grade.GRADE }</small><br />
+							<span class="glyphicon glyphicon-chevron-right"
+								style="font-size: 5px; color: #bfbfbf;"></span> <b
+								style="font-size: 12.2px; padding-right: 110px">할인쿠폰</b><small>${clist.size() }</small><br />
+							<span class="glyphicon glyphicon-chevron-right"
+								style="font-size: 5px; color: #bfbfbf;"></span> <b
+								style="font-size: 12.2px; padding-right: 120px">적립금</b><small>${point.POINT }</small><br />
 						</div>
 					</div>
 				</div>
@@ -98,7 +103,7 @@
 							<tr style="border-bottom: 1px solid #b3b3b3;">
 								<td><input type="checkbox" class="one"
 									value="${c.PRO_NUM }" /></td>
-								<td>${c.PRO_NUM }</td>
+								<td class="pd_num"><a href="/product/detail.j?productNumber=${c.PRO_NUM }">${c.PRO_NUM }</a></td> 
 								<td>${c.PRICE }</td>
 								<td>
 									<button class="mi">-</button> <input type="text"
@@ -127,8 +132,9 @@
 							</div>
 							<div style="height: 90px; padding-top: 10px;">
 								<ul style="padding-left: 38px; font-size: 12px; color: #666666;">
-									<li><b style="padding-right: 120px;">상품종류</b>${etc }종</li> 
-									<li><b style="padding-right: 120px;">상품수량</b><span id="volume"></span>개</li>  
+									<li><b style="padding-right: 120px;">상품종류</b>${etc }종</li>
+									<li><b style="padding-right: 120px;">상품수량</b><span
+										id="volume"></span>개</li>
 								</ul>
 							</div>
 						</div>
@@ -146,7 +152,7 @@
 							</div>
 						</div>
 						<div class="col-sm-4"
-							style="border-top: 2px solid #ff0066; padding: 0px;  letter-spacing: -1px; width: 40%;">
+							style="border-top: 2px solid #ff0066; padding: 0px; letter-spacing: -1px; width: 40%;">
 							<div
 								style="border-bottom: 1px solid #a6a6a6; background-color: #f7f7f7; height: 40px; padding-top: 4px; padding-left: 20px;">
 								<b style="font-size: 15px;">총 구매예상금액</b> <b
@@ -155,9 +161,11 @@
 							</div>
 							<div style="padding-top: 10px;">
 								<ul style="padding-left: 38px; font-size: 12px; color: #666666;">
-									<li><b>상품 적립금</b><span id="expoint" style="padding-left: 200px;"></span></li> 
+									<li><b>상품 적립금</b><span id="expoint"
+										style="padding-left: 200px;"></span></li>
 								</ul>
-								<b style="font-size: 12px; padding-left: 25px;">* 쿠폰 사용시 적용금액은 변동될 수 있습니다.</b> 
+								<b style="font-size: 12px; padding-left: 25px;">* 쿠폰 사용시
+									적용금액은 변동될 수 있습니다.</b>
 							</div>
 						</div>
 					</div>
@@ -166,13 +174,16 @@
 			</div>
 		</div>
 		<div align="center" style="padding-top: 30px;">
-			<a href="/cart/order.j"><button class="btn btn-custom" id="order">
+			<button class="btn btn-custom" id="order">
 				<b style="color: white; font-size: 13px;">주문서 작성</b>
-			</button></a>
-			<a href="/"><button style="width: 130px;height: 50px; font-size: 13px;" class="btn btn-default">계속 쇼핑하기</button></a>  
+			</button>
+			<a href="/"><button
+					style="width: 130px; height: 50px; font-size: 13px;"
+					class="btn btn-default">계속 쇼핑하기</button></a>
 		</div>
 	</div>
 </div>
+
 <script>
 	var tot = 0;
 	$('.price').each(function() {
@@ -249,5 +260,37 @@
 			}
 		});
 	});
-	
+	var pd1 = "";
+	var pd2 = ""; 
+	$("#order").on("click",function(){
+		
+		if(${empty list}){  
+			window.alert("주문할 상품이 없습니다."); 
+		}else{
+			$(".pd_num").each(function() { 
+				pd2 += $(this).html()+"!"; 
+				
+			});
+			$(".qu").each(function() { 
+				pd1 += $(this).val()+"!";
+			});
+			window.alert(pd1);  
+			window.alert(pd2);
+			$.ajax({
+				url:"/cart/ascertain.j", 
+				method:"post",
+				data:{ 
+					"pd1":String(pd1), 
+					"pd2":String(pd2) 
+				} 
+			}).done(function(re){
+				if(re==false){
+					window.alert("상품재고확인"); 
+				}else{
+					location.href="/cart/order.j";	
+				}
+			})
+		}
+			  
+	});
 </script>

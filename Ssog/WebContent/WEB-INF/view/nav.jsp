@@ -234,9 +234,9 @@ $(window).scroll(function(event){
    console.log(si);
    var a=si.split(" ");
    if(a[2]== "affix" ){
-      $("#sohot").fadeOut();
+      $("#sohot").hide();
    }else{
-      $("#sohot").fadeIn();
+      $("#sohot").show();
    }
 });
 

@@ -33,6 +33,30 @@ public class CartDao {
 			session.close();
 		}
 	}
+	public Map pd_ascertain(Map map) {
+		Map nmap = new HashMap<>();
+		SqlSession session = factory.openSession();
+		try {
+			nmap = session.selectOne("cart.pd_ascertain", map);
+			System.out.println("dao nmap : "+nmap); 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		return nmap;
+	}
+	
+	public void orderupdate(Map map) {
+		SqlSession session = factory.openSession();
+		try {
+			session.update("cart.orderupdate", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+	}
 	public List<Map> couponlist(String id){
 		List<Map> list = new ArrayList<>();
 		SqlSession session = factory.openSession();
@@ -68,4 +92,17 @@ public class CartDao {
 			session.close();
 		}
 	}
+	public List<Map> state(String id){
+		List<Map> list = new ArrayList<>();
+		SqlSession session = factory.openSession();
+		try {
+			list = session.selectList("cart.state", id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		return list;
+	}
+	
 }

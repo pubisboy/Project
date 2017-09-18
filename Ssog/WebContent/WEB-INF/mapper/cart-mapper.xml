@@ -8,6 +8,14 @@
 		ORDERTBL(order_num,pro_num,user_id,order_qty,state,order_date,pay_date,price,cupon_type,dhl,etc,address,receiver)
 		values(ORDER_SEQ.NEXTVAL,#{pd2},#{id},#{pd1},2,sysdate,sysdate,#{totalcash},#{cupon},1,#{etc},#{address},#{receiver})
 	</insert>
+	<update id="orderupdate" parameterType="java.util.HashMap">
+		update PRODUCTTBL set
+		pro_qty=pro_qty-#{pd1} where pro_num=#{pd2}
+	</update>
+	<select id="pd_ascertain" parameterType="java.lang.String"
+		resultType="java.util.HashMap">
+		select * from PRODUCTTBL where pro_num=#{pd2} AND PRO_QTY<![CDATA[>=]]>#{pd1}
+	</select>
 	<select id="coupon" parameterType="java.lang.String" resultType="java.util.HashMap">
 		select bb.*,cc.RATE from
 		(select b.*,c.cupon_type from(select * from
@@ -33,6 +41,16 @@
 		where ID=#{id}
 	</update>
 	<delete id="coupoindel" parameterType="java.util.HashMap">
-		delete CUPON_LIST where user_id=#{id} and CUPON_LIST_ID=#{num}
+		delete CUPON_LIST where
+		user_id=#{id} and CUPON_LIST_ID=#{num}
 	</delete>
+	<select id="state" parameterType="java.lang.String" resultType="java.util.HashMap">
+		select s, count(*) from
+		(select b.*,s.state s from (select * from
+		ORDERTBL where user_id=#{id})b left
+		join state s on b.state=s.STATE_NUM
+		where sysdate-order_date <![CDATA[<]]>60)
+		group by S
+	</select>
+	
 </mapper>
