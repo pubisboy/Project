@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <div align="center">
 	<div style="width: 58.5%; padding-top: 30px;">
 		<div class="row">
@@ -31,16 +33,6 @@
 				</div>
 			</div>
 			<div class="col-sm-12">
-				<div class="row">
-					<div class="col-sm-2">
-					총결제금액
-					</div>
-					<div class="col-sm-10">
-					총결제금액뜨는곳
-					</div>
-				</div>				
-			</div>
-			<div class="col-sm-12">
 				<div align="left">
 					<b style="font-size: 17px;">결제정보</b>
 				</div>
@@ -52,15 +44,15 @@
 						</tr>
 						<tr style="font-size: 12px;">
 							<td class="active">결제금액</td>
-							<td>(결제금액나오는곳)</td>
+							<td><fmt:formatNumber value="${param.totalcash }" pattern="#,###"/>원</td>     
 						</tr>
 						<tr style="font-size: 12px;">
 							<td class="active">결제방식</td>
-							<td>(결제방식나오는곳)</td>
+							<td>${param.valu eq 'emailkey' ? '이메일결제' : '무통장입금' }</td>     
 						</tr>
 						<tr style="font-size: 12px;">
 							<td class="active">배송지</td>
-							<td>(배송지나오는곳)</td>
+							<td>${map.address }</td>
 						</tr>
 					</tbody>
 				</table>
@@ -80,13 +72,15 @@
 						</tr>
 					</thead>
 					<tbody>
+					<c:forEach var="data" items="${map.ar1}" varStatus="vs">
 							<tr style="border-bottom: 1px solid #b3b3b3; font-size: 12.5px;">
 								<td>상품이미지</td>
-								<td>상품명뜨는곳</td>
-								<td>0</td>
-								<td>1000</td>
-								<td>9000</td>
+								<td>${map.ar2[vs.index]}</td>  
+								<td>${data} </td> 
+								<td></td>
+								<td></td>
 							</tr>
+							</c:forEach>
 					</tbody>
 				</table>
 			</div>

@@ -171,7 +171,7 @@ function submit(){
 	}).done(function(rst){
 		if(rst){
 			$("#st").html(state);
-			if(tmp != 5){
+			if(tmp != 5 || tmp != 8){
 				$("#modify").html("<button id='mbutton' style='height: 25px;' onclick='modify();'>수정</button>");
 			}else{
 				$("#modify").html("");
