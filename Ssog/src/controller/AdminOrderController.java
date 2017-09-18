@@ -25,7 +25,14 @@ public class AdminOrderController {
 	Paging pg;
 	
 	@RequestMapping("/order_list.ja")
-	public String order_list(@RequestParam Map params, @RequestParam(name="p", defaultValue="1") Integer p, Map map){
+	public String order_list(@RequestParam Map params, @RequestParam(name="p", defaultValue="1") String pp, Map map){
+		int p = 0;
+		try{
+			p = Integer.parseInt(pp);
+		}catch(Exception e){
+			System.out.println("변환 불가능");
+			p = 1;
+		}
 		System.out.println("params : "+params);
 		System.out.println("state : "+params.get("state"));
 		/*if(params.get("state") != null){
@@ -94,6 +101,7 @@ public class AdminOrderController {
 	
 	@RequestMapping("/order_detail.ja")
 	public String order_detail(@RequestParam Map params, @RequestParam(name="order_num") Integer num, Map map){
+		
 		System.out.println("num : "+num);
 		List liInfo = aod.order_detail(num);
 		if(liInfo.size() > 0){
