@@ -20,12 +20,13 @@ public class AdminFilter implements Filter {
 		HttpServletResponse resp = (HttpServletResponse)response;
 		HttpSession session = req.getSession();
 		String admin = (String)session.getAttribute("admin");
+		System.out.println("id : "+admin);
 		if(admin != null){
 			chain.doFilter(req, resp);
 		}else{
 			String uri = req.getRequestURI();
 			System.out.println("uri : "+uri);
-			if(uri.startsWith("/admin/login")){
+			if(uri.startsWith("/admin/login") || uri.startsWith("/admin/popupImg")){
 				chain.doFilter(req, resp);				
 			}else{
 				resp.sendRedirect("/admin/login.ja");

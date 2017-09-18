@@ -24,7 +24,7 @@
          </div>
          <div class="form-group">
             <button id="submit" type="button" class="btn btn-default">작성</button>
-            <button type="reset" class="btn btn-default">취소</button>
+            <button type="button" class="btn btn-default" onclick="cancel('/admin/management/notice/notice_list.ja');">취소</button>
          </div>
    </div>
    <div class="col-xs-0 col-md-1"></div>
@@ -48,7 +48,7 @@
 		}).done(function(rst){
 			if(rst.text){
 				if(!rst.img){
-					window.alert("이미지 등록 실패");
+					
 				}
 				location.href="/admin/management/notice/notice_list.ja";
 			}else{
@@ -57,3 +57,4 @@
 		});
 	});
 </script>
+<script src="<c:url value="/etc.js" />"></script>

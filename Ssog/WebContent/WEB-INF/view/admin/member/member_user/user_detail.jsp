@@ -41,7 +41,7 @@ td{
         			<tr>
         				<th class="type">생년월일</th>
         				<td>
-        					${info['0'].BIRTH['0'] }년
+        					${user_detail_info['0'].BIRTH['0'] }년
         					${info['0'].BIRTH['1'] }월
         					${info['0'].BIRTH['2'] }일
         				</td>
@@ -118,14 +118,18 @@ td{
         			</tr>
         			<tr>
         				<th style="text-align: center; width: 50%;">포인트</th>
-        				<td>포인트</td>
+        				<td>
+        					<fmt:formatNumber value="${info['0'].POINT }" pattern="#,###"/>
+        				</td>
         			</tr>
         			<tr>
         				<td colspan="2" style="text-align: center"><a href="">로그</a></td>
         			</tr>
         		</tbody>
         	</table>
-        	<div><a href="/admin/member/member_user/user_list.ja?p=${params.p }&type=${params.type }&value=${params.value}">목록</a></div>
+        	<div>
+        		<button type="button" class="btn btn-default" onclick="cancel('/admin/member/member_user/user_list.ja?p=${params.p }&type=${params.type }&value=${params.value}');">목록</button>
+        	</div>
         </div>
     </div>
     <div class="row">
@@ -136,7 +140,7 @@ td{
         				<th style="text-align: center;">
         					<ul class="list-inline" style="margin-bottom: 2px;">
         						<li style="text-align: center;">주문</li>
-        						<li style="text-align:center; float:right"><a href="">+더보기</a></li>
+        						<li style="text-align:center; float:right"><a href="/admin/sales/order/order_list.ja?type=user_id&value=${info['0'].ID }" onclick="window.open(this.href, '','width=1400, height=800');return false;">+더보기</a></li>
         					</ul>
 						</th>
         			</tr>
@@ -147,7 +151,9 @@ td{
         					<ul>
         						<li>[주문번호] / [상품번호] / [주문일] / [상태] / [가격]</li>
         						<c:forEach items="${order9 }" var="i">
-	        						<li>[${i.ORDER_NUM }] / [${i.PRO_NUM }]
+	        						<li>
+	        						[<a href="/admin/sales/order/order_detail.ja?order_num=${i.ORDER_NUM }" onclick="window.open(this.href, '','width=1600, height=900');return false;">${i.ORDER_NUM }</a>]
+	        						 / [${i.PRO_NUM }]
 	        						 / <fmt:formatDate value="${i.ORDER_DATE }" pattern="yyyy년MM월dd일" var="o"/>[${o }]
 	        						 / [${i.ST }]
 	        						 / [<fmt:formatNumber value="${i.PRICE }" pattern="#,###"/>]
@@ -166,7 +172,7 @@ td{
         				<th style="text-align: center;">
 	        				<ul class="list-inline" style="margin-bottom: 2px;">
 	       						<li style="text-align: center;">1:1문의</li>
-	       						<li style="text-align:center; float:right"><a href="">+더보기</a></li>
+	       						<li style="text-align:center; float:right"><a href="/admin/management/counsel/counsel_user_list.ja?state=&reply=&sort=&type=user_id&value=${info['0'].ID }" onclick="window.open(this.href, '','width=1400, height=800');return false;">+더보기</a></li>
 	       					</ul>
 	       				</th>
         			</tr>
@@ -177,7 +183,9 @@ td{
         					<ul>
         						<li>[번호] / [제목] / [상태]</li>
         						<c:forEach items="${counsel9 }" var="i">
-	        						<li>[${i.NUM }] / [${i.TITLE }] / [${i.REPLY == 0 ? '미처리' : '답변완료'}]
+	        						<li>[${i.NUM }] / 
+	        						[<a	href="/admin/management/counsel/counsel_user_detail.ja?num=${i.NUM }&p=${params.p }&type=${params.type }&value=${params.value}&state=${params.state}&reply=${params.reply}&sort=${params.sort}" onclick="window.open(this.href, '','width=1400, height=800');return false;">${i.TITLE }</a>]
+	        						 / [${i.REPLY == 0 ? '미처리' : '답변완료'}]
 	        						</li>
         						</c:forEach>
         					</ul>
@@ -204,3 +212,4 @@ td{
 		});
 	})
 </script>
+<script src="<c:url value="/etc.js" />"></script>

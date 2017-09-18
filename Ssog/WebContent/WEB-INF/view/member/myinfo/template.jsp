@@ -3,7 +3,7 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <div align="center">
-	<div style="width: 55%; padding-top: 30px;">   
+	<div style="width: 65%; padding-top: 30px;">     
 		<div class="row tot">
 			<div class="col-sm-3">
 				<div
