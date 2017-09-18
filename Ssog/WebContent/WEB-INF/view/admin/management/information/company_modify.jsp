@@ -67,7 +67,6 @@
 					html += "<th><button type='button' id='"+data+"_del' value='"+data+"' class='del'>X</button></th></tr>";
 					var body = $("#body").html();
 					$("#body").html($("#body").html()+html);
-					
 				}
 			});
 		}else{

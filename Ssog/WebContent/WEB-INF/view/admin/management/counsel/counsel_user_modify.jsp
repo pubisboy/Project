@@ -19,7 +19,7 @@
          </div>
          <div class="form-group">
             <button id="submit" type="submit" class="btn btn-default">작성 완료</button>
-            <button type="button" class="btn btn-default"><a href="/admin/management/counsel/counsel_user_list.ja?p=${params.p }&type=${params.type }&value=${params.value}&state=${params.state}&reply=${params.reply}&sort=${params.sort}">취소</a></button>
+            <button type="button" class="btn btn-default" onclick="cancel('/admin/management/counsel/counsel_user_list.ja?p=${params.p }&type=${params.type }&value=${params.value}&state=${params.state}&reply=${params.reply}&sort=${params.sort}');">취소</button>
          </div>
 		</form>
    </div>
@@ -33,3 +33,4 @@
 		'resize_enabled' : false
 	});
 </script>
+<script src="<c:url value="/etc.js" />"></script>

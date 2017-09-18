@@ -35,6 +35,13 @@
 		</tr>
 	</tbody>
 </table>
-<div style="float: left; width: 10%; text-align: left"><a href="/admin/management/popup/popup_modify.ja?num=${list['0'].POPUP_NUM }&p=${params.p }&value=${params.value}&cupon=${params.cupon}&onoff=${params.onoff}&sort=${params.sort}">수정</a></div>
-<div style="float: left; width: 10%; text-align: left"><a href="/admin/management/popup/popup_del.ja?num=${list['0'].POPUP_NUM }&p=${params.p }&value=${params.value}&cupon=${params.cupon}&onoff=${params.onoff}&sort=${params.sort}">삭제</a></div>
-<div style="float: right; width: 33%; text-align: right"><a href="/admin/management/popup/popup_list.ja?num=${list['0'].POPUP_NUM }&p=${params.p }&value=${params.value}&cupon=${params.cupon}&onoff=${params.onoff}&sort=${params.sort}">목록으로</a></div>
+<div style="float: left; width: 10%; text-align: left">
+<button type="button" class="btn btn-default" onclick="cancel('/admin/management/popup/popup_modify.ja?num=${list['0'].POPUP_NUM }&p=${params.p }&value=${params.value}&cupon=${params.cupon}&onoff=${params.onoff}&sort=${params.sort}');">수정</button>
+</div>
+<div style="float: left; width: 10%; text-align: left">
+<button type="button" class="btn btn-default" onclick="cancel('/admin/management/popup/popup_del.ja?num=${list['0'].POPUP_NUM }&p=${params.p }&value=${params.value}&cupon=${params.cupon}&onoff=${params.onoff}&sort=${params.sort}');">삭제</button>
+</div>
+<div style="float: right; width: 33%; text-align: right">
+<button type="button" class="btn btn-default" onclick="cancel('/admin/management/popup/popup_list.ja?num=${list['0'].POPUP_NUM }&p=${params.p }&value=${params.value}&cupon=${params.cupon}&onoff=${params.onoff}&sort=${params.sort}');">목록으로</button>
+</div>
+<script src="<c:url value="/etc.js" />"></script>
