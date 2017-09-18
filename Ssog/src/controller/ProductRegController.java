@@ -113,6 +113,7 @@ public class ProductRegController {
 		File dir=new File(path);
 		String uuid;
 		uuid = (String) map.get("uuid");
+		
 		if((String) map.get("uuid")==null) {
 			if(!f.isEmpty()) {
 				uuid=UUID.randomUUID().toString();
@@ -138,10 +139,22 @@ public class ProductRegController {
 				}
 			}
 		map.put("seller", session.getAttribute("seller_id"));
-		System.out.println("완성된 map 은??"+map);
+		System.out.println("완성된 map 은?? 호로로로로로로롤"+map);
 		boolean br=pdao.productUpdate(map);
 		System.out.println(br);
 		mav.addObject("section", "seller/alert/register_rst");
+		String num=(String) map.get("num");
+		if(map.get("radiogroup").equals("false")) {
+			pdao.EndEvent(map);
+		}else {
+			Map map1=new HashMap<>();
+			map1=pdao.EventETC(map);
+			if(map1==null) {
+				pdao.EventReg(map);
+			}else {
+				pdao.EventUpdate(map);
+			}
+		}
 		return mav;  
 	}
 	

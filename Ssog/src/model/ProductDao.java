@@ -192,4 +192,63 @@ public class ProductDao {
 		}
 		return br;
 	}
+	public Map EventETC(Map map) { 
+		SqlSession session=factory.openSession();
+		Map map1=new HashMap<>();
+		try {
+			map1=session.selectOne("EventETC", map);
+			System.out.println("map1 은 뭘까"+map1);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		return map1;
+	}
+	public boolean EndEvent(Map map) { 
+		SqlSession session=factory.openSession();
+		boolean br=false;
+		try {
+			int r=session.delete("EndEvent", map);
+			if(r==1) {
+				br=true;
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		return br;
+	}
+	public boolean EventReg(Map map) { 
+		SqlSession session=factory.openSession();
+		boolean br=false;
+		try {
+			int r=session.delete("EventReg", map);
+			if(r==1) {
+				br=true;
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		return br;
+	}
+	public boolean EventUpdate(Map map) { 
+		SqlSession session=factory.openSession();
+		boolean br=false;
+		try {
+			int r=session.delete("EventUpdate", map);
+			if(r==1) {
+				br=true;
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		return br;
+	}
+	
 }

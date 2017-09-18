@@ -10,10 +10,10 @@
  		 <if test="category != null and category != '' ">
  		 where cate=#{category} 
  		 </if> 
- 		 <if test="search != null and search !=''">
+ 		 <if test="search != null and search !='' and search != '%%'">
  		where pro_name like #{search}
  		</if> 
- 		<if test="origin_group !=null">
+ 		<if test="origin_group != null and origin_group != 'null'">
  			<choose>
  			<when test="(category != null and category != '') or (search != null and search !='')">
  				and
@@ -43,7 +43,7 @@
  		 <if test="category != null and category != '' ">
  		 where cate=#{category} 
  		 </if> 	
- 		  <if test="search != null and search !=''">
+ 		  <if test="search != null and search !='' and search != '%%'">
  		where pro_name like #{search}
  		</if>	
  		<if test="origin_group !=null">
@@ -55,10 +55,11 @@
  				where 
  			</otherwise>
  			</choose>
+ 			<if test="origin_group != null  and origin_group != 'null'">
  			<foreach collection="origin_group" item="arr" separator=" or " open="(" close=")">
  				origin = #{arr}
  			</foreach>
- 			
+ 			</if>
  		</if> 	 
  		 )tmp where sell_on=1
  		 and price between #{min} and #{max}
@@ -128,5 +129,18 @@
  	<insert id="useEvent" parameterType="java.util.HashMap">
  	insert into event_list values(event_list_num_seq.nextval,pro_seq.currval,#{event})
  	</insert>
+ 	<delete id="EndEvent" parameterType="java.util.HashMap">
+ 	delete from event_list where product_id=#{num}
+ 	</delete>
+ 	<select id="EventETC" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+ 	select * from event_list where product_id=#{num}
+ 	</select>
+ 	<insert id="EventReg" parameterType="java.util.HashMap">
+ 	insert into event_list values(event_list_num_seq.nextval,#{num},#{event}) 
+ 	</insert>
+ 	<update id="EventUpdate" parameterType="java.util.HashMap">
+ 	Update event_list set cupon_type=#{event} where product_id=#{num}
+ 	</update>
+ 	
  
  </mapper>
