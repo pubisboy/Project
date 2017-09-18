@@ -19,11 +19,8 @@ public class SellerFilter implements Filter {
 		HttpServletRequest req = (HttpServletRequest)request;
 		HttpServletResponse resp = (HttpServletResponse)response;
 		HttpSession session = req.getSession();
-<<<<<<< HEAD
-		String seller = (String)session.getAttribute("seller_id");
-=======
+		
 		String seller = (String)session.getAttribute("seller_id"); 
->>>>>>> branch 'master' of https://github.com/pubisboy/Project.git
 		if(seller != null){
 			chain.doFilter(req, resp);
 		}else{
