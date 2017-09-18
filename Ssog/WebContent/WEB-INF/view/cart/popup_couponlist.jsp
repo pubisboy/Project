@@ -132,7 +132,7 @@ table, th, td {
 		</div>
 		<div align="center">
 			<button class="btn-custom" id="okay">적용하기</button>
-			<button>취소</button>
+			<button id="cancle">취소</button>
 		</div>
 	</div>
 </div>
@@ -171,10 +171,18 @@ var finaltotal = 0;
 				$("#finalcash").html(finaltotal1 + '원');
 			}); 
 	$("#okay").on("click", function() {
+		if($("#cp").html()==""){
+			window.alert("쿠폰을 선택해주세요");
+		}else{
 		   opener.document.getElementById("finishcash").innerHTML = sum;  
 		   opener.document.getElementById("point").innerHTML = tmp;
 		   opener.document.getElementById("onecoupon").value = $("#cp").html();
-		   opener.document.getElementById("discountrate1").innerHTML = $("#dis").html();  
-		   window.close();
-		      });
+		   opener.document.getElementById("discountrate1").innerHTML = $("#dis").html();
+		   opener.basicReload();
+		   window.close(); 
+		}
+	});
+	$("#cancle").on("click", function() {
+		window.close(); 
+	});
 </script>
