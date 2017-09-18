@@ -19,7 +19,9 @@
 			</select>
 		</form>
 	</div>
-	<div style="float: right; text-align: right"><a href="/admin/management/notice/notice_write.ja">글쓰기</a></div>
+	<div style="float: right; text-align: right">
+		<button type="button" class="btn btn-default" onclick="cancel('/admin/management/notice/notice_write.ja');">글쓰기</button>
+	</div>
 </div>
 <table class="table table-bordered" style="text-align: center;">
 	<thead>
@@ -63,7 +65,7 @@
 		<input type="text" name="value" value="${empty params.value ? '' : params.value}" placeholder="제목"/>
 	</form>
 </div>
-
+<script src="<c:url value="/etc.js" />"></script>
 <script>
 	$("#state").on("change", function(){
 		if($("#state").val() == ''){

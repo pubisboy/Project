@@ -40,7 +40,7 @@
 	         </div>
 	         <div class="form-group">
 	            <button id="submit" type="submit" class="btn btn-default">수정</button>
-	            <button type="button" class="btn btn-default"><a href="/admin/management/popup/popup_list.ja?p=${params.p }&value=${params.value}&cupon=${params.cupon}&onoff=${params.onoff}&sort=${params.sort}">취소</a></button>
+	            <button type="button" class="btn btn-default" onclick="cancel('/admin/management/popup/popup_list.ja?p=${params.p }&value=${params.value}&cupon=${params.cupon}&onoff=${params.onoff}&sort=${params.sort}');">취소</button>
 	         </div>
    		</form>
    </div>
@@ -48,7 +48,7 @@
 </div>
 
 <script src="/ckeditor/ckeditor.js"></script>
-
+<script src="<c:url value="/etc.js" />"></script>
 <script>
 	CKEDITOR.replace('content', {
 		'resize_enabled' : false

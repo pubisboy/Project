@@ -71,6 +71,7 @@ public class CartController {
 					Map map = pdao.cart(cookiename);
 					map.put("number", number);
 					list.add(map);
+					System.out.println(list);
 					int etc = list.size();
 					mav.addObject("list", list);
 					mav.addObject("etc", etc);
@@ -121,7 +122,6 @@ public class CartController {
 	public ModelAndView order_rst(@RequestParam Map param) {
 		ModelAndView mav = new ModelAndView("cart/payment");
 		boolean bl = cdao.order(param);
-		
 		return mav;
 	}
 
@@ -132,7 +132,6 @@ public class CartController {
 		List<Map> list = cdao.couponlist((String) init.get("id"));
 		mav.addObject("list", list);
 		mav.addObject("price", price);
-
 		return mav;
 	}
 
@@ -180,48 +179,82 @@ public class CartController {
 			return false;
 		}
 	}
-	
+
 	@RequestMapping("/payment.j")
-	public ModelAndView payment(@RequestParam Map param,HttpSession session,Map map,@RequestParam(name="pd1") String[] ar1,@RequestParam(name="pd2")String[] ar2) {
+	public ModelAndView payment(@RequestParam Map param, HttpSession session, Map map,
+			@RequestParam(name = "pd1") String[] ar1, @RequestParam(name = "pd2") String[] ar2) {
 		Map init = init(session);
 		Map info = mmdao.id_check_repetition((String) init.get("id"));
 		ModelAndView mav = new ModelAndView("tw_cart/payment");
-		mav.addObject("memberinfo", init.get("info")); 
-		String ad1 = (String)param.get("postcode");
-		String ad2 = (String)param.get("address1");
-		String ad3 = (String)param.get("address2");
-		String address = ad1+"!"+ad2+"!"+ad3;
-		String address2 = ad1+"　"+ad2+"　"+ad3;
+		mav.addObject("memberinfo", init.get("info"));
+		String ad1 = (String) param.get("postcode");
+		String ad2 = (String) param.get("address1");
+		String ad3 = (String) param.get("address2");
+		String address = ad1 + "!" + ad2 + "!" + ad3;
+		String address2 = ad1 + "　" + ad2 + "　" + ad3;
 		param.put("address", address);
-		String ph1 = (String)param.get("phone1");
-		String ph2 = (String)param.get("phone2");
-		String ph3 = (String)param.get("phone3");
-		String phone = ph1+"!"+ph2+"!"+ph3;
-		param.put("phone", phone); 
-		String coupon = (String)param.get("onecoupon");
+		String ph1 = (String) param.get("phone1");
+		String ph2 = (String) param.get("phone2");
+		String ph3 = (String) param.get("phone3");
+		String phone = ph1 + "!" + ph2 + "!" + ph3;
+		param.put("phone", phone);
+		String coupon = (String) param.get("onecoupon");
 		int index = coupon.indexOf("%");
 		String cupon = coupon.substring(0, index);
 		param.put("cupon", cupon);
 		param.put("id", (String) init.get("id"));
 		System.out.println(param);
 		boolean bl = cdao.order(param);
-		String onecoupon = (String)param.get("onecoupon");
+		String onecoupon = (String) param.get("onecoupon");
 		int idx = onecoupon.indexOf("%");
 		String num = onecoupon.substring(0, idx);
 		param.put("num", num);
-		String totalcash = (String)param.get("totalcash");
+		String totalcash = (String) param.get("totalcash");
 		map.put("address", address2);
 		map.put("ar1", ar1);
 		map.put("ar2", ar2);
 		mav.addObject("map", map);
 		mav.addObject("param", param);
 		System.out.println(ar1[0]);
-		System.out.println(ar2[1]);   
+		System.out.println(ar2[1]);
 		System.out.println(map);
-		if(bl==true) {
+		if (bl == true) {
 			System.out.println("결제완료");
 			cdao.userpoint(param);
 		}
+
+		String[] pd1 = (String[]) map.get("ar1");
+		String[] pd2 = (String[]) map.get("ar2");
+		for (int i = 0; i < pd1.length; i++) {
+			Map data = new HashMap<>();
+			data.put("pd1", pd1[i]);
+			data.put("pd2", pd2[i]);
+			cdao.orderupdate(data);
+		}
 		return mav;
+	}
+
+	@RequestMapping("/ascertain.j")
+	@ResponseBody
+	public boolean ascertain(@RequestParam Map param) {
+		System.out.println("param : " + param);
+		String pd_num = (String) param.get("pd1");
+		String[] sp1 = pd_num.split("!");
+		String pr_num = (String) param.get("pd2");
+		String[] sp2 = pr_num.split("!");
+		boolean bl = true;
+		for (int i = 0; i < sp1.length; i++) {
+			Map data = new HashMap<>();
+			data.put("pd1", sp1[i]);
+			data.put("pd2", sp2[i]);
+			Map pmap = cdao.pd_ascertain(data);
+			System.out.println(pmap);
+			if (pmap == null) {
+				bl = false;
+			} else {
+				bl = true;
+			}
+		}
+		return bl;
 	}
 }

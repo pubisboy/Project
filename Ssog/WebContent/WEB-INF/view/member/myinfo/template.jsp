@@ -3,7 +3,7 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <div align="center">
-	<div style="width: 55%; padding-top: 30px;">   
+	<div style="width: 65%; padding-top: 30px;">     
 		<div class="row tot">
 			<div class="col-sm-3">
 				<div
@@ -108,7 +108,7 @@
 										<li style="font-size: 13px;">할인쿠폰<b style="color: #ff1a75; padding-left: 10px;">${coulist.size() }장</b></li>
 									</dd>
 									<dd>
-										<li style="font-size: 13px;">적립금<fmt:formatNumber value="${grade.POINT }" pattern="#,###"/>원</li>  
+										<li style="font-size: 13px; padding-left: 50px;">적립금<fmt:formatNumber value="${grade.POINT }" pattern="#,###"/>원</li>     
 									</dd>
 								</dl>
 							</div>

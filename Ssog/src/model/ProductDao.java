@@ -163,4 +163,16 @@ public class ProductDao {
 		}
 		return br;
 	}
+	public Map event_list(String num){
+		Map map = new HashMap<>();
+		SqlSession session = factory.openSession();
+		try {
+			map = session.selectOne("product.event_list",num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		return map;
+	}
 }

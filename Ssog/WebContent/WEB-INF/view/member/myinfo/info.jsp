@@ -95,7 +95,10 @@ table, th, td {
 		</div>
 		<div
 			style="border-top: 2px solid #595959; border-bottom: 1px solid #a6a6a6; padding-top: 10px; padding-bottom: 10px;">
-			주문완료 > 상품준비중 > 배송중 > 배송완료<br /> 0건 0건 0건 0건
+			
+			주문완료 > 상품준비중 > 배송중 > 배송완료<br />
+				
+			0건 0건 0건 ${slist. }건
 		</div>
 
 	</div>

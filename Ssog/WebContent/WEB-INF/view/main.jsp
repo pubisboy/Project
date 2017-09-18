@@ -45,7 +45,7 @@
     </a>
 </div>
 <div align="center" style="padding-top: 15px;">  
-<div class="row" style="width: 53%;">  
+<div class="row" style="width: 63%;">  
 <div class="col-xs-4" style="background: blue; height: 12.5%;">dd</div>     
 <div class="col-xs-4" style="background: red; height: 12.5%;">dd</div>
 <div class="col-xs-4" style="background: black; height: 12.5%;">dd</div>  
@@ -61,13 +61,11 @@
 	<div>
 	<img src="http://www.hellonature.net/shop/data/skin/renew_C/img/banner/%EC%9D%B8%EA%B8%B0%EC%83%81%ED%92%88_%EA%B5%AC%EC%9D%B4%EC%9A%A9%EC%A0%84%EC%96%B4.jpg">
 	</div>
-	</div> 
-</div>
-
-<!-- 
+	</div>  
+</div> 
+ 
 <c:forEach items="${list }" var="i" varStatus="vs">
 	<script>
 		window.open("/popup.j?num=${i.POPUP_NUM}", "", "width=300, height=500, left=${vs.index * 50}, top=${vs.index * 50}");
 	</script>
-</c:forEach>
- -->
+</c:forEach> 

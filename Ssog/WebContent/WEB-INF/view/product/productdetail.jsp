@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <div class="row" align="center">
 	<div style="width: 67%;">
 		<div class="col-sm-12" style="border: 1px solid gray;">
@@ -19,15 +21,32 @@
 							<tbody>
 								<tr>
 									<th>판매가</th>
-									<th style="padding-left: 60px;">${map.PRICE }</th>
+									<th style="padding-left: 60px;">
+									<fmt:formatNumber value="${map.PRICE }" pattern="#,###"/></th>
 								</tr>
 								<tr>
 									<th>행사할인가</th>
-									<th style="padding-left: 60px;">-</th>
+									<th style="padding-left: 60px;">
+									
+									<c:choose> 
+										<c:when test="${empty elist }">-</c:when> 
+										<c:otherwise>
+										<fmt:formatNumber value="${map.PRICE-((elist.RATE*0.01) *map.PRICE) }" pattern="#,###"/>
+										</c:otherwise>     
+									</c:choose>
+									
+									</th>
 								</tr> 
 								<tr>
 									<th>적립금</th>
-									<th style="padding-left: 60px;">-</th>
+									<th style="padding-left: 60px;">
+									<c:choose> 
+										<c:when test="${empty elist }">${map.PRICE*0.1 }</c:when> 
+										<c:otherwise> 
+										<fmt:formatNumber value="${(map.PRICE-((elist.RATE*0.01) *map.PRICE))*0.1 }" pattern="#,###"/>
+										</c:otherwise>     
+									</c:choose>
+									</th>
 								</tr>
 								<tr>
 									<th>생산지</th>
@@ -38,7 +57,7 @@
 									<th style="padding-left: 60px;">${map.SELLER_ID }</th>
 								</tr>
 								<tr> 
-									<th>수량</th> 
+									<th>수량<small>(잔여수량<span id="qty">${map.PRO_QTY }</span>)</small></th>    
 									<th style="padding-left: 60px;">
 										<div>
 											<button id="minus">-</button>
@@ -65,6 +84,7 @@
 	</div>
 </div>
 <script>
+
 		$("#minus").on("click", function() {
 	if ($("#quantity").val() > 1) {
 			$("#quantity").val(parseInt($("#quantity").val()) - 1)
@@ -74,6 +94,11 @@
 	$("#plus").on("click", function() {
 		$("#quantity").val(1 + parseInt($("#quantity").val()))
 		$("#total").html($("#quantity").val() * "${map.PRICE}")
+		if(parseInt($("#qty").html())<parseInt($("#quantity").val())){ 
+			window.alert("재고가 부족합니다.");
+			$("#quantity").val(parseInt($("#quantity").val()) - 1)
+			
+		}
 	});
 	$("#order").on("click", function() {
 		if ($("#quantity").val() * "${map.PRICE}" < 0) {
@@ -92,6 +117,6 @@
 		cookies = cName + '=' + escape(cValue) + '; path=/ ';
 		cookies += ';' + expires + ';';
 		document.cookie = cookies;
-
 	});
+		
 </script>

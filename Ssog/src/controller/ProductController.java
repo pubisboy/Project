@@ -86,10 +86,14 @@ public class ProductController {
 	public ModelAndView productdetail(@RequestParam(name = "productNumber") String num) {
 		ModelAndView mav = new ModelAndView("t_base");
 		Map map=new HashMap<>(); 
+		Map elist = pdao.event_list(num);
+		if(elist!=null) {
+			mav.addObject("elist", elist);
+		}
+		System.out.println("elist : "+elist);
 		map=pdao.pro_detail(num);
 		mav.addObject("section", "product/productdetail");
 		mav.addObject("map", map);
-
 		return mav; 
 	}
 

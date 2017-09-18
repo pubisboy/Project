@@ -9,8 +9,8 @@ li {
 <nav class="navbar navbar-default" style="margin-bottom: 0px;">
 	<div class="container-fluid">
 		<ul class="nav nav-stacked nav-pills" style="margin-top: 20px;">
-			<li><a href="/admin/member/member_user/user_list.ja">구매자</a></li>
-			<li><a href="/admin/member/member_seller/seller_list.ja">판매자</a></li>
+			<li style="text-align: center;"><a href="/admin/member/member_user/user_list.ja">구매자</a></li>
+			<li style="text-align: center;"><a href="/admin/member/member_seller/seller_list.ja">판매자</a></li>
 		</ul>
 	</div>
 </nav>
