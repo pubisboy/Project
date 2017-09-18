@@ -57,37 +57,37 @@
 				<tr style="border-top: 3px solid black;">
 					<th width="10%">주문번호</th>
 					<th width="10%">상품번호</th>
-					<th width="5%">주문수량</th>
+					<th width="10%">주문수량</th>
 					<th width="10%">주문상태</th>
 					<th width="20%">주문일자</th>
 					<th width="20%">결제일자</th>
 					<th width="10%">가격</th>
 					<th width="10%">쿠폰타입</th>
-					<th width="5%">DHL</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:if test="${empty list}">
-					<tr><td colspan="9" align="center">사용자가 주문한 상품이 없습니다.</td></tr>
+					<tr><td colspan="8" align="center">사용자가 주문한 상품이 없습니다.</td></tr>
 				</c:if>
 				<c:forEach var="i" items="${list}">
 					<tr>
 						<td width="10%">${i.ORDER_NUM}</td>
 						<td width="10%">${i.PRO_NUM }</td>
 						<td width="5%"><fmt:formatNumber value="${i.ORDER_QTY}" type="number"/></td>
-						<td width="5%">${i.STATE }</td>
+						<td width="5%">${i.ST}</td>
 						<td width="10%"><fmt:formatDate value="${i.ORDER_DATE}" pattern="yyyy-MM-dd"/></td>
 						<td width="10%"><fmt:formatDate value="${i.PAY_DATE}"  pattern="yyyy-MM-dd"/></td>
 						<td width="10%"><fmt:formatNumber value="${i.PRICE}"  type="number"/></td>
 						<td width="5%">${i.CUPON_TYPE}</td>
-						<td width="5%">${i.DHL }</td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
+			
 						<%-- <td width="10%">${i.ETC }</td>
 						<td width="10%">${i.ADDRESS }</td>
-						<td width="10%">${i.RECEIVER }</td> --%>
+						<td width="10%">${i.RECEIVER }</td> 
+						<td width="5%">${i.CHARGE}</td>--%>
 	
 	
 	
