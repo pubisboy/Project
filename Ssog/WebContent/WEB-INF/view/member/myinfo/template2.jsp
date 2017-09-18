@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
-<div class="container">
+<div align="center">
+<div style="width: 53%;">  
 	<div class="row">
-		<div class="col-sm-2">
+		<div class="col-sm-3"> 
 			<div class="well">
 				<span class="glyphicon glyphicon-home" style="font-size: 20px;"></span><a
 					href="/member/myinfo/info.j">고객센터</a>
@@ -41,7 +42,7 @@
 			</ul>
 
 		</div>
-		<div class="col-sm-8">
+		<div class="col-sm-9">
 			<div class="col-sm-12" style="padding-bottom: 40px;">
 				<div class="row">
 					<div class="col-sm-6">
@@ -104,5 +105,6 @@
 			</div>
 			<tiles:insertAttribute name="section" />
 		</div>
+	</div>
 	</div>
 </div>

@@ -90,5 +90,8 @@
 		UPDATE USER_MEMBER SET
 		pass = #{newpass} where id=#{id}
 	</update>
+	<select id="couponlist" parameterType="java.lang.String" resultType="java.util.HashMap">
+		select * from CUPON_LIST where USER_ID=#{id}
+	</select>
 
 </mapper>
