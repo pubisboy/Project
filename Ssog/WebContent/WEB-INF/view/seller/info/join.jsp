@@ -72,7 +72,7 @@
 					document.getElementById(id + "_chk").innerHTML = ihtml;
 				}
 			}
-			req.open("get", "/seller/joinAjax.j?type=" + this.id + "&val=" + this.value, true);
+			req.open("get", "/seller/info/joinAjax.j?type=" + this.id + "&val=" + this.value, true);
 			req.send();
 		} else {
 			document.getElementById("sbt").disabled=true;

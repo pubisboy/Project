@@ -1,5 +1,6 @@
 package model;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -301,14 +302,14 @@ public class AdminOracleDao implements AdminDao{
 	
 	public int plusInfo_company(String name){
 		SqlSession session = factory.openSession();
-		int rst = -1;
+		int rst = 0;
 		try{
 			session.insert("admin.plusInfo_company", name);
 			rst = session.selectOne("admin.getNum_info_company", name);
 			session.commit();
 		}catch(Exception e){
 			System.out.println("error.plusInfo_company"+e.toString());
-			rst = -1;
+			rst = 0;
 			session.rollback();
 		}finally{
 			session.close();
@@ -831,11 +832,11 @@ public class AdminOracleDao implements AdminDao{
 		return rst;
 	}
 	
-	public List getPopup_target(){
+	public List getPopup_target(List denys){
 		List list = null;
 		SqlSession session = factory.openSession();
 		try{
-			list = session.selectList("admin.getPopup_target");
+			list = session.selectList("admin.getPopup_target", denys);
 		}catch(Exception e){
 			System.out.println("error.getPopup_target"+e.toString());
 			list = null;
@@ -946,5 +947,116 @@ public class AdminOracleDao implements AdminDao{
 			session.close();
 		}
 		return b;
+	}
+	
+	public List<Map> admin_list(Map map){
+		SqlSession session = factory.openSession();
+		List<Map> rst = null;
+		try{
+			rst = session.selectList("admin_admin.admin_list", map);
+		}catch(Exception e){
+			System.out.println("error.admin_list"+e.toString());
+		}finally{
+			session.close();
+		}
+		return rst;
+	}
+	
+	public int admin_list_count(Map map){
+		SqlSession session = factory.openSession();
+		int rst = 0;
+		try{
+			rst = session.selectOne("admin_admin.admin_list_count", map);
+		}catch(Exception e){
+			System.out.println("error.admin_list_count"+e.toString());
+		}finally{
+			session.close();
+		}
+		return rst;
+	}
+	
+	public boolean admin_del(Map map){
+		SqlSession session = factory.openSession();
+		boolean b = false;
+		try{
+			int r = session.delete("admin_admin.admin_del", map);
+			if(r > 0){
+				b = true;
+			}
+			session.commit();
+		}catch(Exception e){
+			System.out.println("error.admin_del"+e.toString());
+			b = false;
+			session.rollback();
+		}finally{
+			session.close();
+		}
+		return b;
+	}
+	
+	public boolean admin_modify(Map map){
+		SqlSession session = factory.openSession();
+		boolean b = false;
+		try{
+			int r = session.update("admin_admin.admin_modify", map);
+			if(r > 0){
+				b = true;
+			}
+		}catch(Exception e){
+			System.out.println("error.admin_modify"+e.toString());
+			b = false;
+		}finally{
+			session.close();
+		}
+		return b;
+	}
+	
+	public boolean admin_create(Map map){
+		boolean b = false;
+		SqlSession session = factory.openSession();
+		try{
+			int r = session.insert("admin_admin.admin_create", map);
+			if(r > 0){
+				b = true;
+			}
+			session.commit();
+		}catch(Exception e){
+			System.out.println("error.admin_create"+e.toString());
+			session.rollback();
+		}finally{
+			session.close();
+		}
+		return b;
+	}
+	
+	public boolean createCupon(Map map){
+		boolean b = false;
+		SqlSession session = factory.openSession();
+		try{
+			int r = session.insert("admin.createCupon", map);
+			if(r > 0){
+				b = true;
+			}
+			session.commit();
+		}catch(Exception e){
+			System.out.println("error.createCupon"+e.toString());
+			session.rollback();
+		}finally{
+			session.close();
+		}
+		return b;
+	}
+	
+	public Date getCupon_date(Map map){
+		SqlSession session = factory.openSession();
+		Date date = null;
+		try{
+			date = session.selectOne("admin.getCupon_date", map);
+		}catch(Exception e){
+			System.out.println("error.getCupon_date"+e.toString());
+		}finally{
+			session.close();
+		}
+		return date;
 	}
 }

@@ -4,15 +4,17 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <div>검색 : ${total }건</div>
-	<div style="float: right; text-align: right; width: 100%;"><a href="/admin/management/popup/popup_write.ja">팝업 만들기</a></div>
+	<div style="float: right; text-align: right; width: 100%;">
+		<button type="button" class="btn btn-default" onclick="cancel('/admin/management/popup/popup_write.ja');">팝업생성</button>
+	</div>
 <div>
 	<div style="float: right;">
-	<a href="/admin/management/popup/popup_list.ja?p=${params.p}&value=${params.value}&cupon=${empty params.cupon ? 0 : (params.cupon eq 0 ? 1 : '')}&onoff=${params.onoff }&sort=${params.sort}">쿠폰여부</a></div>
-	<div style="float: right; width: 5%;">
-	<a href="/admin/management/popup/popup_list.ja?p=${params.p}&value=${params.value}&cupon=${params.cupon}&onoff=${empty params.onoff ? 0 : (params.onoff eq 0 ? 1 : '')}&sort=${params.sort}">활성화</a></div>
+	<a href="/admin/management/popup/popup_list.ja?p=${params.p}&value=${params.value}&cupon=${empty params.cupon ? 1 : (params.cupon eq 1 ? 0 : '')}&onoff=${params.onoff }&sort=${params.sort}">${empty params.cupon ? '전체' : (params.cupon eq 0 ? '없음' : '있음')}</a></div>
+	<div style="float: right; width: 10%;">
+	<a href="/admin/management/popup/popup_list.ja?p=${params.p}&value=${params.value}&cupon=${params.cupon}&onoff=${empty params.onoff ? 1 : (params.onoff eq 1 ? 0 : '')}&sort=${params.sort}">${empty params.onoff ? '전체' : (params.onoff eq 0 ? '비활성화' : '활성화')}</a></div>
 	<div style="float: right; width: 10%;">
 	<a
-		href="/admin/management/popup/popup_list.ja?p=${params.p}&value=${params.value}&cupon=${params.cupon}&onoff=${params.onoff }&sort=${!empty params.sort and params.sort == 'asc' ? 'desc' : 'asc'}">오름/내림정렬</a>
+		href="/admin/management/popup/popup_list.ja?p=${params.p}&value=${params.value}&cupon=${params.cupon}&onoff=${params.onoff }&sort=${!empty params.sort and params.sort == 'asc' ? 'desc' : 'asc'}">${!empty params.sort and params.sort == 'asc' ? '오름' : '내림'}</a>
 </div>
 </div>
 <table class="table table-bordered" style="text-align: center;">
@@ -78,3 +80,5 @@
 		<input type="text" name="value" value="${empty params.value ? '' : params.value}" placeholder="제목"/>
 	</form>
 </div>
+
+<script src="<c:url value="/etc.js" />"></script>
