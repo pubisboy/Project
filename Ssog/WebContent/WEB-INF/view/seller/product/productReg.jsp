@@ -12,21 +12,24 @@ img:hover {
 }
  
 </style>
-<div class="row" style="width: 100%; height:125%; margin-left: 50px;" >    
+<div class="row" style="width: 100%; height:125%; margin-left: 50px;" >     
 <p style="text-align: left; margin-top: 20px;"><b>이 곳은 상품 등록 페이지 입니다.</b><br/>
 쇼핑몰에 상품을 진열하는데 필요한 기본정보를 입력합니다. 
 </p> 
-<form action="/seller/product/productRegExec.j" method="post" enctype="multipart/form-data">
+<form action="/seller/product/productRegExec.j" method="post" enctype="multipart/form-data"> 
 <div class="form-group"> 
 <table style="height: 100%; width: 100%;" border="1">  
 	<tr style="height: 5%"><td style="width: 20%; background-color: #eaeaea;">상품명</td><td colspan="3"><input class="form-control" type="text" style="width: 95%" name="pro_name" required="false"/></td>
 	</tr>
 	<tr style="height: 5%;"><td style=" background-color: #eaeaea;">판매가격  </td>
-	<td style="width: 30%;"><div class="navbar-form" style="padding: 0px; margin: 0px;"><input class="form-control" type="text" style="width: 82%" name="price" onkeydown="onlyNumber(this)" required="false"/>  원</div></td><td style="width: 20%; background-color: #eaeaea;">행사 등록</td>
-	<td><input type="radio" class="group" value="false" name="radiogroup" checked="checked"> &nbsp;사용안함 &nbsp;&nbsp;&nbsp;  <input type="radio" class="group" value="true" name="radiogroup" id="useEve">&nbsp;사용&nbsp;</td>	
+	<td style="width: 30%;"><div class="navbar-form" style="padding: 0px; margin: 0px;"><input class="form-control" type="text" style="width: 82%" name="price" onkeydown="onlyNumber(this)" required="false"/>  원</div></td><td rowspan="2" style="width: 20%; background-color: #eaeaea;">행사 등록</td>
+	<td><input type="radio" class="group" value="false" name="radiogroup" checked="checked" id="nouseEve" style="margin-left: 10px;"> &nbsp;사용안함 &nbsp;&nbsp;&nbsp;  <input type="radio" class="group" value="true" name="radiogroup" id="useEve">&nbsp;사용&nbsp;</td>	
 	</tr>
 	<tr style="height: 5%;"><td style=" background-color: #eaeaea;" >판매수량</td>  
-	<td colspan="1"><div class="navbar-form" style="padding: 0px; margin: 0px;"><input class="form-control" type="text" style="width: 30%" name="pro_qty" onkeydown="onlyNumber(this)" required="false" >  Kg</div></td><td colspan="2" style="border-top: 0px;">ㅗㅗ</td></tr> 
+	<td colspan="1"><div class="navbar-form" style="padding: 0px; margin: 0px;"><input class="form-control" type="text" style="width: 82%" name="pro_qty" onkeydown="onlyNumber(this)" required="false" >  Kg</div></td><td colspan="2" style="border-top: 0px;">
+	<span id="zoro">
+	 
+	</span></td></tr> 
 	<tr style="height: 5%;"><td style=" background-color: #eaeaea;">분류</td>
 	<td colspan="3">	<div class="navbar-form" style="padding: 0px; margin: 0px;">
 	<select class="form-control" style="width: 30%;" id="large_cate"><option>대분류</option>
@@ -101,9 +104,16 @@ $("#large_cate").change("click",function(){
 			"event" : $("#useEve").val()
 		}
 	 }).done(function(result){
-		 setTag="<select name=\"\">  ";
-	 })
-	 
+		var select="<select name=\"event\" class=\"form-control\" style=\"width:70%;\">";
+		for (var i = 0; i < result.list.length; i++) {
+			select+="<option value=\"" + result.list[i].CUPON_NUM + "\">" + result.list[i].RATE + "</option>";
+		}		
+		select+="</select>"; 
+		$("#zoro").html(select); 
+	 })	 
+ })
+ $("#nouseEve").on("click",function(){
+	 $("#zoro").html("");
  })
  
 

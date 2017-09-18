@@ -76,6 +76,7 @@ public class ProductController {
 			mav.addObject("origin", ori);
 			System.out.println(ori);
 		}
+		System.out.println("호로로로로로로로로"+list);
 		
 		return mav;
 		

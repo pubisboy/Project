@@ -46,9 +46,14 @@ public class ProductRegController {
 	@RequestMapping("/productRegExec")
 	public ModelAndView registerExec(@RequestParam Map map,@RequestParam(name="pro_img") MultipartFile f,
 			HttpSession session	) throws IllegalStateException, IOException {
+		System.out.println("Map =="+map);
 		ModelAndView mav=new ModelAndView("t_el_seller");
 		String path = application.getRealPath("/img/pro_img");
 		System.out.println(path);
+		if(map.get("event")!=null) {
+			pdao.useEvent(map);
+			System.out.println("호로로로로로로로로로로ㅗ로로롤");
+		}
 		File dir=new File(path);
 		if(!dir.exists()) {
 			dir.mkdirs();
@@ -109,7 +114,7 @@ public class ProductRegController {
 		String uuid;
 		uuid = (String) map.get("uuid");
 		if((String) map.get("uuid")==null) {
-			if(!f.isEmpty()) {		
+			if(!f.isEmpty()) {
 				uuid=UUID.randomUUID().toString();
 				boolean rst= false;
 				if(f.getContentType().startsWith("image")) {
@@ -142,11 +147,12 @@ public class ProductRegController {
 	
 	@RequestMapping("/useEve.j")
 	@ResponseBody
-	public List UseEvent(@RequestParam (name="event") String m) {
+	public Map UseEvent(@RequestParam (name="event") String m) {
 		List list=new ArrayList<>();
+		Map map=new HashMap<>();
 		list=pdao.eventList();
-		System.out.println(list);
-		return list;
+		map.put("list",list);
+		return map;
 	}
 }
 

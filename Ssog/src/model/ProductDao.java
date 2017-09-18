@@ -177,4 +177,19 @@ public class ProductDao {
 		}
 		return list;
 	}
+	public boolean useEvent(Map map) {
+		SqlSession session=factory.openSession();
+		boolean br=false;
+		try {
+			int r=session.insert("useEvent",map);
+			if(r==1) {
+				br=true;
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		return br;
+	}
 }
