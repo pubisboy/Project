@@ -24,9 +24,7 @@
 			</div>
 			<div class="form-group">
 				<button type="submit" class="btn btn-default">작성</button>
-				<button type="button" class="btn btn-default">
-					<a href="/admin/management/information/terms.ja">취소</a>
-				</button>
+				<button type="button" class="btn btn-default" onclick="cancel('/admin/management/information/terms.ja');">취소</button>
 			</div>
 		</form>
 	</div>
@@ -38,3 +36,5 @@
 		'resize_enabled' : false
 	});
 </script>
+
+<script src="<c:url value="/etc.js" />"></script>
