@@ -13,6 +13,9 @@ li{
 /* 하위 메뉴 */
 #sohot > .wonder > .girls {
 	display: none;
+	position: absolute;
+	top:0;
+	left:100%;
 }
   
  li.drop{
@@ -149,9 +152,9 @@ li{
 		              <a class="navbar-brand" class="ropdown-toggle"  href="/product/list.j" id="socool" style="font-size: 16px;"><span class="glyphicon glyphicon-menu-hamburger"></span>카테고리<b class="caret"></b></a>   
 		              <!-- sohot -->
 		              <ul class="nav dropdown-menu sohott" id="sohot" style="border-top: 0px;">
-	                       <li class="dropdown dropdown-submenu wonder"><a href="#" class="dropdown-toggle" data-toggle="dropdown">채소</a>
+	                       <li class="dropdown wonder"><a href="#" class="dropdown-toggle" data-toggle="dropdown">채소</a>
 	                        <ul class="dropdown-menu girls">
-	                                    <li class="kopie"><a href="#">야채</a></li>
+	                                    <!-- <li class="kopie"><a href="#">야채</a></li> -->
 	                           <li><a href="#">ㅗㅗㅗ</a></li>
 	                           <li><a href="#">샐러드, 쌈</a></li>
 	                           <li><a href="#">뿌리채소</a></li>
@@ -162,7 +165,7 @@ li{
 	                          
 	                        <li class="dropdown wonder"><a href="#" class="dropdown-toggle" data-toggle="dropdown">과일</a>
 	                        <ul class="dropdown-menu girls">
-	                                    <li class="kopie"><a href="#">과일</a></li>
+	                                    <!-- <li class="kopie"><a href="#">과일</a></li> -->
 	                           <li><a href="#">파인애플,바나나,키위</a></li>
 	                           <li><a href="#">그외 과일</a></li>
 	                        </ul>
