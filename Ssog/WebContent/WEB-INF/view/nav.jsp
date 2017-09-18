@@ -9,6 +9,11 @@ li{
 .dropdown-menu > li.kopie > a {
     padding-left:5px;
 }  
+
+/* 하위 메뉴 */
+#sohot > .wonder > .girls {
+	display: none;
+}
   
  li.drop{
     position: absolute; 
@@ -18,10 +23,6 @@ li{
 .dropdown-submenu { 
     position:relative; 
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> refs/heads/master
 .dropdown-submenu>.dropdown-menu {
    top:0;left:100%;
    margin-top:-6px;margin-left:-1px;
@@ -143,84 +144,38 @@ li{
                     <span class="icon-bar"></span> 
                     <span class="icon-bar"></span>
                 </button>  
-<<<<<<< HEAD
                 <ul class="nav ssibal navbar-nav">  
-                <li class="dropdown">
-              <a class="navbar-brand" class="ropdown-toggle"  href="/product/list.j" id="socool" style="font-size: 16px;"><span class="glyphicon glyphicon-menu-hamburger"></span>카테고리<b class="caret"></b></a>   
-              <ul class="nav dropdown-menu sohott" id="sohot" style="border-top: 0px;">
-                                 <li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">채소</a>
-=======
-                
-                <ul class="nav ssibal navbar-nav">  
-                	<li class="dropdown">
+	                <li class="dropdown">
 		              <a class="navbar-brand" class="ropdown-toggle"  href="/product/list.j" id="socool" style="font-size: 16px;"><span class="glyphicon glyphicon-menu-hamburger"></span>카테고리<b class="caret"></b></a>   
+		              <!-- sohot -->
 		              <ul class="nav dropdown-menu sohott" id="sohot" style="border-top: 0px;">
-		                   <li class="dropdown dropdown-submenu wonder"><a href="#" class="dropdown-toggle" data-toggle="dropdown">채소</a>
-		                        <ul class="dropdown-menu girls">
-		                                    <li class="kopie"><a href="#">야채야채</a></li>
-		                           <li><a href="#">ㅗㅗㅗ</a></li>
-		                           <li><a href="#">쌈,샐러드</a></li>
-		                           <li><a href="#">뿌리채소</a></li>
-		                           <li><a href="#">야채 뭐있지</a></li>
-		                                                                      
-		                        </ul>
-		                      </li>   
-		                          
-		                     <li class="dropdown dropdown-submenu wonder"><a href="#" class="dropdown-toggle" data-toggle="dropdown">과일</a>
-		                           <ul class="dropdown-menu girls">
-		                                    <li class="kopie"><a href="#">야채야채</a></li>
-		                           <li><a href="#">ㅗㅗㅗ</a></li>
-		                           <li><a href="#">쌈,샐러드</a></li>
-		                           <li><a href="#">뿌리채소</a></li>
-		                           <li><a href="#">야채 뭐있지</a></li>
-		                                                                      
-		                        </ul>
-		                      </li>
-		                           
-		                           
-		                           <li><a href="#">양곡</a></li>
-		                           <li><a href="#">정육</a></li>
-		                           <li><a href="#">수산물</a></li>
-		                                                                      
-		                </ul>
-              		</li>
-              </ul>
-            </div>
-              
-            <div class="collapse navbar-collapse" id="navbar-collapse-1"   >
-                <ul class="nav navbar-nav">
-                    <li ><a href="#" style="font-size: 16px; letter-spacing: -1px;">원산지별</a></li>
-                    <li><a href="#">Link</a></li>
-                     
-                    <li class="dropdown" id="ssipal">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a> 
-                      
-                        <ul class="dropdown-menu byungsin"> 
-                          <li class="kopie"><a href="#">Dropdown</a></li>
-                            <li><a href="#">시바아아아알</a></li>
-                            <li ><a href="#">Dropdown Link 2</a></li>
-                            <li><a href="#">Dropdown Link 3</a></li>
-                          
-                            <li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown Link 4</a>
->>>>>>> refs/heads/master
-                        <ul class="dropdown-menu">
-                                    <li class="kopie"><a href="#">Dropdown Link 4</a></li>
-                           <li><a href="#">ㅗㅗㅗ</a></li>
-                           <li><a href="#">Dropdown Submenu Link 4.2</a></li>
-                           <li><a href="#">Dropdown Submenu Link 4.3</a></li>
-                           <li><a href="#">Dropdown Submenu Link 4.4</a></li>
-                                                                      
-                        </ul>
-<<<<<<< HEAD
-                          
-                           <li><a href="#">과일</a></li>
-                           
-                           <li><a href="#">양곡</a></li>
-                           <li><a href="#">정육</a></li>
-                           <li><a href="#">수산물</a></li>
-                                                                      
-                        </ul>
-              </li>
+	                       <li class="dropdown dropdown-submenu wonder"><a href="#" class="dropdown-toggle" data-toggle="dropdown">채소</a>
+	                        <ul class="dropdown-menu girls">
+	                                    <li class="kopie"><a href="#">야채</a></li>
+	                           <li><a href="#">ㅗㅗㅗ</a></li>
+	                           <li><a href="#">샐러드, 쌈</a></li>
+	                           <li><a href="#">뿌리채소</a></li>
+	                           <li><a href="#">야채 뭐있지</a></li>
+	                                                                      
+	                        </ul>
+	                        </li>
+	                          
+	                        <li class="dropdown wonder"><a href="#" class="dropdown-toggle" data-toggle="dropdown">과일</a>
+	                        <ul class="dropdown-menu girls">
+	                                    <li class="kopie"><a href="#">과일</a></li>
+	                           <li><a href="#">파인애플,바나나,키위</a></li>
+	                           <li><a href="#">그외 과일</a></li>
+	                        </ul>
+	                        </li>
+	                        
+	                           
+	                           
+	                           <li><a href="#">양곡</a></li>
+	                           <li><a href="#">정육</a></li>
+	                           <li><a href="#">수산물</a></li>
+	                                                                   
+	                  </ul><!-- sohot close -->
+	              </li>
               </ul>
             </div>
               
@@ -247,8 +202,6 @@ li{
                            <li><a href="#">Dropdown Submenu Link 4.4</a></li>
                                                                       
                         </ul>
-=======
->>>>>>> refs/heads/master
                      </li>
                           
                             <li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown Link 5</a>
@@ -317,19 +270,11 @@ $(window).scroll(function(event){
    console.log(si);
    var a=si.split(" ");
    if(a[2]== "affix" ){ 
-<<<<<<< HEAD
       $("#sohot").fadeOut();
-=======
-      $("#sohot").hide();
->>>>>>> refs/heads/master
    }else{
-      $("#sohot").show();
+      $("#sohot").fadeIn();
    }
 });
-
-
-<<<<<<< HEAD
-=======
 
 $('.wonder > .girls').parent().hover(function() {
 	  var submenu = $(this).children('.girls');
@@ -339,6 +284,4 @@ $('.wonder > .girls').parent().hover(function() {
 	    $(submenu).slideUp(200);
 	  }
 	});
-
->>>>>>> refs/heads/master
 </script>
