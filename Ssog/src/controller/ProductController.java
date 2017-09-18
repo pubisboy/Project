@@ -35,16 +35,16 @@ public class ProductController {
 			param.put("min", 0);
 		}
 		if(param.get("max")==null || param.get("max").equals("")) {
-			param.put("max", 9999999);
+			param.put("max", 99999999);
 		}
 		System.out.println("오리진 그룹" + Arrays.toString(arr));
 
 		param.put("origin_group", arr);
 		pg.setDefaultSetting(8, 5);
-		if (param.get("search") != null) {
+		if (param.get("search") != null && !param.get("search").equals("")) {
 			String search = (String) param.get("search");
 			search = "%" + search + "%";
-			param.put("search", search);
+			param.put("search", search); 
 		}
 		System.out.println("넘어온 파라미터" + param);
 		String category = (String) param.get("category");

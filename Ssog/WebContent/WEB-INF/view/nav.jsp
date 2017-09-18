@@ -9,6 +9,7 @@ li{
 .dropdown-menu > li.kopie > a {
     padding-left:5px;
 }  
+<<<<<<< HEAD
 
 /* 하위 메뉴 */
 #sohot > .wonder > .girls {
@@ -32,6 +33,12 @@ li{
  li.drop{
     position: absolute; 
     left: -300px;
+=======
+  
+ li.drop{
+ 	position: absolute; 
+ 	left: -300px;
+>>>>>>> branch 'master' of https://github.com/pubisboy/Project.git
  }
  
 .dropdown-submenu { 
@@ -44,9 +51,15 @@ li{
  }
   
  #ssipal .byungsin{
+<<<<<<< HEAD
     position: absolute;
     left: -288%;
     width: 800px; 
+=======
+ 	position: absolute;
+ 	left: -288%;
+ 	width: 800px; 
+>>>>>>> branch 'master' of https://github.com/pubisboy/Project.git
  }
  
 .dropdown-submenu > a:after {
@@ -68,8 +81,13 @@ li{
 
 /* li에 마우스 올렸을때 배경색 */
 .dropdown-menu > li > a:hover, .dropdown-menu > .active > a:hover {
+<<<<<<< HEAD
   text-decoration: none;
    background: rgba( 40, 40, 40, 0.4 );  
+=======
+  text-decoration: underline;
+	background: rgba( 40, 40, 40, 0.4 );  
+>>>>>>> branch 'master' of https://github.com/pubisboy/Project.git
 }   
   
 @media (max-width: 767px) {
@@ -160,6 +178,7 @@ li{
                     <span class="icon-bar"></span>
                 </button>  
                 <ul class="nav ssibal navbar-nav">  
+<<<<<<< HEAD
 	                <li class="dropdown">
 		              <a class="navbar-brand" class="ropdown-toggle"  href="/product/list.j" id="socool" style="font-size: 16px;"><span class="glyphicon glyphicon-menu-hamburger"></span>카테고리<b class="caret"></b></a>   
 		              <!-- sohot (메뉴)-->
@@ -216,6 +235,29 @@ li{
 	                        
 	                  </ul><!-- sohot close -->
 	              </li>
+=======
+                <li class="dropdown">
+              <a class="navbar-brand" class="ropdown-toggle"  href="/product/list.j" id="socool" style="font-size: 16px;"><span class="glyphicon glyphicon-menu-hamburger"></span>카테고리<b class="caret"></b></a>   
+              <ul class="nav dropdown-menu sohott" id="sohot" style="border-top: 0px;">
+                                 <li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">채소</a>
+                        <ul class="dropdown-menu">
+                                    <li class="kopie"><a href="#">Dropdown Link 4</a></li>
+                           <li><a href="#">ㅗㅗㅗ</a></li>
+                           <li><a href="#">Dropdown Submenu Link 4.2</a></li>
+                           <li><a href="#">Dropdown Submenu Link 4.3</a></li>
+                           <li><a href="#">Dropdown Submenu Link 4.4</a></li>
+                                                                      
+                        </ul>
+                          
+                           <li><a href="#">과일</a></li>
+                           
+                           <li><a href="#">양곡</a></li>
+                           <li><a href="#">정육</a></li>
+                           <li><a href="#">수산물</a></li>
+                                                                      
+                        </ul>
+              </li>
+>>>>>>> branch 'master' of https://github.com/pubisboy/Project.git
               </ul>
             </div>
               
@@ -316,6 +358,7 @@ $(window).scroll(function(event){
    }
 });
 
+<<<<<<< HEAD
 $('.wonder > .girls').parent().hover(function() {
 	  var submenu = $(this).children('.girls');
 	  var parent = $(this);
@@ -328,3 +371,6 @@ $('.wonder > .girls').parent().hover(function() {
 	  }
 	});
 </script>
+=======
+</script>
+>>>>>>> branch 'master' of https://github.com/pubisboy/Project.git
