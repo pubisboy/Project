@@ -45,7 +45,7 @@
     </a>
 </div>
 <div align="center" style="padding-top: 15px;">  
-<div class="row" style="width: 53%;">  
+<div class="row" style="width: 63%;">  
 <div class="col-xs-4" style="background: blue; height: 12.5%;">dd</div>     
 <div class="col-xs-4" style="background: red; height: 12.5%;">dd</div>
 <div class="col-xs-4" style="background: black; height: 12.5%;">dd</div>  
