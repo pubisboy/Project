@@ -39,12 +39,19 @@
 	</tbody>
 </table>
 
-<div style="float: left; width: 10%; text-align: left"><a href="/admin/management/counsel/counsel_user_modify.ja?num=${list['0'].NUM }">답변</a></div>
-<div style="float: left; width: 10%; text-align: left"><a href="/admin/management/counsel/counsel_user_del.ja?num=${list['0'].NUM }">삭제</a></div>
-<div style="float: right; width: 33%; text-align: right"><a href="/admin/management/counsel/counsel_user_list.ja?p=${params.p }&type=${params.type }&value=${params.value}&state=${params.state}&reply=${params.reply}&sort=${params.sort}">목록으로</a></div>
+<div style="float: left; width: 10%; text-align: left">
+<button type="button" class="btn btn-default" onclick="cancel('/admin/management/counsel/counsel_user_modify.ja?num=${list['0'].NUM }');">답변</button>
+</div>
+<div style="float: left; width: 10%; text-align: left">
+<button type="button" class="btn btn-default" onclick="cancel('/admin/management/counsel/counsel_user_del.ja?num=${list['0'].NUM }');">삭제</button>
+</div>
+<div style="float: right; width: 33%; text-align: right">
+<button type="button" class="btn btn-default" onclick="cancel('/admin/management/counsel/counsel_user_list.ja?p=${params.p }&type=${params.type }&value=${params.value}&state=${params.state}&reply=${params.reply}&sort=${params.sort}');">목록</button>
+</div>
 
 <script>
 	$("#image").on("click", function(){
 		window.open("/resource/img_counsel/${list['0'].IMAGE_UUID}", "", "width=500, height=500");
 	});
 </script>
+<script src="<c:url value="/etc.js" />"></script>

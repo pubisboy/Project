@@ -5,7 +5,9 @@
 
 <div>검색 : ${total }건</div>
 
-<div align="right"><a href="/admin/management/information/terms_plus.ja">약관 추가</a></div>
+<div align="right">
+<button type="button" class="btn btn-default" onclick="cancel('/admin/management/information/terms_plus.ja');">약관 생성</button>
+</div>
 <table class="table table-bordered" style="text-align: center;">
 	<thead>
 		<tr>
@@ -45,3 +47,5 @@
 		<input type="text" name="value" value="${empty params.value ? '' : params.value}" placeholder="제목"/>
 	</form>
 </div>
+
+<script src="<c:url value="/etc.js" />"></script>
