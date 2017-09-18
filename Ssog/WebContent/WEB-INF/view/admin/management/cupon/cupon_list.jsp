@@ -5,7 +5,7 @@
 <div style="width: 70%;">
 	<div>검색 : ${total }건</div>
 	<div style="float: right; text-align: right; width: 100%;">
-		<a href="/admin/management/cupon/cupon_write.ja">쿠폰 만들기</a>
+		<button type="button" class="btn btn-default" onclick="cancel('/admin/management/cupon/cupon_write.ja');">쿠폰 생성</button>
 	</div>
 	<div>
 		<div style="float: right;">
@@ -137,3 +137,5 @@
 	});
 	
 </script>
+
+<script src="<c:url value="/etc.js" />"></script>

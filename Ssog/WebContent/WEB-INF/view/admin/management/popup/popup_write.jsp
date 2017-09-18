@@ -38,7 +38,7 @@
 	         </div>
 	         <div class="form-group">
 	            <button id="submit" type="submit" class="btn btn-default">작성</button>
-	            <button type="reset" class="btn btn-default">취소</button>
+	            <button type="button" class="btn btn-default" onclick="cancel('/admin/management/popup/popup_list.ja');">취소</button>
 	         </div>
    		</form>
    </div>
@@ -59,3 +59,4 @@
 		$("#cuponList").hide();
 	})
 </script>
+<script src="<c:url value="/etc.js" />"></script>
