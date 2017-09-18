@@ -125,17 +125,22 @@
   	
   	<!-- ******************주문관리***************** -->
   	<select id="order_list" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-  		select * from (select tmp1.*, rownum as r from (select * from ordertbl join producttbl
+  		select * from (select tmp1.*, rownum as r from 
+		(select ordertbl.*, dhl.charge as charge, state.STATE as st from ordertbl join producttbl
 		on ordertbl.pro_num = producttbl.pro_num
+		join dhl on ordertbl.dhl = dhl.num
+		join state on ordertbl.state = state.state_num
 		where ordertbl.pro_num = any(select pro_num from producttbl where seller_id = #{id})) tmp1)
 		where r between #{start} and #{end}
 		order by order_num desc
   	</select>
   	
   	<select id="order_total" parameterType="java.util.HashMap" resultType="java.lang.Integer">
-  		select count(*) from (select tmp1.*, rownum as r from (select * from ordertbl join producttbl
+  		select count(*) from (select tmp1.*, rownum as r from 
+		(select ordertbl.*, dhl.charge as charge, state.STATE as st from ordertbl join producttbl
 		on ordertbl.pro_num = producttbl.pro_num
+		join dhl on ordertbl.dhl = dhl.num
+		join state on ordertbl.state = state.state_num
 		where ordertbl.pro_num = any(select pro_num from producttbl where seller_id = #{id})) tmp1)
-		where r between #{start} and #{end}
   	</select>
  </mapper>
