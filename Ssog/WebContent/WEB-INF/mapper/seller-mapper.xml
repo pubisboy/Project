@@ -126,23 +126,49 @@
   	<!-- ******************주문관리***************** -->
   	<select id="order_list" parameterType="java.util.HashMap" resultType="java.util.HashMap">
   		select * from (select tmp1.*, rownum as r from 
-		(select ordertbl.*, dhl.charge as charge, state.STATE as st, cupon_type.RATE as rate from ordertbl join producttbl
+		(select ordertbl.*, dhl.charge as charge, state.STATE as st,cupon_type.rate as rate from ordertbl join producttbl
 		on ordertbl.pro_num = producttbl.pro_num
 		join dhl on ordertbl.dhl = dhl.num
 		join state on ordertbl.state = state.state_num
 		join cupon_type on ordertbl.cupon_type = cupon_type.cupon_num
-		where ordertbl.pro_num = any(select pro_num from producttbl where seller_id = #{id})) tmp1)
+		where ordertbl.pro_num = any(select pro_num from producttbl where seller_id = #{id})) tmp1 
+		<if test="state != '' and state != null or search_type != '' and search_type != null and search_word !='' and search_word != null">
+			where 
+		</if>
+		<if test="state != '' and state != null"> 
+			state = #{state} 
+		</if>
+		<if test="state != '' and state != null and search_type != '' and search_type != null and search_word !='' and search_word != null">
+		  	and
+		</if>
+		<if test="search_type != '' and search_type != null and search_word !='' and search_word != null">
+			${search_type}=#{search_word}
+		</if>
+		)
 		where r between #{start} and #{end}
 		order by order_num desc
   	</select>
   	
   	<select id="order_total" parameterType="java.util.HashMap" resultType="java.lang.Integer">
   		select count(*) from (select tmp1.*, rownum as r from 
-		(select ordertbl.*, dhl.charge as charge, state.STATE as st, cupon_type.RATE as rate from ordertbl join producttbl
+		(select ordertbl.*, dhl.charge as charge, state.STATE as st,cupon_type.rate as rate from ordertbl join producttbl
 		on ordertbl.pro_num = producttbl.pro_num
 		join dhl on ordertbl.dhl = dhl.num
 		join state on ordertbl.state = state.state_num
 		join cupon_type on ordertbl.cupon_type = cupon_type.cupon_num
-		where ordertbl.pro_num = any(select pro_num from producttbl where seller_id = #{id})) tmp1)
+		where ordertbl.pro_num = any(select pro_num from producttbl where seller_id = #{id})) tmp1 
+		<if test="state != '' and state != null or search_type != '' and search_type != null and search_word !='' and search_word != null">
+			where 
+		</if>
+		<if test="state != '' and state != null"> 
+			state = #{state} 
+		</if>
+		<if test="state != '' and state != null and search_type != '' and search_type != null and search_word !='' and search_word != null">
+		  	and
+		</if>
+		<if test="search_type != '' and search_type != null and search_word !='' and search_word != null">
+			${search_type}=#{search_word}
+		</if>
+		)
   	</select>
  </mapper>

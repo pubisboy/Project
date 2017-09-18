@@ -240,11 +240,6 @@
 						</select>
 					</td>
 			</table>
-				
-				
-				
-			
-			
 		</form>
 	</div>
 	
