@@ -119,5 +119,11 @@
  	where pro_num=#{num}
  	</update>
  	
+ 	<insert id="sell_qty">
+ 	insert into sell_qty values (pro_seq.currval,0)
+ 	</insert>
+ 	<select id="couponList" resultType="java.util.HashMap">
+ 	select * from cupon_type
+ 	</select>
  
  </mapper>

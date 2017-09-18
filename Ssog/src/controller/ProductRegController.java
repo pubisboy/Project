@@ -139,5 +139,14 @@ public class ProductRegController {
 		mav.addObject("section", "seller/alert/register_rst");
 		return mav;  
 	}
+	
+	@RequestMapping("/useEve.j")
+	@ResponseBody
+	public List UseEvent(@RequestParam (name="event") String m) {
+		List list=new ArrayList<>();
+		list=pdao.eventList();
+		System.out.println(list);
+		return list;
+	}
 }
 

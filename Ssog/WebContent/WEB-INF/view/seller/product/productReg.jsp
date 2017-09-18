@@ -23,10 +23,10 @@ img:hover {
 	</tr>
 	<tr style="height: 5%;"><td style=" background-color: #eaeaea;">판매가격  </td>
 	<td style="width: 30%;"><div class="navbar-form" style="padding: 0px; margin: 0px;"><input class="form-control" type="text" style="width: 82%" name="price" onkeydown="onlyNumber(this)" required="false"/>  원</div></td><td style="width: 20%; background-color: #eaeaea;">행사 등록</td>
-	<td><input type="radio" class="group" value="true" name="radiogroup" checked="checked"> &nbsp;사용 &nbsp;&nbsp;&nbsp;  <input type="radio" class="group" value="false" name="radiogroup">&nbsp;사용안함&nbsp;</td>	
+	<td><input type="radio" class="group" value="false" name="radiogroup" checked="checked"> &nbsp;사용안함 &nbsp;&nbsp;&nbsp;  <input type="radio" class="group" value="true" name="radiogroup" id="useEve">&nbsp;사용&nbsp;</td>	
 	</tr>
-	<tr style="height: 5%;"><td style=" background-color: #eaeaea;" >판매수량</td> 
-	<td colspan="3"><div class="navbar-form" style="padding: 0px; margin: 0px;"><input class="form-control" type="text" style="width: 30%" name="pro_qty" onkeydown="onlyNumber(this)" required="false" >  Kg</div></td></tr> 
+	<tr style="height: 5%;"><td style=" background-color: #eaeaea;" >판매수량</td>  
+	<td colspan="1"><div class="navbar-form" style="padding: 0px; margin: 0px;"><input class="form-control" type="text" style="width: 30%" name="pro_qty" onkeydown="onlyNumber(this)" required="false" >  Kg</div></td><td colspan="2" style="border-top: 0px;">ㅗㅗ</td></tr> 
 	<tr style="height: 5%;"><td style=" background-color: #eaeaea;">분류</td>
 	<td colspan="3">	<div class="navbar-form" style="padding: 0px; margin: 0px;">
 	<select class="form-control" style="width: 30%;" id="large_cate"><option>대분류</option>
@@ -81,7 +81,7 @@ img:hover {
 $("#large_cate").change("click",function(){
     $.ajax({
        url : "/seller/product/smallcate.j",
-       method: "get",
+       method: "get", 
        data : { 
              "large_cate" : $("#large_cate").val(),
        }
@@ -93,7 +93,18 @@ $("#large_cate").change("click",function(){
        $("#small_cate").html(setTag);  
     });
  });
- 
+ $("#useEve").on("click",function(){ 
+	 $.ajax({
+		url : "/seller/product/useEve.j",
+		method: "get",
+		data:{
+			"event" : $("#useEve").val()
+		}
+	 }).done(function(result){
+		 setTag="<select name=\"\">  ";
+	 })
+	 
+ })
  
 
 </script>

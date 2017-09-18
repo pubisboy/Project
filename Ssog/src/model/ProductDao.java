@@ -135,7 +135,8 @@ public class ProductDao {
 		SqlSession session = factory.openSession();
 		try {
 			int r = session.insert("productReg", map);
-			
+			int r1=session.insert("sell_qty");
+			System.out.println(r1);
 			if(r==1) {
 				br=true;
 			}
@@ -162,5 +163,18 @@ public class ProductDao {
 			session.close();
 		}
 		return br;
+	}
+	
+	public List<Map> eventList(){
+		SqlSession session=factory.openSession();
+		List<Map> list=new ArrayList<>();
+		try {
+			list=session.selectList("couponList");
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		return list;
 	}
 }
