@@ -58,4 +58,14 @@ public class CartDao {
 		}
 		return map;
 	}
+	public void userpoint(Map map) {
+		SqlSession session = factory.openSession();
+		try {
+			session.update("cart.consume", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+	}
 }

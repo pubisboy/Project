@@ -180,11 +180,48 @@ public class CartController {
 			return false;
 		}
 	}
-
+	
 	@RequestMapping("/payment.j")
-	public ModelAndView payment(@RequestParam Map param) {
+	public ModelAndView payment(@RequestParam Map param,HttpSession session,Map map,@RequestParam(name="pd1") String[] ar1,@RequestParam(name="pd2")String[] ar2) {
+		Map init = init(session);
+		Map info = mmdao.id_check_repetition((String) init.get("id"));
 		ModelAndView mav = new ModelAndView("tw_cart/payment");
-
+		mav.addObject("memberinfo", init.get("info")); 
+		String ad1 = (String)param.get("postcode");
+		String ad2 = (String)param.get("address1");
+		String ad3 = (String)param.get("address2");
+		String address = ad1+"!"+ad2+"!"+ad3;
+		String address2 = ad1+"　"+ad2+"　"+ad3;
+		param.put("address", address);
+		String ph1 = (String)param.get("phone1");
+		String ph2 = (String)param.get("phone2");
+		String ph3 = (String)param.get("phone3");
+		String phone = ph1+"!"+ph2+"!"+ph3;
+		param.put("phone", phone); 
+		String coupon = (String)param.get("onecoupon");
+		int index = coupon.indexOf("%");
+		String cupon = coupon.substring(0, index);
+		param.put("cupon", cupon);
+		param.put("id", (String) init.get("id"));
+		System.out.println(param);
+		boolean bl = cdao.order(param);
+		String onecoupon = (String)param.get("onecoupon");
+		int idx = onecoupon.indexOf("%");
+		String num = onecoupon.substring(0, idx);
+		param.put("num", num);
+		String totalcash = (String)param.get("totalcash");
+		map.put("address", address2);
+		map.put("ar1", ar1);
+		map.put("ar2", ar2);
+		mav.addObject("map", map);
+		mav.addObject("param", param);
+		System.out.println(ar1[0]);
+		System.out.println(ar2[1]);   
+		System.out.println(map);
+		if(bl==true) {
+			System.out.println("결제완료");
+			cdao.userpoint(param);
+		}
 		return mav;
 	}
 }
