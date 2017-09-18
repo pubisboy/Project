@@ -89,7 +89,21 @@
 <script>
 	
 	
-	/* 이 부분을 만들었지만, 이해가 잘 안 되 */
+	/*
+		이 부분을 만들었지만, 이해가 잘 안 되 
+		역시 문제 점 발견
+	*/
+	$("#first").on("change", function(){
+		$.ajax({
+			'url':"/admin/sales/product/product_second.ja",
+			'data':{
+				'first':$("#first").val()
+			}
+		}).done(function(rst){
+			$("#second").html(rst.html);
+		});
+	})
+	
 	function first(){
 		if($("#first").val() != null && $("#first").val() != ""){
 			$.ajax({
@@ -98,7 +112,7 @@
 					'first':$("#first").val()
 				}
 			}).done(function(rst){
-				$("#second").append(rst.html);
+				$("#second").html(rst.html);
 				var f = "${params.second}";
 				if(f.length > 0){
 					$("#"+f+"s").prop("selected", true);

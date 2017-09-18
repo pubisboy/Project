@@ -28,7 +28,15 @@ public class AdminProductController {
 	Paging pg;
 	
 	@RequestMapping("/product_list.ja")
-	public String product_list(@RequestParam Map params, @RequestParam(name="p", defaultValue="1") Integer p, Map map){
+	public String product_list(@RequestParam Map params, @RequestParam(name="p", defaultValue="1") String pp, Map map){
+		int p = 0;
+		try{
+			p = Integer.parseInt(pp);
+		}catch(Exception e){
+			System.out.println("변환 불가능");
+			p = 1;
+		}
+		params.put("p", p);
 		System.out.println("params : "+params);
 		
 		String val = null;

@@ -29,7 +29,15 @@ public class AdminMemberController {
 	Paging pg;
 
 	@RequestMapping("/member_user/user_list.ja")
-	public String user_list(@RequestParam Map params, @RequestParam(name="p", defaultValue="1") Integer p, Map map){
+	public String user_list(@RequestParam Map params, @RequestParam(name="p", defaultValue="1") String pp, Map map){
+		int p = 0;
+		try{
+			p = Integer.parseInt(pp);
+		}catch(Exception e){
+			System.out.println("변환 불가능");
+			p = 1;
+		}
+		params.put("p", p);
 		String val = null;
 		if(params.get("value") != null){
 			val = (String)params.get("value");
@@ -134,7 +142,15 @@ public class AdminMemberController {
 	}
 	
 	@RequestMapping("/member_seller/seller_list.ja")
-	public String seller_list(@RequestParam Map params, @RequestParam(name="p", defaultValue="1") Integer p, Map map){
+	public String seller_list(@RequestParam Map params, @RequestParam(name="p", defaultValue="1") String pp, Map map){
+		int p = 0;
+		try{
+			p = Integer.parseInt(pp);
+		}catch(Exception e){
+			System.out.println("변환 불가능");
+			p = 1;
+		}
+		params.put("p", p);
 		String val = null;
 		if(params.get("value") != null){
 			val = (String)params.get("value");

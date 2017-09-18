@@ -75,10 +75,12 @@ public class MyinfoController {
 	@RequestMapping("/myinfo/couponlist.j")
 	public ModelAndView couponlist(HttpSession session) {
 		Map init = init(session);
+		List<Map> clist = cdao.couponlist((String) init.get("id"));
 		ModelAndView mav = new ModelAndView("t_el2");
 		mav.addObject("section", "member/myinfo/couponlist");
 		mav.addObject("grade", init.get("grade"));
 		mav.addObject("memberinfo", init.get("info"));
+		mav.addObject("clist", clist);		
 		return mav;
 	}
 
@@ -118,7 +120,7 @@ public class MyinfoController {
 		Map init = init(session);
 		List<Map> qlist = mdao.qnaAll((String) init.get("id"));
 		ModelAndView mav = new ModelAndView("t_el2");
-		paging.setDefaultSetting(2, 5);
+		paging.setDefaultSetting(10, 5);
 		paging.setNumberOfRecords(mdao.qna_cnt());
 		Map bt = paging.calcBetween(p);
 		Map pg = paging.calcPaging(p, mdao.qna_cnt());
