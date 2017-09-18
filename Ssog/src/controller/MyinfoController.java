@@ -49,17 +49,29 @@ public class MyinfoController {
 	}
 
 	@RequestMapping("/myinfo/info.j")
-	public ModelAndView info(HttpSession session) {
+	public ModelAndView info(HttpSession session,@RequestParam(name="p", defaultValue="1") Integer p) {
 		Map init = init(session);
 		List<Map> llist = mdao.orderlist((String) init.get("id"));
 		List<Map> qlist = mdao.qanda((String) init.get("id"));
 		List<Map> clist = mdao.counsel((String) init.get("id"));
 		List<Map> coulist = cdao.couponlist((String) init.get("id"));
-		List<Map> slist = cdao.state((String) init.get("id"));
-		
-		System.out.println(slist);
+		List<Map> slist = mdao.state((String) init.get("id"));
+		Map smap = new HashMap<>();
+		smap.put("s", slist.get(0).get("COUNT"));
+		smap.put("ss", slist.get(1).get("COUNT"));
+		smap.put("sss", slist.get(2).get("COUNT"));
+		smap.put("ssss", slist.get(3).get("COUNT")); 
 		ModelAndView mav = new ModelAndView("t_el2");
-		mav.addObject("slist", slist);
+		paging.setDefaultSetting(10, 5);
+		paging.setNumberOfRecords(mdao.state_cnt((String) init.get("id")));
+		Map bt = paging.calcBetween(p);
+		Map pg = paging.calcPaging(p, mdao.state_cnt((String) init.get("id")));
+		bt.put("id", (String) init.get("id")); 
+		mav.addObject("pg", pg);
+		List<Map> page = mdao.statepage(bt);
+		System.out.println(page); 
+		mav.addObject("page", page);
+		mav.addObject("smap", smap);
 		mav.addObject("coulist",coulist); 
 		mav.addObject("section", "member/myinfo/info");
 		mav.addObject("grade", init.get("grade"));
@@ -80,10 +92,12 @@ public class MyinfoController {
 	public ModelAndView couponlist(HttpSession session) {
 		Map init = init(session);
 		List<Map> clist = cdao.couponlist((String) init.get("id"));
+		List<Map> coulist = cdao.couponlist((String) init.get("id")); 
 		ModelAndView mav = new ModelAndView("t_el2");
 		mav.addObject("section", "member/myinfo/couponlist");
 		mav.addObject("grade", init.get("grade"));
 		mav.addObject("memberinfo", init.get("info"));
+		mav.addObject("coulist", coulist);
 		mav.addObject("clist", clist);		
 		return mav;
 	}
@@ -104,11 +118,13 @@ public class MyinfoController {
 	public ModelAndView counsel(HttpSession session, @RequestParam(name="p", defaultValue="1") Integer p) {
 		Map init = init(session);
 		List<Map> clist = mdao.counselAll((String) init.get("id"));
+		List<Map> coulist = cdao.couponlist((String) init.get("id"));
 		ModelAndView mav = new ModelAndView("t_el2");
 		mav.addObject("section", "member/myinfo/counsel");
 		mav.addObject("grade", init.get("grade"));
 		mav.addObject("memberinfo", init.get("info"));
 		mav.addObject("clist", clist);
+		mav.addObject("coulist", coulist); 
 		paging.setDefaultSetting(10, 5);
 		paging.setNumberOfRecords(mdao.counsel_cnt());
 		Map bt = paging.calcBetween(p);
@@ -123,6 +139,7 @@ public class MyinfoController {
 	public ModelAndView qna(HttpSession session,@RequestParam(name="p", defaultValue="1") Integer p) {
 		Map init = init(session);
 		List<Map> qlist = mdao.qnaAll((String) init.get("id"));
+		List<Map> coulist = cdao.couponlist((String) init.get("id"));
 		ModelAndView mav = new ModelAndView("t_el2");
 		paging.setDefaultSetting(10, 5);
 		paging.setNumberOfRecords(mdao.qna_cnt());
@@ -134,6 +151,7 @@ public class MyinfoController {
 		mav.addObject("section", "member/myinfo/qna");
 		mav.addObject("grade", init.get("grade"));
 		mav.addObject("memberinfo", init.get("info"));
+		mav.addObject("coulist", coulist);
 		mav.addObject("qlist", qlist);
 		return mav;
 	}
@@ -156,6 +174,7 @@ public class MyinfoController {
 		Map init = init(session);
 		Map info = mmdao.id_check_repetition((String) init.get("id"));
 		Map service = mdao.service_ck((String) init.get("id"));
+		List<Map> coulist = cdao.couponlist((String) init.get("id")); 
 		String phoneidx[] = info.get("PHONE").toString().split("-");
 		info.put("phone1", phoneidx[0]);
 		info.put("phone2", phoneidx[1]);
@@ -179,6 +198,7 @@ public class MyinfoController {
 		mav.addObject("grade", init.get("grade"));
 		mav.addObject("memberinfo", init.get("info"));
 		mav.addObject("memberinfo", info);
+		mav.addObject("coulist", coulist);
 		return mav;
 	}
 
@@ -228,10 +248,12 @@ public class MyinfoController {
 	public ModelAndView userpass(HttpSession session) {
 		Map init = init(session);
 		Map info = mmdao.id_check_repetition((String) init.get("id"));
+		List<Map> coulist = cdao.couponlist((String) init.get("id")); 
 		ModelAndView mav = new ModelAndView("t_el2");
 		mav.addObject("section", "member/myinfo/userpass");
 		mav.addObject("grade", init.get("grade"));
 		mav.addObject("memberinfo", init.get("info"));
+		mav.addObject("coulist", coulist);
 		mav.addObject("memberinfo", info);
 		return mav;
 	}
@@ -286,5 +308,18 @@ public class MyinfoController {
 		f.transferTo(dst);
 		rst = true;
 		return "redirect:/member/myinfo/counsel.j";
+	}
+	@RequestMapping("/myinfo/set_rst.j")
+	@ResponseBody
+	public boolean set(@RequestParam Map param, HttpSession session) {
+		String id = (String)session.getAttribute("auth");
+		param.put("id", id);
+		System.out.println("param : "+param);
+		boolean bl=false;
+		if(mdao.set(param)==true) {
+			return true;
+		}
+		System.out.println(bl); 
+		return bl;
 	}
 }

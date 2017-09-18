@@ -44,13 +44,5 @@
 		delete CUPON_LIST where
 		user_id=#{id} and CUPON_LIST_ID=#{num}
 	</delete>
-	<select id="state" parameterType="java.lang.String" resultType="java.util.HashMap">
-		select s, count(*) from
-		(select b.*,s.state s from (select * from
-		ORDERTBL where user_id=#{id})b left
-		join state s on b.state=s.STATE_NUM
-		where sysdate-order_date <![CDATA[<]]>60)
-		group by S
-	</select>
-	
+
 </mapper>

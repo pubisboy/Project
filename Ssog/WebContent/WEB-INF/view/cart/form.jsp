@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <style>
 .btn-custom {
 	background-color: hsl(335, 100%, 64%) !important;
@@ -68,14 +69,15 @@
 						</div>
 						<div align="left" style="padding-top: 10px; padding-left: 28px;">
 							<span class="glyphicon glyphicon-chevron-right"
-								style="font-size: 5px; color: #bfbfbf;"></span> <b
-								style="font-size: 12.2px; padding-right: 130px;">등급</b><small>${grade.GRADE }</small><br />
+								style="font-size: 5px; color: #bfbfbf; padding-bottom: 15px;"></span> <b 
+								style="font-size: 12.2px; padding-right: 130px;">등급</b><b>${grade.GRADE }회원</b><br />
 							<span class="glyphicon glyphicon-chevron-right"
-								style="font-size: 5px; color: #bfbfbf;"></span> <b
-								style="font-size: 12.2px; padding-right: 110px">할인쿠폰</b><small>${clist.size() }</small><br />
+								style="font-size: 5px; color: #bfbfbf; padding-bottom: 15px;"></span> <b
+								style="font-size: 12.2px; padding-right: 110px">할인쿠폰</b><b>${clist.size() }장</b><br />
 							<span class="glyphicon glyphicon-chevron-right"
-								style="font-size: 5px; color: #bfbfbf;"></span> <b
-								style="font-size: 12.2px; padding-right: 120px">적립금</b><small>${point.POINT }</small><br />
+								style="font-size: 5px; color: #bfbfbf;"></span> <b 
+								style="font-size: 12.2px; padding-right: 120px">적립금</b>
+								<b><fmt:formatNumber value="${point.POINT }" pattern="#,###"/>원</b><br />    
 						</div>
 					</div>
 				</div>
@@ -91,6 +93,7 @@
 						<tr
 							style="border-top: 2px solid black; background-color: #f2f2f2; height: 40px;">
 							<th><input type="checkbox" id="all" /></th>
+							<th></th>
 							<th>상품명</th>
 							<th>가격</th>
 							<th>수량</th>
@@ -103,7 +106,9 @@
 							<tr style="border-bottom: 1px solid #b3b3b3;">
 								<td><input type="checkbox" class="one"
 									value="${c.PRO_NUM }" /></td>
-								<td class="pd_num"><a href="/product/detail.j?productNumber=${c.PRO_NUM }">${c.PRO_NUM }</a></td> 
+								<td class="pd_num"><a href="/product/detail.j?productNumber=${c.PRO_NUM }">${c.PRO_NUM }</a>
+								</td>
+								 <td>${c.PRO_NAME }</td>
 								<td>${c.PRICE }</td>
 								<td>
 									<button class="mi">-</button> <input type="text"
@@ -111,8 +116,17 @@
 									<button class="pl">+</button>
 									<button class="revise">수정</button>
 								</td>
-								<td>0</td>
-								<td class="price">${c.PRICE * c.number }</td>
+								<td>
+								<c:choose>
+								<c:when test="${c.PRO_NUM ne elist.PRODUT_ID}">
+								-
+								</c:when>
+								<c:otherwise> 
+								${elist.RATE } 
+								</c:otherwise>
+								</c:choose> 
+								</td>
+								<td class="price">${c.PRICE * c.number }원</td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -177,7 +191,7 @@
 			<button class="btn btn-custom" id="order">
 				<b style="color: white; font-size: 13px;">주문서 작성</b>
 			</button>
-			<a href="/"><button
+			<a href="/product/list.j"><button 
 					style="width: 130px; height: 50px; font-size: 13px;"
 					class="btn btn-default">계속 쇼핑하기</button></a>
 		</div>
@@ -291,6 +305,5 @@
 				}
 			})
 		}
-			  
 	});
 </script>

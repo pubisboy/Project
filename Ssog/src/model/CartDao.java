@@ -91,18 +91,5 @@ public class CartDao {
 		}finally {
 			session.close();
 		}
-	}
-	public List<Map> state(String id){
-		List<Map> list = new ArrayList<>();
-		SqlSession session = factory.openSession();
-		try {
-			list = session.selectList("cart.state", id);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-			session.close();
-		}
-		return list;
-	}
-	
+	}	
 }

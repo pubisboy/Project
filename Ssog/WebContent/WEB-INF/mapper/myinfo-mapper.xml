@@ -32,8 +32,7 @@
 		where user_id=#{id} order by rownum desc)r)rr where
 		rr.rnum <![CDATA[<=]]>5
 	</select>
-	<select id="qnaAll" parameterType="java.lang.String"
-		resultType="java.util.HashMap">
+	<select id="qnaAll" parameterType="java.lang.String" resultType="java.util.HashMap">
 		select * from Q_AND_A
 		where user_id=#{id} order by rownum
 		desc
@@ -42,9 +41,11 @@
 		select count(*) from
 		Q_AND_a
 	</select>
-	<select id="qna_page" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+	<select id="qna_page" parameterType="java.util.HashMap"
+		resultType="java.util.HashMap">
 		select b.* from (select c.*, rownum rnum from (SELECT
-		* FROM q_and_a order by QANDADATE desc )c )b where b.rnum between #{start}
+		* FROM
+		q_and_a order by QANDADATE desc )c )b where b.rnum between #{start}
 		and #{end}
 	</select>
 	<select id="counsel" parameterType="java.lang.String"
@@ -59,9 +60,11 @@
 		select count(*) from
 		COUNSEL
 	</select>
-	<select id="counsel_page" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+	<select id="counsel_page" parameterType="java.util.HashMap"
+		resultType="java.util.HashMap">
 		select b.* from (select c.*, rownum rnum from (SELECT
-		* FROM counsel order by COUNSEL_DATE desc )c )b where b.rnum between #{start}
+		* FROM
+		counsel order by COUNSEL_DATE desc )c )b where b.rnum between #{start}
 		and #{end}
 	</select>
 	<select id="counselAll" parameterType="java.lang.String"
@@ -90,8 +93,32 @@
 		UPDATE USER_MEMBER SET
 		pass = #{newpass} where id=#{id}
 	</update>
-	<select id="couponlist" parameterType="java.lang.String" resultType="java.util.HashMap">
+	<select id="couponlist" parameterType="java.lang.String"
+		resultType="java.util.HashMap">
 		select * from CUPON_LIST where USER_ID=#{id}
 	</select>
-
+	<update id="setorder" parameterType="java.util.HashMap">
+		update ORDERTBL set
+		STATE=5
+		where ORDER_NUM=#{num} and USER_ID=#{id}
+	</update>
+	<select id="state_count" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select count(*) from
+		ORDERTBL where USER_ID=#{id}
+	</select>
+	<select id="state_page" parameterType="java.util.HashMap"
+		resultType="java.util.HashMap">
+		select b.* from (select c.*, rownum rnum from (SELECT *
+		FROM ORDERTBL where ORDERTBL.USER_ID=#{id} order by order_DATE desc )c
+		)b
+		where b.rnum between #{start} and #{end}
+	</select>
+	<select id="state" parameterType="java.lang.String" resultType="java.util.HashMap">
+		select st.*, nvl(ta.count, 0) count from state st left join (select
+		b.state, count(*) count from
+		(select * from ORDERTBL where
+		user_id=#{id} and sysdate-order_date <![CDATA[<]]>60)b
+		group
+		by state) ta on st.STATE_NUM = ta.state order by st.STATE_NUM
+	</select>
 </mapper>
