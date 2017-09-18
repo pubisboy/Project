@@ -95,7 +95,7 @@
 		<div align="center">
 			<ul class="pagination">
 				<c:if test="${page.startPageNo ne 1}"><!-- 이전 -->
-					<li><a href="/seller/counsel/list.j?p=${page.startPageNo-1}">&laquo;</a></li>
+					<li><a href="/seller/order/list.j?p=${page.startPageNo-1}">&laquo;</a></li>
 				</c:if>
 			<c:forEach var="i" begin="${page.startPageNo}" end="${page.endPageNo}">
 				<c:choose>
@@ -103,12 +103,12 @@
 						<li class="active"><a href="#">${i}</a></li>
 					</c:when>
 					<c:otherwise>
-						<li><a href="/seller/counsel/list.j?p=${i}">${i}</a></li>
+						<li><a href="/seller/order/list.j?p=${i}">${i}</a></li>
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
 				<c:if test="${page.endPageNo ne page.finalPageNo}"><!-- 다음 -->
-					<li><a href="/seller/counsel/list.j?p=${page.endPageNo+1}">&raquo;</a></li>
+					<li><a href="/seller/order/list.j?p=${page.endPageNo+1}">&raquo;</a></li>
 				</c:if>
 			</ul>
 		</div>

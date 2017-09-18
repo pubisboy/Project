@@ -31,6 +31,7 @@ public class SellerOrderController {
 		map.put("id", id);
 		
 		int total = sdao.orderTotal(map);
+		System.out.println("SellorOrdercontroller에서 map: " + map);
 		page.setDefaultSetting(10, 4); //줄 개수, 페이지 개수
 		page.setNumberOfRecords(total);
 		Map op = page.calcBetween(p);
