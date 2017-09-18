@@ -44,42 +44,50 @@
 </style>
 <div class="wrap">
 	<div style="text-align:right">
-		<p style="margin-top: 20px; text-align:left">
+		<div style="margin-top: 20px; text-align:left">
 				<span class="glyphicon glyphicon-info-sign" style="padding-right: 10px;"></span>
-				<b style="padding-right:10px; ">1:1 문의</b>
-				<small style="font-size: 12px;">고객센터를 통하여 고객님께서 문의 하여 주신
-				문의내역입니다.</small><br>
-			<b style="font-size: 12px; padding-right: 330px;">고객님께서 신청한 문의 : 
-				<b style="color: #ff4d4d; font-size: 13px;">${total}</b>건
-				&nbsp;&nbsp;/&nbsp; 답변완료 된 문의 : 0건
-			</b>
-		</p>
-		<button type="button" class="btn btn-custom" id="btn" onclick="location='/seller/counsel/write.j'">1:1 문의 하기</button>
+				<b style="padding-right:10px; ">주문 현황</b>
+				<small style="font-size: 12px;">고객님께서 판매한 상품의 주문 현황 페이지입니다</small><br>
+		</div>
+		<b style="padding-right:6%;">총 <font color="#ff4d4d">${total}</font>건</b>
 	</div>
 	
 		<table class="table" style="margin-top: 10px;" >
 			<thead>
 				<tr style="border-top: 3px solid black;">
-					<th width="10%">문의유형</th>
-					<th width="60%">제목</th>
-					<th width="20%">작성일자</th>
-					<th width="10%">답변</th>
+					<th width="10%">주문번호</th>
+					<th width="10%">상품번호</th>
+					<th width="5%">주문수량</th>
+					<th width="10%">주문상태</th>
+					<th width="20%">주문일자</th>
+					<th width="20%">결제일자</th>
+					<th width="10%">가격</th>
+					<th width="10%">쿠폰타입</th>
+					<th width="5%">DHL</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:if test="${empty list}">
-					<tr><td colspan="4" align="center">등록한 글이 없습니다.</td></tr>
+					<tr><td colspan="9" align="center">사용자가 주문한 상품이 없습니다.</td></tr>
 				</c:if>
 				<c:forEach var="i" items="${list}">
 					<tr>
-						<td><custom:counsel message="${i.CATE}"/></td>
-						<td><a href="/seller/counsel/detail.j?num=${i.NUM}">${i.TITLE }</a></td>
-						<td><fmt:formatDate value="${i.COUNSEL_DATE }" pattern="yyyy-MM-dd"/></td>
-						<td><b><custom:reply message="${i.REPLY}"/></b></td>
+						<td width="10%">${i.ORDER_NUM}</td>
+						<td width="10%">${i.PRO_NUM }</td>
+						<td width="5%"><fmt:formatNumber value="${i.ORDER_QTY}" type="number"/></td>
+						<td width="5%">${i.STATE }</td>
+						<td width="10%"><fmt:formatDate value="${i.ORDER_DATE}" pattern="yyyy-MM-dd"/></td>
+						<td width="10%"><fmt:formatDate value="${i.PAY_DATE}"  pattern="yyyy-MM-dd"/></td>
+						<td width="10%"><fmt:formatNumber value="${i.PRICE}"  type="number"/></td>
+						<td width="5%">${i.CUPON_TYPE}</td>
+						<td width="5%">${i.DHL }</td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
+						<%-- <td width="10%">${i.ETC }</td>
+						<td width="10%">${i.ADDRESS }</td>
+						<td width="10%">${i.RECEIVER }</td> --%>
 	
 	
 	

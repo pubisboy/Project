@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="custom" tagdir="/WEB-INF/tags" %>
 <style>
-	table, th, td {
+	table, th, td, .wrap {
 		font-size: 13px;
 	}
 	.btn-custom {
@@ -25,9 +25,10 @@
 	  -webkit-font-smoothing: antialiased;
 	}
 	
-	.wrap {
-		width:80%; margin-left:10%;
-	}
+	.wrap{
+		width:80%; margin-left:10%
+	} 
+	
 	.wrap .table {
 		table-layout: fixed;
 	}
@@ -37,33 +38,30 @@
 	    white-space:nowrap; /*<td>보다 내용이 길경우 줄바꿈 되는것을 막아준다.*/
 	}
 	
-	
 	#btn { width: 85px; height: 22px; font-size: 11px; padding: 0px; }
 	small { color:gray; }
 	.table a {color:black;}
+	.fa-star, .fa-star-half-empty, .fa-star-o {color:#FFBB00;}
 </style>
 <div class="wrap">
 	<div style="text-align:right">
-		<p style="margin-top: 20px; text-align:left">
-				<span class="glyphicon glyphicon-info-sign" style="padding-right: 10px;"></span>
-				<b style="padding-right:10px; ">1:1 문의</b>
-				<small style="font-size: 12px;">고객센터를 통하여 고객님께서 문의 하여 주신
-				문의내역입니다.</small><br>
-			<b style="font-size: 12px; padding-right: 330px;">고객님께서 신청한 문의 : 
-				<b style="color: #ff4d4d; font-size: 13px;">${total}</b>건
-				&nbsp;&nbsp;/&nbsp; 답변완료 된 문의 : 0건
-			</b>
-		</p>
-		<button type="button" class="btn btn-custom" id="btn" onclick="location='/seller/counsel/write.j'">1:1 문의 하기</button>
+		<div style="margin-top: 20px; text-align:left">
+			<span class="glyphicon glyphicon-info-sign" style="padding-right: 10px;"></span>
+			<b style="padding-right:10px; font-size:15px">상품리뷰</b>
+			<small style="font-size: 12px;">고객님께서 판매한 상품의 리뷰 목록입니다.</small><br>
+		</div>
+			<b style="padding-right:6%;">총 <font color="#ff4d4d">${total}</font>건</b>
 	</div>
-	
+		<table>
+			<tr><td width="90%"></td><td width="10%"></td></tr>
+		</table>
 		<table class="table" style="margin-top: 10px;" >
 			<thead>
 				<tr style="border-top: 3px solid black;">
-					<th width="10%">문의유형</th>
-					<th width="60%">제목</th>
-					<th width="20%">작성일자</th>
-					<th width="10%">답변</th>
+					<th width="10%">상품번호</th>
+					<th width="50%">리뷰 내용</th>
+					<th width="20%">별점</th>
+					<th width="10%">작성자</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -72,10 +70,26 @@
 				</c:if>
 				<c:forEach var="i" items="${list}">
 					<tr>
-						<td><custom:counsel message="${i.CATE}"/></td>
-						<td><a href="/seller/counsel/detail.j?num=${i.NUM}">${i.TITLE }</a></td>
-						<td><fmt:formatDate value="${i.COUNSEL_DATE }" pattern="yyyy-MM-dd"/></td>
-						<td><b><custom:reply message="${i.REPLY}"/></b></td>
+						<td><a href="/seller/product/productEdit.j?num=${i.PRO_NUM}" style="color:gray">[${i.PRO_NUM}]</a></td>
+						<td><a href="#.j?num=${i.NUM}">${i.CONTENT}</a>
+							<c:if test="${i.IMAGE_UUID ne null}">
+								<span class="glyphicon glyphicon-picture" style="margin-left:5px"></span>
+							</c:if>
+						</td>
+						<td>
+							<span style="vertical-align: bottom;">
+							<c:forEach var="j"  begin="1" end="${i.STAR%2 eq 0? i.STAR/2 : (i.STAR/2)-0.5}">
+								<i class="fa fa-star"></i>
+							</c:forEach>
+							<c:if test="${i.STAR%2 ne 0 }">
+								<i class="fa fa-star-half-empty"></i>
+							</c:if>
+							<c:forEach var="j"  begin="1" end="${5-i.STAR/2}">
+								<i class="fa fa-star-o"></i>
+							</c:forEach>
+							</span>
+						</td>
+						<td>${i.USER_ID}님</td>
 					</tr>
 				</c:forEach>
 			</tbody>

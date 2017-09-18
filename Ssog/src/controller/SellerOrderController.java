@@ -1,6 +1,5 @@
 package controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,32 +9,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import model.SellerProductDao;
+import model.SellerOrderDao;
 import paging.Paging;
 
 @Controller
-@RequestMapping("/seller/product")
-public class SellerProductController {
+@RequestMapping("/seller/order")
+public class SellerOrderController {
 	@Autowired
-	SellerProductDao sdao;
+	SellerOrderDao sdao;
 	
 	@Autowired
 	Paging page;
 	
 	@RequestMapping("/list.j")
-	public ModelAndView productList(@RequestParam Map map, HttpSession session, 
+	public ModelAndView orderlList(@RequestParam Map map, HttpSession session, 
 			@RequestParam(name="p", defaultValue="1") int p) {
 		ModelAndView mav = new ModelAndView("t_el_seller");
 		String id = (String)session.getAttribute("seller_id");
 		map.put("id", id);
-		String search_word2 = (String) map.get("search_word");
-		String search_word = "%" + search_word2 + "%";
-		map.put("search_word", search_word);
 		
-		int total = sdao.totalList(map);
+		int total = sdao.orderTotal(map);
 		page.setDefaultSetting(10, 4); //줄 개수, 페이지 개수
 		page.setNumberOfRecords(total);
 		Map op = page.calcBetween(p);
@@ -45,36 +40,14 @@ public class SellerProductController {
 //		System.out.println("op:" + op);
 //		System.out.println("rst:" + rst);
 //		System.out.println("map:" + map);
-		map.get("small_cate");
-		System.out.println(">>>>>>>>>" + map.get("small_cate"));
-		String selected = (String) map.get("small_cate");	
 		
-		List list = sdao.productList(map);
+		List list = sdao.orderList(map);
 		System.out.println(map);
-		mav.addObject("section", "seller/product/list");
+		mav.addObject("section", "seller/order/list");
 		mav.addObject("list", list);
 		mav.addObject("p", p);
 		mav.addObject("page", rst);
 		mav.addObject("total", total);
-		mav.addObject("search_word", search_word2);
-		mav.addObject("selected", selected);
 		return mav;
-	}
-	
-	@RequestMapping("/cateAjax.j")
-	@ResponseBody
-	public Map cateajax(@RequestParam(name="b_cate") String big_cate) {
-		Map m = new HashMap<>();
-		switch(big_cate) {
-		case "*":
-			break;
-		case "cate" : 
-			List list = sdao.smallcateList();
-			System.out.println("list : "+list);
-			m.put("list", list);
-			break;
-		}
-		
-		return m;
 	}
 }
