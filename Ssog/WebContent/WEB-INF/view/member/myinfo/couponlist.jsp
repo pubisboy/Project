@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>\
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style>
 table, th, td {
 	font-size: 13px;
@@ -45,21 +46,21 @@ table, th, td {
 					<th>쿠폰명</th>
 					<th>할인액(율)</th>
 					<th>상태</th>
-					<th>발급일<br />(유효기간)
-					</th>
+					<th>발급일<br />(유효기간)</th>
 					<th>사용조건</th>
 				</tr>
 			</thead>
 			<tbody>
+			<c:forEach var="i" items="${clist }">
 				<tr>
-					<td>1000</td>
-					<td>15% 쿠폰</td>
-					<td>6,000원</td>
+					<td>${i.CUPON_LIST_ID }</td>
+					<td>${i.RATE }%</td>
 					<td></td>
-					<td>2016-10-09<br />~2017-09-01
-					</td>
-					<td>50만원이상</td>
+					<td></td>
+					<td></td>
+					<td></td>
 				</tr>
+				</c:forEach>
 			</tbody>
 		</table>
 	</div>
