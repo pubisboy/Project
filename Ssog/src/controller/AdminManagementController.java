@@ -54,6 +54,7 @@ public class AdminManagementController {
 			System.out.println("변환 불가능");
 			p = 1;
 		}
+		params.put("p", p);
 		String val = null;
 		if(params.get("value") != null){
 			val = (String)params.get("value");
@@ -319,6 +320,7 @@ public class AdminManagementController {
 			System.out.println("변환 불가능");
 			p = 1;
 		}
+		params.put("p", p);
 		pg.setDefaultSetting(10, 5);
 		
 		System.out.println("params : "+params);
@@ -437,6 +439,7 @@ public class AdminManagementController {
 			System.out.println("변환 불가능");
 			p = 1;
 		}
+		params.put("p", p);
 		if(session.getAttribute("pre") != null){
 			System.out.println("pre가 있다.");
 			Map pa = (Map)session.getAttribute("pre");
@@ -874,6 +877,7 @@ public class AdminManagementController {
 			System.out.println("변환 불가능");
 			p = 1;
 		}
+		params.put("p", p);
 		ModelAndView mv = new ModelAndView("ad_management");
 		System.out.println("params : "+params);
 		pg.setDefaultSetting(10, 5);

@@ -33,6 +33,7 @@ public class AdminOrderController {
 			System.out.println("변환 불가능");
 			p = 1;
 		}
+		params.put("p", p);
 		System.out.println("params : "+params);
 		System.out.println("state : "+params.get("state"));
 		/*if(params.get("state") != null){

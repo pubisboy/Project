@@ -44,14 +44,20 @@ public class AdminSalesController {
 			System.out.println("변환 불가능");
 			p = 1;
 		}
+		params.put("p", p);
 		System.out.println("params의 value : "+params.get("value"));
+		System.out.println("진입 시의 params : "+params);
 		
 		String bTime = null;
 		String fTime = null;
 		
 		Calendar c = GregorianCalendar.getInstance();
 		
-		if(params.get("sort") == null){
+		
+		
+		String term = (String)params.get("term");
+		
+		if(params.get("term") == null){
 			SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd");
 			String f = sdf.format(c.getTime());
 			c.add(Calendar.DATE, -7);
@@ -60,13 +66,30 @@ public class AdminSalesController {
 			params.put("begin", b);
 			params.put("final", f);
 		}else{
+			System.out.println("term : "+term);
+			String by = (String)params.get("by");
+			String bm = (String)params.get("bm");
+			bm = bm.equals("none") ? "1" :  bm;
+			String bd = (String)params.get("bd");
+			bd = bd.equals("none") ? "1" :  bd;
+			String ey = (String)params.get("ey");
+			String em = (String)params.get("em");
+			em = em.equals("none") ? "1" :  em;
+			String ed = (String)params.get("ed");
+			ed = ed.equals("none") ? "1" :  ed;
+			
 			SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd");
-			String tmp = String.format("%s/%s/%s", (String)params.get("by"), (String)params.get("bm"), (String)params.get("bd"));
+
+			System.out.println(String.format("by : %s / bm : %s / bd : %s / ey : %s / em : %s / ed : %s", by,bm,bd,ey,em,ed));
+			String tmp = String.format("%s/%s/%s", by,bm,bd);
+			System.out.println("tmp : "+tmp);
 			Date tes = sdf.parse(tmp);
 			bTime = sdf.format(tes);
-			tmp = String.format("%s/%s/%s", (String)params.get("fy"), (String)params.get("fm"), (String)params.get("fd"));
+			tmp = String.format("%s/%s/%s", ey,em,ed);
+			System.out.println("tmp : "+tmp);
 			tes = sdf.parse(tmp);
 			fTime = sdf.format(tes);
+			
 			System.out.println("시작 : "+bTime);
 			System.out.println("끝 : "+fTime);
 			params.put("begin", bTime);
@@ -84,19 +107,61 @@ public class AdminSalesController {
 		System.out.println("params : "+params);
 		List list = asd.getSales_list(params);
 		System.out.println("매출액 : "+list);
-
+		Calendar cal = Calendar.getInstance();
+		int y = cal.get(Calendar.YEAR);
+		int year = y;
+		List li = new ArrayList<>();
+		for(int i = 0; i < 10; i++){
+			li.add(year-i);
+		}
+		
+		map.put("years", li);
 		DecimalFormat df = new DecimalFormat("#,###");
 		String total = df.format(rows);
-		params.remove("term");
+		
 		map.put("total", total);
 		map.put("list", list);
 		map.put("paging", paging);
-		map.put("params", params);
+		if(params.get("term") != null){
+			map.put("params", params);
+		}
 		map.put("section", "/sales/sales_list");
 		return "ad_sales";
 	}
 	
-	@RequestMapping("/sales/sales_chart.ja")
+	@RequestMapping("/sales/calc_day.ja")
+	@ResponseBody
+	public String calc_day(@RequestParam Map params){
+		Map map = new HashedMap();
+		System.out.println("날짜 ajax : "+params);
+		Calendar c = Calendar.getInstance();
+		String ys = (String)params.get("y");
+		String ms = (String)params.get("m");
+		String ds = (String)params.get("d");
+		int y = c.get(Calendar.YEAR);
+		if(!ys.equals("none")){
+			y = Integer.parseInt(ys);
+		}
+		int m = Integer.parseInt((String)params.get("m"));
+		int d = Integer.parseInt((String)params.get("d"));
+		c.set(y, m-1, d);
+		int day = c.getActualMaximum(Calendar.DAY_OF_MONTH);
+		String be = (String)params.get("be");
+		String target = null;
+		if(be.equals("b")){
+			target = "bd";
+		}else{
+			target = "ed";
+		}
+		
+		String rst = "<option value='none'>--</option>";
+		for(int i = 1; i <= day; i++){
+			rst += String.format("<option value='%d' id='%d%s'>%d</option>", i, i, target, i);
+		}
+		return rst;
+	}
+	
+	/*@RequestMapping("/sales/sales_chart.ja")
 	public String getSales_chart(@RequestParam Map params, @RequestParam(name="p", defaultValue="1") String pp, Map map) throws ParseException{
 		int p = 0;
 		try{
@@ -107,7 +172,7 @@ public class AdminSalesController {
 		}
 		System.out.println("params의 value : "+params.get("value"));
 		
-		/*SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd");
+		SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd");
 		Calendar c = Calendar.getInstance();
 		
 		String now = sdf.format(c.getTime());
@@ -117,7 +182,7 @@ public class AdminSalesController {
 		String begin = sdf.format(b);
 		params.put("begin", begin);
 		params.put("final", now);
-		System.out.println("begin : "+begin + " / now : "+now);*/
+		System.out.println("begin : "+begin + " / now : "+now);
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd");
 		
@@ -189,6 +254,7 @@ public class AdminSalesController {
 			}
 			c.add(Calendar.DATE, 1);
 		}
+		
 		System.out.println("days : "+days);
 		DecimalFormat df = new DecimalFormat("#,###");
 		String total = df.format(rows);
@@ -198,7 +264,7 @@ public class AdminSalesController {
 		map.put("params", params);
 		map.put("section", "/sales/chart");
 		return "ad_sales";
-	}
+	}*/
 	/*
 	@RequestMapping("/sales/calc_year.ja")
 	@ResponseBody
@@ -259,30 +325,5 @@ public class AdminSalesController {
 		}
 	}
 	*/
-	@RequestMapping("/sales/calc_day.ja")
-	@ResponseBody
-	public String calc_day(@RequestParam Map params){
-		Map map = new HashedMap();
-		System.out.println("날짜 ajax : "+params);
-		Calendar c = Calendar.getInstance();
-		int y = Integer.parseInt((String)params.get("y"));
-		int m = Integer.parseInt((String)params.get("m"));
-		int d = Integer.parseInt((String)params.get("d"));
-		c.set(y, m-1, d);
-		int day = c.getActualMaximum(Calendar.DAY_OF_MONTH);
-		String be = (String)params.get("be");
-		String target = null;
-		if(be.equals("b")){
-			target = "bd";
-		}else{
-			target = "ed";
-		}
-		
-		String rst = "<select name='"+target+"' id='"+target+"'>";
-		for(int i = 1; i <= day; i++){
-			rst += String.format("<option value='%d'>%d</option>", i, i);
-		}
-		rst += "</select>";
-		return rst;
-	}
+	
 }

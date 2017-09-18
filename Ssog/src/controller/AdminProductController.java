@@ -36,6 +36,7 @@ public class AdminProductController {
 			System.out.println("변환 불가능");
 			p = 1;
 		}
+		params.put("p", p);
 		System.out.println("params : "+params);
 		
 		String val = null;
