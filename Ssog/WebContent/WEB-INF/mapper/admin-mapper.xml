@@ -589,9 +589,11 @@
 	
 	<select id="getPopup_target" parameterType="java.util.ArrayList" resultType="java.util.HashMap">
 		select popup_num from popup where onoff = 1
-		<foreach collection="list" item="num">
-			and POPUP_NUM != #{num}
-		</foreach>
+		<if test="list != null">
+			<foreach collection="list" item="num">
+				and POPUP_NUM != #{num}
+			</foreach>
+		</if>
 	</select>
 	
 	<select id="getPopup_target_detail" parameterType="java.util.HashMap" resultType="java.util.HashMap">
