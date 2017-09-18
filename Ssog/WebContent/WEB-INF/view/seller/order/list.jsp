@@ -52,17 +52,17 @@
 		<b style="padding-right:6%;">총 <font color="#ff4d4d">${total}</font>건</b>
 	</div>
 	
-		<table class="table" style="margin-top: 10px;" >
+		<table class="table" style="margin-top: 10px;">
 			<thead>
 				<tr style="border-top: 3px solid black;">
 					<th width="10%">주문번호</th>
 					<th width="10%">상품번호</th>
 					<th width="10%">주문수량</th>
-					<th width="10%">주문상태</th>
-					<th width="20%">주문일자</th>
-					<th width="20%">결제일자</th>
-					<th width="10%">가격</th>
-					<th width="10%">쿠폰타입</th>
+					<th width="15%">주문일자</th>
+					<th width="15%">결제일자</th>
+					<th width="15%">가격</th>
+					<th width="10%">할인율</th>
+					<th width="15%">주문상태</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -71,14 +71,22 @@
 				</c:if>
 				<c:forEach var="i" items="${list}">
 					<tr>
-						<td width="10%">${i.ORDER_NUM}</td>
-						<td width="10%">${i.PRO_NUM }</td>
-						<td width="5%"><fmt:formatNumber value="${i.ORDER_QTY}" type="number"/></td>
-						<td width="5%">${i.ST}</td>
-						<td width="10%"><fmt:formatDate value="${i.ORDER_DATE}" pattern="yyyy-MM-dd"/></td>
-						<td width="10%"><fmt:formatDate value="${i.PAY_DATE}"  pattern="yyyy-MM-dd"/></td>
-						<td width="10%"><fmt:formatNumber value="${i.PRICE}"  type="number"/></td>
-						<td width="5%">${i.CUPON_TYPE}</td>
+						<td>[${i.ORDER_NUM}]</td>
+						<td>[${i.PRO_NUM }]</td>
+						<td align="center"><fmt:formatNumber value="${i.ORDER_QTY}" type="number"/>kg</td>
+						<td><fmt:formatDate value="${i.ORDER_DATE}" pattern="yyyy-MM-dd"/></td>
+						<td><fmt:formatDate value="${i.PAY_DATE}"  pattern="yyyy-MM-dd"/></td>
+						<td><fmt:formatNumber value="${i.PRICE}"  type="number"/>원</td>
+						<c:choose>
+							<c:when test="${i.CUPON_TYPE eq null}">
+								<td>(없음)</td>
+							</c:when>
+							<c:otherwise>
+								<td>${i.RATE}%</td>
+							</c:otherwise>
+						</c:choose>
+						
+						<td>${i.ST}</td>
 					</tr>
 				</c:forEach>
 			</tbody>
