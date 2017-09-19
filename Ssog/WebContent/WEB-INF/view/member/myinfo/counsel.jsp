@@ -26,7 +26,7 @@ table, th, td {
 <div style="padding-top: 20px;">
 	<h4 style="font-size: 17px; text-align: left;">
 		<span class="glyphicon glyphicon-info-sign"
-			style="padding-right: 10px;"></span><b style="padding-right: 10px;">1:1
+			style="padding-right: 10px;"></span><b style="padding-right: 10px; font-size: 1.1em; letter-spacing: -1px; color: #404040;">1:1 
 			문의</b><small style="font-size: 12px;">고객센터를 통하여 고객님께서 문의 하여 주신
 			문의내역입니다.</small>
 	</h4>

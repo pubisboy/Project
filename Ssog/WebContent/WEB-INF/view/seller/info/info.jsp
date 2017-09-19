@@ -26,7 +26,7 @@
 		</tr>
 		<tr >
 			<td width="150px" bgcolor="lightgray">계좌번호</td> 
-			<td width="350px">${map.ACCOUNT}</td>
+			<td width="350px">[${map.BANK}] ${map.ACCOUNT}</td>
 		</tr>
 	</table>
 	<br><br>

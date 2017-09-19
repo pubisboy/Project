@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:choose>
-	<c:when test="${join_check eq true}">
+	<c:when test="${rst eq true}">
 		<script>
 			window.alert("로그인성공");
 		</script>

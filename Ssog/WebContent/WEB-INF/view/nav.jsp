@@ -12,6 +12,7 @@ li{
 
 /* 하위 메뉴 */
 #sohot > .wonder > .girls {
+<<<<<<< HEAD
    display: none;
    position: absolute;
    top:0;
@@ -21,11 +22,26 @@ li{
    background: -webkit-linear-gradient(top, #ffffff 0%,#e5e5e5 100%); /* Chrome10-25,Safari5.1-6 */
    background: linear-gradient(to bottom, #ffffff 0%,#e5e5e5 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
+=======
+	display: none;
+	position: absolute;
+	top:0;
+	left:100%;
+	background: #ffffff; /* Old browsers */
+	background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(top, #ffffff 0%,#e5e5e5 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom, #ffffff 0%,#e5e5e5 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
+>>>>>>> branch 'master' of https://github.com/pubisboy/Project.git
 }
   
 /* 하위 메뉴에 마우스 올렸을 때 */
 #sohot > .wonder > .girls a:hover {
+<<<<<<< HEAD
    background: rgba(40,40,40,0.05);
+=======
+	background: rgba(40,40,40,0.05);
+>>>>>>> branch 'master' of https://github.com/pubisboy/Project.git
 }
 
 
@@ -160,6 +176,7 @@ li{
                     <span class="icon-bar"></span>
                 </button>  
                 <ul class="nav ssibal navbar-nav">  
+<<<<<<< HEAD
                    <li class="dropdown">
                     <a class="navbar-brand" class="ropdown-toggle"  href="/product/list.j" id="socool" style="font-size: 16px;"><span class="glyphicon glyphicon-menu-hamburger"></span>카테고리<b class="caret"></b></a>   
                     <!-- sohot (메뉴)-->
@@ -216,6 +233,64 @@ li{
                            
                      </ul><!-- sohot close -->
                  </li>
+=======
+	                <li class="dropdown">
+		              <a class="navbar-brand" class="ropdown-toggle"  href="/product/list.j" id="socool" style="font-size: 16px;"><span class="glyphicon glyphicon-menu-hamburger"></span>카테고리<b class="caret"></b></a>   
+		              <!-- sohot (메뉴)-->
+		              <ul class="nav dropdown-menu sohott" id="sohot" style="border-top: 0px;">
+	                       <li class="dropdown wonder"><a href="#" class="dropdown-toggle" data-toggle="dropdown">채소</a>
+		                        <ul class="dropdown-menu girls">
+		                        	<!-- <li class="kopie"><a href="#">전체보기</a></li> -->
+		                           <li><a href="/product/list.j?category=101">쌈,샐러드</a></li>
+		                           <li><a href="/product/list.j?category=102">뿌리채소,버섯</a></li>
+		                           <li><a href="/product/list.j?category=103">양파,마늘,파,고추</a></li>
+		                           <li><a href="/product/list.j?category=104">콩나물,나물류</a></li>
+		                        </ul>
+	                        </li>
+	                          
+	                        <li class="dropdown wonder"><a href="#" class="dropdown-toggle" data-toggle="dropdown">과일</a>
+		                        <ul class="dropdown-menu girls">
+		                        	<!-- <li class="kopie"><a href="#">전체보기</a></li> -->
+		                           <li><a href="/product/list.j?category=201">과일</a></li>
+		                           <li><a href="/product/list.j?category=202">건과일</a></li>
+		                           <li><a href="/product/list.j?category=203">바나나,파인애플,키위</a></li>
+		                        </ul>
+	                        </li>
+	                        
+	                        <li class="dropdown wonder"><a href="#" class="dropdown-toggle" data-toggle="dropdown">양곡</a>
+		                        <ul class="dropdown-menu girls">
+		                        	<!-- <li class="kopie"><a href="#">전체보기</a></li> -->
+		                           <li><a href="/product/list.j?category=301">쌀</a></li>
+		                           <li><a href="/product/list.j?category=302">잡곡</a></li>
+		                           <li><a href="/product/list.j?category=303">가루</a></li>
+		                        </ul>
+	                        </li>
+	                        
+	                        <li class="dropdown wonder"><a href="#" class="dropdown-toggle" data-toggle="dropdown">정육</a>
+		                        <ul class="dropdown-menu girls">
+		                           <!-- <li class="kopie"><a href="#">전체보기</a></li> -->
+		                           <li><a href="/product/list.j?category=401">소고기</a></li>
+		                           <li><a href="/product/list.j?category=402">돼지고기</a></li>
+		                           <li><a href="/product/list.j?category=403">닭,오리</a></li>
+		                           <li><a href="/product/list.j?category=404">가공육</a></li>
+		                           <li><a href="/product/list.j?category=405">계란,알류</a></li>
+		                        </ul>
+	                        </li>
+	                        
+	                        <li class="dropdown wonder"><a href="#" class="dropdown-toggle" data-toggle="dropdown">수산물</a>
+		                        <ul class="dropdown-menu girls">
+		                           <!-- <li class="kopie"><a href="#">전체보기</a></li> -->
+		                           <li><a href="/product/list.j?category=501">생선류</a></li>
+		                           <li><a href="/product/list.j?category=502">오징어,낙지</a></li>
+		                           <li><a href="/product/list.j?category=503">새우,게</a></li>
+		                           <li><a href="/product/list.j?category=504">건어물</a></li>
+		                           <li><a href="/product/list.j?category=505">해조류</a></li>
+		                        </ul>
+	                        </li>
+	                        
+	                  </ul><!-- sohot close -->
+	              </li>
+>>>>>>> branch 'master' of https://github.com/pubisboy/Project.git
               </ul>
             </div>
               
@@ -309,14 +384,19 @@ $(window).scroll(function(event){
    var si = $("#ssibal").attr("class"); 
    console.log(si);
    var a=si.split(" ");
+<<<<<<< HEAD
    if(a[2]== "affix" ){ 
-      $("#sohot").fadeOut();
+=======
+   if(a[2]== "affix" ){
+>>>>>>> refs/heads/ukiki
+      $("#sohot").hide();
    }else{
-      $("#sohot").fadeIn();
+      $("#sohot").show();
    }
 });
 
 $('.wonder > .girls').parent().hover(function() {
+<<<<<<< HEAD
      var submenu = $(this).children('.girls');
      var parent = $(this);
      if ( $(submenu).is(':hidden') ) {
@@ -327,4 +407,16 @@ $('.wonder > .girls').parent().hover(function() {
        $(parent).css("background", "none");
      }
    });
+=======
+	  var submenu = $(this).children('.girls');
+	  var parent = $(this);
+	  if ( $(submenu).is(':hidden') ) {
+	    $(submenu).slideDown(5);
+	    $(parent).css("background", "rgba( 40, 40, 40, 0.4 )");
+	  } else {
+	    $(submenu).slideUp(5);
+	    $(parent).css("background", "none");
+	  }
+	});
+>>>>>>> branch 'master' of https://github.com/pubisboy/Project.git
 </script>
