@@ -19,11 +19,9 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.context.annotation.RequestScope;
 import org.springframework.web.servlet.ModelAndView;
 
 import model.AdminDao;
@@ -93,8 +91,17 @@ public class MemberController {
 		Map tmp = (Map)list.get(0);
 		map.put("title", tmp.get("TITLE"));
 		map.put("section", "/popup");
-		map.put("params", list);
+		map.put("params", list); 
 		return "main_popup";
+	}
+	@RequestMapping("member/check.j")
+	public ModelAndView check() {
+		ModelAndView mav = new ModelAndView();
+		List<Map> list = mdao.terms();
+		mav.addObject("list", list);
+		System.out.println(list);
+		
+		return mav; 
 	}
 	
 	@RequestMapping("/member/join.j")

@@ -45,14 +45,14 @@
     </a>
 </div>
 <div align="center" style="padding-top: 15px;">  
-<div class="row" style="width: 63%;">  
+<div class="row" style="width: 67%;">   
 <div class="col-xs-4" style="background: blue; height: 12.5%;">dd</div>     
 <div class="col-xs-4" style="background: red; height: 12.5%;">dd</div>
 <div class="col-xs-4" style="background: black; height: 12.5%;">dd</div>  
 </div>
 	<div style="padding-top: 20px; font-size: 40px;">
 	Recommendation<b>PRODUCT</b> <hr/> 
-	<div style="padding-top: 10px;"> 
+	<div style="padding-top: 10px;">    
 	<img src="http://www.hellonature.net/shop/data/skin/renew_C/img/banner/%EC%B6%94%EC%B2%9C%EC%83%81%ED%92%88_%EB%AC%B4%ED%99%94%EA%B3%BC.jpg" height="300px;"/>
 	</div>     
 	</div>
