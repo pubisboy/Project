@@ -30,8 +30,8 @@
 <table>
 	<thead>
 		<tr>
-			<td width="50%;" align="center"><span style="text-align: center;" id="deny" onclick="javascript:deny();">오늘 하루 안 보기</span></td>
-			<td width="50%;" align="center"><span style="text-align: center;" onclick="javascript:self.close();">창 닫기</span></td>
+			<td width="50%;" align="center"><span style="text-align: center; cursor:pointer;" id="deny" onclick="javascript:deny();">오늘 하루 안 보기</span></td>
+			<td width="50%;" align="center"><span style="text-align: center; cursor:pointer;" onclick="javascript:self.close();">창 닫기</span></td>
 		</tr>
 	</thead>
 </table>

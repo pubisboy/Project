@@ -37,6 +37,7 @@ public class AdminMemberController {
 			System.out.println("변환 불가능");
 			p = 1;
 		}
+		params.put("p", p);
 		String val = null;
 		if(params.get("value") != null){
 			val = (String)params.get("value");
@@ -149,6 +150,7 @@ public class AdminMemberController {
 			System.out.println("변환 불가능");
 			p = 1;
 		}
+		params.put("p", p);
 		String val = null;
 		if(params.get("value") != null){
 			val = (String)params.get("value");
