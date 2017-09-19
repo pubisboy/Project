@@ -219,5 +219,55 @@ public class MyinfoDao{
 		}
 		return rst;
 	}
-	
+	public boolean set(Map map) {
+		SqlSession session = factory.openSession();
+		try {
+			session.update("myinfo.setorder", map);
+			session.commit();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.rollback();
+			return false;
+		}finally {
+			session.close();
+		}
+	}
+	public List<Map> state(String id){
+		List<Map> list = new ArrayList<>();
+		SqlSession session = factory.openSession();
+		try {
+			list = session.selectList("myinfo.state", id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		return list;
+	}
+	public int state_cnt(String id) {
+		SqlSession session = factory.openSession();
+		try {
+			int cnt = session.selectOne("myinfo.state_count",id);
+			return cnt;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		}finally {
+			session.close();
+		}
+	}
+	public List<Map> statepage(Map map){
+		List<Map>list = new ArrayList<>();
+		SqlSession session = factory.openSession();
+		try {
+			list = session.selectList("myinfo.state_page", map);
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			session.close();
+		}
+	}
 }

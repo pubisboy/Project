@@ -309,7 +309,11 @@ $(window).scroll(function(event){
    var si = $("#ssibal").attr("class"); 
    console.log(si);
    var a=si.split(" ");
+<<<<<<< HEAD
    if(a[2]== "affix" ){ 
+=======
+   if(a[2]== "affix" ){
+>>>>>>> refs/heads/ukiki
       $("#sohot").hide();
    }else{
       $("#sohot").show();
