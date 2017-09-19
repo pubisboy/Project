@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<canvas id="myChart" width="100%;" height="30%;"></canvas>
+<div id="curve_chart" style="width: 100%; height: 30%;"></div>
 
 <div>검색 : ${total }건</div>
 
@@ -48,6 +48,7 @@
 			<div style="float: left; width: 10%;" id="search">
 				<button type="button" id="sbt" class="btn btn-default" style="height: 20px; padding-top: 1px;">검색</button>
 			</div>
+			<div id="alerts" style="float: left; width: 5%; color: red;"></div>
 		</form>
 	</div>
 	<div style="float: right; width: 5%;">
@@ -182,26 +183,35 @@
 				$("#term").val("yy");
 				$("#f").submit();
 			}else{
-				window.alert("제대로 좀 선택 하세요.");
+				$("#alerts").html("기간 설정 오류1");
 			}
 		}else if($("#by").val() != 'none' && $("#ey").val() != 'none' && $("#bm").val() != 'none' && $("#em").val() != 'none' && $("#bd").val() == 'none' && $("#ed").val() == 'none'){
 			window.alert("년도/월 선택");
-			if($("#by").val() <= $("#ey").val() && $("#bm").val() <= $("#em").val()){
+			if($("#by").val() < $("#ey").val()){
+				$("#term").val("yy/MM");
+				$("#f").submit();
+			}else if($("#by").val() == $("#ey").val() && $("#bm").val() <= $("#em").val()){
 				$("#term").val("yy/MM");
 				$("#f").submit();
 			}else{
-				window.alert("제대로 좀 선택 하세요.");
+				$("#alerts").html("기간 설정 오류2");
 			}
 		}else if($("#by").val() != 'none' && $("#ey").val() != 'none' && $("#bm").val() != 'none' && $("#em").val() != 'none' && $("#bd").val() != 'none' && $("#ed").val() != 'none'){
 			window.alert("년도/월/일 선택");
-			if($("#by").val() <= $("#ey").val() && $("#bm").val() <= $("#em").val() && $("#bd").val() <= $("#ed").val()){
+			if($("#by").val() < $("#ey").val()){
+				$("#term").val("yy/MM/dd");
+				$("#f").submit();
+			}else if($("#by").val() == $("#ey").val() && $("#bm").val() < $("#em").val()){
+				$("#term").val("yy/MM/dd");
+				$("#f").submit();
+			}else if($("#by").val() == $("#ey").val() && $("#bm").val() == $("#em").val() && $("#bd").val() < $("#ed").val() ){
 				$("#term").val("yy/MM/dd");
 				$("#f").submit();
 			}else{
-				window.alert("제대로 좀 선택 하세요.");
+				$("#alerts").html("기간 설정 오류3");
 			}
 		}else{
-			window.alert("선택이 잘못 되었습니다.");
+			$("#alerts").html("기간 설정 오류");
 		}
 	})
 	
@@ -210,46 +220,29 @@
 	})
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script>
-var ctx = document.getElementById("myChart").getContext('2d');
-var myChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-        labels: [
-        	if(${params.})
-        	"Red", "Blue", "Yellow", "Green", "Purple", "Orange"
-        	],
-        datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255,99,132,1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero:true
-                }
-            }]
-        }
-    }
-});
+var test2 = ${days.size()};
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+  var data = google.visualization.arrayToDataTable([
+	['day', 'sales'],
+		<c:forEach var="i" items="${days}" varStatus="vs">
+			["${i.day}", ${i.price}]
+			<c:if test="${!vs.last}">,</c:if>
+		</c:forEach>
+	]);
+
+  var options = {
+    title: '기간 매출',
+    curveType: 'none',
+    legend: { position: 'bottom' }
+  };
+
+  var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+  chart.draw(data, options);
+}
 </script>
