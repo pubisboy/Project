@@ -89,15 +89,29 @@ td{
         			<tr>
         				<th style="text-align: center; width: 50%;">판매총액</th>
         				<td>
-        					<fmt:formatNumber value="${info['0'].PRICE_TOTAL }" pattern="#,###"/>원
+        					<fmt:formatNumber value="${empty info['0'].PRICE_TOTAL ? 0 : info['0'].PRICE_TOTAL}" pattern="#,###"/>원
         				</td>
         			</tr>
         			<tr>
         				<th style="text-align: center; width: 50%;">판매건수</th>
         				<td>
-        					<fmt:formatNumber value="${buyCount }" pattern="#,###"/>건
+        					<fmt:formatNumber value="${empty buyCount ? 0 : buyCount}" pattern="#,###"/>건
         				</td>
         			</tr>
+        			<tr>
+						<th class="type2">평점 평균</th>
+						<td>
+						<c:choose>
+							<c:when test="${cnt ne 0 }">
+								<fmt:formatNumber value="${empty star ? 0 : star}" pattern="#.##"/> / 10
+								<sub>(${cnt }명)</sub>
+							</c:when>
+							<c:otherwise>
+								없음
+							</c:otherwise>
+						</c:choose>
+						</td>
+					</tr>
         			<tr>
         				<td colspan="2" style="text-align: center"><a href="">로그</a></td>
         			</tr>

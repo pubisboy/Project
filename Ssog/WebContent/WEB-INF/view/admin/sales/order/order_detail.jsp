@@ -46,7 +46,7 @@ td{
 					<tr>
 						<th class="type">주문가격</th>
 						<td>
-							<fmt:formatNumber value="${list[0].PRICE }" pattern="#,###"/>원
+							<fmt:formatNumber value="${empty list[0].PRICE ? 0 : list[0].PRICE}" pattern="#,###"/>원
 						</td>
 					</tr>
 					<tr>
@@ -72,7 +72,7 @@ td{
 					<tr>
 						<th class='type'>주문개수</th>
 						<td>
-							<fmt:formatNumber value='${list[0].ORDER_QTY }' pattern='#,###'/>개
+							<fmt:formatNumber value='${empty list[0].ORDER_QTY ? 0 : list[0].ORDER_QTY}' pattern='#,###'/>개
 						</td>
 					</tr>
 					<tr>

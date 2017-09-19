@@ -3,11 +3,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<canvas id="myChart" width="100%;" height="30%;"></canvas>
+
 <div>검색 : ${total }건</div>
 
 <div>
 	<div id="selDetail" style="float: left; width: 60%;">
-		<form action="/admin/sales/sales/sales_list.ja" method="get" id="form">
+		<form action="/admin/sales/sales/sales_list.ja" method="get" id="f">
 			<input type="hidden" name="term" id="term"/>
 			<div style="float: left; width: 40%;" id="begin">
 				시작<select name='by' id='by'><optgroup label='년'></optgroup>
@@ -43,10 +45,10 @@
 					<option value="none" ${empty params.ed ? 'selected' : ''}>--</option>
 				</select>
 			</div>
-		</form>
 			<div style="float: left; width: 10%;" id="search">
-				<button type="button" id="submit" class="btn btn-default">검색</button>
+				<button type="button" id="sbt" class="btn btn-default" style="height: 20px; padding-top: 1px;">검색</button>
 			</div>
+		</form>
 	</div>
 	<div style="float: right; width: 5%;">
 	<a
@@ -89,14 +91,14 @@
 			href="/admin/sales/sales/sales_list.ja?p=${paging.endPageNo + 1}&term=${params.term}&by=${params.by}&bm=${params.bm}&bd=${params.bd}&ey=${params.ey}&em=${params.em}&ed=${params.ed}&sort=${params.sort}">&gt;</a>
 	</c:if>
 </div>
-
+<div align="right"><button id="excel">Excel 다운로드</button></div>
 <script src="<c:url value="/etc.js" />"></script>
 
 <script>
 	$("#bm").on("change", function(){
 		if($("#by").val() == 'none'){
 			window.alert("연도를 선택 하세요.");
-		}else{
+		}else if($("#bm").val() != 'none'){
 			$.ajax({
 				'url':"/admin/sales/sales/calc_day.ja",
 				'data':{
@@ -108,20 +110,28 @@
 			}).done(function(rst){
 				$("#bd").html(rst);
 			});
+		}else{
+			$("#bd").html("");
 		}
 	});
 	$("#em").on("change", function(){
-		$.ajax({
-			'url':"/admin/sales/sales/calc_day.ja",
-			'data':{
-				'y':$("#ey").val(),
-				'm':$("#em").val(),
-				'd':'1',
-				'be':'e'
-			}
-		}).done(function(rst){
-			$("#ed").html(rst);
-		});
+		if($("#ey").val() == 'none'){
+			window.alert("연도를 선택 하세요.");
+		}else if($("#em").val() != 'none'){
+			$.ajax({
+				'url':"/admin/sales/sales/calc_day.ja",
+				'data':{
+					'y':$("#ey").val(),
+					'm':$("#em").val(),
+					'd':'1',
+					'be':'e'
+				}
+			}).done(function(rst){
+				$("#ed").html(rst);
+			});
+		}else{
+			$("#ed").html("");
+		}
 	});
 	function initB(){
 		if($("#bm").val() != 'none'){
@@ -165,12 +175,12 @@
 	initE();
 	
 	
-	$("#submit").on("click", function(){
+	$("#sbt").on("click", function(){
 		if($("#by").val() != 'none' && $("#ey").val() != 'none' && $("#bm").val() == 'none' && $("#em").val() == 'none' && $("#bd").val() == 'none' && $("#ed").val() == 'none'){
 			window.alert("년도만 선택");
 			if($("#by").val() <= $("#ey").val()){
 				$("#term").val("yy");
-				$("#form").submit();
+				$("#f").submit();
 			}else{
 				window.alert("제대로 좀 선택 하세요.");
 			}
@@ -178,7 +188,7 @@
 			window.alert("년도/월 선택");
 			if($("#by").val() <= $("#ey").val() && $("#bm").val() <= $("#em").val()){
 				$("#term").val("yy/MM");
-				$("#form").submit();
+				$("#f").submit();
 			}else{
 				window.alert("제대로 좀 선택 하세요.");
 			}
@@ -186,7 +196,7 @@
 			window.alert("년도/월/일 선택");
 			if($("#by").val() <= $("#ey").val() && $("#bm").val() <= $("#em").val() && $("#bd").val() <= $("#ed").val()){
 				$("#term").val("yy/MM/dd");
-				$("#form").submit();
+				$("#f").submit();
 			}else{
 				window.alert("제대로 좀 선택 하세요.");
 			}
@@ -195,4 +205,51 @@
 		}
 	})
 	
+	$("#excel").on("click", function(){
+		location.href="/admin/sales/sales/sales_excel.ja?term=${params.term}&by=${params.by}&bm=${params.bm}&bd=${params.bd}&ey=${params.ey}&em=${params.em}&ed=${params.ed}";
+	})
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.js"></script>
+<script>
+var ctx = document.getElementById("myChart").getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: [
+        	if(${params.})
+        	"Red", "Blue", "Yellow", "Green", "Purple", "Orange"
+        	],
+        datasets: [{
+            label: '# of Votes',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
 </script>

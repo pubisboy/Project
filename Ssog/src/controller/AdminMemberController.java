@@ -228,7 +228,10 @@ public class AdminMemberController {
 			map.put("grade", liGrade);
 			map.put("product9", liProduct9);
 			map.put("buyCount", buyc);
-			
+			List listar = amd.seller_detail_star(id);
+			Map tt =  (Map)listar.get(0);
+			map.put("star",tt.get("STAR"));
+			map.put("cnt",tt.get("CNT"));
 			List liCounsel9 = amd.seller_detail_counsel_top9(id);
 			for(int i = 0; i < liCounsel9.size(); i++){
 				Map m = (Map)liCounsel9.get(i);

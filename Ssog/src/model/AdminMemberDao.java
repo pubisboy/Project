@@ -234,4 +234,17 @@ public class AdminMemberDao {
 		return rst;
 	}
 	
+	public List seller_detail_star(String id){
+		SqlSession session = factory.openSession();
+		List rst = null;
+		try{
+			rst = session.selectList("admin_member.seller_detail_star", id);
+		}catch(Exception e){
+			System.out.println("error.seller_detail_star"+e.toString());
+		}finally{
+			session.close();
+		}
+		return rst;
+	}
+	
 }
