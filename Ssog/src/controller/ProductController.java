@@ -96,7 +96,7 @@ public class ProductController {
 		ModelAndView mav = new ModelAndView("t_base");
 		Map map=new HashMap<>(); 
 		Map elist = pdao.event_list(num);
-		if(elist!=null) {
+		if(elist != null) {
 			mav.addObject("elist", elist);
 		}
 		System.out.println("elist : "+elist);
