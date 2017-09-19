@@ -57,7 +57,7 @@
 	<div align="center"  class="container" style="padding-top: 30px;">
 	<div class="row">
 	<div class="col-sm-3">
-	<h1><a href="/" style="text-decoration: none; color: black;">SSOG</a></h1>
+	<h1><a href="/seller/main.j" style="text-decoration: none; color: black;">SSOG</a></h1>
 	</div>
 	<div class="col-sm-6" style="padding-top: 23px;">
 		<form>
