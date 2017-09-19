@@ -6,7 +6,10 @@
 <style>
 	table, th, td {
 		font-size: 13px;
+		white-space: nowrap;
 	}
+	
+	
 	.btn-custom {
 	  background-color: hsl(0, 0%, 16%) !important;
 	  background-repeat: repeat-x;
@@ -41,7 +44,30 @@
 	#btn { width: 85px; height: 22px; font-size: 11px; padding: 0px; }
 	small { color:gray; }
 	.table a {color:black;}
+	
+	/* 검색창 */
+	input[type=text] {
+	    width: 150px;
+	    box-sizing: border-box;
+	    font-size: 16px;
+	    padding: 5px 5px;
+	    -webkit-transition: width 0.4s ease-in-out;
+	    transition: width 0.4s ease-in-out;
+	}
+	
+	.search { 
+		vertical-align:bottom; 
+		height:26px; 
+		border:1px solid #ccc; 
+		border-radius: 3px;
+	}
+	
+	#search_form { margin-top:80px;}
+	#tab_state li { list-style: none; float:left; margin:1px; display:inline-block;}
+	
+	.chk { cursor:pointer; color:gray; font-weight:bold; }
 </style>
+
 <div class="wrap">
 	<div style="text-align:right">
 		<div style="margin-top: 20px; text-align:left">
@@ -52,58 +78,128 @@
 		<b style="padding-right:6%;">총 <font color="#ff4d4d">${total}</font>건</b>
 	</div>
 	
-		<table class="table" style="margin-top: 10px;">
+	
+	<ul id="tab_state" style="width:40%;">
+			<c:choose>
+				<c:when test="${param.state eq null or param.state eq ''}">
+				    <li><b>전체</b></li>
+				</c:when>
+				<c:otherwise>
+					<li><a href="/seller/order/list.j">전체</a></li>
+				</c:otherwise>
+			</c:choose>
+			<c:choose>
+				<c:when test="${param.state eq 2}">
+				   <li><b>결제완료</b></li>
+				</c:when>
+				<c:otherwise>
+			 		<li><a href="/seller/order/list.j?state=2">결제완료</a></li>
+				</c:otherwise>
+			</c:choose>
+			<c:choose>
+				<c:when test="${param.state eq 4}">
+				    <li><b>배송완료</b></li>
+				</c:when>
+				<c:otherwise>
+					<li><a href="/seller/order/list.j?state=4">배송완료</a></li>
+				</c:otherwise>
+			</c:choose>
+			<c:choose>
+				<c:when test="${param.state eq 5}">
+				    <li><b>구매확정</b></li>
+				</c:when>
+				<c:otherwise>
+					<li><a href="/seller/order/list.j?state=5">구매확정</a></li>
+				</c:otherwise>
+			</c:choose>
+		</ul>
+		
+		
+		<table class="table" style="margin-top: 10px;" border=1>
 			<thead>
 				<tr style="border-top: 3px solid black;">
 					<th width="10%">주문번호</th>
 					<th width="10%">상품번호</th>
-					<th width="10%">주문수량</th>
 					<th width="15%">주문일자</th>
 					<th width="15%">결제일자</th>
-					<th width="15%">가격</th>
-					<th width="10%">할인율</th>
-					<th width="15%">주문상태</th>
+					<th width="11%">가격</th>
+					<th width="8%">할인율</th>
+					<th width="5%">수량</th>
+					<th width="10%">주문상태</th>
+					<th width="11%">상태</th>
+					<th width="5%"></th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:if test="${empty list}">
-					<tr><td colspan="8" align="center">사용자가 주문한 상품이 없습니다.</td></tr>
+					<tr><td colspan="10" align="center">사용자가 주문한 상품이 없습니다.</td></tr>
 				</c:if>
 				<c:forEach var="i" items="${list}">
-					<tr>
+					<tr >
 						<td>[${i.ORDER_NUM}]</td>
 						<td>[${i.PRO_NUM }]</td>
-						<td align="center"><fmt:formatNumber value="${i.ORDER_QTY}" type="number"/>kg</td>
-						<td><fmt:formatDate value="${i.ORDER_DATE}" pattern="yyyy-MM-dd"/></td>
-						<td><fmt:formatDate value="${i.PAY_DATE}"  pattern="yyyy-MM-dd"/></td>
-						<td><fmt:formatNumber value="${i.PRICE}"  type="number"/>원</td>
+						<td><fmt:formatDate value="${i.ORDER_DATE}" pattern="yyyy/MM/dd"/></td>
+						<td><fmt:formatDate value="${i.PAY_DATE}"  pattern="yyyy/MM/dd"/></td>
+						<td><fmt:formatNumber value="${i.PRICE-(i.PRICE*i.RATE*0.01)}"  type="number" pattern="#,###"/>원</td>
 						<c:choose>
 							<c:when test="${i.CUPON_TYPE eq null}">
-								<td>(없음)</td>
+								<td><font color="red">(없음)</font></td>
 							</c:when>
 							<c:otherwise>
-								<td>${i.RATE}%</td>
+								<td align="center"><font color="red">(${i.RATE}%)</font></td>
 							</c:otherwise>
 						</c:choose>
-						
-						<td>${i.ST}</td>
+						<td align="center"><fmt:formatNumber value="${i.ORDER_QTY}" type="number"/>kg</td>
+						<td><b>${i.ST}</b></td>
+						<td><span class="chk">배송준비중</span></td>
+						<td><span class="glyphicon glyphicon-plus-sign btn"></span></td>
 					</tr>
+				 	<tr id="parent" style="display:none;">
+				 		<td>
+				 			<div id="sub">
+					 		${i.ETC }
+							${i.ADDRESS }
+							${i.RECEIVER } 
+							${i.CHARGE}
+							</div>
+				 		</td>
+				 	</tr>
 				</c:forEach>
 			</tbody>
 		</table>
 			
-						<%-- <td width="10%">${i.ETC }</td>
-						<td width="10%">${i.ADDRESS }</td>
-						<td width="10%">${i.RECEIVER }</td> 
-						<td width="5%">${i.CHARGE}</td>--%>
-	
+						
+		
+		<!-- 검색창. form에 action 경로에는 실제 주소만 됨. 파라미터 추가 설정하고 싶을 땐 hidden 속성을 이용 -->
+		<form action="/seller/order/list.j" id="search_form"  style="align:center;">
+			<input type="hidden" value="${param.state}" name="state">
+			<table align="center">
+				<tr>
+					<td>
+						<select name="search_type" class="search" style="width:90px">
+							<c:forTokens items="receiver,order_num" delims="," var="opt">
+								<option value="${opt}" ${opt eq param.search_type? 'selected' : ''}><custom:ordersearch message="${opt}"/></option>
+							</c:forTokens>
+						</select>
+						<input type="text" name="search_word" value="${param.search_word}" class="search">
+					</td>
+					<td>
+						 <button type="submit" class="btn btn-default btn-sm search btn-custom search" style="width:30px; padding:2px; margin-left:2px; border-radius: 3px;">
+						 	<span class="glyphicon glyphicon-search"></span>
+				         </button>
+					</td>
+				</tr>
+			</table>
+		</form>
+		
+		
 	
 	
 		<!-- 페이지 -->
-		<div align="center">
+		<div align="center" style="margin-top:5%">
 			<ul class="pagination">
 				<c:if test="${page.startPageNo ne 1}"><!-- 이전 -->
-					<li><a href="/seller/order/list.j?p=${page.startPageNo-1}">&laquo;</a></li>
+					<li><a href="/seller/order/list.j?p=${page.startPageNo-1}&state=${param.state}&search_type=${param.search_type}&search_word=${param.search_word}">&laquo;</a></li>
 				</c:if>
 			<c:forEach var="i" begin="${page.startPageNo}" end="${page.endPageNo}">
 				<c:choose>
@@ -111,13 +207,33 @@
 						<li class="active"><a href="#">${i}</a></li>
 					</c:when>
 					<c:otherwise>
-						<li><a href="/seller/order/list.j?p=${i}">${i}</a></li>
+						<c:choose>
+							<c:when test="${param.search_type ne null}">
+								 <li><a href="/seller/order/list.j?p=${i}&state=${param.state}&search_type=${param.search_type}&search_word=${param.search_word}">${i}</a></li>
+							</c:when>
+							<c:otherwise>
+								 <li><a href="/seller/order/list.j?p=${i}&state=${param.state}">${i}</a></li>
+							</c:otherwise>
+						</c:choose>
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
 				<c:if test="${page.endPageNo ne page.finalPageNo}"><!-- 다음 -->
-					<li><a href="/seller/order/list.j?p=${page.endPageNo+1}">&raquo;</a></li>
+					<li><a href="/seller/product/list.j?p=${page.endPageNo+1}&state=${param.state}&search_type=${param.search_type}&search_word=${param.search_word}">&raquo;</a></li>
 				</c:if>
 			</ul>
 		</div>
 </div>	
+
+<script>
+	$(".chk").on("click", function(){
+		$(this).css("color","green");
+		$(this).text("배송완료");
+	});
+	
+	$(document).ready(function(){
+	    $(".btn").click(function(){
+	        $("#sub").slideToggle("slow");
+	    });
+	});
+</script>

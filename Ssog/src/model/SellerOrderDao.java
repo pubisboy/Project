@@ -33,7 +33,6 @@ public class SellerOrderDao {
 	public int orderTotal(Map map){
 		SqlSession session = factory.openSession();
 		try{
-			System.out.println("map:" + map);
 			int r = session.selectOne("seller.order_total", map);
 			return r;
 		} catch(Exception e){
