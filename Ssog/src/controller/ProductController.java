@@ -6,10 +6,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import model.ProductDao;
@@ -83,14 +86,49 @@ public class ProductController {
 		
 
 	@RequestMapping("/detail.j")
-	public ModelAndView productdetail(@RequestParam(name = "productNumber") String num) {
+	public ModelAndView productdetail(@RequestParam(name = "productNumber") String num,@RequestParam(name ="page",required=false)String paging,HttpSession session) {
+		if(paging==null) {
+			paging="1";
+		}
+		
+		int page=Integer.parseInt(paging);
+		Map m = pg.calcBetween(page);
 		ModelAndView mav = new ModelAndView("t_base");
 		Map map=new HashMap<>(); 
 		map=pdao.pro_detail(num);
+		int r=pdao.reviewCount(num);
+		pg.setDefaultSetting(8, 5);
+		System.out.println(r);
 		mav.addObject("section", "product/productdetail");
 		mav.addObject("map", map);
-
+		List<Map> list=new ArrayList<>();
+		Map map1=new HashMap<>();
+		map1.put("num", num);
+		map1.put("start", m.get("start"));
+		map1.put("end", m.get("end"));
+		list=pdao.reviewList(map1);
+		System.out.println(list);
+		Map page1=pg.calcPaging(page, r);
+		mav.addObject("paging", page1);
+		mav.addObject("list",list);
 		return mav; 
+	}
+	
+	@RequestMapping("/review.j")
+	public String ssibal() {
+		System.out.println("아아아");
+		return "/product/review";
+	}
+	
+	@RequestMapping("/reviewExec.j")
+	public Map ssipal(@RequestParam Map map,HttpSession ssesion) {
+		String user_id=(String)ssesion.getAttribute("auth");
+		map.put("userid", user_id);
+		System.out.println(map);
+		boolean br=pdao.reviewReg(map);
+		System.out.println(br);
+		map.put("result", br);
+		return map;
 	}
 
 	

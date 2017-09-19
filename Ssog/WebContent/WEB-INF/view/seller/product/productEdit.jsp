@@ -37,7 +37,7 @@ img:hover {
 								value="${map.PRICE }" /> 원
 						</div></td>
 					<td style="width: 20%; background-color: #eaeaea;" rowspan="2">행사 등록</td>
-					<td><input type="radio" class="group" value="false" name="radiogroup" checked="checked" id="nouseEve" style="margin-left: 10px;"> &nbsp;사용안함 &nbsp;&nbsp;&nbsp;  <input type="radio" class="group" value="true" name="radiogroup" id="useEve">&nbsp;사용&nbsp;</td>	
+					<td><input type="radio" class="group" value="false" name="radiogroup" ${!empty map.CUPON?'checked':'' } id="nouseEve" style="margin-left: 10px;"> &nbsp;사용안함 &nbsp;&nbsp;&nbsp;  <input type="radio" ${empty map.CUPON?'checked':'' } class="group" value="true" name="radiogroup" id="useEve">&nbsp;사용&nbsp;</td>	
 	</tr>
 				</tr>
 				<tr style="height: 5%;">
@@ -114,7 +114,8 @@ img:hover {
 
 			</table>
 			<div align="right" style="margin-top: 10px;">
-				<button type="submit" style=>상품 수정</button>
+				<button type="button" id="state">${map.SELL_ON eq 1?'판매 중지':'판매 재개' }</button>
+				<button type="submit">상품 수정</button> 
 			</div>
 	</form>
 </div>
@@ -172,11 +173,32 @@ $("#large_cate").change("click",function(){
     }).done(function(obj){ 
        var setTag = "";
        for(var i=0; i<obj.list.length; i++){
+    	   
           setTag += "<option value=\""+ obj.list[i].S_CATE+"\" >" + obj.list[i].NAME + "</option>";
        }
        $("#small_cate").html(setTag);  
     });
  });
+if(${map.CUPON_TYPE ne null }){
+	 $.ajax({
+			url : "/seller/product/useEve.j",
+			method: "get",
+			data:{
+				"event" : $("#useEve").val()
+			}
+		 }).done(function(result){
+			var select="<select name=\"event\" class=\"form-control\" style=\"width:70%;\">";
+			for (var i = 0; i < result.list.length; i++) {
+				if( ${map.CUPON_TYPE } == result.list[i].CUPON_NUM){
+				select+="<option value=\"" + result.list[i].CUPON_NUM + "\" selected >" + result.list[i].RATE + "</option>";
+				}else{
+					select+="<option value=\"" + result.list[i].CUPON_NUM + "\"  >" + result.list[i].RATE + "</option>";
+				}
+			}		
+			select+="</select>";   
+			$("#zoro").html(select); 
+	});
+}
 $("#useEve").on("click",function(){ 
 	 $.ajax({
 		url : "/seller/product/useEve.j",
@@ -196,7 +218,23 @@ $("#useEve").on("click",function(){
 $("#nouseEve").on("click",function(){
 	 $("#zoro").html("");
 })
- 
+$("#state").on("click",function(){ 
+	 $.ajax({
+		url : "/seller/product/sellstate.j",
+		method: "get", 
+		data:{
+			"num" : ${map.PRO_NUM },
+			"sell_state" : ${map.SELL_ON }
+		}
+	 }).done(function(result){
+		if(${map.SELL_ON}==1){
+			window.alert("판매가 중지되었습니다.");
+		}else{
+			window.alert("판매가 재개되었습니다.");
+		}
+		location.reload();
+	 })	 
+}) 
 
 </script>
 <script>

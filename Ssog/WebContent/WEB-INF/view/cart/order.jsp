@@ -80,7 +80,8 @@
 					<tbody>
 						<c:forEach var="c" items="${list }">
 							<tr style="border-bottom: 1px solid #b3b3b3; font-size: 12.5px;">
-								<td>${c.IMG_UUID }</td> 
+								<td style="width: 20%;"><img src="/img/pro_img/${c.IMG_UUID }"
+            alt="Fjords" width="100%" height="30%"></td>  
 								<td>${c.PRO_NAME }</td>
 								<input type="hidden" value="${c.number }" name="pd1">
 								<input type="hidden" value="${c.PRO_NUM}" name="pd2">

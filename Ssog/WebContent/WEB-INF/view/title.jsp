@@ -134,6 +134,7 @@
 		$(".myBtn").click(function() {
 			$("#myModal").modal();
 		});
+		
 	});
 	
 	var login = function(){

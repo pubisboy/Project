@@ -167,5 +167,19 @@ public class ProductRegController {
 		map.put("list",list);
 		return map;
 	}
+	
+	@RequestMapping("/sellstate.j")
+	@ResponseBody
+	public Map stateUpdate(@RequestParam Map map) {
+		if(map.get("sell_state").equals("1")) {
+			pdao.sellUpdate0(map);
+			System.out.println("넘어온 숫자 1 ㅗ");
+		}else {
+			pdao.sellUpdate1(map);
+			System.out.println("넘어온 숫자 0 ㅗ");
+		}
+		
+		return map;
+	}
 }
 

@@ -9,10 +9,29 @@ li{
 .dropdown-menu > li.kopie > a {
     padding-left:5px;
 }  
+
+/* 하위 메뉴 */
+#sohot > .wonder > .girls {
+   display: none;
+   position: absolute;
+   top:0;
+   left:100%;
+   background: #ffffff; /* Old browsers */
+   background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%); /* FF3.6-15 */
+   background: -webkit-linear-gradient(top, #ffffff 0%,#e5e5e5 100%); /* Chrome10-25,Safari5.1-6 */
+   background: linear-gradient(to bottom, #ffffff 0%,#e5e5e5 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
+}
   
+/* 하위 메뉴에 마우스 올렸을 때 */
+#sohot > .wonder > .girls a:hover {
+   background: rgba(40,40,40,0.05);
+}
+
+
  li.drop{
- 	position: absolute; 
- 	left: -300px;
+    position: absolute; 
+    left: -300px;
  }
  
 .dropdown-submenu { 
@@ -25,9 +44,9 @@ li{
  }
   
  #ssipal .byungsin{
- 	position: absolute;
- 	left: -288%;
- 	width: 800px; 
+    position: absolute;
+    left: -288%;
+    width: 800px; 
  }
  
 .dropdown-submenu > a:after {
@@ -47,9 +66,10 @@ li{
     border-left-color:#555;
  }
 
+/* li에 마우스 올렸을때 배경색 */
 .dropdown-menu > li > a:hover, .dropdown-menu > .active > a:hover {
-  text-decoration: underline;
-	background: rgba( 40, 40, 40, 0.4 );  
+  text-decoration: none;
+   background: rgba( 40, 40, 40, 0.4 );  
 }   
   
 @media (max-width: 767px) {
@@ -130,7 +150,7 @@ li{
   
 </style>    
 <div align="center" > 
-<div id="navbar" style="width: 63%; height: 7%">         
+<div id="navbar" style="width: 67%; height: 7%">    
   <div class="navbar navbar-static-top" role="navigation" style="height:100%; margin-bottom: 0px;"> 
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
@@ -140,27 +160,62 @@ li{
                     <span class="icon-bar"></span>
                 </button>  
                 <ul class="nav ssibal navbar-nav">  
-                <li class="dropdown">
-              <a class="navbar-brand" class="ropdown-toggle"  href="/product/list.j" id="socool" style="font-size: 16px;"><span class="glyphicon glyphicon-menu-hamburger"></span>카테고리<b class="caret"></b></a>   
-              <ul class="nav dropdown-menu sohott" id="sohot" style="border-top: 0px;">
-                                 <li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">채소</a>
-                        <ul class="dropdown-menu">
-                                    <li class="kopie"><a href="#">Dropdown Link 4</a></li>
-                           <li><a href="#">ㅗㅗㅗ</a></li>
-                           <li><a href="#">Dropdown Submenu Link 4.2</a></li>
-                           <li><a href="#">Dropdown Submenu Link 4.3</a></li>
-                           <li><a href="#">Dropdown Submenu Link 4.4</a></li>
-                                                                      
-                        </ul>
-                          
-                           <li><a href="#">과일</a></li>
+                   <li class="dropdown">
+                    <a class="navbar-brand" class="ropdown-toggle"  href="/product/list.j" id="socool" style="font-size: 16px;"><span class="glyphicon glyphicon-menu-hamburger"></span>카테고리<b class="caret"></b></a>   
+                    <!-- sohot (메뉴)-->
+                    <ul class="nav dropdown-menu sohott" id="sohot" style="border-top: 0px;">
+                          <li class="dropdown wonder"><a href="#" class="dropdown-toggle" data-toggle="dropdown">채소</a>
+                              <ul class="dropdown-menu girls">
+                                 <!-- <li class="kopie"><a href="#">전체보기</a></li> -->
+                                 <li><a href="/product/list.j?category=101">쌈,샐러드</a></li>
+                                 <li><a href="/product/list.j?category=102">뿌리채소,버섯</a></li>
+                                 <li><a href="/product/list.j?category=103">양파,마늘,파,고추</a></li>
+                                 <li><a href="/product/list.j?category=104">콩나물,나물류</a></li>
+                              </ul>
+                           </li>
+                             
+                           <li class="dropdown wonder"><a href="#" class="dropdown-toggle" data-toggle="dropdown">과일</a>
+                              <ul class="dropdown-menu girls">
+                                 <!-- <li class="kopie"><a href="#">전체보기</a></li> -->
+                                 <li><a href="/product/list.j?category=201">과일</a></li>
+                                 <li><a href="/product/list.j?category=202">건과일</a></li>
+                                 <li><a href="/product/list.j?category=203">바나나,파인애플,키위</a></li>
+                              </ul>
+                           </li>
                            
-                           <li><a href="#">양곡</a></li>
-                           <li><a href="#">정육</a></li>
-                           <li><a href="#">수산물</a></li>
-                                                                      
-                        </ul>
-              </li>
+                           <li class="dropdown wonder"><a href="#" class="dropdown-toggle" data-toggle="dropdown">양곡</a>
+                              <ul class="dropdown-menu girls">
+                                 <!-- <li class="kopie"><a href="#">전체보기</a></li> -->
+                                 <li><a href="/product/list.j?category=301">쌀</a></li>
+                                 <li><a href="/product/list.j?category=302">잡곡</a></li>
+                                 <li><a href="/product/list.j?category=303">가루</a></li>
+                              </ul>
+                           </li>
+                           
+                           <li class="dropdown wonder"><a href="#" class="dropdown-toggle" data-toggle="dropdown">정육</a>
+                              <ul class="dropdown-menu girls">
+                                 <!-- <li class="kopie"><a href="#">전체보기</a></li> -->
+                                 <li><a href="/product/list.j?category=401">소고기</a></li>
+                                 <li><a href="/product/list.j?category=402">돼지고기</a></li>
+                                 <li><a href="/product/list.j?category=403">닭,오리</a></li>
+                                 <li><a href="/product/list.j?category=404">가공육</a></li>
+                                 <li><a href="/product/list.j?category=405">계란,알류</a></li>
+                              </ul>
+                           </li>
+                           
+                           <li class="dropdown wonder"><a href="#" class="dropdown-toggle" data-toggle="dropdown">수산물</a>
+                              <ul class="dropdown-menu girls">
+                                 <!-- <li class="kopie"><a href="#">전체보기</a></li> -->
+                                 <li><a href="/product/list.j?category=501">생선류</a></li>
+                                 <li><a href="/product/list.j?category=502">오징어,낙지</a></li>
+                                 <li><a href="/product/list.j?category=503">새우,게</a></li>
+                                 <li><a href="/product/list.j?category=504">건어물</a></li>
+                                 <li><a href="/product/list.j?category=505">해조류</a></li>
+                              </ul>
+                           </li>
+                           
+                     </ul><!-- sohot close -->
+                 </li>
               </ul>
             </div>
               
@@ -261,4 +316,15 @@ $(window).scroll(function(event){
    }
 });
 
+$('.wonder > .girls').parent().hover(function() {
+     var submenu = $(this).children('.girls');
+     var parent = $(this);
+     if ( $(submenu).is(':hidden') ) {
+       $(submenu).slideDown(5);
+       $(parent).css("background", "rgba( 40, 40, 40, 0.4 )");
+     } else {
+       $(submenu).slideUp(5);
+       $(parent).css("background", "none");
+     }
+   });
 </script>
