@@ -47,7 +47,7 @@
 			data-offset-top="165" style="margin-bottom: 0;" id="ssibal"> 
 			<tiles:insertAttribute name="nav" />
 		</nav>
-		<section style="min-height: 150%;" class="ttt"> 
+		<section style="min-height: 170%;" class="ttt">  
 			<tiles:insertAttribute name="section" />
 		</section>
 		<footer style="padding-top: 50px;">

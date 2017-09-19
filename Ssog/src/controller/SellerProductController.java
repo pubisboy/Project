@@ -63,7 +63,7 @@ public class SellerProductController {
 	
 	@RequestMapping("/cateAjax.j")
 	@ResponseBody
-	public Map cateajax(@RequestParam(name="big_cate") String big_cate) {
+	public Map cateajax(@RequestParam(name="b_cate") String big_cate) {
 		Map m = new HashMap<>();
 		switch(big_cate) {
 		case "*":

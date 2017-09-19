@@ -7,7 +7,8 @@
 		resultType="java.util.HashMap">
 		select * from(
 		select tmp2.* from(select tmp.*,rownum as r from
-		(select temp1.*,temp2.total_sell from producttbl temp1 left join sell_qty
+		(select
+		temp1.*,temp2.total_sell from producttbl temp1 left join sell_qty
 		temp2 on temp1.pro_num = temp2.pro_num
 		<if test="category != null and category != '' ">
 			where cate=#{category}
@@ -38,8 +39,10 @@
 		</choose>
 		)tmp where sell_on=1
 		and price between #{min} and #{max}
-		)tmp2 where tmp2.r between #{start} and #{end})tmp100
-		left join origintbl on tmp100.origin=origintbl.NUM
+		)tmp2 where
+		tmp2.r between #{start} and #{end})tmp100
+		left join origintbl on
+		tmp100.origin=origintbl.NUM
 	</select>
 
 	<select id="list_count" parameterType="java.util.HashMap"
@@ -100,7 +103,8 @@
 		)tmp)tmp2
 	</select>
 	<select id="originlist" resultType="java.util.HashMap">
-		select * from origintbl order by num asc
+		select * from origintbl order
+		by num asc
 	</select>
 
 	<select id="productdetail" parameterType="java.lang.String"
@@ -119,9 +123,6 @@
 		resultType="java.util.HashMap">
 		select * from small_Category where parent = #{num}
 	</select>
-
-
-
 	<select id="cart" parameterType="java.lang.String" resultType="java.util.HashMap">
 		select * from PRODUCTTBL where pro_num= #{num}
 	</select>
@@ -139,10 +140,35 @@
 		</if>
 		where pro_num=#{num}
 	</update>
-	<select id="event_list" parameterType="java.lang.String" resultType="java.util.HashMap"> 
+
+	<insert id="sell_qty">
+		insert into sell_qty values (pro_seq.currval,0)
+	</insert>
+	<select id="couponList" resultType="java.util.HashMap">
+		select * from cupon_type
+	</select>
+	<insert id="useEvent" parameterType="java.util.HashMap">
+		insert into event_list
+		values(event_list_num_seq.nextval,pro_seq.currval,#{event})
+	</insert>
+	<delete id="EndEvent" parameterType="java.util.HashMap">
+		delete from event_list where product_id=#{num}
+	</delete>
+	<select id="EventETC" parameterType="java.util.HashMap"
+		resultType="java.util.HashMap">
+		select * from event_list where product_id=#{num}
+	</select>
+	<insert id="EventReg" parameterType="java.util.HashMap">
+		insert into event_list values(event_list_num_seq.nextval,#{num},#{event})
+	</insert>
+	<update id="EventUpdate" parameterType="java.util.HashMap">
+		Update event_list set cupon_type=#{event} where product_id=#{num}
+	</update>
+	<select id="event_list" parameterType="java.lang.String"
+		resultType="java.util.HashMap">
 		select b.*,c.rate from(select
-		* from EVENT_LIST)b left join cupon_type c on b.cupon_type=c.cupon_num
+		* from EVENT_LIST)b left join cupon_type c on
+		b.cupon_type=c.cupon_num
 		where b.product_id=#{num}
 	</select>
-
 </mapper>

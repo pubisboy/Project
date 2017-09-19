@@ -97,22 +97,22 @@ table, th, td {
 			<div class="row">
 				<div class="col-xs-10">
 					<div class="row">
-						<div class="col-xs-2">
+						<div class="col-xs-3">
 							<b style="font-size: 17px;">주문완료</b><br /> <b style="color: #ff1a75; text-decoration: underline; font-size: 25px;">${smap.s }</b>건     
 						</div>
-						<div class="col-xs-2">
+						<div class="col-xs-3">
 							<b style="font-size: 17px;">상품준비중</b><br /><b style="color: #ff1a75; text-decoration: underline; font-size: 25px;">${smap.ss }</b>건</div>
-						<div class="col-xs-2">
+						<div class="col-xs-3">
 							<b style="font-size: 17px;">배송중</b><br /><b style="color: #ff1a75; text-decoration: underline; font-size: 25px;">${smap.sss }</b>건</div>
-						<div class="col-xs-2">
+						<div class="col-xs-3">
 							<b style="font-size: 17px;">배송완료</b><br /><b style="color: #ff1a75; text-decoration: underline; font-size: 25px;">${smap.ssss }</b>건
-						</div>
+						</div>  
 					</div>
 				</div>
-				<div class="col-xs-2" align="left"> 
+				<div class="col-xs-2" align="left" style="background-color: #d9d9d9; font-size: 12px;"> 
 				취소접수<br/>
 				취소처리중<br/> 
-				취소완료<br/>
+				취소완료<b style="color: #ff1a75;">${smap.sssss }</b><br/>  
 				</div> 
 			</div>
 		</div>
@@ -134,8 +134,8 @@ table, th, td {
 		<div class="table-responsive">
 			<table class="table">
 				<thead>
-					<tr style="border-top: 2px solid #595959;">
-						<th>주문일자</th>
+					<tr style="border-top: 2px solid #595959;">  
+						<th>주문일자</th>  
 						<th>주문번호</th>
 						<th>주문상품</th>
 						<th>결제금액</th>
@@ -148,18 +148,21 @@ table, th, td {
 						<tr>
 							<td>${obj.ORDER_DATE }</td>
 							<td>${obj.ORDER_NUM }</td>
-							<td><a
-								href="/product/detail.j?productNumber=${obj.PRO_NUM }">${obj.PRO_NAME}</a></td>
-							<td>${obj.PRICE }</td>
+							<td>
+							<a href="/product/detail.j?productNumber=${obj.PRO_NUM }">${obj.PRO_NAME}</a></td>
+							<td><fmt:formatNumber value="${obj.PRICE }" pattern="#,###"/>원</td>
 							<td class="etc">${obj.S }</td> 
-							<td><c:choose>
-									<c:when test="${obj.S eq '구매확정'}">
-							-
-							</c:when>
-									<c:otherwise>
-										<button class="set">구매확정</button>
-									</c:otherwise>
-								</c:choose></td>
+							<td align="center">
+							<c:choose>
+								<c:when test="${obj.S eq '구매확정'}">
+									-
+								</c:when>
+								<c:otherwise>
+									<button class="set">구매확정</button>
+									<button class="cancel">주문취소</button> 
+								</c:otherwise>
+							</c:choose>
+							</td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -195,5 +198,19 @@ table, th, td {
 		} else {
 			window.alert("아직구매확정을 할수 없습니다.");
 		}
+	})
+	$(".cancel").on("click",function(){
+		window.alert("클릭"); 
+		$.ajax({
+			url:"/member/myinfo/cancel_rst.j",
+			method:"post",
+			data:{
+				"num": $(this).parent().prev().prev().prev().prev().html()
+			}
+		}).done(function(rere){
+			if(rere==true){
+				window.alert("주문취소가 되었습니다.");
+			}
+		})
 	})
 </script>

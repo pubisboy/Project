@@ -2,6 +2,7 @@ package controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -60,7 +61,8 @@ public class MyinfoController {
 		smap.put("s", slist.get(0).get("COUNT"));
 		smap.put("ss", slist.get(1).get("COUNT"));
 		smap.put("sss", slist.get(2).get("COUNT"));
-		smap.put("ssss", slist.get(3).get("COUNT")); 
+		smap.put("ssss", slist.get(3).get("COUNT"));
+		smap.put("sssss", slist.get(7).get("COUNT"));
 		ModelAndView mav = new ModelAndView("t_el2");
 		paging.setDefaultSetting(10, 5);
 		paging.setNumberOfRecords(mdao.state_cnt((String) init.get("id")));
@@ -69,7 +71,7 @@ public class MyinfoController {
 		bt.put("id", (String) init.get("id")); 
 		mav.addObject("pg", pg);
 		List<Map> page = mdao.statepage(bt);
-		System.out.println(page); 
+		System.out.println("page : "+page); 
 		mav.addObject("page", page);
 		mav.addObject("smap", smap);
 		mav.addObject("coulist",coulist); 
@@ -320,6 +322,34 @@ public class MyinfoController {
 			return true;
 		}
 		System.out.println(bl); 
+		return bl;
+	}
+	@RequestMapping("/myinfo/cancel_rst.j")
+	@ResponseBody
+	public boolean cancel(@RequestParam String num,HttpSession session,Map mmap) {
+		System.out.println("cancel controll num: "+num); 
+		boolean bl = false;
+		String id = (String)session.getAttribute("auth");
+		mmap.put("id", id);
+		mmap.put("num", num);
+		
+		Map map = new HashMap<>();
+		map = mdao.oneorder(mmap);
+		System.out.println("map : "+map); 
+		
+		BigDecimal pnum = (BigDecimal)map.get("PRO_NUM");  
+		System.out.println("pro_num : "+pnum);
+		BigDecimal qty = (BigDecimal)map.get("ORDER_QTY");  
+		System.out.println("order_qty : "+qty);
+		
+		mmap.put("pro_num", pnum);
+		mmap.put("order_qty",qty); 
+		if(map != null) {
+			bl = mdao.orderrevise(mmap);
+			if(bl==true) {
+				mdao.ordertup(mmap); 
+			}
+		}
 		return bl;
 	}
 }

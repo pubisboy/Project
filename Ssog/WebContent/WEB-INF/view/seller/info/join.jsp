@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<div align="center" class="row">
+<div class="wrap">
 		<h3 style="margin: 0">회원가입</h3>
 		<br>
 		<form action="/seller/alert/join_rst.j" method="post">
@@ -20,18 +20,22 @@
 					<input class="form-control" type="text" placeholder="브랜드명" name="brand"
 					id="brand" required style="width: 90%;"/><br/>
 					
-					<div class="navbar-form navbar"> 
-						<select name="bank" style="height:5ex;">
-							<option value="국민">국민</option>
-							<option value="NH농협">NH농협</option>
-							<option value="신한">신한</option>
-							<option value="우리">우리</option>
-							<option value="기업">기업</option>
-						</select>
-						<input class="form-control" type="text" placeholder="계좌번호(-제외)" name="account"
-						id="account" required style="width: 80%;"/>
-						<p id="account_chk"></p>
-					</div>
+					<table> 
+						<tr><td>
+							<select name="bank" style="width:7ex; height:33px; border-radius:3px;  style=" vertical-align: bottom;"">
+								<option value="국민">국민</option>
+								<option value="NH농협">NH농협</option>
+								<option value="신한">신한</option>
+								<option value="우리">우리</option>
+								<option value="기업">기업</option>
+							</select>
+						</td>
+						<td>
+							<input class="form-control" type="text" placeholder="계좌번호(-제외)" name="account"
+							id="account" required style="width: 80%; vertical-align: bottom;"/>
+							<p id="account_chk"></p>
+						</td></tr>
+					</table>
 			</div>
 			<div class="form-group">
 				<button style="display: none" type="button" name="confirm"
@@ -43,8 +47,6 @@
 				<button type="reset" class="btn btn-default" style="width: 40%">초기화</button>
 			</div>
 		</form>
-
-
 </div>
 <script>
 	var joinChk = function() {

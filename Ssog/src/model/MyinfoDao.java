@@ -270,4 +270,45 @@ public class MyinfoDao{
 			session.close();
 		}
 	}
+	public Map oneorder(Map map) {
+		SqlSession session = factory.openSession();
+		Map hmap = new HashMap<>();
+		try {
+			hmap = session.selectOne("myinfo.One_order", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		return hmap; 
+	}
+	public boolean orderrevise(Map map) {
+		SqlSession session = factory.openSession();
+		boolean bl = false;
+		try {
+			session.update("myinfo.order_revise", map);
+			session.commit();
+			bl = true;
+		} catch (Exception e) {
+			session.rollback();
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		return bl;
+	}
+	public int ordertup(Map map) {
+		SqlSession session = factory.openSession();
+		try {
+			int cnt = session.update("myinfo.order_update", map);
+			session.commit();
+			return cnt;
+		} catch (Exception e) {
+			session.rollback();
+			e.printStackTrace();
+			return -1;
+		}finally {
+			session.close();
+		}
+	}
 }

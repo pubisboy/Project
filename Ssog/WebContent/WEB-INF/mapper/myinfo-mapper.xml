@@ -102,16 +102,25 @@
 		STATE=5
 		where ORDER_NUM=#{num} and USER_ID=#{id}
 	</update>
-	<select id="state_count" parameterType="java.lang.String" resultType="java.lang.Integer">
+	<select id="state_count" parameterType="java.lang.String"
+		resultType="java.lang.Integer">
 		select count(*) from
 		ORDERTBL where USER_ID=#{id}
 	</select>
 	<select id="state_page" parameterType="java.util.HashMap"
 		resultType="java.util.HashMap">
-		select b.* from (select c.*, rownum rnum from (SELECT *
-		FROM ORDERTBL where ORDERTBL.USER_ID=#{id} order by order_DATE desc )c
+		select bbb.*,p.pro_name from(select bb.*,cc.state s
+		from(select b.* from
+		(select c.*, rownum rnum from (SELECT *
+		FROM
+		ORDERTBL where
+		ORDERTBL.USER_ID=#{id} order by order_DATE desc )c
 		)b
-		where b.rnum between #{start} and #{end}
+		where b.rnum
+		between #{start} and #{end}) bb left join state cc on
+		bb.state=cc.state_num)bbb left join
+		producttbl p on
+		bbb.pro_num=p.pro_num
 	</select>
 	<select id="state" parameterType="java.lang.String" resultType="java.util.HashMap">
 		select st.*, nvl(ta.count, 0) count from state st left join (select
@@ -121,4 +130,16 @@
 		group
 		by state) ta on st.STATE_NUM = ta.state order by st.STATE_NUM
 	</select>
+	<select id="One_order" parameterType="java.lang.String"
+		resultType="java.util.HashMap">
+		select * from ORDERTBL where order_num=#{num} and
+		user_id=#{id}
+	</select>
+	<update id="order_revise" parameterType="java.util.HashMap">
+		UPDATE PRODUCTTBL set
+		PRO_QTY=PRO_QTY+#{order_qty} where PRO_NUM=#{pro_num}
+	</update>
+	<update id="order_update" parameterType="java.util.HashMap">
+		UPDATE ORDERTBL set state=8 where ORDER_NUM=#{num} and user_id=#{id}
+	</update>
 </mapper>
