@@ -81,7 +81,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2e3d44', end
 		<li class="sub-menu">
 			<ul>
 				<li><a href="/seller/order/list.j">주문 현황</a></li>
-				<li><a href="#">매출 현황 보기</a></li>
+				<li><a href="/seller/order/sales/list.j">매출 현황 보기</a></li>
 			</ul>
 		</li>
 		

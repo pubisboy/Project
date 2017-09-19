@@ -64,4 +64,33 @@ public class SellerOrderController {
 		m.put("flag", flag);
 		return m;
 	}
+	
+	//=================================================================
+	@RequestMapping("/sales/list.j")
+	public ModelAndView saleslList(@RequestParam Map map, HttpSession session, 
+			@RequestParam(name="p", defaultValue="1") int p) {
+		ModelAndView mav = new ModelAndView("t_el_seller");
+		String id = (String)session.getAttribute("seller_id");
+		map.put("id", id);
+		
+		int total = sdao.salesTotal(map);
+		page.setDefaultSetting(10, 4); //줄 개수, 페이지 개수
+		page.setNumberOfRecords(total);
+		Map op = page.calcBetween(p);
+		Map rst = page.calcPaging(p, total); //현재페이지, 총개수
+			map.put("start", op.get("start"));
+			map.put("end", op.get("end"));
+//		System.out.println("op:" + op);
+//		System.out.println("rst:" + rst);
+//		System.out.println("map:" + map);
+		
+		List list = sdao.salesList(map);
+		System.out.println(map);
+		mav.addObject("section", "seller/order/sales/list");
+		mav.addObject("list", list);
+		mav.addObject("p", p);
+		mav.addObject("page", rst);
+		mav.addObject("total", total);
+		return mav;
+	}
 }

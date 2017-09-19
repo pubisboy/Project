@@ -199,4 +199,19 @@
   		update ordertbl set state = #{state} where order_num = #{order_num}
   	</update>
   	
+  	<!-- ******************매출현황***************** -->
+  	<select id="sales_list" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+  		select * from (select tmp1.*, rownum as r from (select ordertbl.price from ordertbl join producttbl 
+		on ordertbl.pro_num = producttbl.pro_num, ordertbl.pro_num as pronum
+		where ordertbl.pro_num = any(select pro_num from producttbl where seller_id=#{id})
+		and ordertbl.state=5 order by producttbl.pro_num desc) tmp1 )
+        where r between #{start} and #{end}
+  	</select>
+  	
+  	<select id="sales_total" parameterType="java.util.HashMap"  resultType="java.lang.Integer">
+  		select count(*) from (select tmp1.*, rownum as r from (select ordertbl.price from ordertbl join producttbl 
+		on ordertbl.pro_num = producttbl.pro_num, ordertbl.pro_num as pronum
+		where ordertbl.pro_num = any(select pro_num from producttbl where seller_id=#{id})
+		and ordertbl.state=5 order by producttbl.pro_num desc) tmp1 )
+  	</select>
  </mapper>
