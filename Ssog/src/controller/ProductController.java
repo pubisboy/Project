@@ -106,7 +106,6 @@ public class ProductController {
 		System.out.println(r);
 		mav.addObject("section", "product/productdetail");
 		mav.addObject("map", map);
-<<<<<<< HEAD
 		List<Map> list=new ArrayList<>();
 		Map map1=new HashMap<>();
 		map1.put("num", num);
@@ -117,8 +116,6 @@ public class ProductController {
 		Map page1=pg.calcPaging(page, r);
 		mav.addObject("paging", page1);
 		mav.addObject("list",list);
-=======
->>>>>>> branch 'master' of https://github.com/pubisboy/Project.git
 		return mav; 
 	}
 	

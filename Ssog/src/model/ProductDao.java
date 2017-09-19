@@ -249,7 +249,6 @@ public class ProductDao {
 		}
 		return br;
 	}
-<<<<<<< HEAD
 	
 	public boolean sellUpdate0(Map map) { 
 		SqlSession session=factory.openSession();
@@ -320,7 +319,7 @@ public class ProductDao {
 			session.close();
 		}
 		return r;
-=======
+	}
 	public Map event_list(String num){
 		Map map = new HashMap<>();
 		SqlSession session = factory.openSession();
@@ -332,6 +331,5 @@ public class ProductDao {
 			session.close();
 		}
 		return map;
->>>>>>> branch 'master' of https://github.com/pubisboy/Project.git
 	}
 }

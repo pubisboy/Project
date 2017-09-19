@@ -1,13 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-<<<<<<< HEAD
-   pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <style>
 table, th {
    font-size: 20px;
 }
-=======
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -161,154 +158,7 @@ body {
 					</div>
 				</div>
 			</div>
->>>>>>> branch 'master' of https://github.com/pubisboy/Project.git
 
-<<<<<<< HEAD
-body {
-   position: relative;
-}
-
-#section1 {
-   padding-top: 50px;
-   height: 500px;
-   color: #fff;
-   background-color: #1E88E5;
-}
-
-#section2 {
-   padding-top: 50px;
-   height: 1000px;
-   color: #fff;
-   background-color: white;
-}
-
-#section3 {
-   padding-top: 50px;
-   height: 500px;
-   color: #fff;
-   background-color: #ff9800;
-}
-
-#section41 {
-   padding-top: 50px;
-   height: 500px;
-   color: #fff;
-   background-color: #00bcd4;
-}
-
-#section42 {
-   padding-top: 50px;
-   height: 500px;
-   color: #fff;
-   background-color: #009688;
-}
-</style>
-<div class="row" align="center">
-   <div style="width: 62%;">
-      <div class="col-sm-12" style="border: 1px solid #8c8c8c;"> 
-         <div class="row">
-            <div class="col-sm-7" style="padding-left: 20px; padding-top: 25px;">
-                   <div class="thumbnail">
-                  <img src="/img/pro_img/${map.IMG_UUID }"
-                     style="height: 37%; width: 100%;">  
-                     </div>   
-               <div align="right">
-                  <b>상품만족도</b>
-               </div>
-            </div>
-            <div class="col-sm-5" style="border-left: 1px solid #8c8c8c;">
-               <div
-                  style="border-bottom: 2px solid black; padding-top: 15px; padding-bottom: 15px;">
-                  <b style="font-size: 25px;">${map.PRO_NAME }</b>
-               </div>
-               <div align="left" style="height: 425px;">
-                  <table style="margin-left: 0px;">
-                     <tbody>
-                        <tr>
-                           <th><p style="padding-top: 15px; font-size: 18px;">판매가</p></th>
-                           <th style="padding-left: 60px;"><b><fmt:formatNumber
-                                    value="${map.PRICE }" pattern="#,###" />원</b></th>
-                        </tr>
-                           
-                        <tr>
-                           <th><p style="padding-top: 15px; font-size: 18px;">행사할인가</p></th>
-                           <th style="padding-left: 60px;"><c:choose>
-                                 <c:when test="${empty elist }">-</c:when>
-                                 <c:otherwise>
-                                    <b style="color: #ff1a75;"><fmt:formatNumber
-                                          value="${map.PRICE-((elist.RATE*0.01) *map.PRICE) }"
-                                          pattern="#,###" />원</b>
-                                          <input type="hidden" id="hd_discount">
-                                 </c:otherwise>
-                              </c:choose></th>
-                        </tr>
-                        <tr>
-                           <th><p style="padding-top: 15px; font-size: 18px;">적립금</p></th>
-                           <th style="padding-left: 60px;"><c:choose>
-                                 <c:when test="${empty elist }">
-                                    <fmt:formatNumber value="${map.PRICE*0.1 }" pattern="#,###" />원</c:when>
-                                 <c:otherwise>
-                                    <fmt:formatNumber
-                                       value="${(map.PRICE-((elist.RATE*0.01) *map.PRICE))*0.1 }"
-                                       pattern="#,###" />원
-                              </c:otherwise>
-                              </c:choose></th>
-                        </tr>
-                        <tr>
-                           <th><p style="padding-top: 15px; font-size: 18px;">생산지</p></th>
-                           <th style="padding-left: 60px;">${map.ORIGIN_NAME }</th>
-                        </tr>
-                        <tr>
-                           <th><p style="padding-top: 15px; font-size: 18px;">판매자</p></th>
-                           <th style="padding-left: 60px;">${map.SELLER_ID }</th>
-                        </tr>
-                        <tr>
-                           <th><p
-                                 style="padding-top: 15px; padding-bottom: 10px; font-size: 18px;">
-                                 수량<small>(잔여수량<span id="qty">${map.PRO_QTY }</span>)
-                              </p> </small></th>
-                           <th style="padding-left: 60px;">
-                              <div>
-                                 <button id="minus">-</button>
-                                 <input value="1" style="width: 40px;" id="quantity" />
-                                 <button id="plus">+</button>
-                              </div>
-                           </th>
-                        </tr>
-                     </tbody>
-                  </table>
-                  <div style="border-top: 1px solid #8c8c8c;" align="left">
-                     <b>합계금액</b><b style="padding-left: 125px; font-size: 28px;">
-                        <c:choose>
-                           <c:when test="${empty elist }">
-                              <span id="total" style="color: #ff1a75;"><fmt:formatNumber
-                                    value="${map.PRICE }" pattern="#,###" /> </span>원
-                        </c:when>
-                           <c:otherwise>
-                              <b style="color: #ff1a75;"><span id="total"><fmt:formatNumber
-                                    value="${map.PRICE-((elist.RATE*0.01) *map.PRICE) }"
-                                    pattern="#,###" />원</span></b>
-                              <input type="hidden" id="hd_event"
-                                 value="${map.PRICE-((elist.RATE*0.01) *map.PRICE) }">
-                           </c:otherwise>
-                        </c:choose>
-                     </b><br />
-                     <div align="center">
-                     <form action="/cart/orderr.j">
-                     <input type="hidden" id="origin" value="${map.PRICE}" name="origin"/>
-                     <input type="hidden" id="num" value="${map.PRO_NUM}" name="num"/>
-                     <input type="hidden" id="total" value="" name="total"/>
-                     <input type="hidden" id="quantity2" value="" name="quantity2"/>
-                     <input type="hidden" id="discount" value="" name="discount"/> 
-                        <button id="cartadd" style="width: 49%; height: 54;" type="button">장바구니</button>
-                        <button id="order" style="background-color: #ff0066; color: white; width: 49%; height: 54;"
-                           class="btn" type="submit">주문하기</button>
-                           </form>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
 
       </div>
       <div class="col-sm-12" style="padding: 0px;">
@@ -550,7 +400,6 @@ body {
       
    });
    $("#cartadd").on("click", function() {
-=======
 	var hid = $("#hd_event").val();
 	var hid2 = Math.floor(hid);
 	var total = $("#total").val($("#total").html());
@@ -587,9 +436,7 @@ body {
 		
 	});
 	$("#cartadd").on("click", function() {
->>>>>>> branch 'master' of https://github.com/pubisboy/Project.git
 
-<<<<<<< HEAD
       var cName = "${map.PRO_NUM}";
       window.alert(cName);
       var cValue = "addcart" + $("#quantity").val();
@@ -607,17 +454,4 @@ body {
    })
    
 </script>
-=======
-		var cName = "${map.PRO_NUM}";
-		window.alert(cName);
-		var cValue = "addcart" + $("#quantity").val();
-		window.alert(cValue);
-		var d = new Date();
-		d.setTime(d.getTime() + (3 * 24 * 60 * 60 * 1000));
-		var expires = "expires=" + d.toUTCString();
-		cookies = cName + '=' + escape(cValue) + '; path=/ ';
-		cookies += ';' + expires + ';';
-		document.cookie = cookies;
-	});
-</script>
->>>>>>> branch 'master' of https://github.com/pubisboy/Project.git
+		
