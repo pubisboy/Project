@@ -204,11 +204,15 @@
 			}else if($("#by").val() == $("#ey").val() && $("#bm").val() < $("#em").val()){
 				$("#term").val("yy/MM/dd");
 				$("#f").submit();
-			}else if($("#by").val() == $("#ey").val() && $("#bm").val() == $("#em").val() && $("#bd").val() < $("#ed").val() ){
-				$("#term").val("yy/MM/dd");
-				$("#f").submit();
+			}else if($("#by").val() == $("#ey").val() && $("#bm").val() == $("#em").val()){
+				if($("#bd").val() < $("#ed").val()){
+					$("#term").val("yy/MM/dd");
+					$("#f").submit();
+				}else{
+					$("#alerts").html("기간 설정 오류3");
+				}
 			}else{
-				$("#alerts").html("기간 설정 오류3");
+				$("#alerts").html("기간 설정 오류4");
 			}
 		}else{
 			$("#alerts").html("기간 설정 오류");
@@ -229,10 +233,20 @@ google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
   var data = google.visualization.arrayToDataTable([
 	['day', 'sales'],
-		<c:forEach var="i" items="${days}" varStatus="vs">
-			["${i.day}", ${i.price}]
-			<c:if test="${!vs.last}">,</c:if>
-		</c:forEach>
+		<c:choose>
+			<c:when test="${days.size() lt 8}">
+				<c:forEach var="i" items="${days}" varStatus="vs">
+					["${i.day}", ${i.price}]
+					<c:if test="${!vs.last}">,</c:if>
+				</c:forEach>
+			</c:when>
+			<c:otherwise>
+			<c:forEach var="i" items="${days}" varStatus="vs">
+				["", ${i.price}]
+				<c:if test="${!vs.last}">,</c:if>
+			</c:forEach>
+			</c:otherwise>
+		</c:choose>
 	]);
 
   var options = {

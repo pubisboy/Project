@@ -1059,4 +1059,30 @@ public class AdminOracleDao implements AdminDao{
 		}
 		return date;
 	}
+	
+	public int getUnableCupon(){
+		SqlSession session = factory.openSession();
+		int rst = 0;
+		try{
+			rst = session.selectOne("admin.getUnableCupon");
+		}catch(Exception e){
+			System.out.println("error.getUnableCupon"+e.toString());
+		}finally{
+			session.close();
+		}
+		return rst;
+	}
+	
+	public int delUnableCupon(){
+		SqlSession session = factory.openSession();
+		int rst = 0;
+		try{
+			rst = session.delete("admin.delUnableCupon");
+		}catch(Exception e){
+			System.out.println("error.delUnableCupon"+e.toString());
+		}finally{
+			session.close();
+		}
+		return rst;
+	}
 }

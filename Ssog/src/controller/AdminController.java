@@ -63,8 +63,16 @@ public class AdminController {
 		map.put("duc", ad.duc());
 		map.put("auc", ad.auc());
 		map.put("luc", ad.luc());
+		map.put("uncupon", ad.getUnableCupon());
 		System.out.println("main 입장");
 		return "ad_main";
+	}
+	
+	@RequestMapping("/delUnableCupon.ja")
+	@ResponseBody
+	public int delUnableCupon(){
+		ad.delUnableCupon();
+		return ad.getUnableCupon(); 
 	}
 	
 	@RequestMapping("/management.ja")
