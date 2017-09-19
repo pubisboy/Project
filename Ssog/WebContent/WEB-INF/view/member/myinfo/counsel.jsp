@@ -31,11 +31,13 @@ table, th, td {
 			문의내역입니다.</small>
 	</h4>
 </div>
-<b style="font-size: 12px; padding-right: 330px;">고객님께서 신청한 문의 : <b 
+<div align="left">
+<b style="font-size: 12px;">고객님께서 신청한 문의 : <b 
 	style="color: #ff4d4d; font-size: 13px;">${page.size() }</b>건&nbsp;&nbsp;/&nbsp;
 	답변완료 된 문의 : 0건
 </b>
 <a href="/member/myinfo/counsel_detail.j"><button class="btn btn-custom" style="width: 85px; height: 22px; font-size: 11px; padding: 0px;">1:1 문의 하기</button></a>
+</div>
 <div class="row" style="padding-top: 10px;">
 	<div class="col-sm-12">
 		<table class="table table-hover">
@@ -49,9 +51,13 @@ table, th, td {
 			</thead>
 			<tbody>
 				<c:forEach var="obj" items="${page }">
-					<tr>
+					<tr class="test" id="${obj.NUM }">
 						<td>${obj.CATE }</td>
-						<td>${obj.TITLE }</td>
+						<td>${obj.TITLE }
+						<div style="width: 100%; display: none;" id="tg_${obj.NUM }">
+							내용 : ${obj.CONTENT }
+						</div>
+						</td>
 						<td>${obj.COUNSEL_DATE }</td>
 						<th>${obj.REPLY eq 1 ? '답변완료':'답변대기'}</th>
 					</tr>
@@ -72,3 +78,9 @@ table, th, td {
 	</c:if> 
 </div>
 </div>
+<script>
+	$(".test").on("click", function() {
+		var id = "#tg_" + $(this).attr('id');
+		$(id).toggle();
+	});
+</script>

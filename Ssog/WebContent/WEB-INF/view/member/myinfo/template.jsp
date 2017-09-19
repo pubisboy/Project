@@ -6,8 +6,7 @@
 	<div style="width: 65%; padding-top: 30px;">     
 		<div class="row tot">
 			<div class="col-sm-3">
-				<div
-					style="border-top: 2px solid black; height: 100px; width: 200px;">
+				<div style="border-top: 2px solid black; height: 100px; width: 200px;">
 					<a href="/member/myinfo/info.j"
 						style="text-decoration: none; color: black;"><button
 							style="width: 100%; height: 100%;">

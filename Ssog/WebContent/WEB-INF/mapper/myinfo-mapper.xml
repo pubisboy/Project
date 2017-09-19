@@ -37,15 +37,14 @@
 		where user_id=#{id} order by rownum
 		desc
 	</select>
-	<select id="qna_count" resultType="java.lang.Integer">
-		select count(*) from
-		Q_AND_a
+	<select id="qna_count" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select count(*) from Q_AND_a where user_id=#{id}
 	</select>
 	<select id="qna_page" parameterType="java.util.HashMap"
 		resultType="java.util.HashMap">
 		select b.* from (select c.*, rownum rnum from (SELECT
 		* FROM
-		q_and_a order by QANDADATE desc )c )b where b.rnum between #{start}
+		q_and_a where user_id=#{id} order by QANDADATE desc )c )b where b.rnum between #{start}
 		and #{end}
 	</select>
 	<select id="counsel" parameterType="java.lang.String"
@@ -56,16 +55,15 @@
 		where user_id=#{id} order by rownum desc)r)rr where
 		rr.rnum <![CDATA[<=]]>5
 	</select>
-	<select id="counsel_count" resultType="java.lang.Integer">
-		select count(*) from
-		COUNSEL
+	<select id="counsel_count" parameterType="java.lang.String"
+		resultType="java.lang.Integer">
+		select count(*) from COUNSEL where user_id=#{id}
 	</select>
 	<select id="counsel_page" parameterType="java.util.HashMap"
 		resultType="java.util.HashMap">
-		select b.* from (select c.*, rownum rnum from (SELECT
-		* FROM
-		counsel order by COUNSEL_DATE desc )c )b where b.rnum between #{start}
-		and #{end}
+		select b.* from (select c.*, rownum rnum from (SELECT *
+		FROM counsel where user_id=#{id} order by COUNSEL_DATE desc )c )b where
+		b.rnum between #{start} and #{end}
 	</select>
 	<select id="counselAll" parameterType="java.lang.String"
 		resultType="java.util.HashMap">
@@ -79,11 +77,15 @@
 	</select>
 	<insert id="counselup" parameterType="java.util.HashMap">
 		insert into counsel(num,
-		cate, user_id, title, content, counsel_date, image_uuid)
+		cate, user_id, title, content, counsel_date,
+		image_uuid, reply)
 		values
-		(counsel_seq.nextval, #{cate}, #{id}, #{title},
-		#{content}, sysdate,
-		#{fileuuid})
+		(counsel_seq.nextval, #{cate}, #{id},
+		#{title}, #{content}, sysdate
+		<if test="fileuuid != null and fileuuid != '' ">
+			, #{fileuuid}
+		</if>
+		,0)
 	</insert>
 	<select id="pass_confirm" parameterType="java.lang.String"
 		resultType="java.util.HashMap">
@@ -140,6 +142,7 @@
 		PRO_QTY=PRO_QTY+#{order_qty} where PRO_NUM=#{pro_num}
 	</update>
 	<update id="order_update" parameterType="java.util.HashMap">
-		UPDATE ORDERTBL set state=8 where ORDER_NUM=#{num} and user_id=#{id}
+		UPDATE ORDERTBL set
+		state=8 where ORDER_NUM=#{num} and user_id=#{id}
 	</update>
 </mapper>

@@ -22,7 +22,7 @@ table, th, td {
 		<table class="table table-hover">
 			<thead>
 				<tr style="border-top: 3px solid black;">
-					<th>제목</th>
+					<th>제목</th> 
 					<th>브랜드</th>
 					<th>작성일자</th>
 					<th>답변</th>
@@ -40,7 +40,7 @@ table, th, td {
 			</tbody>
 		</table>
 		<c:if test="${page.size() eq 0 }">
-			등록된 내용이 없습니다.
+			등록된 내용이 없습니다. 
 		</c:if>
 	</div>
 <div align="center" style="font-size: 15px;">

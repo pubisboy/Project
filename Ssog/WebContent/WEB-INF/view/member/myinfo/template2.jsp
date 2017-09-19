@@ -2,47 +2,53 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <div align="center">
-<div style="width: 63%;">    
-	<div class="row">
+<div style="width: 63%;padding-top: 30px;">    
+	<div class="row tot">
 		<div class="col-sm-3"> 
-			<div class="well">
-				<span class="glyphicon glyphicon-home" style="font-size: 20px;"></span><a
-					href="/member/myinfo/info.j">고객센터</a>
-			</div>
-			<ul class="nav nav-stacked nav-pills" style="margin-top: 20px;">
-			<li class="${ac eq 'note' ? 'ac' : '' }"><a
-					data-toggle="collapse" data-parent="#accordion" href="#collapse1"
-					style="text-decoration: none; color: #404040;">공지사항</a></li>
-				<hr style="margin: 0px;" />
-				<div id="collapse1" class="panel-collapse collapse">
-					<div class="panel-body">
-						<a href="/cccenter/notice.j"
-							style="text-decoration: none; color: #999999;">공지사항</a><br /> <a
-							href="/"
-							style="text-decoration: none; color: #999999;">이벤트 당첨자발표</a><br />
-					</div>
+			<div style="border-top: 2px solid black; height: 100px; width: 200px;">
+					<a href="/cccenter/faq.j"
+						style="text-decoration: none; color: black;"><button
+							style="width: 100%; height: 100%;">
+							<span class="glyphicon glyphicon-home" style="font-size: 18px;"></span><b
+								style="font-size: 20px;">고객센터</b><small style="color: #999999;">CS
+								Center<br /> <b
+								style="font-size: 9px; padding-left: 20px; color: #8c8c8c;">고객과
+									함께하는 쏙쇼핑몰</b>
+							</small>
+						</button></a>
 				</div>
-				<hr style="margin: 0px;" />
-				<li class="${ac eq 'faq' ? 'ac' : '' }"><a href="/cccenter/faq.j"style="text-decoration: none; color: #404040;">자주 묻는
-						질문(FAQ)</a></li>
-				<hr style="margin: 0px;" />
-				<li class="${ac eq 'coupon' ? 'ac' : '' }"><a
-					href="/member/myinfo/counsel_detail.j"style="text-decoration: none; color: #404040;">1:1 문의</a></li>
-				<hr style="margin: 0px;" />
-
-				<li class="${ac eq 'membership' ? 'ac' : '' }"><a
-					data-toggle="collapse" data-parent="#accordion" href="#collapse2">멤버십안내</a></li>
-				<hr style="margin: 0px;" />
-				<div id="collapse2" class="panel-collapse collapse">
-					<div class="panel-body">
-						<a href="/">온라인회원 등급안내</a><br /> <a
-							href="/">적립금 안내</a><br /> 회원이용약관<br /> 개인정보취급(처리)방침<br/>
+			<ul class="nav nav-stacked nav-pills"
+					style="margin-top: 0px; border-left: 1px solid #d9d9d9; border-right: 1px solid #d9d9d9; border-bottom: 1px solid #d9d9d9; width: 200px; text-align: left;">
+					<li class="${ac eq 'note' ? 'ac' : '' }"><a
+						data-toggle="collapse" data-parent="#accordion" href="#collapse1"
+						style="text-decoration: none; color: #404040; width: 90%;  font-size: 13px; padding-bottom: 0px;">공지사항</a></li>
+					<div id="collapse1" class="panel-collapse collapse in">
+						<div class="panel-body">
+							<a href="/cccenter/notice.j"
+								style="text-decoration: none; color: #999999; font-size: 12px;">공지사항</a><br />
+							<a href="/"
+								style="text-decoration: none; color: #999999; font-size: 12px;">이벤트 당첨자 발표</a><br />
+						</div>
 					</div>
-				</div>
-			</ul>
+					<li class="${ac eq 'faq' ? 'ac' : '' }"><a
+						href="/cccenter/faq.j"
+						style="text-decoration: none; color: #404040; border-bottom: 2px dotted #d9d9d9; width: 90%;font-size: 13px;">자주 묻는 질문(FAQ)</a></li>
+					<li class="${ac eq 'cousel' ? 'ac' : '' }"><a
+						href="/member/myinfo/counsel_detail.j"
+						style="text-decoration: none; color: #404040; border-bottom: 2px dotted #d9d9d9; width: 90%;font-size: 13px;">1:1 문의</a></li>
+					<li><a data-toggle="collapse" data-parent="#accordion" href="#collapse2" style="text-decoration: none; color: #404040; width: 90%;font-size: 13px; padding-bottom: 0px;">멤버쉽</a></li>
+					<div id="collapse2" class="panel-collapse collapse in">
+						<div class="panel-body">
+							<a href="/" style="text-decoration: none; color: #999999;  font-size: 12px;">온라인회원 등급안내</a><br />
+							<a href="/" style="text-decoration: none; color: #999999; font-size: 12px;">적립금 안내</a><br />
+							<a href="/" style="color: #999999; font-size: 12px;">회원이용약관</a><br />
+							<a href="/" style="color: #999999; font-size: 12px;">개인정보취급(처리)방침</a><br />
+						</div>
+					</div>
+				</ul>
 
 		</div>
-		<div class="col-sm-9">
+		<div class="col-sm-9" style="width: 70%;">   
 			<div class="col-sm-12" style="padding-bottom: 40px;">
 				<div class="row">
 					<div class="col-sm-6">
