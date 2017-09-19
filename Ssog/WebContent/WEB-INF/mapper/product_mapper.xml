@@ -92,7 +92,10 @@
  	</select>
  	
  	<select id="productdetail" parameterType="java.lang.String" resultType="java.util.HashMap">
- 		select * from (select * from (select tmp3.*,tmp4.name as catename,tmp4.parent from (select tmp1.*,tmp2.name as origin_name from producttbl tmp1 left join origintbl tmp2 on tmp1.origin=tmp2.num)tmp3 left join small_category tmp4 on tmp3.cate=tmp4.s_cate)tmp5 left join Large_category tmp6 on tmp5.parent=tmp6.b_cate) where pro_num=#{num}
+ 		select * from (select * from (select tmp3.*,tmp4.name as catename,tmp4.parent from 
+ 		(select tmp1.*,tmp2.name as origin_name from producttbl tmp1 left join origintbl tmp2 on tmp1.origin=tmp2.num)tmp3
+ 		 left join small_category tmp4 on tmp3.cate=tmp4.s_cate)tmp5 left join Large_category tmp6 on tmp5.parent=tmp6.b_cate)tmp 
+ 		 left join event_list on tmp.pro_num=event_list.PRODUCT_ID where pro_num=#{num}
  	</select>
  	
  	<select id="large_cate" resultType="java.util.HashMap">
@@ -141,6 +144,29 @@
  	<update id="EventUpdate" parameterType="java.util.HashMap">
  	Update event_list set cupon_type=#{event} where product_id=#{num}
  	</update>
+ 	<update id="update0" parameterType="java.util.HashMap">
+ 	update producttbl set sell_on=0 where pro_num=#{num}
+ 	</update>
+ 	<update id="update1" parameterType="java.util.HashMap">
+ 	update producttbl set sell_on=1 where pro_num=#{num}
+ 	</update>
+ 	<insert id="reviewReg" parameterType="java.util.HashMap">
+ 	insert into review values(review_seq.nextval,#{num },#{contents },${star },#{userid },#{seller_id })
+ 	</insert>
+ 	
+ 	<select id="reviewList" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+ 	select tmp2.* from (select tmp.*,rownum as r from (select * from review where pro_num=#{num } order by pro_num desc)tmp)tmp2 where tmp2.r between #{start } and #{end }
+ 	</select>
+ 	<select id="reviewCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+ 	select count(*) as count from review where pro_num=#{num }
+ 	</select>
+ 	<select id="event_list" parameterType="java.lang.String"
+		resultType="java.util.HashMap">
+		select b.*,c.rate from(select
+		* from EVENT_LIST)b left join cupon_type c on
+		b.cupon_type=c.cupon_num
+		where b.product_id=#{num}
+	</select>
  	
  
  </mapper>
