@@ -106,4 +106,36 @@ public class SellerCounselDao {
 			session.close();
 		}
 	}
+	
+	//===============================================================
+	//Q&A
+	public List<Map<String,Object>> qnaList(Map map){
+		SqlSession session = factory.openSession();
+		try {
+			List<Map<String,Object>> list =  session.selectList("seller.qna_list", map);
+			session.commit();
+			return list;
+		} catch(Exception e){
+			e.printStackTrace();
+			session.rollback();
+			return null;
+		} finally{
+			session.close();
+		}
+	}
+	
+	//글이 총 몇개인지
+	public Integer qnaTotal(Map map){
+		SqlSession session = factory.openSession();
+		try{
+			int r = session.selectOne("seller.qna_total", map);
+			return r;
+		} catch(Exception e){
+			e.printStackTrace();
+			session.rollback();
+			return 0;
+		} finally{
+			session.close();
+		}
+	}
 }

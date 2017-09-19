@@ -3,6 +3,16 @@
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="seller">
+ 	<!-- ******************판매자 회원 등급***************** -->
+ 	<select id="grade" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+ 		select * from seller_grade, (select sum(ordertbl.price) as sum_price from ordertbl join producttbl 
+		on ordertbl.pro_num = producttbl.pro_num
+		where ordertbl.pro_num = any(select pro_num from producttbl where seller_id='kimsu')
+		and ordertbl.state=5) tmp1
+        where sum_price > seller_grade.STANDARD
+ 	</select>
+ 	
+ 	
  	<!-- ******************기본정보 관리***************** -->
  	<insert id="join" parameterType="java.util.HashMap">
  		INSERT INTO SELLER_MEMBER(id, pass, name, phone, brand, joindate, account, bank, memo)
@@ -119,7 +129,19 @@
   	
   	
   	<!-- ******************상품 Q&A***************** -->
+  	<select id="qna_list" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+  		select * from (select tmp1.*, rownum as r from (select * from Q_AND_A join producttbl
+		on Q_AND_A.PRO_NUM = producttbl.pro_num
+		where Q_AND_A.pro_num = any(select pro_num from producttbl where seller_id=#{id})) tmp1)
+		where r between #{start} and #{end}
+		order by num desc
+  	</select>
   	
+  	<select id="qna_total" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+  		select count(*) from Q_AND_A join producttbl
+		on Q_AND_A.PRO_NUM = producttbl.pro_num
+		where Q_AND_A.pro_num = any(select pro_num from producttbl where seller_id=#{id})
+  	</select>
   	
   	
   	

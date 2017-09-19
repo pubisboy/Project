@@ -293,10 +293,9 @@
 	
     $(".addbtn").on("click", function(){
    	 	var obj = $(this);
-	    obj.hide();
-	    obj.next().show();            
+   	 	obj.hide();
+	    obj.next().toggle();            
 	    obj.parent().parent().next().show();
-	    return false;
     });
     
     	  

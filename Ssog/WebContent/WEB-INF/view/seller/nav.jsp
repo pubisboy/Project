@@ -59,32 +59,48 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2e3d44', end
 	
 	<ul class="nav nav-stacked nav-pills"
 				style="margin-top: 0px; border-left: 1px solid #d9d9d9; border-right: 1px solid #d9d9d9; border-bottom: 1px solid #d9d9d9; width: 200px; text-align: left;">
-		<li class="active"><a data-toggle="collapse" data-parent="#accordion" href="#collapse1"
-						style="color: #404040; font-size: 13px; border-top: 2px dotted #d9d9d9;">기본정보 관리</a></li>
-		<li>
-			<div id="collapse1" class="panel-collapse collapse in">
-				<div class="panel-body" >
-					<ul>
-						<li><a href="/seller/info/info.j" >회원 정보</a></li>
-						<li><a href="/seller/info/info_edit.j">회원 정보 변경</a></li>
-						<li><a href="/seller/info/pass_edit.j">비밀번호 변경</a></li>
-						<li><a href="/seller/delete.j">회원 탈퇴</a></li>
-					</ul>
-				</div>
-			</div>
+		<li class="menu"><a class="active" style="font-size: 13px;">기본정보 관리</a></li>
+		<li class="sub-menu">
+			<ul>
+				<li><a href="/seller/info/info.j" >회원 정보</a></li>
+				<li><a href="/seller/info/info_edit.j">회원 정보 변경</a></li>
+				<li><a href="/seller/info/pass_edit.j">비밀번호 변경</a></li>
+				<li><a href="/seller/delete.j">회원 탈퇴</a></li>
+			</ul>
 		</li>
 		
-		<li><a class="active">상품관리</a></li>
-		<li><a href="/seller/product/productReg.j">상품등록</a></li>
-		<li><a href="/seller/product/list.j">상품 목록</a></li>
+		<li class="menu"><a class="active">상품관리</a></li>
+		<li class="sub-menu">
+			<ul>
+				<li><a href="/seller/product/productReg.j">상품등록</a></li>
+				<li><a href="/seller/product/list.j">상품 목록</a></li>
+			</ul>
+		</li>
 		
-		<li><a class="active">주문관리</a></li>
-		<li><a href="/seller/order/list.j">주문 현황</a></li>
-		<li><a href="#">매출 현황 보기</a></li>
+		<li class="menu"><a class="active">주문관리</a></li>
+		<li class="sub-menu">
+			<ul>
+				<li><a href="/seller/order/list.j">주문 현황</a></li>
+				<li><a href="#">매출 현황 보기</a></li>
+			</ul>
+		</li>
 		
-		<li><a class="active">상담관리</a></li>
-		<li><a href="#">상품 Q&A</a></li>
-		<li><a href="/seller/counsel/review/list.j">상품 리뷰 보기</a></li>
-		<li><a href="/seller/counsel/list.j">관리자에게 1:1 문의</a></li>
+		<li class="menu"><a class="active">상담관리</a></li>
+		<li class="sub-menu" >
+			<ul>
+				<li><a href="/seller/counsel/qna/list.j">상품 Q&A</a></li>
+				<li><a href="/seller/counsel/review/list.j">상품 리뷰 보기</a></li>
+				<li><a href="/seller/counsel/list.j">관리자에게 1:1 문의</a></li>
+			</ul>
+		</li>
 	</ul>
 </div>
+
+
+<script>
+	/* $(".menu").on("click",function(){
+		  var obj = $(this);
+		    obj.next().slideToggle(400);            
+		    obj.parent().parent().next().slideToggle(400);
+	}); */
+</script>
