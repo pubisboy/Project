@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <div align="center">
-<div style="width: 53%;">  
+<div style="width: 63%;">    
 	<div class="row">
 		<div class="col-sm-3"> 
 			<div class="well">
