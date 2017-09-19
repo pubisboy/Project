@@ -15,7 +15,7 @@
  		select count(*) count from 
 		(select pay_date, sum(order_qty) qty, sum(price) price from
 		(select order_qty, to_char(pay_date, 'yy/MM') pay_date, price from ORDERTBL where state = 5 and pay_date between to_date('17/08/01') and to_date('17/10/01') ) group by pay_date order by pay_date desc)
-		b
+		
  	</select>
  
  </mapper>

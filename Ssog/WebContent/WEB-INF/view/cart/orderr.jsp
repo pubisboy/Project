@@ -78,20 +78,37 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="c" items="${list }">
 							<tr style="border-bottom: 1px solid #b3b3b3; font-size: 12.5px;">
-								<td style="width: 20%;"><img src="/img/pro_img/${c.IMG_UUID }"
-            alt="Fjords" width="100%" height="30%"></td>  
-								<td>${c.PRO_NAME }</td>
-								<input type="hidden" value="${c.number }" name="pd1">
-								<input type="hidden" value="${c.PRO_NUM}" name="pd2">
-								<td><fmt:formatNumber value="${c.PRICE }" pattern="#,###"/>원</td>
-								<td>${c.number }</td> 
-								<td></td>
-								<td><fmt:formatNumber value="${c.PRICE * c.number }" pattern="#,###"/>원</td> 
-								<td style="display: none;"class="price" >${c.PRICE * c.number }</td>
+								<td>${plist.IMG_UUID }</td> 
+								<td>${plist.PRO_NAME }</td>
+								<input type="hidden" value="${param.quantity2 }" name="pd1"> 
+								<input type="hidden" value="${plist.PRO_NUM}" name="pd2">
+								<td>${plist.PRICE }</td>
+								<td>${param.quantity2 }</td>   
+								<td>
+								<c:choose>
+								<c:when test="${param.discount ne NaN}"> 
+								- 
+								</c:when>
+								<c:otherwise>
+								${(plist.PRICE *param.quantity2)-(param.discount*param.quantity2)}
+								</c:otherwise>
+								</c:choose>
+								</td> 
+								<td>
+								<c:choose>
+								<c:when test="${param.discount ne NaN}">
+								${plist.PRICE *param.quantity2}
+								<td style="display: none;"id="price" >${plist.PRICE *param.quantity2}</td> 
+								</c:when>
+								<c:otherwise>
+								${param.discount *param.quantity2}
+								<td style="display: none;"id="price" >${plist.PRICE *param.quantity2}</td>
+								</c:otherwise>
+								</c:choose>
+								</td> 
+								<td style="display: none;"class="price" ></td>
 							</tr>
-						</c:forEach>
 					</tbody>
 				</table>
 			</div>
@@ -273,15 +290,12 @@
 	</div>
 </div>
 <script>
-	var tot = 0;
-	$('.price').each(function() {
-		tot += parseInt($(this).html());
-	});
-	$("#amount ").html(tot.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '원'); 
-	$("#finishcash").html(tot);
+	var tot1 = parseInt($("#price").html());
+	$("#amount ").html(tot1.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '원'); 
+	$("#finishcash").html(tot1); 
 	var conpoint = "${point.POINT}";
 	$("#conpoint").html(conpoint);
-	var discountrate = 0;
+	var discountrate = 0; 
 	$("#discountrate2").html(discountrate);
 	var pt = ($("#finishcash").html() * 0.01);
 	var temp = pt.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -321,8 +335,8 @@
 				false);
 		var popUrl = "popup_couponlist.j";
 		var popOption = "width=500, height=660, resizable=no, scrollbars=no, status=no;";
-		window.open(popUrl + "?price=" + tot, "SSOG", popOption);
-	}
+		window.open(popUrl + "?price=" + tot1, "SSOG", popOption);
+	} 
 
 	$(":input:radio[name=chk_point]").on("change", function() {
 		var st = $(":input:radio[name=chk_point]:checked").val();

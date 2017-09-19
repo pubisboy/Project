@@ -164,7 +164,6 @@ public class ProductDao {
 		}
 		return br;
 	}
-	
 	public List<Map> eventList(){
 		SqlSession session=factory.openSession();
 		List<Map> list=new ArrayList<>();
@@ -251,4 +250,87 @@ public class ProductDao {
 		return br;
 	}
 	
+	public boolean sellUpdate0(Map map) { 
+		SqlSession session=factory.openSession();
+		boolean br=false;
+		try {
+			int r=session.delete("update0", map);
+			if(r==1) {
+				br=true;
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		return br;
+	}
+	public boolean sellUpdate1(Map map) { 
+		SqlSession session=factory.openSession();
+		boolean br=false;
+		try {
+			int r=session.delete("update1", map);
+			if(r==1) {
+				br=true;
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		return br;
+	}
+	
+	public boolean reviewReg(Map map) { 
+		SqlSession session=factory.openSession();
+		boolean br=false;
+		try {
+			int r=session.insert("reviewReg", map);
+			if(r==1) {
+				br=true;
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		return br;
+	}
+	public List reviewList(Map map) {
+		SqlSession session=factory.openSession();
+		List<Map> list=new ArrayList<>();
+				try {
+					list=session.selectList("reviewList", map);
+				}catch(Exception e) {
+					e.printStackTrace();
+				}finally {
+					session.close();
+				}
+				return list;
+	}
+	public int reviewCount(String m) {
+		SqlSession session=factory.openSession();
+		int r=0;
+		try {
+			r=session.selectOne("reviewCount", m);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		return r;
+	}
+	
+	public Map event_list(String num){
+		Map map = new HashMap<>();
+		SqlSession session = factory.openSession();
+		try {
+			map = session.selectOne("product.event_list",num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		return map;
+	}
 }
