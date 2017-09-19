@@ -36,7 +36,7 @@ table, th, td {
 		<table class="table table-condensed">
 			<thead>
 				<tr>
-					<th style="border-bottom: 2px solid #595959;">1:1 문의</th>
+					<th style="border-bottom: 2px solid #595959;"><b style="font-size: 1.4em;">1:1 문의</b></th>
 					<th style="padding-left: 190px; border-bottom: 2px solid #595959;"><a
 						href="/member/myinfo/counsel.j"
 						style="text-decoration: none; color: #595959;"><small>+
@@ -61,7 +61,7 @@ table, th, td {
 		<table class="table table-condensed">
 			<thead>
 				<tr>
-					<th style="border-bottom: 2px solid #595959;">상품 Q&A</th>
+					<th style="border-bottom: 2px solid #595959;"><b style="font-size: 1.4em;">상품 Q&A</b></th>  
 					<th style="padding-left: 190px; border-bottom: 2px solid #595959;"><a
 						href="/member/myinfo/qna.j"
 						style="text-decoration: none; color: #595959;"><small>+
@@ -84,30 +84,46 @@ table, th, td {
 	</div>
 	<div class="col-sm-12" style="height: 100px;">
 		<div style="padding-bottom: 10px;">
-			<h4 style="font-size: 17px; text-align: left;">
+			<h4 style="font-size: 1.45em; text-align: left;">      
 				<span class="glyphicon glyphicon-info-sign"
 					style="padding-right: 10px;"></span><b
-					style="padding-right: 10px; color: #404040; letter-spacing: -1px;">최근
+					style="padding-right: 10px; color: #404040; letter-spacing: -1px; font-family: Sans-serif;">최근
 					주문현황</b><small style="font-size: 12px;">(최근 2개월 기준)</small>
 
 
 			</h4>
 		</div>
-		<div
-			style="border-top: 2px solid #595959; border-bottom: 1px solid #a6a6a6; padding-top: 10px; padding-bottom: 10px;">
-			
-			주문완료 > 상품준비중 > 배송중 > 배송완료<br />
-				
-			0건 0건 0건 ${slist. }건
+		<div style="border-top: 2px solid #595959; border-bottom: 1px solid #a6a6a6; padding-top: 10px; padding-bottom: 10px;">
+			<div class="row">
+				<div class="col-xs-10">
+					<div class="row">
+						<div class="col-xs-3">
+							<b style="font-size: 17px;">주문완료</b><br /> <b style="color: #ff1a75; text-decoration: underline; font-size: 25px;">${smap.s }</b>건     
+						</div>
+						<div class="col-xs-3">
+							<b style="font-size: 17px;">상품준비중</b><br /><b style="color: #ff1a75; text-decoration: underline; font-size: 25px;">${smap.ss }</b>건</div>
+						<div class="col-xs-3">
+							<b style="font-size: 17px;">배송중</b><br /><b style="color: #ff1a75; text-decoration: underline; font-size: 25px;">${smap.sss }</b>건</div>
+						<div class="col-xs-3">
+							<b style="font-size: 17px;">배송완료</b><br /><b style="color: #ff1a75; text-decoration: underline; font-size: 25px;">${smap.ssss }</b>건
+						</div>  
+					</div>
+				</div>
+				<div class="col-xs-2" align="left"> 
+				취소접수<br/>
+				취소처리중<br/> 
+				취소완료<br/>
+				</div> 
+			</div>
 		</div>
 
 	</div>
-	<div class="col-sm-12" style="height: 100px; padding-top: 30px;">
+	<div class="col-sm-12" style="height: 100px; padding-top: 60px;">  
 		<div style="padding-bottom: 10px;">
-			<h4 style="font-size: 17px; text-align: left;">
+			<h4 style="font-size: 1.45em; text-align: left;">
 				<span class="glyphicon glyphicon-info-sign"
 					style="padding-right: 10px;"></span><b
-					style="padding-right: 10px; color: #404040; letter-spacing: -1px;">최근
+					style="padding-right: 10px; color: #404040; letter-spacing: -1px;font-family: Sans-serif; color: #404040;">최근
 					주문내역</b><small style="font-size: 12px;">(최근 2개월 기준)</small> <a
 					href="/member/myinfo/orderlist.j"><button
 						class="btn btn-custom"
@@ -128,19 +144,56 @@ table, th, td {
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="obj" items="${llist }">
+					<c:forEach var="obj" items="${page }">
 						<tr>
 							<td>${obj.ORDER_DATE }</td>
 							<td>${obj.ORDER_NUM }</td>
-							<td>${obj.PRO_NAME}</td>
+							<td><a
+								href="/product/detail.j?productNumber=${obj.PRO_NUM }">${obj.PRO_NAME}</a></td>
 							<td>${obj.PRICE }</td>
-							<td>${obj.S }</td>
-							<td><button>구매확정</button></td>
+							<td class="etc">${obj.S }</td> 
+							<td><c:choose>
+									<c:when test="${obj.S eq '구매확정'}">
+							-
+							</c:when>
+									<c:otherwise>
+										<button class="set">구매확정</button>
+									</c:otherwise>
+								</c:choose></td>
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
 			<hr />
 		</div>
+		<div align="center" style="font-size: 15px;">
+			<c:if test="${pg.startPageNo ne pg.firstPageNo}">&le;</c:if>
+			<c:forEach var="i" begin="${pg.startPageNo }" end="${pg.endPageNo }">
+				<a href="/member/myinfo/info.j?p=${i }">${i }</a>
+			</c:forEach>
+			<c:if test="${pg.endPageNo ne pg.finalPageNo}">
+				<a href="/member/myinfo/info.j?p=${pg.endPageNo +1}">&gt;</a>
+			</c:if>
+		</div>
 	</div>
 </div>
+<script>
+	$(".set").on("click", function() {
+		if ($(this).parent().prev().html() == '배송완료') {
+			$.ajax({
+				url : "/member/myinfo/set_rst.j",
+				method : "post",
+				data : {
+					"num" : $(this).parent().prev().prev().prev().prev().html()
+				}
+			}).done(function(re) {
+				if (re == true) {
+					window.alert("구매후기쓰면 적립금!");
+					location.reload();
+				}
+			})
+		} else {
+			window.alert("아직구매확정을 할수 없습니다.");
+		}
+	})
+</script>

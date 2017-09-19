@@ -69,12 +69,15 @@ public class CartController {
 					String cookiename = cookies[i].getName();
 					String number = cookies[i].getValue().substring(7);
 					Map map = pdao.cart(cookiename);
+					Map elist = pdao.event_list(cookiename); 
+					System.out.println("elist : "+elist); 
 					map.put("number", number);
 					list.add(map);
 					System.out.println(list);
 					int etc = list.size();
 					mav.addObject("list", list);
 					mav.addObject("etc", etc);
+					mav.addObject("elist", elist);
 				}
 			}
 		}
@@ -115,6 +118,32 @@ public class CartController {
 				}
 			}
 		}
+		return mav;
+	}
+	@RequestMapping("/orderr.j")
+	public ModelAndView orderr(HttpSession session,@RequestParam Map param) {
+		ModelAndView mav = new ModelAndView("tw_cart/orderr");
+		Map init = init(session);
+		Map info = mmdao.id_check_repetition((String) init.get("id"));
+		String address = (String) info.get("ADDRESS");
+		String phone = (String) info.get("PHONE");
+		String[] spaddress = address.split("!");
+		String[] phonenum = phone.split("-");
+		mav.addObject("postcode", spaddress[0]);
+		mav.addObject("address1", spaddress[1]);
+		mav.addObject("address2", spaddress[2]);
+		mav.addObject("phone1", phonenum[0]);
+		mav.addObject("phone2", phonenum[1]);
+		mav.addObject("phone3", phonenum[2]);
+		mav.addObject("memberinfo", init.get("info"));
+		List<Map> clist = cdao.couponlist((String) init.get("id"));
+		Map point = cdao.point((String) init.get("id"));
+		mav.addObject("point", point);
+		mav.addObject("clist", clist);
+		Map plist = pdao.cart((String)param.get("num"));
+		System.out.println(plist);
+		mav.addObject("plist", plist);
+		mav.addObject("param", param);
 		return mav;
 	}
 
@@ -215,8 +244,6 @@ public class CartController {
 		map.put("ar2", ar2);
 		mav.addObject("map", map);
 		mav.addObject("param", param);
-		System.out.println(ar1[0]);
-		System.out.println(ar2[1]);
 		System.out.println(map);
 		if (bl == true) {
 			System.out.println("결제완료");
