@@ -41,8 +41,7 @@
 	}
 	
 	
-	#btn { width: 85px; height: 22px; font-size: 11px; padding: 0px; }
-	small { color:gray; }
+	.wrap small { color:gray; }
 	.table a {color:black;}
 	
 	/* 검색창 */
@@ -65,7 +64,29 @@
 	#search_form { margin-top:80px;}
 	#tab_state li { list-style: none; float:left; margin:1px; display:inline-block;}
 	
-	.chk { cursor:pointer; color:gray; font-weight:bold; }
+	/*배송상태 표시*/
+	.chk { cursor:pointer; font-weight:bold; }
+	
+	/*상세보기 버튼*/
+	.addbtn { width: 20px; height: 20px; border: none; padding:0; background: none; }
+	
+	/*주소 보이는 줄 안에 있는 ul*/
+	.sub-ul 	{ width:100%;}
+	.sub-ul  li {
+		display:inline; 
+		border-left:1px solid lightgray; 
+		padding:0 10px; 
+	}
+	.sub-ul li:first-child {border-left:none;} /* 메뉴 분류중 제일 왼쪽의 "|"는 삭제*/
+	
+	/*일반 tr*/
+	#parent {
+		background: rgb(238,238,238); /* Old browsers */
+		background: -moz-linear-gradient(top, rgba(238,238,238,1) 0%, rgba(238,238,238,1) 100%); /* FF3.6-15 */
+		background: -webkit-linear-gradient(top, rgba(238,238,238,1) 0%,rgba(238,238,238,1) 100%); /* Chrome10-25,Safari5.1-6 */
+		background: linear-gradient(to bottom, rgba(238,238,238,1) 0%,rgba(238,238,238,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#eeeeee',GradientType=0 ); /* IE6-9 */
+	}
 </style>
 
 <div class="wrap">
@@ -115,7 +136,7 @@
 		</ul>
 		
 		
-		<table class="table" style="margin-top: 10px;" border=1>
+		<table class="table" style="margin-top: 10px;">
 			<thead>
 				<tr style="border-top: 3px solid black;">
 					<th width="10%">주문번호</th>
@@ -126,7 +147,7 @@
 					<th width="8%">할인율</th>
 					<th width="5%">수량</th>
 					<th width="10%">주문상태</th>
-					<th width="11%">상태</th>
+					<th width="11%">확인</th>
 					<th width="5%"></th>
 				</tr>
 			</thead>
@@ -136,8 +157,8 @@
 				</c:if>
 				<c:forEach var="i" items="${list}">
 					<tr id="parent">
-						<td class="order_num" id="${i.ORDER_NUM}">[${i.ORDER_NUM}]</td>
-						<td>[${i.PRO_NUM }]</td>
+						<td class="order_num" id="${i.ORDER_NUM}"><a href="#">[${i.ORDER_NUM}]</a></td>
+						<td><a href="/seller/product/productEdit.j?num=${i.PRO_NUM}">[${i.PRO_NUM }]</a></td>
 						<td><fmt:formatDate value="${i.ORDER_DATE}" pattern="yyyy/MM/dd"/></td>
 						<td><fmt:formatDate value="${i.PAY_DATE}"  pattern="yyyy/MM/dd"/></td>
 						<td><fmt:formatNumber value="${i.PRICE-(i.PRICE*i.RATE*0.01)}"  type="number" pattern="#,###"/>원</td>
@@ -163,15 +184,25 @@
 							</c:choose>
 							
 						</td>
-						<td><span class="glyphicon glyphicon-plus-sign btn"></span></td>
+						<td>
+							<button type="button" class="addbtn btn-default btn-sm">
+								<span class="glyphicon glyphicon-chevron-down"></span>
+					        </button>		
+        				</td>
 					</tr>
-				 	<tr id="parent" style="display:none;">
-				 		<td>
-				 			<div id="sub">
-					 		${i.ETC }
-							${i.ADDRESS }
-							${i.RECEIVER } 
-							${i.CHARGE}
+				 	<tr id="sub-line" style="display:none;">
+				 		<td colspan="10">
+				 			<div class="sub">
+						 		<ul class="sub-ul">
+							 		<li>배송메시지: ${i.ETC}</li>
+									<li>주소: 
+										<c:forTokens items="${i.ADDRESS}" delims="!" var="t">
+											 ${t} 
+										</c:forTokens>
+									</li>
+									<li>받는사람: ${i.RECEIVER}</li> 
+									<li>배송비: ${i.CHARGE}</li>
+								</ul>
 							</div>
 				 		</td>
 				 	</tr>
@@ -260,9 +291,13 @@
 		location.reload();
 	});
 	
-	$(document).ready(function(){
-	    $(".btn").click(function(){
-	        $("#sub").slideToggle("slow");
-	    });
-	});
+    $(".addbtn").on("click", function(){
+   	 	var obj = $(this);
+	    obj.hide();
+	    obj.next().show();            
+	    obj.parent().parent().next().show();
+	    return false;
+    });
+    
+    	  
 </script>

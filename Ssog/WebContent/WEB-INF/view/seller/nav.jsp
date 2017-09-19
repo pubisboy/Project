@@ -79,7 +79,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2e3d44', end
 		<li><a href="/seller/product/list.j">상품 목록</a></li>
 		
 		<li><a class="active">주문관리</a></li>
-		<li><a href="/seller/order/list.j">주문/클레임 현황</a></li>
+		<li><a href="/seller/order/list.j">주문 현황</a></li>
 		<li><a href="#">매출 현황 보기</a></li>
 		
 		<li><a class="active">상담관리</a></li>
