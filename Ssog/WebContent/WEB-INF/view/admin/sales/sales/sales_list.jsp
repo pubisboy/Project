@@ -168,16 +168,28 @@
 	$("#submit").on("click", function(){
 		if($("#by").val() != 'none' && $("#ey").val() != 'none' && $("#bm").val() == 'none' && $("#em").val() == 'none' && $("#bd").val() == 'none' && $("#ed").val() == 'none'){
 			window.alert("년도만 선택");
-			$("#term").val("yy");
-			$("#form").submit();
+			if($("#by").val() <= $("#ey").val()){
+				$("#term").val("yy");
+				$("#form").submit();
+			}else{
+				window.alert("제대로 좀 선택 하세요.");
+			}
 		}else if($("#by").val() != 'none' && $("#ey").val() != 'none' && $("#bm").val() != 'none' && $("#em").val() != 'none' && $("#bd").val() == 'none' && $("#ed").val() == 'none'){
 			window.alert("년도/월 선택");
-			$("#term").val("yy/MM");
-			$("#form").submit();
+			if($("#by").val() <= $("#ey").val() && $("#bm").val() <= $("#em").val()){
+				$("#term").val("yy/MM");
+				$("#form").submit();
+			}else{
+				window.alert("제대로 좀 선택 하세요.");
+			}
 		}else if($("#by").val() != 'none' && $("#ey").val() != 'none' && $("#bm").val() != 'none' && $("#em").val() != 'none' && $("#bd").val() != 'none' && $("#ed").val() != 'none'){
 			window.alert("년도/월/일 선택");
-			$("#term").val("yy/MM/dd");
-			$("#form").submit();
+			if($("#by").val() <= $("#ey").val() && $("#bm").val() <= $("#em").val() && $("#bd").val() <= $("#ed").val()){
+				$("#term").val("yy/MM/dd");
+				$("#form").submit();
+			}else{
+				window.alert("제대로 좀 선택 하세요.");
+			}
 		}else{
 			window.alert("선택이 잘못 되었습니다.");
 		}
