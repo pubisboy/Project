@@ -135,8 +135,8 @@
 					<tr><td colspan="10" align="center">사용자가 주문한 상품이 없습니다.</td></tr>
 				</c:if>
 				<c:forEach var="i" items="${list}">
-					<tr >
-						<td>[${i.ORDER_NUM}]</td>
+					<tr id="parent">
+						<td class="order_num" id="${i.ORDER_NUM}">[${i.ORDER_NUM}]</td>
 						<td>[${i.PRO_NUM }]</td>
 						<td><fmt:formatDate value="${i.ORDER_DATE}" pattern="yyyy/MM/dd"/></td>
 						<td><fmt:formatDate value="${i.PAY_DATE}"  pattern="yyyy/MM/dd"/></td>
@@ -150,8 +150,19 @@
 							</c:otherwise>
 						</c:choose>
 						<td align="center"><fmt:formatNumber value="${i.ORDER_QTY}" type="number"/>kg</td>
-						<td><b>${i.ST}</b></td>
-						<td><span class="chk">배송준비중</span></td>
+						<!-- 주문상태 표시 -->
+						<td><b class="st">${i.ST}</b></td>
+						<td id="sub-parent">
+							<c:choose>
+								<c:when test="${i.ST eq '배송완료'}">
+									<font class="chk" color="green">배송완료</font>
+								</c:when>
+								<c:otherwise>
+									<font class="chk" color="gray">배송중</font>
+								</c:otherwise>
+							</c:choose>
+							
+						</td>
 						<td><span class="glyphicon glyphicon-plus-sign btn"></span></td>
 					</tr>
 				 	<tr id="parent" style="display:none;">
@@ -227,8 +238,26 @@
 
 <script>
 	$(".chk").on("click", function(){
-		$(this).css("color","green");
-		$(this).text("배송완료");
+		var t = $(this);
+		var order_num = $(this).parent().parent().children().attr("id");
+		
+		$.ajax({
+			url : "/seller/order/stateAjax.j",
+			method: "get",
+			data : { 
+					"order_num" : order_num,
+					"state" : 3,
+					"flag" : false,
+			}
+		}).done(function(obj){ 
+			obj.state
+			if(obj.flag){
+				t.text("배송완료");
+			} else {
+				t.text("배송중");
+			}
+		});
+		location.reload();
 	});
 	
 	$(document).ready(function(){

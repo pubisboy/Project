@@ -258,22 +258,28 @@
 	    }
 	}
  	
- 	//대분류
-	$("#b_cate").change("click",function(){
-		$.ajax({
+ 	function func(){
+ 		$.ajax({
 			url : "/seller/product/cateAjax.j",
 			method: "get",
 			data : { 
-					"big_cate" : $("#big_cate").val(),
+					"b_cate" : $("#b_cate").val(),
 			}
 		}).done(function(obj){ 
 			//window.alert(obj.list[i].S_CATE);
 			var setTag = "";
 			for(var i=0; i<obj.list.length; i++){
-				setTag += "<option value='" + obj.list[i].S_CATE + "' ${param.small_cate eq selected? 'selected' : ''}>" + obj.list[i].NAME + "</option>";
+				setTag += "<option value='" + obj.list[i].S_CATE + "'}>" + obj.list[i].NAME + "</option>";
 			}
 			$("#sub_cate").append(setTag);
 		});
+ 	}
+ 	
+ 	//대분류
+	$("#b_cate").on("change",function(){
+		func();
 	});
+ 	
+ 	
 	
 </script>

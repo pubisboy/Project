@@ -43,4 +43,19 @@ public class SellerOrderDao {
 			session.close();
 		}
 	}
+	
+	public boolean updateSate(Map map) {
+		SqlSession session = factory.openSession();
+		try{
+			session.update("seller.order_updateState", map);
+			return true;
+		} catch(Exception e){
+			e.printStackTrace();
+			session.rollback();
+			return false;
+		} finally{
+			session.close();
+		}
+	}
+	
 }

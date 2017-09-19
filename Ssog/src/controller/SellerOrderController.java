@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import model.SellerOrderDao;
@@ -49,5 +51,17 @@ public class SellerOrderController {
 		mav.addObject("page", rst);
 		mav.addObject("total", total);
 		return mav;
+	}
+	
+	@RequestMapping("/stateAjax.j")
+	@ResponseBody
+	public Map cateajax(@RequestParam Map map, HttpSession session) {
+		System.out.println("stateAjax : " + map);
+		map.put("state", 4); //배송완료
+		boolean flag = sdao.updateSate(map);
+			
+		Map m = new HashMap<>();
+		m.put("flag", flag);
+		return m;
 	}
 }

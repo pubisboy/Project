@@ -48,7 +48,7 @@ public class SellerProductDao {
 	public List<Map<String,Object>> smallcateList(){
 		SqlSession session = factory.openSession();
 		try {
-			List<Map<String,Object>> list =  session.selectList("small_cate");
+			List<Map<String,Object>> list =  session.selectList("seller.show_cate");
 			session.commit();
 			return list;
 		} catch(Exception e){

@@ -45,9 +45,6 @@ public class SellerProductController {
 //		System.out.println("op:" + op);
 //		System.out.println("rst:" + rst);
 //		System.out.println("map:" + map);
-		map.get("small_cate");
-		System.out.println(">>>>>>>>>" + map.get("small_cate"));
-		String selected = (String) map.get("small_cate");	
 		
 		List list = sdao.productList(map);
 		System.out.println(map);
@@ -57,7 +54,6 @@ public class SellerProductController {
 		mav.addObject("page", rst);
 		mav.addObject("total", total);
 		mav.addObject("search_word", search_word2);
-		mav.addObject("selected", selected);
 		return mav;
 	}
 	
