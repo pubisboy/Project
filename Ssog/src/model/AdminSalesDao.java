@@ -38,4 +38,17 @@ public class AdminSalesDao {
 		}
 		return rst;
 	}
+	
+	public List getSales_excel(Map map){
+		SqlSession session = factory.openSession();
+		List rst = null;
+		try{
+			rst = session.selectList("admin_sales.getSales_excel", map);
+		}catch(Exception e){
+			System.out.println("error.getSales_excel"+e.toString());
+		}finally{
+			session.close();
+		}
+		return rst;
+	}
 }

@@ -26,4 +26,20 @@
 		(select order_qty, to_char(pay_date, #{term}) pay_date, price from ORDERTBL where state = 5 and pay_date between to_date(#{begin}) and to_date(#{final}) ) group by pay_date)b
  	</select>
  
+ 	<select id="getSales_excel" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+ 		select rst.* from 
+		(select b.*, rownum rnum from 
+		(select pay_date, count(*) count, sum(price) price from
+		(select order_qty, to_char(pay_date, #{term}) pay_date, price from ORDERTBL where state = 5 and pay_date between to_date(#{begin}) and to_date(#{final}) ) group by pay_date order by pay_date
+		<choose>
+			<when test="sort == 'asc'">
+				asc
+			</when>
+			<otherwise>
+				desc
+			</otherwise>
+		</choose>
+		)
+		b) rst
+ 	</select>
  </mapper>

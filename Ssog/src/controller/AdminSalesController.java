@@ -53,19 +53,20 @@ public class AdminSalesController {
 		
 		Calendar c = GregorianCalendar.getInstance();
 		
-		
-		
 		String term = (String)params.get("term");
 		
 		if(params.get("term") == null){
 			SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd");
 			String f = sdf.format(c.getTime());
-			c.add(Calendar.DATE, -7);
+			c.add(Calendar.DATE, -6);
 			String b = sdf.format(c.getTime());
+			bTime = b;
+			fTime = f;
 			params.put("term", "yy/MM/dd");
 			params.put("begin", b);
 			params.put("final", f);
 		}else{
+			SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd");
 			System.out.println("term : "+term);
 			String by = (String)params.get("by");
 			String bm = (String)params.get("bm");
@@ -78,20 +79,42 @@ public class AdminSalesController {
 			String ed = (String)params.get("ed");
 			ed = ed.equals("none") ? "1" :  ed;
 			
-			SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd");
 
 			System.out.println(String.format("by : %s / bm : %s / bd : %s / ey : %s / em : %s / ed : %s", by,bm,bd,ey,em,ed));
 			String tmp = String.format("%s/%s/%s", by,bm,bd);
 			System.out.println("tmp : "+tmp);
 			Date tes = sdf.parse(tmp);
+			Date begind = new Date();
+			if(tes.getTime() > begind.getTime()){
+				tes = begind;
+				by = Integer.toString(c.get(Calendar.YEAR));
+				bm = Integer.toString(c.get(Calendar.MONTH)+1);
+				bd = Integer.toString(c.get(Calendar.DATE) - 6);
+				System.out.println("변경 된 ed : "+ed);
+				params.put("by", by);
+				params.put("bm", bm);
+				params.put("bd", bd);
+			}
 			bTime = sdf.format(tes);
 			tmp = String.format("%s/%s/%s", ey,em,ed);
 			System.out.println("tmp : "+tmp);
 			tes = sdf.parse(tmp);
+			Date endd = new Date();
+			if(tes.getTime() > endd.getTime()){
+				tes = endd;
+				ey = Integer.toString(c.get(Calendar.YEAR));
+				em = Integer.toString(c.get(Calendar.MONTH)+1);
+				ed = Integer.toString(c.get(Calendar.DATE));
+				System.out.println("변경 된 ed : "+ed);
+				params.put("ey", ey);
+				params.put("em", em);
+				params.put("ed", ed);
+			}
 			fTime = sdf.format(tes);
 			
 			System.out.println("시작 : "+bTime);
 			System.out.println("끝 : "+fTime);
+			c.setTime(sdf.parse(bTime));
 			params.put("begin", bTime);
 			params.put("final", fTime);
 		}
@@ -115,6 +138,47 @@ public class AdminSalesController {
 			li.add(year-i);
 		}
 		
+		// 수정 필요 시작 부분
+		SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd");
+		List lis = asd.getSales_excel(params);
+		List days = new ArrayList<>();
+		String tmp = bTime;
+		
+		while(true){
+			System.out.println("tmp : "+tmp);
+			System.out.println("fTime : "+fTime);
+			Map mtmp = new HashedMap();
+			tmp = sdf.format(c.getTime());
+			boolean bb = false;
+			for(Object o : lis){
+				Map m = (Map)o;
+				String t = (String)m.get("PAY_DATE");
+				if(t.equals(tmp)){
+					BigDecimal bd = (BigDecimal)m.get("PRICE");
+					mtmp.put("day", tmp);
+					mtmp.put("price", bd.intValue());
+					bd = (BigDecimal)m.get("COUNT");
+					mtmp.put("order", bd.intValue());
+					bb = true;
+					break;
+				}
+			}
+			if(!bb){
+				mtmp.put("day", tmp);
+				mtmp.put("price", 0);
+				mtmp.put("order", 0);
+			}
+			days.add(mtmp);
+			System.out.println("날짜 : "+tmp);
+			if(tmp.equals(fTime)){
+				break;
+			}
+			c.add(Calendar.DATE, 1);
+		}
+		
+		System.out.println("days : "+days);
+		// 수정 필요 끝 부분
+		map.put("days", days);
 		map.put("years", li);
 		DecimalFormat df = new DecimalFormat("#,###");
 		String total = df.format(rows);
@@ -159,6 +223,66 @@ public class AdminSalesController {
 			rst += String.format("<option value='%d' id='%d%s'>%d</option>", i, i, target, i);
 		}
 		return rst;
+	}
+	
+	@RequestMapping("/sales/sales_excel.ja")
+	public String sales_excel(@RequestParam Map params, Map map) throws ParseException{
+		
+		String bTime = null;
+		String fTime = null;
+		
+		Calendar c = GregorianCalendar.getInstance();
+		
+		String term = (String)params.get("term");
+		
+		if(params.get("by") == "" && params.get("ey") == ""){
+			SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd");
+			String f = sdf.format(c.getTime());
+			c.add(Calendar.DATE, -7);
+			String b = sdf.format(c.getTime());
+			params.put("term", "yy/MM/dd");
+			bTime = b;
+			fTime = f;
+			params.put("begin", b);
+			params.put("final", f);
+		}else{
+			System.out.println("term : "+term);
+			String by = (String)params.get("by");
+			String bm = (String)params.get("bm");
+			bm = bm.equals("none") ? "1" :  bm;
+			String bd = (String)params.get("bd");
+			bd = bd.equals("none") ? "1" :  bd;
+			String ey = (String)params.get("ey");
+			String em = (String)params.get("em");
+			em = em.equals("none") ? "1" :  em;
+			String ed = (String)params.get("ed");
+			ed = ed.equals("none") ? "1" :  ed;
+			
+			SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd");
+
+			System.out.println(String.format("by : %s / bm : %s / bd : %s / ey : %s / em : %s / ed : %s", by,bm,bd,ey,em,ed));
+			String tmp = String.format("%s/%s/%s", by,bm,bd);
+			System.out.println("tmp : "+tmp);
+			Date tes = sdf.parse(tmp);
+			bTime = sdf.format(tes);
+			tmp = String.format("%s/%s/%s", ey,em,ed);
+			System.out.println("tmp : "+tmp);
+			tes = sdf.parse(tmp);
+			fTime = sdf.format(tes);
+			
+			System.out.println("시작 : "+bTime);
+			System.out.println("끝 : "+fTime);
+			params.put("begin", bTime);
+			params.put("final", fTime);
+		}
+		System.out.println("bTime : "+bTime);
+		System.out.println("fTime : "+fTime);
+		map.put("begin", bTime);
+		map.put("end", fTime);
+		List list = asd.getSales_excel(params);
+		System.out.println("Excel용 list : "+list);
+		map.put("list", list);
+		return "salesExcel";
 	}
 	
 	/*@RequestMapping("/sales/sales_chart.ja")

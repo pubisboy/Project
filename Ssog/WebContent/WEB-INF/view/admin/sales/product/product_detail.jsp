@@ -154,11 +154,17 @@ td{
 						</td>
 					</tr>
 					<tr>
-						<th class="type2">평점</th>
-						<td>${cnt ne 0 ? star : '없음'}
-							<c:if test="${cnt ne 0 }">
-								<sub>(${cnt }명 참여)</sub>
-							</c:if>
+						<th class="type2">평점 평균</th>
+						<td>
+						<c:choose>
+							<c:when test="${cnt ne 0 }">
+								<fmt:formatNumber value="${empty star ? 0 : star}" pattern="#.##"/> / 10
+								<sub>(${cnt }명)</sub>
+							</c:when>
+							<c:otherwise>
+								없음
+							</c:otherwise>
+						</c:choose>
 						</td>
 					</tr>
 				</tbody>
