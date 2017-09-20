@@ -149,7 +149,7 @@ public class ProductController {
 		map.put("result", br); 
 		return map;		
 	}
-
+ 
 	@RequestMapping("/listAd.j")
 	public ModelAndView listAd(@RequestParam(name="page") Integer page) {
 		ModelAndView mav = new ModelAndView("t_base");
