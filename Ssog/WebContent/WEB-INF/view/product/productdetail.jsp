@@ -219,18 +219,18 @@ body {
    <ul class="pager">
 
       <ul class="pagination pagination-lg">
-         <c:if test="${paging.startPageNo ne 1 }">
+          <c:if test="${paging.startPageNo ne 1 }">
             <li><a 
-               href="/product/detail.j?&page=${paging.startPageNo-1}">&lt;</a></li> 
+               href="/product/detail.j?&page=${paging.startPageNo-1}&productNumber=${param.productNumber}">&lt;</a></li> 
          </c:if>
          <c:forEach begin="${paging.startPageNo }" end="${paging.endPageNo }"
             var="i"> 
             <li><a
-               href="/product/detail.j?page=${i}">${i }</a></li>
+               href="/product/detail.j?page=${i}&productNumber=${param.productNumber}">${i }</a></li>
          </c:forEach>
          <c:if test="${paging.endPageNo ne paging.finalPageNo }">
             <li><a
-               href="/product/detail.j?page=${paging.endPageNo+1}">&gt;</a></li>
+               href="/product/detail.j?page=${paging.endPageNo+1}&productNumber=${param.productNumber}">&gt;</a></li>
          </c:if>
       </ul>
    </ul>
@@ -245,7 +245,7 @@ body {
                      <div class="form-group">
                         <textarea class="form-control" rows="5" id="comment"></textarea>
                      </div>
-                     <button class="btn btn" style="width: 182px;; height: 42px;">
+                     <button class="btn btn" style="width: 182px; height: 42px;" type="button" id="QnAbtn">
                         <span class="glyphicon glyphicon-comment" />문의하기
                      </button>
                   </form>
@@ -316,5 +316,21 @@ body {
    $("#reviewbtn").on("click",function(){
 	   window.open('/product/review.j?seller_id=${map.SELLER_ID }&num=${map.PRO_NUM }', '리뷰쓰기', 'width=800, height=230, menubar=no, status=no, toolbar=no ,left=350 ,top = 250',' resizable=no ','location=no' );   
    })
+   
+   $("#QnAbtn").on("click",function(){
+	   $.ajax({
+			url : "/product/QnA.j",
+			method: "get",
+			data:{
+				"comment" : $("#comment").val(),
+				"num" :${param.productNumber }
+			}
+		 }).done(function(result){
+			 window.alert(result.result);
+		 })
+	   
+	   
+   })
+	
    
 </script>

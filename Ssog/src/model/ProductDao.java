@@ -333,4 +333,20 @@ public class ProductDao {
 		}
 		return map;
 	}
+	
+	public boolean QnAReg(Map map) { 
+		SqlSession session=factory.openSession();
+		boolean br=false;
+		try {
+			int r=session.insert("QnAReg", map);
+			if(r==1) {
+				br=true;
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		return br;
+	}
 }

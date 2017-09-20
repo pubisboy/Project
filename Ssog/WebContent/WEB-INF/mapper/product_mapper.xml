@@ -167,6 +167,9 @@
 		b.cupon_type=c.cupon_num
 		where b.product_id=#{num}
 	</select>
+	<insert id="QnAReg" parameterType="java.util.HashMap">
+	insert into q_and_a values(q_and_a_seq.nextval,3,'상품문의',#{comment },#{userid },sysdate,#{num })
+	</insert>
  	
  
  </mapper>

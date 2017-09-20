@@ -193,10 +193,10 @@ if(${map.CUPON_TYPE ne null }){
 				select+="<option value=\"" + result.list[i].CUPON_NUM + "\" selected >" + result.list[i].RATE + "</option>";
 				}else{
 					select+="<option value=\"" + result.list[i].CUPON_NUM + "\"  >" + result.list[i].RATE + "</option>";
-				}
+				} 
 			}		
 			select+="</select>";   
-			$("#zoro").html(select); 
+			$("#zoro").html(select);  
 	});
 }
 $("#useEve").on("click",function(){ 

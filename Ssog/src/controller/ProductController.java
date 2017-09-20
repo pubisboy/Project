@@ -135,6 +135,16 @@ public class ProductController {
 		map.put("result", br);
 		return map;
 	}
+	@RequestMapping("/QnA.j")
+	@ResponseBody
+	public Map QnA(@RequestParam Map param,HttpSession session) {
+		System.out.println("넘어온 파라미터 =="+param);
+		param.put("userid", session.getAttribute("auth"));
+		boolean br=pdao.QnAReg(param);
+		Map map=new HashMap<>();
+		map.put("result", br); 
+		return map;		
+	}
 
 	
 
