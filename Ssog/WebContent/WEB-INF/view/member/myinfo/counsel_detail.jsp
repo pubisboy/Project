@@ -71,10 +71,12 @@
 						</div>
 					</div>
 					<div class="row" style="padding-left:15px; padding-right: 15px;">
-						<div class="col-xs-4" style="border-right: 1px solid #595959; border-bottom: 1px solid #595959; padding-top: 60.5px; padding-bottom: 60.5px; width: 130px; background-color: #f2f2f2;"><p style="font-size: 13px; margin: 0px;">문의 내용</p></div>
-						<div class="col-xs-8" style=" border-bottom: 1px solid #595959; padding-top: 12px; padding-bottom: 12px; width: 620px;" align="center">
-							<input type="text" style="width: 100%; height: 100px;" name="content">
-							<small style="font-size: 11px; padding-right: 60px;">* 정확하고 빠른 답변을 위하여 질문하시는 내용을 구체적으로 적어주세요. 내용은 500자 이내로 입력하세요.</small>
+						<div class="col-xs-4" style="border-right: 1px solid #595959; border-bottom: 1px solid #595959; padding-top: 60.5px; padding-bottom: 64px; width: 130px; background-color: #f2f2f2;"><p style="font-size: 13px; margin: 0px;">문의 내용</p></div>
+						<div class="col-xs-8" style=" border-bottom: 1px solid #595959; padding-top: 12px; padding-bottom: 12px; width: 620px;" align="center"> 
+							<textarea style="width: 100%; resize: none; overflow:auto;" class="form-control" rows="4" id="content" name="content"></textarea>
+							<p align="left">
+							<small style="font-size: 11px;">* 정확하고 빠른 답변을 위하여 질문하시는 내용을 구체적으로 적어주세요. 내용은 500자 이내로 입력하세요.</small>
+							</p> 
 						</div>
 					</div>
 					<div class="row" style="padding-left:15px; padding-right: 15px;">

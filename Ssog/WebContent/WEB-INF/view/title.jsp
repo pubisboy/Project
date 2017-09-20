@@ -34,7 +34,7 @@
 				<c:choose>
 					<c:when test="${sessionScope.auth eq null}">
 						<li id="log"><a class="myBtn" id="login"
-							style="padding: 0px; padding-right: 18px; padding-top: 10px; font-size: 13px;">로그인</a></li>
+							style="padding: 0px; padding-right: 18px; padding-top: 10px; font-size: 13px; direction: none;">로그인</a></li>
 						<li><a href="/member/join.j"
 							style="padding: 0px; padding-right: 18px; padding-top: 10px; font-size: 13px;">회원가입</a></li>
 					</c:when>
@@ -104,7 +104,7 @@
 			<div class="modal-body" style="padding: 40px 50px;">
 				<form role="form" action="/member/login_rst.j" method="post">
 					<div class="form-group">
-						<label for="usrname"> SSOG 로그인</label><br /> <input type="text"
+						<br /> <input type="text"
 							class="form-control" name="id" placeholder="아이디">
 					</div>
 					<div class="form-group">

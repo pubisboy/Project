@@ -201,6 +201,7 @@ public class MemberController {
 		}
 		if (bl == true) {
 			session.setAttribute("auth", (String) param.get("id"));
+			
 		}
 		ModelAndView mav = new ModelAndView("tw_member/login_rst");
 		mav.addObject("bl", bl);

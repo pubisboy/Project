@@ -70,10 +70,10 @@ public class MyinfoDao{
 			session.close();
 		}
 	}
-	public int qna_cnt() {
+	public int qna_cnt(String id) {
 		SqlSession session = factory.openSession();
 		try {
-			int cnt = session.selectOne("myinfo.qna_count");
+			int cnt = session.selectOne("myinfo.qna_count",id);
 			return cnt;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -108,10 +108,10 @@ public class MyinfoDao{
 			session.close();
 		}
 	}
-	public int counsel_cnt() {
+	public int counsel_cnt(String id) {
 		SqlSession session = factory.openSession();
 		try {
-			int cnt = session.selectOne("myinfo.counsel_count");
+			int cnt = session.selectOne("myinfo.counsel_count",id);
 			return cnt;
 		} catch (Exception e) {
 			e.printStackTrace();

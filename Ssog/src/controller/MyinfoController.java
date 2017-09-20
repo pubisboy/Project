@@ -128,12 +128,14 @@ public class MyinfoController {
 		mav.addObject("clist", clist);
 		mav.addObject("coulist", coulist); 
 		paging.setDefaultSetting(10, 5);
-		paging.setNumberOfRecords(mdao.counsel_cnt());
+		paging.setNumberOfRecords(mdao.counsel_cnt((String) init.get("id")));
 		Map bt = paging.calcBetween(p);
-		Map pg = paging.calcPaging(p, mdao.counsel_cnt());
+		Map pg = paging.calcPaging(p, mdao.counsel_cnt((String) init.get("id")));
 		mav.addObject("pg", pg);
+		bt.put("id", (String) init.get("id"));
 		List<Map> page = mdao.counselpage(bt);
 		mav.addObject("page", page);
+		System.out.println(page);
 		return mav;
 	}
 
@@ -144,10 +146,11 @@ public class MyinfoController {
 		List<Map> coulist = cdao.couponlist((String) init.get("id"));
 		ModelAndView mav = new ModelAndView("t_el2");
 		paging.setDefaultSetting(10, 5);
-		paging.setNumberOfRecords(mdao.qna_cnt());
+		paging.setNumberOfRecords(mdao.qna_cnt((String) init.get("id")));
 		Map bt = paging.calcBetween(p);
-		Map pg = paging.calcPaging(p, mdao.qna_cnt());
+		Map pg = paging.calcPaging(p, mdao.qna_cnt((String) init.get("id")));
 		mav.addObject("pg", pg);
+		bt.put("id", (String) init.get("id"));
 		List<Map> page = mdao.qnapage(bt);
 		mav.addObject("page", page);
 		mav.addObject("section", "member/myinfo/qna");
@@ -304,11 +307,13 @@ public class MyinfoController {
 			dir.mkdirs();
 		}
 		boolean rst = false;
+		if(f.getContentType().startsWith("image")){
 		File dst = new File(dir, fu);
 		if (dst.exists())
 			dst.delete();
 		f.transferTo(dst);
 		rst = true;
+		}
 		return "redirect:/member/myinfo/counsel.j";
 	}
 	@RequestMapping("/myinfo/set_rst.j")
