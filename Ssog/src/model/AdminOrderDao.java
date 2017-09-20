@@ -166,4 +166,36 @@ public class AdminOrderDao {
 		}
 		return b;
 	}
+	
+	public boolean updateDelivery(){
+		SqlSession session = factory.openSession();
+		boolean b = false;
+		try{
+			int rst = session.insert("admin_order.updateDelivery");
+			if(rst > 0){
+				b = true;
+				session.commit();
+			}
+		}catch(Exception e){
+			System.out.println("error.updateDelivery"+e.toString());
+			b = false;
+			session.rollback();
+		}finally{
+			session.close();
+		}
+		return b;
+	}
+	
+	public int getDelivery(){
+		SqlSession session = factory.openSession();
+		int rst = 0;
+		try{
+			rst = session.selectOne("admin_order.getDelivery");
+		}catch(Exception e){
+			System.out.println("error.getDelivery"+e.toString());
+		}finally{
+			session.close();
+		}
+		return rst;
+	}
 }

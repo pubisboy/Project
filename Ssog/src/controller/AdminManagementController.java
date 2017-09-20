@@ -747,15 +747,25 @@ public class AdminManagementController {
 	}
 	
 	@RequestMapping("/popup/popup_switch.ja")
-	public ModelAndView popup_switch(@RequestParam Map params){
-		
-		if(!(params.get("p") instanceof Integer)){
-			params.put("p", 1);
+	@ResponseBody
+	public Map popup_switch(@RequestParam Map params){
+		String of = (String)params.get("of");
+		System.out.println("of : "+of);
+		String rst = null;
+		Map map = new HashMap<>();
+		if(of.equals("on")){
+			params.put("of", 0);
+			rst = "<b style='color: black;'>off</b>";
+		}else{
+			params.put("of", 1);
+			rst = "<b style='color: red;'>on</b>";
 		}
-		ad.updatePopup_onoff(params);
-		ModelAndView mv= new ModelAndView("redirect:/admin/management/popup/popup_list.ja");
-		mv.addAllObjects(params);
-		return mv;
+		boolean b = ad.updatePopup_onoff(params);
+		System.out.println("b : "+b);
+		System.out.println("rst : "+rst);
+		map.put("b", b);
+		map.put("rst", rst);
+		return map;
 	}
 	
 	@RequestMapping("/popup/popup_write.ja")

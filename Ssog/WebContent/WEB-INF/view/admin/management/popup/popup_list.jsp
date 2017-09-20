@@ -43,13 +43,13 @@
 					</c:choose>
 				</td>
 				<td><fmt:formatDate value="${i.POPUP_DATE }" pattern="yyyy-MM-dd hh:mm" var="time"/>${time }</td>
-				<td id="onoff">
+				<td id="${i.POPUP_NUM }">
 				<c:choose>
 					<c:when test="${i.ONOFF eq 1}">
-						<a style="color: red;" href="/admin/management/popup/popup_switch.ja?num=${i.POPUP_NUM }&of=0&p=${params.p }&value=${params.value}&cupon=${params.cupon}&onoff=${params.onoff }&sort=${params.sort }">on</a>
+						<span style="cursor: pointer;" class="onoff"><b style="color: red;">on</b></span>
 					</c:when>
 					<c:otherwise>
-						<a style="color: black;" href="/admin/management/popup/popup_switch.ja?num=${i.POPUP_NUM }&of=1&p=${params.p }&value=${params.value}&cupon=${params.cupon}&onoff=${params.onoff }&sort=${params.sort }">off</a>
+						<span style="cursor: pointer;" class="onoff"><b style="color: black;">off</b></span>
 					</c:otherwise>
 				</c:choose>
 				</td>
@@ -82,3 +82,25 @@
 </div>
 
 <script src="<c:url value="/etc.js" />"></script>
+<script>
+	var init = function(){
+		$(".onoff").on("click", function(){
+			var onoff = $(this).children().html();
+			var now = $(this);
+			var num = $(this).parent().attr('id');
+			var par = $(this).parent();
+			$.ajax({
+				'url':'/admin/management/popup/popup_switch.ja',
+				'data':{
+					'num':num,
+					'of':onoff
+				}
+			}).done(function(rst){
+				if(rst.b){
+					now.html(rst.rst);
+				}
+			});
+		})		
+	}
+	init();
+</script>
