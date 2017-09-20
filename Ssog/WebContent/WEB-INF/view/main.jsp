@@ -56,7 +56,7 @@
 <img src="http://www.ikea.com/ms/media/seorange/20173/20164_foca10a_meat_PX105127.jpg" style="width: 100%; height: 100%;">
 </div>  
 </div>
-	<div style="padding-top: 20px; font-size: 40px;">
+	<div style="padding-top: 20px; font-size: 40px; width: 67%;">
 	Recommendation<b>PRODUCT</b> <hr/> 
 	<div style="padding-top: 10px;">    
 	<img class="img-responsive" src="http://www.hellonature.net/shop/data/skin/renew_C/img/banner/%EC%B6%94%EC%B2%9C%EC%83%81%ED%92%88_%EB%AC%B4%ED%99%94%EA%B3%BC.jpg" width="1275.66" height="300"/>  
