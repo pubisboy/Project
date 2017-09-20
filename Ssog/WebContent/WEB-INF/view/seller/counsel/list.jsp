@@ -25,12 +25,25 @@
 	  -webkit-font-smoothing: antialiased;
 	}
 	
+	.wrap {
+		width:80%; margin-left:10%;
+	}
+	.wrap .table {
+		table-layout: fixed;
+	}
+	.wrap .table td {
+	    overflow: hidden;
+	    text-overflow:ellipsis; /*overflow: hidden; 속성과 같이 써줘야 말줄임 기능이 적용된다.*/
+	    white-space:nowrap; /*<td>보다 내용이 길경우 줄바꿈 되는것을 막아준다.*/
+	}
+	
+	
 	#btn { width: 85px; height: 22px; font-size: 11px; padding: 0px; }
 	small { color:gray; }
 	.table a {color:black;}
 </style>
-<div class="container" >
-	<div style="background:pink; text-align:right">
+<div class="wrap">
+	<div style="text-align:right">
 		<p style="margin-top: 20px; text-align:left">
 				<span class="glyphicon glyphicon-info-sign" style="padding-right: 10px;"></span>
 				<b style="padding-right:10px; ">1:1 문의</b>
@@ -48,9 +61,9 @@
 			<thead>
 				<tr style="border-top: 3px solid black;">
 					<th width="10%">문의유형</th>
-					<th width="40%">제목</th>
-					<th width="30%">작성일자</th>
-					<th width="20%">답변</th>
+					<th width="60%">제목</th>
+					<th width="20%">작성일자</th>
+					<th width="10%">답변</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -62,7 +75,7 @@
 						<td><custom:counsel message="${i.CATE}"/></td>
 						<td><a href="/seller/counsel/detail.j?num=${i.NUM}">${i.TITLE }</a></td>
 						<td><fmt:formatDate value="${i.COUNSEL_DATE }" pattern="yyyy-MM-dd"/></td>
-						<td><custom:reply message="${i.REPLY}"/></td>
+						<td><b><custom:reply message="${i.REPLY}"/></b></td>
 					</tr>
 				</c:forEach>
 			</tbody>

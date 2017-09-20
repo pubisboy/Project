@@ -46,9 +46,14 @@ public class ProductRegController {
 	@RequestMapping("/productRegExec")
 	public ModelAndView registerExec(@RequestParam Map map,@RequestParam(name="pro_img") MultipartFile f,
 			HttpSession session	) throws IllegalStateException, IOException {
+		System.out.println("Map =="+map);
 		ModelAndView mav=new ModelAndView("t_el_seller");
 		String path = application.getRealPath("/img/pro_img");
 		System.out.println(path);
+		if(map.get("event")!=null) {
+			pdao.useEvent(map);
+			System.out.println("호로로로로로로로로로로ㅗ로로롤");
+		}
 		File dir=new File(path);
 		if(!dir.exists()) {
 			dir.mkdirs();
@@ -108,8 +113,9 @@ public class ProductRegController {
 		File dir=new File(path);
 		String uuid;
 		uuid = (String) map.get("uuid");
+		
 		if((String) map.get("uuid")==null) {
-			if(!f.isEmpty()) {		
+			if(!f.isEmpty()) {
 				uuid=UUID.randomUUID().toString();
 				boolean rst= false;
 				if(f.getContentType().startsWith("image")) {
@@ -133,11 +139,47 @@ public class ProductRegController {
 				}
 			}
 		map.put("seller", session.getAttribute("seller_id"));
-		System.out.println("완성된 map 은??"+map);
+		System.out.println("완성된 map 은?? 호로로로로로로롤"+map);
 		boolean br=pdao.productUpdate(map);
 		System.out.println(br);
 		mav.addObject("section", "seller/alert/register_rst");
+		String num=(String) map.get("num");
+		if(map.get("radiogroup").equals("false")) {
+			pdao.EndEvent(map);
+		}else {
+			Map map1=new HashMap<>();
+			map1=pdao.EventETC(map);
+			if(map1==null) {
+				pdao.EventReg(map);
+			}else {
+				pdao.EventUpdate(map);
+			}
+		}
 		return mav;  
+	}
+	
+	@RequestMapping("/useEve.j")
+	@ResponseBody
+	public Map UseEvent(@RequestParam (name="event") String m) {
+		List list=new ArrayList<>();
+		Map map=new HashMap<>();
+		list=pdao.eventList();
+		map.put("list",list);
+		return map;
+	}
+	
+	@RequestMapping("/sellstate.j")
+	@ResponseBody
+	public Map stateUpdate(@RequestParam Map map) {
+		if(map.get("sell_state").equals("1")) {
+			pdao.sellUpdate0(map);
+			System.out.println("넘어온 숫자 1 ㅗ");
+		}else {
+			pdao.sellUpdate1(map);
+			System.out.println("넘어온 숫자 0 ㅗ");
+		}
+		
+		return map;
 	}
 }
 

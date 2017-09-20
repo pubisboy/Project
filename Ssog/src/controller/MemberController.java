@@ -228,7 +228,7 @@ public class MemberController {
 			map.put("b", b);
 		}
 		return map;
-	}
+	} 
 	
 	@RequestMapping("/deny_popup.j")
 	@ResponseBody

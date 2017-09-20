@@ -80,14 +80,14 @@ public class SellerCounselController {
 	}
 	
 	@RequestMapping("/list.j")
-	public ModelAndView productList(@RequestParam Map map, HttpSession session, 
+	public ModelAndView counselList(@RequestParam Map map, HttpSession session, 
 			@RequestParam(name="p", defaultValue="1") int p) {
 		ModelAndView mav = new ModelAndView("t_el_seller");
 		String id = (String)session.getAttribute("seller_id");
 		map.put("id", id);
 		
 		int total = sdao.totalList(map);
-		page.setDefaultSetting(2, 4); //줄 개수, 페이지 개수
+		page.setDefaultSetting(10, 4); //줄 개수, 페이지 개수
 		page.setNumberOfRecords(total);
 		Map op = page.calcBetween(p);
 		Map rst = page.calcPaging(p, total); //현재페이지, 총개수
@@ -100,6 +100,36 @@ public class SellerCounselController {
 		List list = sdao.counselList(map);
 		System.out.println(map);
 		mav.addObject("section", "seller/counsel/list");
+		mav.addObject("list", list);
+		mav.addObject("p", p);
+		mav.addObject("page", rst);
+		mav.addObject("total", total);
+		return mav;
+	}
+	
+	//=========================================================
+	//리뷰
+	@RequestMapping("/review/list.j")
+	public ModelAndView reviewList(@RequestParam Map map, HttpSession session, 
+			@RequestParam(name="p", defaultValue="1") int p) {
+		ModelAndView mav = new ModelAndView("t_el_seller");
+		String id = (String)session.getAttribute("seller_id");
+		map.put("id", id);
+		
+		int total = sdao.reviewTotal(map);
+		page.setDefaultSetting(10, 4); //줄 개수, 페이지 개수
+		page.setNumberOfRecords(total);
+		Map op = page.calcBetween(p);
+		Map rst = page.calcPaging(p, total); //현재페이지, 총개수
+			map.put("start", op.get("start"));
+			map.put("end", op.get("end"));
+//		System.out.println("op:" + op);
+//		System.out.println("rst:" + rst);
+//		System.out.println("map:" + map);
+		
+		List list = sdao.reviewList(map);
+		System.out.println(map);
+		mav.addObject("section", "seller/counsel/review/list");
 		mav.addObject("list", list);
 		mav.addObject("p", p);
 		mav.addObject("page", rst);

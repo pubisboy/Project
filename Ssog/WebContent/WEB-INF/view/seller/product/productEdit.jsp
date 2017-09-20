@@ -15,10 +15,10 @@ img:hover {
 		<b>이 곳은 상품 수정 페이지 입니다.</b><br /> 쇼핑몰에 상품을 진열하는데 필요한 기본정보를 수정합니다.
 	</p>
 	<form action="/seller/product/productEditExec.j" method="post"
-		enctype="multipart/form-data"> 
+		enctype="multipart/form-data">
 		<input type="hidden" name="num" value="${param.num }">
 		<c:if test="${!empty map.IMG_UUID }">
-		<input type="hidden" name="uuid" value="${map.IMG_UUID }">
+			<input type="hidden" name="uuid" value="${map.IMG_UUID }">
 		</c:if>
 		<div class="form-group">
 			<table style="height: 100%; width: 100%;" border="1">
@@ -36,20 +36,21 @@ img:hover {
 								name="price" onkeydown="onlyNumber(this)" required="false"
 								value="${map.PRICE }" /> 원
 						</div></td>
-					<td style="width: 20%; background-color: #eaeaea;">행사 등록</td>
-					<td><input type="radio" class="group" value="true"
-						name="radiogroup" checked="checked"> &nbsp;사용
-						&nbsp;&nbsp;&nbsp; <input type="radio" class="group" value="false"
-						name="radiogroup">&nbsp;사용안함&nbsp;</td>
+					<td style="width: 20%; background-color: #eaeaea;" rowspan="2">행사 등록</td>
+					<td><input type="radio" class="group" value="false" name="radiogroup" ${!empty map.CUPON?'checked':'' } id="nouseEve" style="margin-left: 10px;"> &nbsp;사용안함 &nbsp;&nbsp;&nbsp;  <input type="radio" ${empty map.CUPON?'checked':'' } class="group" value="true" name="radiogroup" id="useEve">&nbsp;사용&nbsp;</td>	
+	</tr>
 				</tr>
 				<tr style="height: 5%;">
 					<td style="background-color: #eaeaea;">판매수량</td>
-					<td colspan="3"><div class="navbar-form"
+					<td colspan="1"><div class="navbar-form" 
 							style="padding: 0px; margin: 0px;">
-							<input class="form-control" type="text" style="width: 30%"
+							<input class="form-control" type="text" style="width: 82%"
 								name="pro_qty" onkeydown="onlyNumber(this)" required="false"
 								value="${map.PRO_QTY }"> Kg
-						</div></td>
+						</div></td><td colspan="2" style="border-top: 0px;">
+	<span id="zoro">
+	 
+	</span></td>
 				</tr>
 				<tr style="height: 5%;">
 					<td style="background-color: #eaeaea;">분류</td>
@@ -79,19 +80,19 @@ img:hover {
 					<td style="background-color: #eaeaea;">대표 이미지</td>
 					<td colspan="3"><div class="col-sm-3" style="padding: 0px;">
 							<div align="center">
-							<c:choose>
-         <c:when test="${empty map.IMG_UUID }">
-         <img id="imgbox" ; style="height: 150px; width: 150px;"
-									src="/image/사진등록기본.png" />
-            </c:when>
-            <c:otherwise>
-               <img id="imgbox" ; style="height: 150px; width: 150px;"
-									src="/img/pro_img/${map.IMG_UUID }" />
-            </c:otherwise>
-            </c:choose> 
-									
-									 <input type="file" name="pro_img"
-									style="display: none;" id="img_upload">
+								<c:choose>
+									<c:when test="${empty map.IMG_UUID }">
+										<img id="imgbox" ; style="height: 150px; width: 150px;"
+											src="/image/사진등록기본.png" />
+									</c:when>
+									<c:otherwise>
+										<img id="imgbox" ; style="height: 150px; width: 150px;"
+											src="/img/pro_img/${map.IMG_UUID }" />
+									</c:otherwise>
+								</c:choose>
+
+								<input type="file" name="pro_img" style="display: none;"
+									id="img_upload">
 								<button style="margin-top: 5px;" id="img_btn" type="button">사진
 									등록</button>
 							</div>
@@ -113,7 +114,8 @@ img:hover {
 
 			</table>
 			<div align="right" style="margin-top: 10px;">
-				<button type="submit" style=>상품 수정</button>
+				<button type="button" id="state">${map.SELL_ON eq 1?'판매 중지':'판매 재개' }</button>
+				<button type="submit">상품 수정</button> 
 			</div>
 	</form>
 </div>
@@ -171,13 +173,68 @@ $("#large_cate").change("click",function(){
     }).done(function(obj){ 
        var setTag = "";
        for(var i=0; i<obj.list.length; i++){
+    	   
           setTag += "<option value=\""+ obj.list[i].S_CATE+"\" >" + obj.list[i].NAME + "</option>";
        }
        $("#small_cate").html(setTag);  
     });
  });
- 
- 
+if(${map.CUPON_TYPE ne null }){
+	 $.ajax({
+			url : "/seller/product/useEve.j",
+			method: "get",
+			data:{
+				"event" : $("#useEve").val()
+			}
+		 }).done(function(result){
+			var select="<select name=\"event\" class=\"form-control\" style=\"width:70%;\">";
+			for (var i = 0; i < result.list.length; i++) {
+				if( ${map.CUPON_TYPE } == result.list[i].CUPON_NUM){
+				select+="<option value=\"" + result.list[i].CUPON_NUM + "\" selected >" + result.list[i].RATE + "</option>";
+				}else{
+					select+="<option value=\"" + result.list[i].CUPON_NUM + "\"  >" + result.list[i].RATE + "</option>";
+				}
+			}		
+			select+="</select>";   
+			$("#zoro").html(select); 
+	});
+}
+$("#useEve").on("click",function(){ 
+	 $.ajax({
+		url : "/seller/product/useEve.j",
+		method: "get",
+		data:{
+			"event" : $("#useEve").val()
+		}
+	 }).done(function(result){
+		var select="<select name=\"event\" class=\"form-control\" style=\"width:70%;\">";
+		for (var i = 0; i < result.list.length; i++) {
+			select+="<option value=\"" + result.list[i].CUPON_NUM + "\">" + result.list[i].RATE + "</option>";
+		}		
+		select+="</select>"; 
+		$("#zoro").html(select); 
+	 })	 
+})
+$("#nouseEve").on("click",function(){
+	 $("#zoro").html("");
+})
+$("#state").on("click",function(){ 
+	 $.ajax({
+		url : "/seller/product/sellstate.j",
+		method: "get", 
+		data:{
+			"num" : ${map.PRO_NUM },
+			"sell_state" : ${map.SELL_ON }
+		}
+	 }).done(function(result){
+		if(${map.SELL_ON}==1){
+			window.alert("판매가 중지되었습니다.");
+		}else{
+			window.alert("판매가 재개되었습니다.");
+		}
+		location.reload();
+	 })	 
+}) 
 
 </script>
 <script>

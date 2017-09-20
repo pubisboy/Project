@@ -65,11 +65,24 @@
 	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.33);
 	-webkit-font-smoothing: antialiased;
 }
+
+	.wrap {
+		width:100%; margin-left:10%;
+	}
+	.wrap .table {
+		table-layout: fixed;
+		border-bottom: 2px solid lightgray;
+	}
+	.wrap .table td {
+	    overflow: hidden;
+	    text-overflow:ellipsis; /*overflow: hidden; 속성과 같이 써줘야 말줄임 기능이 적용된다.*/
+	    white-space:nowrap; /*<td>보다 내용이 길경우 줄바꿈 되는것을 막아준다.*/
+	}
 </style>
    
 
 
-<div class="container" >
+<div class="wrap" style="margin-left:40px; border:1px solid black" >
 		<span style="font-weight:bold; font-size:18px;">
 			<c:choose>
 				<c:when test="${!empty param.search_word }">
@@ -87,8 +100,7 @@
 		
 	
 	
-	<div class="wrap" style="width:90%; border:1px solid gray;">
-		
+	<div style=" border:1px solid gray;">
 		<ul id="tab_sellon" style="width:30%;">
 			<c:choose>
 				<c:when test="${param.state eq null or param.state eq ''}">
@@ -125,19 +137,19 @@
 		
 			
 		<!-- 상품 목록 테이블 -->
-		<form method="post" name="table_form" style="border:1px solid black;">
+		<form method="post" name="table_form" style="border:1px solid black; text-align:left;">
 			<table class="table table-striped">	
 				<thead>
-				<tr align="center">
-					<td bgcolor="gray" width="5%"><input type="checkbox" name="allChk" onclick="check()"></td>
-					<td bgcolor="gray" width="10%"><font color="white">상품번호</font></td>
-					<td bgcolor="gray" width="10%"><font color="white">카테고리</font></td>
-					<td bgcolor="gray" width="20%"><font color="white">상품명</font></td>
-					<td bgcolor="gray" width="10%"><font color="white">판매수량</font></td>
-					<td bgcolor="gray" width="10%"><font color="white">가격</font></td>
-					<td bgcolor="gray" width="15%"><font color="white">상품등록일자</font></td>
-					<td bgcolor="gray" width="10%"><font color="white">원산지</font></td>
-					<td bgcolor="gray" width="10%"><font color="white">판매상태</font></td>
+				<tr align="center" style="background:gray; cursor: default">
+					<td width="5%"><input type="checkbox" name="allChk" onclick="check()"></td>
+					<td width="10%"><font color="white">상품번호</font></td>
+					<td width="10%"><font color="white">카테고리</font></td>
+					<td width="20%"><font color="white">상품명</font></td>
+					<td width="10%"><font color="white">판매수량</font></td>
+					<td width="10%"><font color="white">가격</font></td>
+					<td width="15%"><font color="white">상품등록일자</font></td>
+					<td width="10%"><font color="white">원산지</font></td>
+					<td width="10%"><font color="white">판매상태</font></td>
 				</tr>
 				</thead>
 					<!-- 글 없을 때 -->
@@ -150,9 +162,9 @@
 				<c:forEach var="i" items="${list}">
 					<tr align="center" class="small">
 						<td><input type="checkbox" value="${i.PRO_NUM}" name="chk"></td>
-						<td><a href="/seller/product/productEdit.j?num=${i.PRO_NUM}" id="pro_num">${i.PRO_NUM}</a></td>
-						<td><span class="cut">[${i.CATE_NAME}]</span></td>
-						<td><a href="/seller/product/productEdit.j?num=${i.PRO_NUM}">${i.PRO_NAME}</a></td>
+						<td><a href="/seller/product/productEdit.j?num=${i.PRO_NUM}" id="pro_num">[${i.PRO_NUM}]</a></td>
+						<td align="left"><span class="cut">[${i.CATE_NAME}]</span></td>
+						<td align="left"><a href="/seller/product/productEdit.j?num=${i.PRO_NUM}">${i.PRO_NAME}</a></td>
 						<td><fmt:formatNumber value="${i.PRO_QTY}" type="number"/>kg</td>
 						<td><fmt:formatNumber value="${i.PRICE}" type="number"/>원</td>
 						<td><fmt:formatDate value="${i.PRO_DATE}"  pattern="yyyy-MM-dd"/></td>
@@ -160,18 +172,14 @@
 						<td><custom:sellon message="${i.SELL_ON}"/></td>
 					</tr>		
 				</c:forEach>
-				<tr style="background-color:white">
-					<th colspan="9"><br>
-						<button type="button" onClick="location='#'" class="btn">버튼</button>
-						<button type="button" onClick="location='#'" class="btn">버튼</button>
-					</th>
-				</tr>
 			</table>
+			<button type="button" onClick="location='#'" class="btn" style="margin-left:10px;">버튼</button>
+			<button type="button" onClick="location='#'" class="btn">버튼</button>
 		</form>
 	</div>
 
 	<!-- 페이지 -->
-	<div class="container" style="width:90%; border:1px solid gray;">
+	<div style=" border:1px solid gray;">
 		<ul class="pagination">
 			<c:if test="${page.startPageNo ne 1}"><!-- 이전 -->
 				<li><a href="/seller/product/list.j?p=${page.startPageNo-1}&state=${param.state}&search_type=${param.search_type}&search_word=${param.search_word}">&laquo;</a></li>
@@ -222,21 +230,16 @@
 				<tr>
 					<td>
 						<!-- 카테고리 검색 -->
-						<select id="big_cate" name="big_cate" class="search" style="width:90px">
+						<select id="b_cate" name="b_cate" class="search" style="width:90px">
 							<option disabled="disabled" selected>대분류</option>
 							<option value="cate">카테고리</option>
 						</select> 
-						<select id="small_cate" name="small_cate" class="search" style="width:150px">
+						<select id="sub_cate" name="sub_cate" class="search" style="width:150px">
 							<option disabled='disabled' selected>중분류</option>
 							<option value="*">전체선택</option>
 						</select>
 					</td>
 			</table>
-				
-				
-				
-			
-			
 		</form>
 	</div>
 	
@@ -256,7 +259,7 @@
 	}
  	
  	//대분류
-	$("#big_cate").change("click",function(){
+	$("#b_cate").change("click",function(){
 		$.ajax({
 			url : "/seller/product/cateAjax.j",
 			method: "get",
@@ -269,7 +272,7 @@
 			for(var i=0; i<obj.list.length; i++){
 				setTag += "<option value='" + obj.list[i].S_CATE + "' ${param.small_cate eq selected? 'selected' : ''}>" + obj.list[i].NAME + "</option>";
 			}
-			$("#small_cate").append(setTag);
+			$("#sub_cate").append(setTag);
 		});
 	});
 	

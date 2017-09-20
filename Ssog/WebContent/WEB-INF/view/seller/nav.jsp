@@ -36,26 +36,55 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2e3d44', end
 	    text-decoration:underline;
 	}
 </style>
-<div>
-	<ul class="nav nav-stacked">
-		<li><a href="/seller/main.j">홈</a></li>
-		<li><a class="active">기본정보 관리</a></li>
-		<li><a href="/seller/info/info.j">회원 정보</a></li>
-		<li><a href="/seller/info/info_edit.j">회원 정보 변경</a></li>
-		<li><a href="/seller/info/pass_edit.j">비밀번호 변경</a></li>
-		<li><a href="/seller/delete.j">회원 탈퇴</a></li>
+<div class="wrap">
+	<div style="border-top: 2px solid black; height: 100px; width: 200px;">
+		<button style="width: 100%; height: 100%; " onClick="location='/seller/main.j'">
+			<span class="glyphicon glyphicon-home" style="font-size: 18px;"></span>
+				<c:choose>
+					<c:when test="${sessionScope.seller_id ne null }">
+						<b style="font-size: 20px;">${sessionScope.seller_id}님</b><br>
+							<small style="color: #999999;">판매등급 : <br /> 
+							<b style="font-size: 9px; color: #8c8c8c;">
+							고객과 함께하는 쏙쇼핑몰</b>
+							</small>
+					</c:when>
+					<c:otherwise>
+						<b style="font-size: 20px;">판매자 페이지</b><br>
+							<b style="font-size: 9px;color: #8c8c8c;">
+							고객과 함께하는 쏙쇼핑몰</b>
+					</c:otherwise>
+				</c:choose>
+		</button>
+	</div>
+	
+	<ul class="nav nav-stacked nav-pills"
+				style="margin-top: 0px; border-left: 1px solid #d9d9d9; border-right: 1px solid #d9d9d9; border-bottom: 1px solid #d9d9d9; width: 200px; text-align: left;">
+		<li class="active"><a data-toggle="collapse" data-parent="#accordion" href="#collapse1"
+						style="color: #404040; font-size: 13px; border-top: 2px dotted #d9d9d9;">기본정보 관리</a></li>
+		<li>
+			<div id="collapse1" class="panel-collapse collapse in">
+				<div class="panel-body" >
+					<ul>
+						<li><a href="/seller/info/info.j" >회원 정보</a></li>
+						<li><a href="/seller/info/info_edit.j">회원 정보 변경</a></li>
+						<li><a href="/seller/info/pass_edit.j">비밀번호 변경</a></li>
+						<li><a href="/seller/delete.j">회원 탈퇴</a></li>
+					</ul>
+				</div>
+			</div>
+		</li>
 		
 		<li><a class="active">상품관리</a></li>
 		<li><a href="/seller/product/productReg.j">상품등록</a></li>
 		<li><a href="/seller/product/list.j">상품 목록</a></li>
 		
 		<li><a class="active">주문관리</a></li>
-		<li><a href="#">주문/클레임 현황</a></li>
+		<li><a href="/seller/order/list.j">주문/클레임 현황</a></li>
 		<li><a href="#">매출 현황 보기</a></li>
 		
 		<li><a class="active">상담관리</a></li>
 		<li><a href="#">상품 Q&A</a></li>
-		<li><a href="#">리뷰 보기</a></li>
+		<li><a href="/seller/counsel/review/list.j">상품 리뷰 보기</a></li>
 		<li><a href="/seller/counsel/list.j">관리자에게 1:1 문의</a></li>
 	</ul>
 </div>

@@ -133,7 +133,7 @@ li {
    </div>
    <c:forEach items="${list }" var="i">
       <div class="gallery">
-         <a href="/product/detail.j?productNumber=${i.PRO_NUM }"> 
+         <a href="/product/detail.j?productNumber=${i.PRO_NUM }&page=1"> 
          <c:choose>
          <c:when test="${empty i.IMG_UUID }">
          <img src="/image/다운로드.jpg"
@@ -147,7 +147,11 @@ li {
          </a>
          <div class="desc">
             <div>${i.PRO_NAME }</div>
-            <div>${i.PRO_DATE } // ${i.PRICE } //${i.NAME }</div> 
+            <div>${i.PRO_DATE } // ${i.PRICE } //${i.NAME }//
+			<c:if test="${!empty i.CUPON_TYPE }">
+				${i.CUPON_TYPE }
+			</c:if>
+            </div>  
          </div>
       </div>
    </c:forEach>
