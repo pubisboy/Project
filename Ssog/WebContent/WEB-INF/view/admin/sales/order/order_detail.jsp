@@ -46,7 +46,7 @@ td{
 					<tr>
 						<th class="type">주문가격</th>
 						<td>
-							<fmt:formatNumber value="${list[0].PRICE }" pattern="#,###"/>원
+							<fmt:formatNumber value="${empty list[0].PRICE ? 0 : list[0].PRICE}" pattern="#,###"/>원
 						</td>
 					</tr>
 					<tr>
@@ -72,7 +72,7 @@ td{
 					<tr>
 						<th class='type'>주문개수</th>
 						<td>
-							<fmt:formatNumber value='${list[0].ORDER_QTY }' pattern='#,###'/>개
+							<fmt:formatNumber value='${empty list[0].ORDER_QTY ? 0 : list[0].ORDER_QTY}' pattern='#,###'/>개
 						</td>
 					</tr>
 					<tr>
@@ -171,7 +171,7 @@ function submit(){
 	}).done(function(rst){
 		if(rst){
 			$("#st").html(state);
-			if(tmp != 5){
+			if(tmp != 5 || tmp != 8){
 				$("#modify").html("<button id='mbutton' style='height: 25px;' onclick='modify();'>수정</button>");
 			}else{
 				$("#modify").html("");

@@ -46,8 +46,15 @@ public class AdminManagementController {
 	Title tt;
 
 	@RequestMapping("/notice/notice_list.ja")
-	public String notice_list(@RequestParam Map params, @RequestParam(name="p", defaultValue="1") Integer p, Map map){
-		
+	public String notice_list(@RequestParam Map params, @RequestParam(name="p", defaultValue="1") String pp, Map map){
+		int p = 0;
+		try{
+			p = Integer.parseInt(pp);
+		}catch(Exception e){
+			System.out.println("변환 불가능");
+			p = 1;
+		}
+		params.put("p", p);
 		String val = null;
 		if(params.get("value") != null){
 			val = (String)params.get("value");
@@ -305,7 +312,15 @@ public class AdminManagementController {
 	}
 	
 	@RequestMapping("/information/terms.ja")
-	public String terms(@RequestParam Map params, @RequestParam(name="p", defaultValue="1") Integer p, Map map){
+	public String terms(@RequestParam Map params, @RequestParam(name="p", defaultValue="1") String pp, Map map){
+		int p = 0;
+		try{
+			p = Integer.parseInt(pp);
+		}catch(Exception e){
+			System.out.println("변환 불가능");
+			p = 1;
+		}
+		params.put("p", p);
 		pg.setDefaultSetting(10, 5);
 		
 		System.out.println("params : "+params);
@@ -416,12 +431,20 @@ public class AdminManagementController {
 	}
 	
 	@RequestMapping("/counsel/counsel_user_list.ja")
-	public String counsel_user_list(@RequestParam Map params, @RequestParam(name="p", defaultValue="1") Integer p, Map map, HttpSession session){
+	public String counsel_user_list(@RequestParam Map params, @RequestParam(name="p", defaultValue="1") String pp, Map map, HttpSession session){
+		int p = 0;
+		try{
+			p = Integer.parseInt(pp);
+		}catch(Exception e){
+			System.out.println("변환 불가능");
+			p = 1;
+		}
+		params.put("p", p);
 		if(session.getAttribute("pre") != null){
 			System.out.println("pre가 있다.");
 			Map pa = (Map)session.getAttribute("pre");
 			System.out.println("pre : "+pa);
-			if(p == pa.get("p")){
+			if(Integer.toString(p) == pa.get("p")){
 				System.out.println("p : "+p+" / "+"pa.get : "+pa.get("p"));
 				params = pa; 
 			}
@@ -545,12 +568,19 @@ public class AdminManagementController {
 	
 	
 	@RequestMapping("/counsel/counsel_seller_list.ja")
-	public String counsel_seller_list(@RequestParam Map params, @RequestParam(name="p", defaultValue="1") Integer p, Map map, HttpSession session){
+	public String counsel_seller_list(@RequestParam Map params, @RequestParam(name="p", defaultValue="1") String pp, Map map, HttpSession session){
+		int p = 0;
+		try{
+			p = Integer.parseInt(pp);
+		}catch(Exception e){
+			System.out.println("변환 불가능");
+			p = 1;
+		}
 		if(session.getAttribute("pre") != null){
 			System.out.println("pre가 있다.");
 			Map pa = (Map)session.getAttribute("pre");
 			System.out.println("pre : "+pa);
-			if(p == pa.get("p")){
+			if(Integer.toString(p) == pa.get("p")){
 				System.out.println("p : "+p+" / "+"pa.get : "+pa.get("p"));
 				params = pa; 
 			}
@@ -674,7 +704,14 @@ public class AdminManagementController {
 	}
 	
 	@RequestMapping("/popup/popup_list.ja")
-	public String popup_list(@RequestParam Map params, @RequestParam(name="p", defaultValue="1") Integer p, Map map){
+	public String popup_list(@RequestParam Map params, @RequestParam(name="p", defaultValue="1") String pp, Map map){
+		int p = 0;
+		try{
+			p = Integer.parseInt(pp);
+		}catch(Exception e){
+			System.out.println("변환 불가능");
+			p = 1;
+		}
 		String val = null;
 		if(params.get("value") != null){
 			val = (String)params.get("value");
@@ -710,15 +747,25 @@ public class AdminManagementController {
 	}
 	
 	@RequestMapping("/popup/popup_switch.ja")
-	public ModelAndView popup_switch(@RequestParam Map params){
-		
-		if(!(params.get("p") instanceof Integer)){
-			params.put("p", 1);
+	@ResponseBody
+	public Map popup_switch(@RequestParam Map params){
+		String of = (String)params.get("of");
+		System.out.println("of : "+of);
+		String rst = null;
+		Map map = new HashMap<>();
+		if(of.equals("on")){
+			params.put("of", 0);
+			rst = "<b style='color: black;'>off</b>";
+		}else{
+			params.put("of", 1);
+			rst = "<b style='color: red;'>on</b>";
 		}
-		ad.updatePopup_onoff(params);
-		ModelAndView mv= new ModelAndView("redirect:/admin/management/popup/popup_list.ja");
-		mv.addAllObjects(params);
-		return mv;
+		boolean b = ad.updatePopup_onoff(params);
+		System.out.println("b : "+b);
+		System.out.println("rst : "+rst);
+		map.put("b", b);
+		map.put("rst", rst);
+		return map;
 	}
 	
 	@RequestMapping("/popup/popup_write.ja")
@@ -832,7 +879,15 @@ public class AdminManagementController {
 	}
 	
 	@RequestMapping("/cupon/cupon_list.ja")
-	public ModelAndView cupon_list(@RequestParam Map params, @RequestParam(name="p", defaultValue="1") Integer p){
+	public ModelAndView cupon_list(@RequestParam Map params, @RequestParam(name="p", defaultValue="1") String pp){
+		int p = 0;
+		try{
+			p = Integer.parseInt(pp);
+		}catch(Exception e){
+			System.out.println("변환 불가능");
+			p = 1;
+		}
+		params.put("p", p);
 		ModelAndView mv = new ModelAndView("ad_management");
 		System.out.println("params : "+params);
 		pg.setDefaultSetting(10, 5);

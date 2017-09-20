@@ -630,4 +630,12 @@
 	<select id="createCupon" parameterType="java.util.HashMap" resultType="java.lang.Integer">
 		insert into cupon_list values(CUPON_LIST_NUM_SEQ.NEXTVAL, #{cupon}, #{id})
 	</select>
+	
+	<delete id="delUnableCupon">
+		delete cupon_base where END_DATE &lt; sysdate
+	</delete>
+	
+	<select id="getUnableCupon" resultType="java.lang.Integer">
+		select count(*) count from cupon_base where END_DATE &lt; sysdate
+	</select>
 </mapper>

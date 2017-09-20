@@ -210,4 +210,56 @@ public class AdminProductDao {
 		}
 		return rst;
 	}
+	
+	public List getMainAd(){
+		SqlSession session = factory.openSession();
+		List rst = null;
+		try{
+			rst = session.selectList("admin_product.getMainAd");
+		}catch(Exception e){
+			System.out.println("error.getMainAd"+e.toString());
+		}finally{
+			session.close();
+		}
+		return rst;
+	}
+	
+	public List getMainAd_uuid(int num){
+		SqlSession session = factory.openSession();
+		List rst = null;
+		try{
+			rst = session.selectList("admin_product.getMainAd_uuid", num);
+		}catch(Exception e){
+			System.out.println("error.getMainAd_uuid"+e.toString());
+		}finally{
+			session.close();
+		}
+		return rst;
+	}
+	
+	public List top10_yesterday_qty(){
+		SqlSession session = factory.openSession();
+		List rst = null;
+		try{
+			rst = session.selectList("admin_product.top10_yesterday_qty");
+		}catch(Exception e){
+			System.out.println("error.top10_yesterday_qty"+e.toString());
+		}finally{
+			session.close();
+		}
+		return rst;
+	}
+	
+	public List top10_review(){
+		SqlSession session = factory.openSession();
+		List rst = null;
+		try{
+			rst = session.selectList("admin_product.top10_review");
+		}catch(Exception e){
+			System.out.println("error.top10_review"+e.toString());
+		}finally{
+			session.close();
+		}
+		return rst;
+	}
 }

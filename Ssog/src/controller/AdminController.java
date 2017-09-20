@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import model.AdminDao;
+import model.AdminOrderDao;
 import paging.Paging;
 
 @Controller
@@ -33,6 +34,9 @@ public class AdminController {
 
 	@Autowired
 	AdminDao ad;
+	
+	@Autowired
+	AdminOrderDao aod;
 	
 	@Autowired
 	Paging pg;
@@ -63,8 +67,17 @@ public class AdminController {
 		map.put("duc", ad.duc());
 		map.put("auc", ad.auc());
 		map.put("luc", ad.luc());
+		map.put("uncupon", ad.getUnableCupon());
+		map.put("delivery", aod.getDelivery());
 		System.out.println("main 입장");
 		return "ad_main";
+	}
+	
+	@RequestMapping("/delUnableCupon.ja")
+	@ResponseBody
+	public int delUnableCupon(){
+		ad.delUnableCupon();
+		return ad.getUnableCupon(); 
 	}
 	
 	@RequestMapping("/management.ja")
@@ -99,7 +112,15 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/admin/admin_list.ja")
-	public String admin_list(@RequestParam Map params, @RequestParam(name="p", defaultValue="1") Integer p, Map map){
+	public String admin_list(@RequestParam Map params, @RequestParam(name="p", defaultValue="1") String pp, Map map){
+		int p = 0;
+		try{
+			p = Integer.parseInt(pp);
+		}catch(Exception e){
+			System.out.println("변환 불가능");
+			p = 1;
+		}
+		params.put("p", p);
 		String val = null;
 		if(params.get("value") != null){
 			val = (String)params.get("value");
@@ -179,6 +200,19 @@ public class AdminController {
 		boolean b = ad.admin_create(params);
 		System.out.println("결과 : "+b);
 		return b;
+	}
+	
+	@RequestMapping("/changeDelivery.ja")
+	@ResponseBody
+	public int changeDelivery(){
+		boolean b = aod.updateDelivery();
+		return aod.getDelivery();
+	}
+	
+	@RequestMapping("/mainAd.ja")
+	public String mainAd(Map map){
+		
+		return "ad_admin";
 	}
 	
 }

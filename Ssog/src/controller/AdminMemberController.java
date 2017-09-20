@@ -29,7 +29,15 @@ public class AdminMemberController {
 	Paging pg;
 
 	@RequestMapping("/member_user/user_list.ja")
-	public String user_list(@RequestParam Map params, @RequestParam(name="p", defaultValue="1") Integer p, Map map){
+	public String user_list(@RequestParam Map params, @RequestParam(name="p", defaultValue="1") String pp, Map map){
+		int p = 0;
+		try{
+			p = Integer.parseInt(pp);
+		}catch(Exception e){
+			System.out.println("변환 불가능");
+			p = 1;
+		}
+		params.put("p", p);
 		String val = null;
 		if(params.get("value") != null){
 			val = (String)params.get("value");
@@ -134,7 +142,15 @@ public class AdminMemberController {
 	}
 	
 	@RequestMapping("/member_seller/seller_list.ja")
-	public String seller_list(@RequestParam Map params, @RequestParam(name="p", defaultValue="1") Integer p, Map map){
+	public String seller_list(@RequestParam Map params, @RequestParam(name="p", defaultValue="1") String pp, Map map){
+		int p = 0;
+		try{
+			p = Integer.parseInt(pp);
+		}catch(Exception e){
+			System.out.println("변환 불가능");
+			p = 1;
+		}
+		params.put("p", p);
 		String val = null;
 		if(params.get("value") != null){
 			val = (String)params.get("value");
@@ -212,7 +228,10 @@ public class AdminMemberController {
 			map.put("grade", liGrade);
 			map.put("product9", liProduct9);
 			map.put("buyCount", buyc);
-			
+			List listar = amd.seller_detail_star(id);
+			Map tt =  (Map)listar.get(0);
+			map.put("star",tt.get("STAR"));
+			map.put("cnt",tt.get("CNT"));
 			List liCounsel9 = amd.seller_detail_counsel_top9(id);
 			for(int i = 0; i < liCounsel9.size(); i++){
 				Map m = (Map)liCounsel9.get(i);

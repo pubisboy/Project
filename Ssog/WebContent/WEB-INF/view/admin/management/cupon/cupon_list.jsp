@@ -32,13 +32,13 @@
 							pattern="yyyy-MM-dd" var="time" />${time }</td>
 					<td>
 						<c:if test="${i.UU eq 0 and i.U eq 0}">
-							<span id="${i.NUM }m" class="modify">o</span>
+							<span id="${i.NUM }m" class="modify" style="cursor:pointer">o</span>
 						</c:if>
-						<a class="submit" id="${i.NUM }ms">o</a>
+						<a class="submit" id="${i.NUM }ms" style="cursor:pointer">o</a>
 					</td>
 					<td>
 						<c:if test="${i.UU eq 0 and i.U eq 0}">
-							<span id="${i.NUM }d" class="del">o</span>
+							<span id="${i.NUM }d" class="del" style="cursor:pointer">o</span>
 						</c:if>
 					</td>
 				</tr>

@@ -73,5 +73,7 @@ public interface AdminDao {
 	public boolean admin_modify(Map map);
 	public boolean admin_create(Map map);
 	public boolean createCupon(Map map);
-	public Date getCupon_date(Map map); 
+	public Date getCupon_date(Map map);
+	public int getUnableCupon();
+	public int delUnableCupon();
 }

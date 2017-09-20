@@ -107,19 +107,19 @@ td{
         			<tr>
         				<th style="text-align: center; width: 50%;">구매총액</th>
         				<td>
-        					<fmt:formatNumber value="${info['0'].BUY_TOTAL }" pattern="#,###"/>원
+        					<fmt:formatNumber value="${empty info['0'].BUY_TOTAL ? 0 : info['0'].BUY_TOTAL}" pattern="#,###"/>원
         				</td>
         			</tr>
         			<tr>
         				<th style="text-align: center; width: 50%;">구매건수</th>
         				<td>
-        					<fmt:formatNumber value="${buyCount }" pattern="#,###"/>건
+        					<fmt:formatNumber value="${empty buyCount ? 0 : buyCount}" pattern="#,###"/>건
         				</td>
         			</tr>
         			<tr>
         				<th style="text-align: center; width: 50%;">포인트</th>
         				<td>
-        					<fmt:formatNumber value="${info['0'].POINT }" pattern="#,###"/>
+        					<fmt:formatNumber value="${empty info['0'].POINT ? 0 : info['0'].POINT}" pattern="#,###"/>
         				</td>
         			</tr>
         			<tr>
