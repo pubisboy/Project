@@ -1,5 +1,6 @@
 package controller;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import model.AdminDao;
+import model.AdminProductDao;
 import model.MemberDao;
 import model.ProductDao;
 
@@ -38,6 +40,8 @@ public class MemberController {
 	JavaMailSender sender;
 	@Autowired
 	AdminDao ad;
+	@Autowired
+	AdminProductDao apd;
 
 	@RequestMapping({ "/", "/index.j" })
 	public ModelAndView toIndex(HttpServletRequest req) {

@@ -12,18 +12,30 @@
     <!-- Wrapper for slides -->
     <div class="carousel-inner" role="listbox">
       <div class="item active">
+<<<<<<< HEAD
         <img src="https://68.media.tumblr.com/71240731c3abf7c6a03e8a8268fa0549/tumblr_nt4dlwCcud1spslhyo1_540.jpg" style="width: 100%; height: 460px;" alt="Image">
+=======
+        <a href="/product/listAd.j?page=1"><img src="http://68.media.tumblr.com/0f711ca3dffbfe39307036d50c5e52b3/tumblr_nwxy5xItU81spslhyo1_1280.jpg" style="width: 100%; height: 460px;" alt="Image"></a>
+>>>>>>> branch 'master' of https://github.com/pubisboy/Project.git
         <div class="carousel-caption">
-          <h3>GADEN;HADA</h3>
+          <h3>어제의 TOP 10</h3>
           <p></p>
         </div>      
       </div>
 
       <div class="item">
+<<<<<<< HEAD
         <img src="https://68.media.tumblr.com/76697730f8e4c2722f16aebdb6f9fa8f/tumblr_or8qh4dJgW1spslhyo1_540.jpg" style="width: 100%; height: 460px;" alt="Image">
+=======
+        <a href="/product/listAd.j?page=2"><img src="http://68.media.tumblr.com/6d6a0b50211b56602813d18bbcc96915/tumblr_nt4cw9pLOu1spslhyo1_1280.jpg" style="width: 100%; height: 460px;" alt="Image"></a>
+>>>>>>> branch 'master' of https://github.com/pubisboy/Project.git
         <div class="carousel-caption">
+<<<<<<< HEAD
           <h3></h3>
           <p></p>
+=======
+          <h3>평점 TOP 10</h3>
+>>>>>>> branch 'master' of https://github.com/pubisboy/Project.git
         </div>      
       </div>
         <div class="item">
