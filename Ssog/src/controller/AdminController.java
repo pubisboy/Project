@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import model.AdminDao;
+import model.AdminOrderDao;
 import paging.Paging;
 
 @Controller
@@ -33,6 +34,9 @@ public class AdminController {
 
 	@Autowired
 	AdminDao ad;
+	
+	@Autowired
+	AdminOrderDao aod;
 	
 	@Autowired
 	Paging pg;
@@ -64,6 +68,7 @@ public class AdminController {
 		map.put("auc", ad.auc());
 		map.put("luc", ad.luc());
 		map.put("uncupon", ad.getUnableCupon());
+		map.put("delivery", aod.getDelivery());
 		System.out.println("main 입장");
 		return "ad_main";
 	}
@@ -195,6 +200,19 @@ public class AdminController {
 		boolean b = ad.admin_create(params);
 		System.out.println("결과 : "+b);
 		return b;
+	}
+	
+	@RequestMapping("/changeDelivery.ja")
+	@ResponseBody
+	public int changeDelivery(){
+		boolean b = aod.updateDelivery();
+		return aod.getDelivery();
+	}
+	
+	@RequestMapping("/mainAd.ja")
+	public String mainAd(Map map){
+		
+		return "ad_admin";
 	}
 	
 }

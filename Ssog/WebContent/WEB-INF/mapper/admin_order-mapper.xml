@@ -107,4 +107,11 @@
 		where PRO_NUM = (select pro_num from ORDERTBL where order_num = #{num})
 	</update>
 	
+	<update id="updateDelivery" parameterType="java.util.HashMap">
+		update ORDERTBL set state = 5 where state = 4
+	</update>
+	
+	<select id="getDelivery" resultType="java.lang.Integer">
+		select count(*) count from ORDERTBL where state = 4
+	</select>
 </mapper>

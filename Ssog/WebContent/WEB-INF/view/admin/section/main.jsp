@@ -50,33 +50,41 @@
     <div class="row">
         <div class="col-xs-2">
 			<div class="circle2">
-				주문 : ${doc }
+				<b>주문</b>
+				${doc }
 			</div>
         </div>
          <div class="col-xs-2">
 			<div class="circle2">
-				결제 : ${dpc }
+				<b>결제</b>
+				${dpc }
 			</div>
         </div>
         <div class="col-xs-2">
         	<div class="circle2">
-				신규유저 : ${duc }
+				<b>신규유저</b>
+				${duc }
 			</div>
         </div>
         <div class="col-xs-2">
         	<div class="circle2">
-				전체유저 : ${auc }
+				<b>전체유저</b>
+				${auc }
 			</div>
         </div>
         <div class="col-xs-2">
         	<div class="circle2">
-				탈퇴유저 : ${luc}
+				<b>탈퇴유저</b>
+				${luc}
 			</div>
-        </div>
-        <div>
-        	<button class="btn btn-default" id="cup">유효 기간 지난 쿠폰 삭제<sub id="te" style="color: blue;">${!empty uncupon and uncupon > 0 ? uncupon : '0'}</sub></button>
         </div>
     </div>
+	<div style="margin: 10px;">
+		<button class="btn btn-default" id="cup">유효 기간 지난 쿠폰 삭제<sub id="te" style="color: blue;">${!empty uncupon and uncupon > 0 ? uncupon : '0'}</sub></button>
+	</div>
+	<div style="margin: 10px;">
+		<button class="btn btn-default" id="delivery">배송완료 물품 구매확정 변경<sub id="te2" style="color: blue;">${!empty delivery and delivery > 0 ? delivery : '0'}</sub></button>
+	</div>
 </div>
 
 <script>
@@ -85,6 +93,14 @@ $("#cup").on("click", function(){
 		'url':"/admin/delUnableCupon.ja"
 	}).done(function(rst){
 		$("#te").html(rst);
+	})
+})
+
+$("#delivery").on("click", function(){
+	$.ajax({
+		'url':"/admin/changeDelivery.ja"
+	}).done(function(rst){
+		$("#te2").html(rst);
 	})
 })
 

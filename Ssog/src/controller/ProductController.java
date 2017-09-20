@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import model.AdminProductDao;
 import model.ProductDao;
 import paging.Paging;
 
@@ -24,6 +25,9 @@ public class ProductController {
 
 	@Autowired
 	Paging pg;
+	
+	@Autowired
+	AdminProductDao apd;
 
 	@RequestMapping("/list.j")
 	public ModelAndView pro_list(@RequestParam Map param,
@@ -93,6 +97,19 @@ public class ProductController {
 		return mav; 
 	}
 
-	
+	@RequestMapping("/listAd.j")
+	public ModelAndView listAd(@RequestParam(name="page") Integer page) {
+		ModelAndView mav = new ModelAndView("t_base");
+		List<Map> list = new ArrayList<>();
+		if(page == 1){
+			list = apd.top10_yesterday_qty();
+		}else{
+			list = apd.top10_review();
+		}
+		mav.addObject("section", "product/listAd");
+		mav.addObject("page", page);
+		mav.addObject("list", list);
+		return mav;
+	}
 
 }

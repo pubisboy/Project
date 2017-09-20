@@ -128,5 +128,27 @@
 	<update id="update_product" parameterType="java.util.HashMap">
 		update PRODUCTTBL set cate = #{cate} where pro_num = #{num}
 	</update>
+	
+	<select id="top10_yesterday_qty" resultType="java.util.HashMap">
+		select * from 
+		(select rst.* from 
+		(select pro_num, sum(order_qty) sum from (select * from ORDERTBL where ORDER_DATE > to_date(to_char(sysdate))-1) group by pro_num) rst
+		where rownum &lt; 11 order by sum desc) rs left join PRODUCTTBL p on rs.pro_num = p.pro_num
+	</select>
+	
+	<select id="top10_review" resultType="java.util.HashMap">
+		select * from
+		(select rst.* from
+		(select pro_num, ROUND(avg(star),2) stara from REVIEW group by pro_num order by stara desc) rst
+		where rownum &lt; 11) rs left join PRODUCTTBL p on rs.pro_num = p.pro_num
+	</select>
+	
+	<select id="getMainAd" resultType="java.util.HashMap">
+		select * from mainad
+	</select>
+	
+	<select id="getMainAd_uuid" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+		select pro_num, img_uuid from PRODUCTTBL where pro_num = #{num}
+	</select>
 
 </mapper>
